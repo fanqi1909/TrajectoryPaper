@@ -11,34 +11,52 @@ between $s$ and $t$ is not always necessary. For example, if an edge has a
 cardinality less than $K$, then it is not necessary to include this edge to $Sr_s$.
 This motivates to simplify the edges in $Sr_s$ to boost the overall performance.
 
-We first define a \emph{partly candidate} sequence as follows:
-\begin{definition}[Partly Candidate Sequence]
-Given a set of pattern parameters $M,L,K,G$, a sequence $T$ is 
-a \emph{partly candidate} sequence if and only if exists a interval $(i,j)$
-such that $T'=T[i:j]$ is a sequence conforming to $L,K,G$.
-\end{definition}
-
-For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,9,10,11)$ 
-is a \emph{partly candidate sequence} since $T_1[0:3] = (1,2,4,5)$ is a valid
-pattern wrt. $L,K,G$. In contrast, $T_2=(1,2,5,6,7)$ is not a valid pattern.
-
-Observing that only partly candidate sequence can be potential included in a 
-pattern. Therefore, given an edge $e(s,t)=T \in Sr_s$, if $T$ is not a partly
-candidate sequence, then this edge can be pruned from $Sr_s$. To efficiently
-test whether a given sequence is partly candidate, we define the \emph{pseudo-consecutiveness} 
-of a sequence as follows:
-
+We first define the \emph{Pseudo-consecutiveness} of a time sequence as follows:
 \begin{definition}[Pseudo-consecutiveness]
 Given a parameter $G$, a sequence $T$ is \emph{pseudo-consecutive} if and only
 if for any $i\in (0, |T|)$, $T[i] - T[i-1] \leq G$
 \end{definition}
-
 For example, let $G = 2$, then the sequence $T_1=\{1, 2, 4, 5\}$ is pseudo-consecutive
 while $T_2=\{1,4,5,6,8\}$ is not pseudo-consecutive. 
 
-Based on the pseudo-consecutiveness, our edge simplification and prune process takes
-two scan of an input $T$ as shown in Algorithm~\ref{algo:simp_prune}. In the 
-first round of scan, the consecutive portion of $T$ with size less than $L$ is removed.
+A pseudo-consecutive subsequence of $T$ is a subsequence $T' \subseteq T$
+and $T'$ is pseudo-consecutive. A maximal pseudo-consecutive subsequence 
+$T^m$ of $T$ is a pseudo-consecutive subsequence of $T$ and there is 
+no superset of $T^m$ that is also a pseudo-consecutive subsequence of $T$.
+Clearly, a sequence $T$ can be decomposed into several maximally pseudo-consecutive 
+subsequences. We then define a \emph{partly candidate} sequence as follows:
+
+\begin{definition}[Partly Candidate Sequence]
+Given the pattern parameters: $L,K,G$, a sequence $T$ is 
+a \emph{partly candidate} sequence if exist one of its maximal pseudo-consecutive
+subsequence $T'$ such that $T'$ confirms to $L,K,G$.
+\end{definition}
+
+For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11)$ 
+is a \emph{partly candidate sequence} since $T_1[0:3] = (1,2,4,5,6)$ is a valid
+pattern wrt. $L,K,G$. In contrast, $T_2=(1,2,5,6,7)$ is not a valid partly candidate sequence.
+
+Observing that only partly candidate sequence can be potentially included in a 
+pattern. Therefore, given an edge $e(s,t)=T \in Sr_s$, if $T$ is not a partly
+candidate sequence, then this edge can be pruned from $Sr_s$. To efficiently
+test whether a given sequence is partly candidate, we define the \emph{Fully Candidate Sequence}:
+
+\begin{definition}[Fully Candidate Sequence]
+Given the pattern parameters: $L,K,G$, a sequence $T$ is a \emph{Fully Candidate} 
+if and only if for any of its maximal pseudo-consecutive sequence $T'$, $T'$ 
+is partly consecutive.
+\end{definition}
+
+For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11)$ is 
+not a fully candidate sequence since one of its maximal pseudo-consecutive sequence $(9,10,11)$
+is not a partly candidate sequence. In contrast, sequence $T_2=(1,2,4,5,6)$ is 
+a fully candidate sequence.
+
+Based on the fully candidate sequence, we can reduce an sequence $T$ to a 
+fully candidate sequence by striping out its non-partly candidate maximal pseudo-consecutive 
+sequences. The reduction works as in Algorithm~\ref{algo:simp_prune}. It takes two
+rounds of scan of an input $T$. In the first round of scan,
+the consecutive portion of $T$ with size less than $L$ is removed.
 In the second round of scan, the pseudo-consecutive portion of $T$ with size less than $K$
 is removed. Clearly the simplification algorithm runs in $O(|T|)$ time.
 
@@ -61,7 +79,7 @@ is removed. Clearly the simplification algorithm runs in $O(|T|)$ time.
 \State $s\gets 1$, $c\gets 0$
 \For{$i \in (0: |T|)$}
 	\If{$T[i] - T[i-1] > G$}
-		\If{$s < K$}
+		\If{$s < K$}   
 			\State $T$ remove $[c:i)$
 		\EndIf
 		\State $c \gets i$
@@ -73,4 +91,36 @@ is removed. Clearly the simplification algorithm runs in $O(|T|)$ time.
 \end{algorithmic}
 \end{algorithm}
 
+We use the following theorem to state the completeness and correctness of our 
+edge reduction algorithm.
+\begin{theorem}[Completeness of Algorithm~\ref{algo:simp_prune}]
+For a sequence $T$, let $T_1$ be the result of $T$ after algorithm~\ref{algo:simp_prune},
+if $\exists T' \subseteq T$ and $T'$ is included in a pattern $P$, then $T' \subseteq T_1$.
+\end{theorem}
 
+\begin{proof}
+OMITTED FOR NOW
+\end{proof}
+By utilizing the edge simplification technique, the size of $Sr_s$ can be greatly reduced. If
+an edge cannot be reduced to a full candidate sequence, then it is directly removed from $Sr_s$.
+If an edge can be reduced to a full candidate sequence, replacing itself with its full candidate sequence 
+would result in a more compact storage.
+
+\subsection{Pruning Apriori Mining}
+During the apriori phase, we are repeatedly join candidate pattern in different levels to generate a larger set
+of a pattern. We notice that, such joins can be early terminated 
+by utilizing the property of GCMP. The intuition is that when we are trying to store a level of candidate, if its
+temporal sequence is not a \emph{partly candidate} sequence, then it should able to generate new candidates and thus it
+can be removed from that level of candidate. This \emph{apriori property} 
+is explicitly described as in the follow theorem:
+
+\begin{theorem}[Apriori Property of GCMP]
+Given the temporal parameters $L,G,K$ of GCMP, for a candidate $cand$ in Algorithm~\ref{algo:apriori_mining},
+if $cand.T$ cannot be reduced to a full candidate sequence, then $cand$ can be pruned.
+\end{theorem}
+\begin{proof}
+OMITTED FOR NOW
+\end{proof}
+
+Utilizing the \emph{Apriori Property}, the new candidate in each level is greatly reduced, which is shown in
+the experiment session.
