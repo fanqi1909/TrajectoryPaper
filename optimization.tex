@@ -1,0 +1,76 @@
+\section{Optimization}
+We have analyzed that the bottlenecks of Algorithm~\ref{algo:apriori_mining} 
+lies in two factors. The size of each $Sr_s$ and the level the apriori runs.
+In this section, we describe to optimization to reduce the two factors
+respectively.
+
+\subsection{Edge Simplification}
+Each edge $e(s,t)$ in $Sr_s$ contains a time sequence $T$ 
+which represent the co-occurrence of $s$ and $t$. We notice that the edge
+between $s$ and $t$ is not always necessary. For example, if an edge has a
+cardinality less than $K$, then it is not necessary to include this edge to $Sr_s$.
+This motivates to simplify the edges in $Sr_s$ to boost the overall performance.
+
+We first define a \emph{partly candidate} sequence as follows:
+\begin{definition}[Partly Candidate Sequence]
+Given a set of pattern parameters $M,L,K,G$, a sequence $T$ is 
+a \emph{partly candidate} sequence if and only if exists a interval $(i,j)$
+such that $T'=T[i:j]$ is a sequence conforming to $L,K,G$.
+\end{definition}
+
+For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,9,10,11)$ 
+is a \emph{partly candidate sequence} since $T_1[0:3] = (1,2,4,5)$ is a valid
+pattern wrt. $L,K,G$. In contrast, $T_2=(1,2,5,6,7)$ is not a valid pattern.
+
+Observing that only partly candidate sequence can be potential included in a 
+pattern. Therefore, given an edge $e(s,t)=T \in Sr_s$, if $T$ is not a partly
+candidate sequence, then this edge can be pruned from $Sr_s$. To efficiently
+test whether a given sequence is partly candidate, we define the \emph{pseudo-consecutiveness} 
+of a sequence as follows:
+
+\begin{definition}[Pseudo-consecutiveness]
+Given a parameter $G$, a sequence $T$ is \emph{pseudo-consecutive} if and only
+if for any $i\in (0, |T|)$, $T[i] - T[i-1] \leq G$
+\end{definition}
+
+For example, let $G = 2$, then the sequence $T_1=\{1, 2, 4, 5\}$ is pseudo-consecutive
+while $T_2=\{1,4,5,6,8\}$ is not pseudo-consecutive. 
+
+Based on the pseudo-consecutiveness, our edge simplification and prune process takes
+two scan of an input $T$ as shown in Algorithm~\ref{algo:simp_prune}. In the 
+first round of scan, the consecutive portion of $T$ with size less than $L$ is removed.
+In the second round of scan, the pseudo-consecutive portion of $T$ with size less than $K$
+is removed. Clearly the simplification algorithm runs in $O(|T|)$ time.
+
+\begin{algorithm}
+\caption{Edge Simplification}
+\label{algo:simp_prune}
+\begin{algorithmic}
+\Require $T$
+\State{Remove the consecutive portion with size less than $L$}
+\State $c \gets 0$
+\For {$i \in (0,...,|T|)$}
+	\If{$T[i] - T[i-1] != 1$} 
+		\If{$i - c < L$} 
+			\State $T$ remove $[c:i)$
+		\EndIf
+		\State $c \gets i$
+	\EndIf
+\EndFor
+\State{Remove the pseduo-consecutive portion with size less than $K$}
+\State $s\gets 1$, $c\gets 0$
+\For{$i \in (0: |T|)$}
+	\If{$T[i] - T[i-1] > G$}
+		\If{$s < K$}
+			\State $T$ remove $[c:i)$
+		\EndIf
+		\State $c \gets i$
+		\State $s \gets 1$
+	\Else
+		\State $s++$
+	\EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+

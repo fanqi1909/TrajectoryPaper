@@ -1,0 +1,208 @@
+\section{Preliminary on Apache Spark}
+Apache Spark is the modern parallel processing platform
+based on Resilient-Distributed-Dataset (RDD), which
+is open-sourced by UC Berkeley. Spark differs from
+traditional MapReduce framework (e.g., Hadoop) in the 
+following features:
+\begin{enumerate}
+\item{It supports general computation DAGs beyond the two-stage MapReduce topologcy.}
+\item{The execution engine can tolerate the loss of any works}
+\item{It provides an in-memory storage abstraction called Resilient Distributed Datasets (RDDs). that 
+lets applications keep data in memory, and automatically reconstructs the lost partitions upon failures.}
+\end{enumerate}
+
+In MapReduce-like systems, the major bottleneck is the \emph{shuffle} operation. 
+In the \emph{shuffle} operation, data are re-partitioned and send to executors
+via networks. Such operation is more costly than CPU and disk I/Os, which contribute
+most in MapReduce-like applications. 
+
+TO BE ADDED....
+
+
+\section{Mining Generalized Co-moving Pattern}
+The outline of GCMP mining is to first cluster objects at
+each snapshots and followed by mining the patterns among clusters
+of different snapshots. In Spark scenario, 
+the first step can be easily performed in parallel. 
+This is because the objects at each snapshots are independent. Therefore, we
+can partition the trajectories based on snapshots to achieve parallelism. 
+In contrast, naively design the 
+the second step may suffer from inter-executor communications. 
+
+\subsection{Temporal Replication and Mining}
+The straightforward method of parallelizing GCMP mining is to partition
+the trajectories in the temporal domain. A simple but effective method
+is to group neighborhood snapshots in to a partition, such that all patterns
+can be mined within a partition. In order to achieve the \emph{completeness},
+some of the snapshots need to be replicated on multiple executors.
+We thus call this method the \emph{Temporal Replication and Mining} approach. 
+The algorithm is presented as in Algorithm~\ref{algo:trm_overview}.
+
+\begin{algorithm}
+\caption{Temporal Replication and Mining}
+\label{algo:trm_overview}
+\begin{algorithmic}
+\Require list of $\langle t, S_t \rangle$ pairs
+\State {Map Phase}
+\ForAll{$\langle t, S_t \rangle$}
+	\ForAll{$i \in 1...(K-1)*G+K$}
+		\State emit a $\langle t-i, S_t \rangle$ pair
+	\EndFor 
+\EndFor
+\State {Shuffle Phase}
+\ForAll{$\langle t, S \rangle$ pair} 
+\State group-by $t$, emit a $\langle t, Par_t\rangle$,
+\State  where $Par_t = \{S_t, S_{t+1}, .. S_{t+(K-1)*G+K}\} $
+\EndFor
+\State {Reduce Phase}
+\ForAll{$\langle t,Par_t \rangle$}
+\State minePattern($Par_t$)
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Temporal Replication Partition}
+In order to reduce the shuffling cost, the data to be replicated should be
+kept to a minimum. To control the number of snapshots that are replicated, 
+we use the following theorem to facilitate a partition:
+
+\begin{theorem}[Completeness of Replication Partition]
+\label{thm:replication_partition}
+For each snapshot $S_t$, a partition $Par_t = \{S_t, S_{t+1},...,S_{t+(K-1)*G+K}\}$ 
+is created. Then, for any global pattern $P$, there must exist at least one partition $Par_i$
+such that $P$ is also a pattern in $Par_i$.
+\end{theorem}
+\begin{proof}
+PROOF BY CONTRADICTION, OMITTED FOR NOW
+\end{proof}
+
+Utilizing Theorem~\ref{thm:replication_partition}, we create, for each snapshot $S_t$, 
+a partition containing its next $(K-1)*G+K$ snapshots. Each partition is then
+sending to the executors as a task. Since any global pattern must exists in 
+one of the partitions, we can mine the patterns from each partitions independently.
+
+\subsubsection{Temporal Replication Mining}
+After replication, each task in Spark will process an interval of snapshots $Par_i$. The next
+step is to mine the GCMPs from $Par_i$. We notice that, for each 
+partition, we only need to find the patterns that
+are contained in the first snapshots. Therefore we design a line-sweep method for mining 
+such patterns. DETAILS OMITTED FOR NOW.
+
+
+The Temporal Replication and Mining approach though achieves parallelism from independent
+partitions, it requires to replicate the data multiple times. 
+Specifically, each snapshots are copied $(K-1)*G+K$ times. In swarm
+case, $G$ is as large as $|T|$. Then, it is equivalent to shuffle entire dataset 
+to each executor, which is clearly inefficient.
+
+
+\subsection{Star Partition and Mining}
+To develop a method that achieves parallelism under any pattern parameters, 
+we propose a solution called \emph{Star Partition and Mining}. In SPM,
+we design a novel object-based partition method named star partition. In star partition,
+instead of partitioning trajectories in temporal domain, we partition trajectories 
+in object domain. After partitioning, we use the \emph{Apriori}-like 
+method to mine the patterns out of each partition. 
+The outline of the start partition and mining is as in Algorithm~\ref{algo:spm_overview}
+
+\begin{algorithm}
+\caption{Star Partition and Mining}
+\label{algo:spm_overview}
+\begin{algorithmic}
+\Require list of $\langle t, S_t \rangle$ pairs
+\State {Map phase}
+\ForAll{$C \in S_t$}
+	\ForAll {$(o_1 ,o_2) \in C \times C$}
+		\State emit a $\langle o_1, o_2, \{t\}\rangle$ triplet
+	\EndFor
+\EndFor
+
+\State {Shuffle phase}
+\ForAll{$\langle o_1, o_2, \{t\}\rangle$ triplets} 
+	\State group-by $o_1$, emit $\langle o_1, Sr_{o_1} \rangle$ 
+	\State group-by $o_2$, emit $\langle o_2, Sr_{o_2} \rangle$
+\EndFor
+
+\State {Reduce phase}
+\ForAll{$\langle o, Sr_{o} \rangle$}
+\State Apriori($Sr_o$)
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Star Partition}
+The purpose of star partition is to find the group of object that 
+could potentially form a pattern. In order to achieve parallelism, 
+we find and group, for each object $o$, all other objects that connect to $o$ in some
+snapshots. By so doing, the patterns containing $o$ can be discovered within
+each groups. Technically, we create a connection graph to represent the
+connectivity among objects. A connection graph is an undirected graph $G=(V:E)$, where 
+each $v \in V$ represents an object. An edge $e(s,t)= T$ 
+represents the connection between vertex $s,t$ at all times in $T$, 
+i.e. $\forall t \in T, C_t(s) = C_t(t)$. 
+Given a vertex $s$, the star of $s$, $Sr_s$ is the set of incidental edges of $s$ in $G$.
+In star partition, the trajectories are partitioned based on objects and their stars. Then
+each partition is send to an executor as a task.
+We state the completeness of star-partition as in the following theorem:
+\begin{theorem}[Completeness of Star Partition]
+Given a connection graph $G$, for any global pattern $P$, there exists a $s \in G.V$ such 
+that $P$ is a pattern in $Sr_s$.
+\end{theorem}
+
+\begin{proof}
+OMITTED FOR NOW
+\end{proof}
+
+Based on the above theorem, each task can be processed independently by executors. 
+Thus, the inter-executor communication is avoided during the mining phase. It is notable that, the 
+replication of data is $O(|\mathbb{O}|^2|T|)$, which is regardless the parameters of patterns.
+In later sections, we will describe optimization techniques to reduce the replications.
+
+\subsubsection{Apriori Mining}
+For each task, in the mining phase, we need to find the patterns that conform to the parameter
+setting. To systematically discover the patterns, we design the \emph{Apriori Mining} method which
+is similar to frequent item mining. If a candidate pattern's object set is of size $R$, we call
+this candidate a $R$-pattern. Our apriori mining algorithm tries to generate all $R$-pattern in
+each iteration. As a start, the $2$-pattern is generated from edges in $Sr_s$. In particular,
+for each $e(s,t)=T$, pattern $p=(\{s,t\}, T)$ is formed. During each iteration $R$, 
+we generate $R+2$-cluster pattern by joining $(R+1)$-cluster patterns with $2$-cluster patterns. 
+The join between $p_1=(O_1, T_1)$ and $p_2=(O_2, T_2)$ would generate a new pattern $p_3=(O_1 \cup O_2, T_1 \cap T_2)$.
+Our mining algorithm stops where no further patterns are generated. The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
+
+\begin{algorithm}
+\caption{Apriori Mining}
+\label{algo:apriori_mining}
+\begin{algorithmic}
+\Require{$Sr_s$}
+\State { Lv $\gets \{\}$}
+\State { Lv2 $\gets \{\}$}
+\ForAll{$e(s,t) = T \in Sr_s$}
+\State Lv2.add($\langle \{s,t\}, T \rangle$);
+\State Lv $\gets$ Lv2;
+\EndFor
+\While{true}
+	\If{Lv is not empty} 
+		\State{LvCand $\gets \{\}$ }
+		\ForAll{$cand_v \in Lv$}
+			\ForAll{$cand \in Lv2$}
+				\State $p \gets cand_v$ join $cand$
+				\If{$p.T$ is partly valid} 
+					\State LvCand.add($p$)
+				\EndIf
+			\EndFor
+		\EndFor
+		\State {Lv $\gets$ LvCand}
+	\Else
+		\State{break}
+	\EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+Algorithm~\ref{algo:apriori_mining} takes exponential complexity to mine GCMP. There
+are two major factors dragging the performance. First, the size of $Sr_s$ affects
+the number initial size of $2$-patterns. Second, the level that apriori runs. In later
+sections, we exploit the property of GCMP to reduce the two factors.
