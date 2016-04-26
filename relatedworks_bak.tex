@@ -1,9 +1,21 @@
-
 \section{Related Works}
 \label{sec:related_works}
-In this section, we present a comprehensive literature review on the mining of various trajectory patterns. 
+There are many works has been done on patterns mining in trajectory databases. We loosely classify these patterns into \emph{General Trajectory Pattern}s and \emph{Co-movement Pattern}s. The difference is that \emph{Co-movement Pattern}s require all members of a cluster stay together during the pattern lifetime. We summarize the related works as follows:
 
-FOR THE CO-MOVEMENT PATTERN, YOU NEED TO EMPHASIZE TWO THINGS: 1) THE DIFFERENCE BETWEEN PATTERNS. NEED TO CLARIFY THE PARAMETERS IN EACH MODEL. 2) CLEARLY STATE THE MINING TECHNIQUES. 
+\subsection{General Trajectory Pattern}
+General Trajectory pattern mining a hot field in trajectory analysis. Previous works
+define various patterns~\cite{
+kalnis2005movingclusters,
+li2010periodicpattern,zheng2013gathering,jinno2012paralleltpattern,li2013onlinegroup} over trajectory data, which have proven their usefulness under different applications~\cite{giannotti2007survey}. 
+
+Kalnis et al. proposed \emph{moving clusters} pattern~\cite{kalnis2005movingclusters}. In such a pattern, objects form clusters at each snapshot. For consecutive snapshots, the clusters in the pattern should have a Jaccard index greater than a threshold. Under such a scheme, the difference between cluster members in snapshots accumulates, therefore the clusters at later snapshot may be very different from those in previous snapshots. The online extension is studied by Li et al.~\cite{li2013onlinegroup}.
+
+Li et al. considered the \emph{periodic} pattern in~\cite{li2010periodicpattern}. This pattern mines the objects with periodic behaviors. An example of such a pattern is that individuals go to work together every day. 
+It is commented in~\cite{giannotti2007survey} that \emph{periodic} pattern is unsuitable for discovering movements, since it is unreasonable to expect an object to repeat its behavior exactly during each time period considered.
+
+Zhang et al. proposed the \emph{gathering} pattern in \cite{zheng2013gathering}. It is similar to \emph{flock} pattern~\cite{gudmundsson2004flock} but with the relaxation on the members of clusters. Instead of fixing the members in clusters as in~\cite{gudmundsson2004flock}, \emph{gathering} pattern allows members in clusters leave and join during the pattern duration. Since it relaxes the member constraints, it is unable to model co-movement patterns.
+
+
 \subsection{Co-movement Pattern}
 The work most related to ours is those on \emph{co-movement} patterns. We summarize the typical patterns as follows:
 \subsubsection{group}
@@ -25,28 +37,9 @@ The major argument on \emph{convoy} pattern is that \emph{convoy} requires the c
 \subsubsection{platoon}
 Recently Li et al. argued that \emph{swarm} is to loose in the temporal consecutiveness and proposed \emph{platoon} pattern in~\cite{li2015platoon}. In \emph{platoon} pattern, the clusters should lasts for at least a certain during before dismiss. Meanwhile, \emph{platoon} allow the clusters to form again at future times. Li et al. demonstrated the such extension is more general and can support swarm and convoy patterns by setting appropriate parameters. Li et al. also provide a similar depth-first search approach as in~\cite{li2010swarm}. In addition, they adapted a prefix pruning method to further improve efficiency. It is notable that in both \cite{li2010swarm} and \cite{li2015platoon}, authors consider the input to be the clusters at each snapshot, which ignores the clustering time.
 
-\subsection{Other Related Trajectory Patterns}
-Besides co-movement patterns, there are a number of other types of trajectory patterns proposed in previous works.
-%General Trajectory pattern mining a hot field in trajectory analysis. Previous works
-%define various patterns~\cite{
-%kalnis2005movingclusters,
-%li2010periodicpattern,zheng2013gathering,jinno2012paralleltpattern,li2013onlinegroup} over trajectory data, which have proven their usefulness under different applications~\cite{giannotti2007survey}. 
-
-Kalnis et al. proposed \emph{moving clusters} pattern~\cite{kalnis2005movingclusters}. In such a pattern, objects form clusters at each snapshot. For consecutive snapshots, the clusters in the pattern should have a Jaccard index greater than a threshold. Under such a scheme, the difference between cluster members in snapshots accumulates, therefore the clusters at later snapshot may be very different from those in previous snapshots. The online extension is studied by Li et al.~\cite{li2013onlinegroup}. IT'S DIFFERENCE WITH CO-MOVEMENT PATTERN IS NOT CLEAR. WHAT IS JACCARD INDEX?
-
- In~\cite{li2010periodicpattern}, Li et al. studied the \emph{periodic} pattern, which mines objects with periodic behaviors. 
-It is commented in~\cite{giannotti2007survey} that \emph{periodic} pattern is unsuitable for discovering movements, since it is unreasonable to expect an object to repeat its behavior exactly during each time period considered. AGAIN, WHAT'S YOUR POINT? YOU MEAN SUCH A WORK IS MEANINGLESS? THEN, WHY BOTHER TO MENTION IT HERE?
-
-Zhang et al. proposed the \emph{gathering} pattern in \cite{zheng2013gathering}. It is similar to \emph{flock} pattern~\cite{gudmundsson2004flock} but with the relaxation on the members of clusters. Instead of fixing the members in clusters as in~\cite{gudmundsson2004flock}, \emph{gathering} pattern allows members in clusters leave and join during the pattern duration. Since it relaxes the member constraints, it is unable to model co-movement patterns. HOW TO DEFINE CO-MOVEMENT PATTERN? IS THERE A PREVIOUS ``FORMAL'' DEFINITION? OR IS DEFINED BY YOU? THIS ONE LOOKS LIKE OBJECTS CO-MOVE. WHY IT IS NOT A CO-MOVEMENT PATTERN?
-
-
-%\subsection{Pattern Mining Frameworks}
+\subsection{Pattern Mining Frameworks}
 Jinno et al. recently studied the problem of processing \emph{T}- pattern~\cite{giannotti2007survey} in parallel platform \cite{jinno2012paralleltpattern}. A \emph{T}-pattern discovers a set of objects visiting the same the place in a close time interval. Such a pattern differs from moving object pattern in that \emph{T}-pattern does not consider the movement of objects. Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm for efficiently support \emph{T}-pattern discovery. However, as the nature of differences between the patterns, their work cannot directly applied on the co-moving object pattern discovery. Li et al. recently proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}. The \emph{evolving group} is similar to \emph{moving cluster} pattern with focus on the member updates in clusters, which is different with \emph{co-movement} pattern. Moreover the framework is developed for centralized system, thus is different with our work.
 
 \subsection{Trajectory Clustering}
-Another related field is trajectory clustering~\cite{he2011mrdbscan,lee2007partitionandgroup,
-li2004clusteringmovingobjects}. Lee et al. proposed a partition and group algorithm in~\cite{lee2007partitionandgroup} TO SOLVE WHAT PROBLEM?. Their clustering method does not consider the temporal constraint and groups trajectories from different time points together. WHY EMPHAISIS THIS? OUR CLUSTERING IS ALSO CONDUCTED IN EACH SNAPSHOT. 
-
-Li et al. proposed a \emph{micro-clustering} technique~\cite{li2004clusteringmovingobjects} to cluster moving objects based on their moving directions. However, its distance measured is defined upon the entire trajectory and cannot be applied in our problem to mine local patterns.
-
-In ~\cite{he2011mrdbscan}, He et al. deployed an implementation of DBSCAN on MapReduce. They decouple the dependency of original DBSCAN algorithm into a four-stage parallel process.  However their method only focuses on DBSCAN for one datasets, where exploiting the relationship between multiple DBSCANs remains unexplored. I DON'T UNDERSTAND WHAT YOU MEAN. ONE DATASET? MULTIPLE DBSCANS?
+Another field that is related to our work is trajectory clustering~\cite{he2011mrdbscan,lee2007partitionandgroup,
+li2004clusteringmovingobjects}. Lee et al. proposed a partition and group algorithm in~\cite{lee2007partitionandgroup}. Their clustering method does not consider the temporal constraint and groups trajectories from different time points together. Li et al. proposed a \emph{micro-clustering} technique~\cite{li2004clusteringmovingobjects} for cluster moving objects based on their moving directions. However, such a technique clusters moving objects based on entire trajectories, thus is not able to identify patterns that are at local trajectories. He et al. proposed a parallel DBSCAN algorithm in~\cite{he2011mrdbscan} running on MapReduce platform. Their method uses a four-stage process to decouple the dependencies in DBSCAN. However their method only focuses on DBSCAN for one datasets, where exploiting the relationship between multiple DBSCANs remains unexplored.

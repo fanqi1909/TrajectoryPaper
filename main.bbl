@@ -116,4 +116,10 @@ Y.~Li, J.~Han, and J.~Yang, ``Clustering moving objects,'' in {\em Proceedings
   of the tenth ACM SIGKDD international conference on Knowledge discovery and
   data mining}, pp.~617--622, ACM, 2004.
 
+\bibitem{shi2015clash}
+J.~Shi, Y.~Qiu, U.~F. Minhas, L.~Jiao, C.~Wang, B.~Reinwald, and F.~{\"O}zcan,
+  ``Clash of the titans: Mapreduce vs. spark for large scale data analytics,''
+  {\em Proceedings of the VLDB Endowment}, vol.~8, no.~13, pp.~2110--2121,
+  2015.
+
 \end{thebibliography}

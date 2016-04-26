@@ -1,20 +1,33 @@
 \section{Optimization}
 We have analyzed that the bottlenecks of Algorithm~\ref{algo:apriori_mining} 
-lies in two factors. The size of each $Sr_s$ and the level the apriori runs.
-In this section, we describe to optimization to reduce the two factors
-respectively.
+lies in two factors. The size of each $Sr_s$ and the size of candidates in each level of Apriori.
+In this section, we provide several optimizations to boost the bottlenecks.
+
+\subsection{Edge Reduction by Direction}
+The first spot for reducing the size of $Sr_s$ is to remove the replicated edges. As shown in Algorithm~\ref{algo:spm_overview}, each edge in the conceptual graph is replicated twice in generating the star-structure. The purpose of replication is to ensure the completeness of star partition. However, this replication can be avoided if we choose an appropriate way of partitioning. 
+
+We design the edge partitioning method by edge direction. Instead of building a conceptual graph that is undirected, we create the directed conceptual graph as follows: First, we assign each object a unique number. Then
+for a cluster $C_t$ in snapshot $S_t$, for any pair $(u,v) \in C_t$, an edge $e(u,v) = \{t\}$ is created if $u < v$. It is easy to see that the directed conceptual graph is a DAG. We then create each $Sr_u$ by including all the outgoing edges of $u$. By so doing, each edge is assigned to only one star, thus avoids the replications. We use the following theorem to ensure the completeness of the edge direction method.
+
+\begin{theorem}[Sound and Completeness of Edge Direction]
+Star partition with edge direction is sound and complete.
+\end{theorem}
+\begin{proof}
+It is notable that each star is a subset of original trajectories, thus the soundness is trivially true. For completeness, if $P$ is valid pattern, then let $s$ be the object of the smallest number in $P.O$, i.e., $s=\min_{o \in P.O}(o)$. Since $s$ is smallest and the all other objects in $P.O$ is connected with $s$. Therefore, $P.O \equiv Sr_s$, which indicates that $P.O$ is also a pattern in $Sr_s$.
+\end{proof}
+An example of edge direction is shown in Figure~\ref{fig:star_partition}. As shown,
+by adapting the direction method, half the size of $S_r$'s is reduced. This clearly brings efficiency in both shuffling and apriori mining.
 
 \subsection{Edge Simplification}
-Each edge $e(s,t)$ in $Sr_s$ contains a time sequence $T$ 
-which represent the co-occurrence of $s$ and $t$. We notice that the edge
-between $s$ and $t$ is not always necessary. For example, if an edge has a
-cardinality less than $K$, then it is not necessary to include this edge to $Sr_s$.
-This motivates to simplify the edges in $Sr_s$ to boost the overall performance.
+Each edge $e(s,t)$ in $Sr_s$ contains a time sequence $ET$ 
+which represent the co-occurrence of $s$ and $t$. We notice that the edge between $s$ and $t$ is not always necessary. For example, if an edge has a
+cardinality less than $K$, it is unnecessary to include this edge to $Sr_s$ since it cannot contribute to any patterns.
+This motivates us to simplify the edges in $Sr_s$ to boost the overall performance.
 
 We first define the \emph{Pseudo-consecutiveness} of a time sequence as follows:
 \begin{definition}[Pseudo-consecutiveness]
 Given a parameter $G$, a sequence $T$ is \emph{pseudo-consecutive} if and only
-if for any $i\in (0, |T|)$, $T[i] - T[i-1] \leq G$
+if for any $i\in [1, |T|]$, $T[i] - T[i-1] \leq G$
 \end{definition}
 For example, let $G = 2$, then the sequence $T_1=\{1, 2, 4, 5\}$ is pseudo-consecutive
 while $T_2=\{1,4,5,6,8\}$ is not pseudo-consecutive. 
@@ -28,17 +41,17 @@ subsequences. We then define a \emph{partly candidate} sequence as follows:
 
 \begin{definition}[Partly Candidate Sequence]
 Given the pattern parameters: $L,K,G$, a sequence $T$ is 
-a \emph{partly candidate} sequence if exist one of its maximal pseudo-consecutive
+a \emph{partly candidate} sequence if exists one of its maximal pseudo-consecutive
 subsequence $T'$ such that $T'$ confirms to $L,K,G$.
 \end{definition}
 
 For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11)$ 
-is a \emph{partly candidate sequence} since $T_1[0:3] = (1,2,4,5,6)$ is a valid
+is a \emph{partly candidate sequence} since $T_1[1:5] = (1,2,4,5,6)$ is a valid
 pattern wrt. $L,K,G$. In contrast, $T_2=(1,2,5,6,7)$ is not a valid partly candidate sequence.
 
-Observing that only partly candidate sequence can be potentially included in a 
+Observing that only partly candidate sequence can be potentially contribute to a 
 pattern. Therefore, given an edge $e(s,t)=T \in Sr_s$, if $T$ is not a partly
-candidate sequence, then this edge can be pruned from $Sr_s$. To efficiently
+candidate sequence, it can be pruned from $Sr_s$. To efficiently
 test whether a given sequence is partly candidate, we define the \emph{Fully Candidate Sequence}:
 
 \begin{definition}[Fully Candidate Sequence]
@@ -93,34 +106,31 @@ is removed. Clearly the simplification algorithm runs in $O(|T|)$ time.
 
 We use the following theorem to state the completeness and correctness of our 
 edge reduction algorithm.
-\begin{theorem}[Completeness of Algorithm~\ref{algo:simp_prune}]
-For a sequence $T$, let $T_1$ be the result of $T$ after algorithm~\ref{algo:simp_prune},
-if $\exists T' \subseteq T$ and $T'$ is included in a pattern $P$, then $T' \subseteq T_1$.
+\begin{theorem}[Soundness and Completeness Edge Simplification]
+Star partition with edge simplification is sound and complete.
 \end{theorem}
 
 \begin{proof}
-OMITTED FOR NOW
+Soundness of the star partition is not affected by edge simplification since each star is a subset of original trajectory. For completeness, consider a sequence $T$, let $T_1$ be the result of $T$ after first round of simplification. By the nature of the first round of simplification, if $P.T \subseteq T$, then $P.T \subseteq T_1$. In the second round of simplification, only the pseudoconsecutive parts with size less than $K$ are removed. This means, the removed parts is not able to contribute to any patterns. Thus if $P.T \subseteq T$, then $P.T \subseteq T'$. 
 \end{proof}
-By utilizing the edge simplification technique, the size of $Sr_s$ can be greatly reduced. If
+By leveraging the edge simplification, the size of $Sr_s$ can be greatly reduced. If
 an edge cannot be reduced to a full candidate sequence, then it is directly removed from $Sr_s$.
-If an edge can be reduced to a full candidate sequence, replacing itself with its full candidate sequence 
-would result in a more compact storage.
+If an edge can be reduced to a full candidate sequence, replacing itself by the full candidate sequence results in a more compact storage.
 
 \subsection{Pruning Apriori Mining}
-During the apriori phase, we are repeatedly join candidate pattern in different levels to generate a larger set
-of a pattern. We notice that, such joins can be early terminated 
-by utilizing the property of GCMP. The intuition is that when we are trying to store a level of candidate, if its
-temporal sequence is not a \emph{partly candidate} sequence, then it should able to generate new candidates and thus it
-can be removed from that level of candidate. This \emph{apriori property} 
+During the apriori phase, we repeatedly join candidate patterns in different levels to generate a larger set
+of a patterns. We notice that, such joins can be early terminated 
+by utilizing the monotonic property of GCMP. The intuition is that when we are trying to store a candidate, if its
+temporal sequence is not a \emph{partly candidate} sequence, then it cannot generate full candidate and thus it
+can be pruned. This \emph{monotonic property} 
 is explicitly described as in the follow theorem:
 
-\begin{theorem}[Apriori Property of GCMP]
-Given the temporal parameters $L,G,K$ of GCMP, for a candidate $cand$ in Algorithm~\ref{algo:apriori_mining},
-if $cand.T$ cannot be reduced to a full candidate sequence, then $cand$ can be pruned.
+\begin{theorem}[Monotonic Property of GCMP]
+Given the temporal parameters $L,G,K$, for a candidate $cand$ in Algorithm~\ref{algo:apriori_mining},
+if $cand.T$ cannot be reduced to a partly candidate sequence, then $cand$ can be pruned.
 \end{theorem}
 \begin{proof}
-OMITTED FOR NOW
+Let $cand_i$ be a $i$-pattern. If $cand_i$ is generated from $cand_j$ where $j < i$, then if $cand_j.T \subseteq cand_i.T$. That is as the level goes up, the time sequence set of a candidate shrinks. Therefore, if $cand_j.T$ is not a partly candidate sequence, $cand_i.T$ cannot be a partly candidate sequence.
 \end{proof}
 
-Utilizing the \emph{Apriori Property}, the new candidate in each level is greatly reduced, which is shown in
-the experiment session.
+With the help of the \emph{Monotonic Property}, the number of new candidates in each level is greatly reduced. We verify this in the experiment session as well.
