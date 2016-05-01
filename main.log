@@ -1,25 +1,35 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.1)  22 APR 2016 23:40
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  1 MAY 2016 18:06
 entering extended mode
-**./main.tex
-(main.tex
-LaTeX2e <2015/10/01> patch level 2
-Babel <3.9n> and hyphenation patterns for 69 languages loaded.
-(vldb.cls (E:\Programs\MikTex2.9\tex\latex\geometry\geometry.sty
+**main.tex
+(F:\GitHubRepos\TrajectoryPaper\main.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+(F:\GitHubRepos\TrajectoryPaper\vldb.cls
+(D:\MikTex\tex\latex\geometry\geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-(E:\Programs\MikTex2.9\tex\latex\graphics\keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+(D:\MikTex\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\ifpdf.sty
+(D:\MikTex\tex\generic\oberdiek\ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\ifvtex.sty
+(D:\MikTex\tex\generic\oberdiek\ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(E:\Programs\MikTex2.9\tex\generic\ifxetex\ifxetex.sty
+(D:\MikTex\tex\generic\ifxetex\ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count79
@@ -35,31 +45,31 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen109
 \Gm@dimlist=\toks15
 
-(E:\Programs\MikTex2.9\tex\latex\geometry\geometry.cfg))
-(E:\Programs\MikTex2.9\tex\latex\graphics\epsfig.sty
+(D:\MikTex\tex\latex\geometry\geometry.cfg))
+(D:\MikTex\tex\latex\graphics\epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(E:\Programs\MikTex2.9\tex\latex\graphics\graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+(D:\MikTex\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(E:\Programs\MikTex2.9\tex\latex\graphics\graphics.sty
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+(D:\MikTex\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(E:\Programs\MikTex2.9\tex\latex\graphics\trig.sty
+(D:\MikTex\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(E:\Programs\MikTex2.9\tex\latex\00miktex\graphics.cfg
+(D:\MikTex\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 94.
+Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(E:\Programs\MikTex2.9\tex\latex\pdftex-def\pdftex.def
+(D:\MikTex\tex\latex\pdftex-def\pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\infwarerr.sty
+(D:\MikTex\tex\generic\oberdiek\infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\ltxcmds.sty
+(D:\MikTex\tex\generic\oberdiek\ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count82
@@ -70,52 +80,52 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \epsfxsize=\dimen112
 \epsfysize=\dimen113
 )
-(E:\Programs\MikTex2.9\tex\latex\amsfonts\amssymb.sty
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(D:\MikTex\tex\latex\amsfonts\amssymb.sty
+Package: amssymb 2009/06/22 v3.00
 
-(E:\Programs\MikTex2.9\tex\latex\amsfonts\amsfonts.sty
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+(D:\MikTex\tex\latex\amsfonts\amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks16
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(E:\Programs\MikTex2.9\tex\latex\amsmath\amsmath.sty
-Package: amsmath 2013/01/14 v2.14 AMS math features
+(D:\MikTex\tex\latex\ams\math\amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(E:\Programs\MikTex2.9\tex\latex\amsmath\amstext.sty
+(D:\MikTex\tex\latex\ams\math\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(E:\Programs\MikTex2.9\tex\latex\amsmath\amsgen.sty
+(D:\MikTex\tex\latex\ams\math\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
 \ex@=\dimen114
 ))
-(E:\Programs\MikTex2.9\tex\latex\amsmath\amsbsy.sty
+(D:\MikTex\tex\latex\ams\math\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen115
 )
-(E:\Programs\MikTex2.9\tex\latex\amsmath\amsopn.sty
+(D:\MikTex\tex\latex\ams\math\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count83
-LaTeX Info: Redefining \frac on input line 210.
+LaTeX Info: Redefining \frac on input line 211.
 \uproot@=\count84
 \leftroot@=\count85
-LaTeX Info: Redefining \overline on input line 306.
+LaTeX Info: Redefining \overline on input line 307.
 \classnum@=\count86
 \DOTSCASE@=\count87
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen116
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \macc@depth=\count88
 \c@MaxMatrixCols=\count89
 \dotsspace@=\muskip10
@@ -136,8 +146,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip42
 \multlinetaggap=\skip43
 \mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
 )
 Document Class 'vldb' - based on 'sig-alternate' <26th. July '05>. Modified by 
 G.K.M. Tobin/Gerry Murray
@@ -169,11 +179,11 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \titleboxnoteflag=\count103
 Document Class: vldb 2010/10/19 - V1.8b - based on sig-alternate V1.8 - based o
 n acmproc.cls V1.3 <Nov. 30 '99>
-(E:\Programs\MikTex2.9\tex\latex\base\latexsym.sty
+(D:\MikTex\tex\latex\base\latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
 )
 \@acmtitlebox=\box28
 \titlenotecount=\count104
@@ -200,12 +210,11 @@ Using 'Abbrev' bibliography style
 \acmcopyr=\toks34
 \boilerplate=\toks35
 \copyrightetc=\toks36
-) (E:\Programs\MikTex2.9\tex\latex\caption\caption.sty
-Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+) (D:\MikTex\tex\latex\caption\caption.sty
+Package: caption 2013/01/06 v3.3 Customizing captions (AR)
 
-(E:\Programs\MikTex2.9\tex\latex\caption\caption3.sty
-Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 67.
+(D:\MikTex\tex\latex\caption\caption3.sty
+Package: caption3 2013/01/06 v1.5 caption3 kernel (AR)
 \captionmargin=\dimen131
 \captionmargin@=\dimen132
 \captionwidth=\dimen133
@@ -227,33 +236,33 @@ Package caption Info: \@makecaption = \long macro:#1#2-> \vskip 10pt \setbox \@
 tempboxa \hbox {\textbf {#1: #2}} \ifdim \wd \@tempboxa >\hsize \textbf {#1: #2
 }\par \else \hbox to\hsize {\hfil \box \@tempboxa \hfil } \fi .
 \c@ContinuedFloat=\count112
-) (E:\Programs\MikTex2.9\tex\latex\caption\subcaption.sty
-Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
+) (D:\MikTex\tex\latex\caption\subcaption.sty
+Package: subcaption 2012/04/09 v1.1f Sub-captions (AR)
 \c@subfigure=\count113
 \c@subtable=\count114
 )
-(E:\Programs\MikTex2.9\tex\latex\oberdiek\epstopdf.sty
+(D:\MikTex\tex\latex\oberdiek\epstopdf.sty
 Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
 
-(E:\Programs\MikTex2.9\tex\latex\oberdiek\epstopdf-base.sty
+(D:\MikTex\tex\latex\oberdiek\epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
-(E:\Programs\MikTex2.9\tex\latex\oberdiek\grfext.sty
+(D:\MikTex\tex\latex\oberdiek\grfext.sty
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\kvdefinekeys.sty
+(D:\MikTex\tex\generic\oberdiek\kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
 ))
-(E:\Programs\MikTex2.9\tex\latex\oberdiek\kvoptions.sty
+(D:\MikTex\tex\latex\oberdiek\kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\kvsetkeys.sty
+(D:\MikTex\tex\generic\oberdiek\kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\etexcmds.sty
+(D:\MikTex\tex\generic\oberdiek\etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\ifluatex.sty
+(D:\MikTex\tex\generic\oberdiek\ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
@@ -262,7 +271,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-(E:\Programs\MikTex2.9\tex\generic\oberdiek\pdftexcmds.sty
+(D:\MikTex\tex\generic\oberdiek\pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -275,32 +284,31 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 ))
-(E:\Programs\MikTex2.9\tex\latex\pbox\pbox.sty
+(D:\MikTex\tex\latex\pbox\pbox.sty
 Package: pbox 2011/12/07 v1.2 Dynamic parboxes
-
-(E:\Programs\MikTex2.9\tex\latex\tools\calc.sty
-Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+ (D:\MikTex\tex\latex\tools\calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count115
 \calc@Bcount=\count116
 \calc@Adimen=\dimen138
 \calc@Bdimen=\dimen139
 \calc@Askip=\skip46
 \calc@Bskip=\skip47
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count117
 \calc@Cskip=\skip48
 )
-(E:\Programs\MikTex2.9\tex\latex\base\ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+(D:\MikTex\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \pb@xlen=\skip49
 )
-(E:\Programs\MikTex2.9\tex\latex\algorithms\algorithm.sty
+(D:\MikTex\tex\latex\algorithms\algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(E:\Programs\MikTex2.9\tex\latex\float\float.sty
+(D:\MikTex\tex\latex\float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count118
 \float@exts=\toks37
@@ -311,10 +319,10 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@algorithm=\toks39
 \c@algorithm=\count119
 )
-(E:\Programs\MikTex2.9\tex\latex\algorithmicx\algpseudocode.sty
+(D:\MikTex\tex\latex\algorithmicx\algpseudocode.sty
 Package: algpseudocode 
 
-(E:\Programs\MikTex2.9\tex\latex\algorithmicx\algorithmicx.sty
+(D:\MikTex\tex\latex\algorithmicx\algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -330,8 +338,8 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip52
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (E:\Programs\MikTex2.9\tex\latex\amscls\amsthm.sty
-Package: amsthm 2015/03/04 v2.20.2
+) (D:\MikTex\tex\latex\ams\classes\amsthm.sty
+Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks40
 \thm@bodyfont=\toks41
 \thm@headfont=\toks42
@@ -341,14 +349,13 @@ Package: amsthm 2015/03/04 v2.20.2
 \thm@postskip=\skip54
 \thm@headsep=\skip55
 \dth@everypar=\toks45
-LaTeX Info: Redefining \qed on input line 264.
+LaTeX Info: Redefining \qed on input line 283.
 )
 \c@definition=\count127
 \c@theorem=\count128
 \c@example=\count129
- (main.aux)
-\openout1 = `main.aux'.
 
+(F:\GitHubRepos\TrajectoryPaper\main.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
 LaTeX Font Info:    ... okay on input line 25.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
@@ -395,7 +402,7 @@ LaTeX Font Info:    ... okay on input line 25.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(E:\Programs\MikTex2.9\tex\context\base\supp-pdf.mkii
+(D:\MikTex\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count130
 \scratchdimen=\dimen140
@@ -413,103 +420,94 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Try loading font information for U+msa on input line 76.
- (E:\Programs\MikTex2.9\tex\latex\amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+ (D:\MikTex\tex\latex\amsfonts\umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 76.
-
-(E:\Programs\MikTex2.9\tex\latex\amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+ (D:\MikTex\tex\latex\amsfonts\umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 76.
-
-(E:\Programs\MikTex2.9\tex\latex\base\ulasy.fd
+(D:\MikTex\tex\latex\base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 
 LaTeX Warning: No \author given.
 
-(introduction.tex
-Overfull \hbox (8.53656pt too wide) in paragraph at lines 3--4
+(F:\GitHubRepos\TrajectoryPaper\introduction.tex
+Overfull \hbox (8.53656pt too wide) in paragraph at lines 2--7
 []\OT1/cmr/m/n/9 The preva-lence of po-si-tion-ing de-vices has dras-ti-cally b
 oosted
  []
 
+
+Overfull \hbox (30.33372pt too wide) in paragraph at lines 36--51
+ [][] 
+ []
+
 Package epstopdf Info: Source file: <./charts/related_work.eps>
-(epstopdf)                    date: 2016-04-22 23:39:07
-(epstopdf)                    size: 1747575 bytes
+(epstopdf)                    date: 2016-04-28 17:21:04
+(epstopdf)                    size: 544353 bytes
 (epstopdf)             Output file: <./charts/related_work-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2016-04-22 23:39:07
-(epstopdf)                    size: 333345 bytes
+(epstopdf)                    date: 2016-04-28 17:21:09
+(epstopdf)                    size: 48887 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/related_work-eps-c
 onverted-to.pdf ./charts/related_work.eps>
-(epstopdf)             \includegraphics on input line 18.
+(epstopdf)             \includegraphics on input line 82.
 Package epstopdf Info: Output file is already uptodate.
-<./charts/related_work-eps-converted-to.pdf, id=1, 676.5275pt x 381.425pt>
+<./charts/related_work-eps-converted-to.pdf, id=1, 576.1525pt x 451.6875pt>
 File: ./charts/related_work-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/related_work-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/related_work-eps-converted-to.pdf used on inp
-ut line 18.
-(pdftex.def)             Requested size: 252.0pt x 142.0737pt.
+ut line 82.
+(pdftex.def)             Requested size: 252.0pt x 197.56454pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 18--19
+Overfull \hbox (12.0pt too wide) in paragraph at lines 82--83
  [] 
  []
 
-Package epstopdf Info: Source file: <./charts/platoon_weakpoint.eps>
-(epstopdf)                    date: 2016-04-22 23:39:07
-(epstopdf)                    size: 862883 bytes
-(epstopdf)             Output file: <./charts/platoon_weakpoint-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2016-04-22 23:39:06
-(epstopdf)                    size: 139661 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/platoon_weakpoint-
-eps-converted-to.pdf ./charts/platoon_weakpoint.eps>
-(epstopdf)             \includegraphics on input line 29.
-runsystem(epstopdf --outfile=./charts/platoon_weakpoint-eps-converted-to.pdf ./
-charts/platoon_weakpoint.eps)...executed (allowed).
 
-Package epstopdf Info: Result file: <./charts/platoon_weakpoint-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2016-04-22 23:40:32
-(epstopdf)                    size: 139665 bytes.
+LaTeX Warning: Reference `' on page 1 undefined on input line 109.
 
-<./charts/platoon_weakpoint-eps-converted-to.pdf, id=2, 673.51625pt x 205.76875
-pt>
-File: ./charts/platoon_weakpoint-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/platoon_weakpoint-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/platoon_weakpoint-eps-converted-to.pdf used o
-n input line 29.
-(pdftex.def)             Requested size: 252.0pt x 76.99039pt.
-
-Overfull \hbox (12.0pt too wide) in paragraph at lines 29--30
- [] 
- []
-
-) (relatedworks.tex [1{C:/Users/fanqi/AppData/Local/MiKTeX/2.9/pdftex/config/pd
-ftex.map}
+[1{C:/Users/a0048267/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <./charts/related_work-eps-converted-to.pdf> <./charts/platoon_weakpoint-eps-c
-onverted-to.pdf>]
-Overfull \hbox (3.81903pt too wide) in paragraph at lines 26--27
-\OT1/cmr/m/n/9 tem-po-ral con-sec-u-tive-ness and pro-posed \OT1/cmr/m/it/9 pla
--toon \OT1/cmr/m/n/9 pat-tern in [2].
+ <F:/GitHubRepos/TrajectoryPaper/charts/related_work-eps-converted-to.pdf>]
+
+LaTeX Warning: Reference `sec:solution' on page 2 undefined on input line 130.
+
+
+Overfull \hbox (1.80247pt too wide) in paragraph at lines 129--131
+\OT1/cmr/m/n/9 sum-ma-rizes the rel-e-vant lit-er-a-ture on tra-jec-tory pat-te
+rn min-
  []
 
 
-Overfull \hbox (1.1317pt too wide) in paragraph at lines 29--34
-[]\OT1/cmr/m/n/9 Besides co-movement pat-terns, there are a num-ber of other
+Overfull \hbox (3.0173pt too wide) in paragraph at lines 129--131
+\OT1/cmr/m/n/9 ing; Sec-tion 3[] forms the def-i-ni-tion of the gen-eral co-mov
+ement
+ []
+
+) (F:\GitHubRepos\TrajectoryPaper\relatedworks.tex
+Overfull \hbox (3.85289pt too wide) in paragraph at lines 3--11
+[]\OT1/cmr/m/n/9 The \OT1/cmr/m/it/9 co-movement pat-terns \OT1/cmr/m/n/9 in li
+t-er-a-ture con-sist of five mem-
  []
 
 
-Underfull \vbox (badness 5802) has occurred while \output is active []
+Overfull \hbox (7.41595pt too wide) in paragraph at lines 50--51
+[]\OT1/cmr/m/n/9 THESE WORKS ARE MOST RE-LATED TO OUR PROB-
+ []
 
- [2])
-(definitions.tex
-Overfull \hbox (7.78636pt too wide) in paragraph at lines 12--13
+
+Overfull \hbox (1.49747pt too wide) in paragraph at lines 50--51
+\OT1/cmr/m/n/9 LEMS, SO I RE-MOVED OTHER RE-LATED WORKS FOR
+ []
+
+) (F:\GitHubRepos\TrajectoryPaper\definitions.tex [2]
+Overfull \hbox (7.78636pt too wide) in paragraph at lines 22--24
 []\OT1/cmr/m/n/9 Take $\OML/cmm/m/it/9 T \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 f\OT1
 /cmr/m/n/9 1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 
 3\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 5\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 6\OMS/cmsy/
@@ -518,54 +516,69 @@ not $3$-consecutive
  []
 
 
-Overfull \hbox (10.50992pt too wide) in paragraph at lines 17--18
+Overfull \hbox (13.7502pt too wide) in paragraph at lines 26--28
 \OT1/cmr/bx/n/9 Definition 2 \OT1/cmr/m/n/9 ($\OML/cmm/m/it/9 G$\OT1/cmr/m/n/9 
--separated)\OT1/cmr/bx/n/9 . \OT1/cmr/m/it/9 A time se-quence $\OML/cmm/m/it/9 
-T$ \OT1/cmr/m/it/9 is $\OML/cmm/m/it/9 G$\OT1/cmr/m/it/9 -separated
+-connected)\OT1/cmr/bx/n/9 . \OT1/cmr/m/it/9 A time se-quence $\OML/cmm/m/it/9 
+T$ \OT1/cmr/m/it/9 is $\OML/cmm/m/it/9 G$\OT1/cmr/m/it/9 -connected
  []
 
-) (system.tex [3]
-<./charts/system_layout.jpg, id=364, 364.36125pt x 357.58594pt>
-File: ./charts/system_layout.jpg Graphic file (type jpg)
 
-<use ./charts/system_layout.jpg>
-Package pdftex.def Info: ./charts/system_layout.jpg used on input line 26.
-(pdftex.def)             Requested size: 252.0pt x 247.31293pt.
+Overfull \hbox (8.88496pt too wide) in paragraph at lines 81--83
+\OT1/cmr/m/n/9 CAN-NOT RE-DUCE GCMP TO OTHER PAT-TERNS SINCE
+ []
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 26--27
+) (F:\GitHubRepos\TrajectoryPaper\system.tex [3]
+Package epstopdf Info: Source file: <./charts/system_layout.eps>
+(epstopdf)                    date: 2016-05-01 16:49:18
+(epstopdf)                    size: 707105 bytes
+(epstopdf)             Output file: <./charts/system_layout-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2016-05-01 16:49:23
+(epstopdf)                    size: 109063 bytes
+(epstopdf)             Command: <epstopdf --outfile=./charts/system_layout-eps-
+converted-to.pdf ./charts/system_layout.eps>
+(epstopdf)             \includegraphics on input line 35.
+Package epstopdf Info: Output file is already uptodate.
+
+<./charts/system_layout-eps-converted-to.pdf, id=43, 714.67pt x 316.18124pt>
+File: ./charts/system_layout-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./charts/system_layout-eps-converted-to.pdf>
+Package pdftex.def Info: ./charts/system_layout-eps-converted-to.pdf used on in
+put line 35.
+(pdftex.def)             Requested size: 252.0pt x 111.49008pt.
+
+Overfull \hbox (12.0pt too wide) in paragraph at lines 35--36
  [] 
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (24.6863pt too wide) in paragraph at lines 72--74
+Overfull \hbox (24.6863pt too wide) in paragraph at lines 157--159
 \OT1/cmr/m/it/9 For each snap-shot $\OML/cmm/m/it/9 S[]$\OT1/cmr/m/it/9 , a par
 -ti-tion $\OML/cmm/m/it/9 Par[] \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 f\OML/cmm/m/it
 /9 S[]; :::; S[]\OMS/cmsy/m/n/9 g$
  []
 
-[4 <./charts/system_layout.jpg>]
-<./charts/star_partition.jpg, id=369, 523.9575pt x 328.97906pt>
+[4 <F:/GitHubRepos/TrajectoryPaper/charts/system_layout-eps-converted-to.pdf>]
+<./charts/star_partition.jpg, id=114, 523.9575pt x 328.97906pt>
 File: ./charts/star_partition.jpg Graphic file (type jpg)
 
 <use ./charts/star_partition.jpg>
-Package pdftex.def Info: ./charts/star_partition.jpg used on input line 145.
+Package pdftex.def Info: ./charts/star_partition.jpg used on input line 230.
 (pdftex.def)             Requested size: 252.0pt x 158.2244pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 145--146
+Overfull \hbox (12.0pt too wide) in paragraph at lines 230--231
  [][] 
  []
 
-[5 <./charts/star_partition.jpg>]) (optimization.tex
-Overfull \hbox (1.85849pt too wide) in paragraph at lines 210--1
+) (F:\GitHubRepos\TrajectoryPaper\optimization.tex
+Overfull \hbox (1.85849pt too wide) in paragraph at lines 295--1
 \OT1/cmr/m/n/9 There are two ma-jor fac-tors drag-ging the per-for-mance. First
 ,
  []
 
-
-Overfull \hbox (5.25899pt too wide) in paragraph at lines 48--51
+[5 <F:/GitHubRepos/TrajectoryPaper/charts/star_partition.jpg>]
+Overfull \hbox (5.25899pt too wide) in paragraph at lines 49--52
 $\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 ; \OT1/cmr/
 m/n/9 4\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 5\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 6\OML
 /cmm/m/it/9 ; \OT1/cmr/m/n/9 9\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 10\OML/cmm/m/it/
@@ -573,39 +586,40 @@ m/n/9 4\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 5\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 6\OML
 cmr/m/n/9 since $\OML/cmm/m/it/9 T[]\OT1/cmr/m/n/9 [1 :$
  []
 
-[6]) (main.bbl [7]) [8
+[6]) (F:\GitHubRepos\TrajectoryPaper\experiment.tex)
+(F:\GitHubRepos\TrajectoryPaper\conclusion.tex)
+(F:\GitHubRepos\TrajectoryPaper\main.bbl
+Missing character: There is no â in font cmr8!
+Missing character: There is no € in font cmr8!
+Missing character: There is no ” in font cmr8!
+) [7]
+(F:\GitHubRepos\TrajectoryPaper\main.aux)
 
-] (main.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5002 strings out of 493634
- 71741 string characters out of 3146201
- 153570 words of memory out of 3000000
- 8265 multiletter control sequences out of 15000+200000
+ 4957 strings out of 493921
+ 70263 string characters out of 3154491
+ 152465 words of memory out of 3000000
+ 8123 multiletter control sequences out of 15000+200000
  22517 words of font info for 55 fonts, out of 3000000 for 9000
- 1028 hyphenation exceptions out of 8191
- 42i,9n,39p,1147b,391s stack positions out of 5000i,500n,10000p,200000b,50000s
-{E:/Programs/MikTex2.9/fonts/enc/dvips/fontname/8r.enc}<E:/Programs/MikTex2.9
-/fonts/type1/public/amsfonts/cm/cmbx9.pfb><E:/Programs/MikTex2.9/fonts/type1/pu
-blic/amsfonts/cm/cmmi5.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfonts/c
-m/cmmi6.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfonts/cm/cmmi9.pfb><E:
-/Programs/MikTex2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><E:/Programs/MikTex
-2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><E:/Programs/MikTex2.9/fonts/type1/
-public/amsfonts/cm/cmr8.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfonts/
-cm/cmr9.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><E:
-/Programs/MikTex2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><E:/Programs/MikTe
-x2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><E:/Programs/MikTex2.9/fonts/type
-1/public/amsfonts/cm/cmti8.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfon
-ts/cm/cmti9.pfb><E:/Programs/MikTex2.9/fonts/type1/public/amsfonts/symbols/msbm
-10.pfb><E:/Programs/MikTex2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><E:/Programs/
-MikTex2.9/fonts/type1/urw/times/utmb8a.pfb><E:/Programs/MikTex2.9/fonts/type1/u
-rw/times/utmri8a.pfb>
-Output written on main.pdf (8 pages, 815345 bytes).
+ 844 hyphenation exceptions out of 8191
+ 42i,9n,38p,1061b,391s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/MikTex/fonts/enc/dvips/fontname/8r.enc}<D:/MikTex/fonts/type1/public/amsf
+onts/cm/cmbx9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/MikTe
+x/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/MikTex/fonts/type1/public/amsfon
+ts/cm/cmmi9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/MikTex/f
+onts/type1/public/amsfonts/cm/cmr6.pfb><D:/MikTex/fonts/type1/public/amsfonts/c
+m/cmr8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/MikTex/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cm
+sy9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti8.pfb><D:/MikTex/fonts/ty
+pe1/public/amsfonts/cm/cmti9.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols
+/msbm10.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/typ
+e1/urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (7 pages, 439538 bytes).
 PDF statistics:
- 440 PDF objects out of 1000 (max. 8388607)
+ 179 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

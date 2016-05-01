@@ -1,56 +1,98 @@
 \section{Definitions}
 \label{sec:definition}
-Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ denote the set of objects in concern, $\mathbb{T} = \{1,2,...,m\}$ be the descritized sequence of timestamps. We use $T[i]$ to denote the $i^{th}$ entry in a time sequence.
+Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ denote the set of objects in concern. 
+We use $T \subseteq \{1,2,...,m\}$ to denote a descritized sequence of timestamps, where
+$T[i]$ denotes the $i^{th}$ entry in the sequence and $|T|$ is the 
+cardinality of the sequence.
 
-Given a time sequence $T \subseteq \mathbb{T}$, let $|T|$ be the cardinality of the sequence. We say a sequence $T$ is \emph{(fully)consecutive}
-if and only if $\forall T[i] \in T, T[i+1] \in T$, $T[i+1] = T[i] + 1$. A subsequence $T^m$ is \emph{maximally consecutive}~\cite{li2015platoon} wrt. $T$ if and only if $T^m \subseteq T$ and $\nexists T^{m'}, T^m \subseteq T^{m'} \wedge T^{m'} $ is consecutive. For example, let $T=\{1,2,3,5,6\}$, then $T_1=\{1,2,3\}$ and $T_2=\{5,6\}$ are two maximally consecutive subsequences wrt. $T$. We then define the $L$-consecutiveness as follows:
+A time sequence is consecutive if the difference between any of its neighboring entries
+is 1, that is $\forall T[i], T[i+1] \in T, T[i+1] = T[i] + 1$. For any time sequence,
+it can be decomposed into at least one consecutive portion(s). Therefore we can define the 
+$L$-consecutiveness as follows:
+%
+%
+%We say a sequence $T$ is \emph{(fully)consecutive}
+%if and only if $\forall T[i] \in T, T[i+1] \in T$, $T[i+1] = T[i] + 1$. A subsequence $T^m$ is \emph{maximally consecutive}~\cite{li2015platoon} wrt. $T$ if and only if $T^m \subseteq T$ and $\nexists T^{m'}, T^m \subseteq T^{m'} \wedge T^{m'} $ is consecutive. For example, let $T=\{1,2,3,5,6\}$, then $T_1=\{1,2,3\}$ and $T_2=\{5,6\}$ are two maximally consecutive subsequences wrt. $T$. We then define the $L$-consecutiveness as follows:
 
-\begin{definition}[$L$-consecutive]
-A time sequence $T$ is $L$-consecutive iff $\forall$ its maximal consecutive subsequences $T^m$, $|T^m| \geq L$.
+\begin{definition}[$L$-consecutive~\cite{li2015platoon}]
+A time sequence $T$ is $L$-consecutive if each of its consecutive portions 
+has cardinality greater or equal to $L$.
 \end{definition}
 
-Take $T=\{1,2,3,5,6\}$ as an example. $T$ is not $3$-consecutive since $\{5,6\}$ is a maximally consecutive subsequence with cardinality less than $3$. $T$ is $2$-consecutive since both its two maximally consecutive subsequences are of the sizes greater or equal to $2$. It is notable that, for a sequence $T$, all its maximally consecutive subsequences are non-overlapping. 
+Take $T=\{1,2,3,5,6\}$ as an example. $T$ is not $3$-consecutive since $\{5,6\}$ has a cardinality less than $3$. $T$ is $2$-consecutive since both of its consecutive portions are of sizes at least $2$.
+To control the closeness of timestamps, we further define the $G$-connected of a time sequence as follows:
 
-We then define the $G$-separateness as follows:
-
-\begin{definition}[$G$-separated]
-A time sequence $T$ is $G$-separated iff $\forall T[i],T[i+1] \in T, T[i+1]-T[i] \leq G$
+\begin{definition}[$G$-connected]
+A time sequence $T$ is $G$-connected if the gap between any of its neighboring timestamps is no greater than $G$. That is
+ $\forall T[i],T[i+1] \in T, T[i+1]-T[i] \leq G$.
 \end{definition}
 
-Take $T={1,2,3,5,6}$ as an example. $T$ is $2$-separated since the gap between its maximally consecutive subsequnces is $5-3=2$. However, $T$ is not $1$-separated. Indeed, $1$-separated infers that $T$ is fully consecutive.
+Take $T=\{1,2,3,5,6\}$ as an example. $T$ is $2$-connected since the maximum gap between its neighboring time stamps is $5-3=2$. However, $T$ is not $1$-connected. Indeed, $1$-connection infers that $T$ is consecutive.
 
-
-Given a time sequence $t$, objects locations at $t$ collectively forms a \emph{snapshot}\footnote{Missing timestamps can be interpreted using linear interpolation~\cite{jeung2008convoy}}.Objects in a snapshot can thus be clustered based on the
-closeness of their locations. Let $C_t(o_i)$ be the cluster which $o_i$ belongs to at time $t$, we can then define the generalized co-moving pattern as follows:
-
-\begin{definition}[Generalized Co-Movement Pattern]
-A \emph{generalized co-movement pattern} $GCMP(M,K,L,G)= \langle O,T \rangle$ is a pair containing an object set $O\subseteq \mathbb{O}$ and a sequence $T \subseteq \mathbb{T}$, with the following constraints:
-\begin{enumerate}
-\item{Closeness: $\forall o_i,o_j \in O, \forall t \in T, C_t(o_i) = C_t(o_j)$}
-\item{Significance: $|O| \geq M$}
-\item{Duration: $|T| \geq K$}
-\item{Consecutiveness: $T$ is $L$-consecutive}
-\item{Separateness: $T$ is $G$-separated}
-\end{enumerate} 
+Given a timestamp $t$, objects with their locations at $t$ collectively form a \emph{snapshot}\footnote{Missing time stamps can be interpreted using existing methods such as linear interpolation~\cite{jeung2008convoy}.}.Objects in a snapshot can then be clustered based on the
+closeness of their locations. Let $C_t(o_i)$ be the cluster which $o_i$ belongs to at time $t$, a general co-movement pattern can be defined as:
+\begin{definition}[General Co-Movement Pattern]
+A \emph{General co-movement pattern} $GCMP(M,K,L,G)= \langle O,T \rangle$ is a pair containing an object set $O\subseteq \mathbb{O}$ and a time sequence $T$, with the following constraints: (1)Closeness: $\forall o_i,o_j \in O, \forall t \in T, C_t(o_i) = C_t(o_j)$. (2) Significance: $|O| \geq M$. (3) Duration: $|T| \geq K$. (4) Consecutiveness: $T$ is $L$-consecutive, and (5)Connection: $T$ is $G$-connected.
+%\begin{enumerate}
+%\item{Closeness: $\forall o_i,o_j \in O, \forall t \in T, C_t(o_i) = C_t(o_j)$}
+%\item{Significance: $|O| \geq M$}
+%\item{Duration: $|T| \geq K$}
+%\item{Consecutiveness: $T$ is $L$-consecutive}
+%\item{Separateness: $T$ is $G$-separated}
+%\end{enumerate} 
 \end{definition}
 
-The generalized co-movement pattern retains the patterns that discovered by existing techniques (convoy, swarm and platoon). In particular, by setting $G=|T|$, we achieve the \emph{platoon} pattern. By setting $G=|T|,L=1$, we achieve the \emph{swarm} pattern. Finally by setting $G=1$, we achieve the \emph{convoy} pattern. In addition to covering existing patterns, the generalized co-movement pattern avoids the \emph{miss-pattern} problem in \emph{platoon} pattern. As suggested in Figure~\ref{fig:platoon_weakpoint}, $\{100,101\}$ will be included in the platoon pattern, however since they're too far away in temporal domain, this pattern is not prominent. By setting appropriate $G$, we are able to prune these two snapshots. Notice that such a new pattern cannot be modeled by existing patterns.
+The general co-movement pattern retains the patterns that discovered by all 
+existing techniques (group, flock, convoy, swarm and platoon). 
+The relationships between general co-movement pattern and other patterns are summarized in Table~\ref{tbl:patterns}.
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Pattern & $L$ & $G$ & $M$ & $K$ \\ 
+\hline
+Group & $\cdot$ & $|T|$ & $2$ & $1$ \\
+\hline
+Flock & $K$ & 1 & $\cdot$ & $\cdot$ \\
+\hline 
+Convoy & $K$ & $1$ & $\cdot$ & $\cdot$\\ 
+\hline 
+Swarm & $1$ & $|T|$ & $\cdot$ & $\cdot$ \\ 
+\hline 
+Platoon & $\cdot$ & $|T|$ & $\cdot$ & $\cdot$\\ 
+\hline 
+\end{tabular} 
+\caption{Representing other patterns using GCMP. $\cdot$ means user specified value.}
+\label{tbl:patterns}
+\end{table}
+
+In particular, by setting $G=|T|$, we achieve the \emph{platoon} pattern. By setting $G=|T|,L=1$, we achieve the \emph{swarm} pattern. By setting $G=|T|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we achieve the \emph{convoy} and \emph{flock} pattern. 
+In addition to covering existing patterns, the general co-movement pattern avoids the \emph{loose connection} problem in \emph{platoon} pattern. As suggested previously, $\{1,2, 100,101\}$ will be included in the platoon pattern, however since they're too far away, this pattern is not prominent. By setting appropriate $G$, we are able to prune this anomaly. It is notable that GCMP is not able to be modeled by existing patterns.
  
-It is notable that the number of patterns in GCMP is exponential. To control the number of output patterns, we noticed that, for two pattern result $P_1,P_2$, if $P_1.O \subseteq P_2.O$ and $P_2$ is a proper pattern, then $P_1$ is also a proper pattern. Based on this observation, we define the \emph{closed generalized co-movement pattern} as follows:
-\begin{definition}[Closed Generalized Co-moving Pattern]
-A generalized co-moving pattern $P=\langle O, T \rangle$ is a closed generalized co-moving pattern if and only if there does not exists another generalized co-moving pattern $P'$ s.t. $P'.O \supseteq P.O$.
+It is also observable that the number of patterns in GCMP is exponential. To control the size of output, 
+we notice that, for two patterns $P_1,P_2$, if $P_1.O \subseteq P_2.O$ and $P_2$ is a proper pattern, then $P_1$ is also a proper pattern. Therefore, we can define the \emph{Closed General Co-Movement Pattern} as follows:
+
+\begin{definition}[Closed General Co-Movement Pattern]
+A general co-moving pattern $P=\langle O, T \rangle$ is closed if and only if there does not exist another general co-moving pattern $P'$ s.t. $P.O \subseteq P'.O$.
 \end{definition}
-For example, let $n=2,k=2,l=1,g=1$, the pattern $\{o_1,o_2\}\{1,2,3,4\}$ is not a closed pattern, while $\{o_1,o_2,o_3\}$ $\{1,2,3,4\}$ is a closed pattern.The closed pattern avoids to output duplicate information, thus making the result patterns more compact. 
+
+For example, let $n=2,k=2,l=1,g=1$, the pattern $\{o_1,o_2\}\{1,2,3,4\}$ is not a closed pattern, while $\{o_1,o_2,o_3\}$ $\{1,2,3,4\}$ is a closed pattern. The closed pattern avoids outputting duplicate information, thus making the result patterns more compact. 
+
+LETS KEEP THE CLOSENESS INFORMATION AT THE MOMENT. IF NO CLOSENESS IS DEFINED, WE CANNOT REDUCE GCMP TO OTHER PATTERNS SINCE THOSE PATTERNS ARE ALL DEFINED AS ``CLOSED''
 %For example, let $n=2,k=2,l=1,g=1$, the pattern $\{o_3,o_4\} \{1,2,3\}$ in Figure~\ref{fig:related_work} is not a closed pattern, while $\{o_3, o_4\} \{t_1,t_2,t_3\}$ is a closed pattern. 
 
-Although the generalized co-moving pattern is free from the clustering methods used at each snapshot, as suggested in~\cite{jeung2008convoy}, the \emph{density}-based clustering method is better in detecting objects with arbitrary spatio-shaped clusters. Therefore in this paper, we mainly consider density-based clustering.
+%Although the general co-moving pattern is free from the clustering methods used at each snapshot, as suggested in~\cite{jeung2008convoy}, the \emph{density}-based clustering method is better in detecting object clusters with arbitrary spatio-shapes. Therefore in this paper, we mainly consider density-based clustering.
+Our definition of GCMP is free from clustering method. Users are able to supply different clustering method to facilitate different needs. We currently expose both disk-region based clustering and DBSCAN as APIs to the user.
 
-The goal of this paper is to present a parallel solution for discovering GCMP from large-scale trajectory data.
+In summary, the goal of this paper is to present a parallel solution for discovering closed GCMP from large-scale trajectory data.
 
 Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
-\begin{table}
-\begin{tabular}{|c|c|}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|} 
+\hline
+Symbols & Meanings \\
 \hline 
 $Tr_i$ & Trajectory of object $i$\\ 
 \hline
@@ -58,7 +100,7 @@ $S_t$ & Snapshot of objects at time $t$ \\
 \hline 
 $\mathbb{O}$ & Set of objects \\ 
 \hline 
-$\mathbb{T}$ & Global time sequence \\
+$T$ & Time sequence \\
 \hline
 $C_t(o)$ & the cluster of object $o$ at time $t$ \\
 \hline 
