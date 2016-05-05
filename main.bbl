@@ -71,4 +71,9 @@ D.~H. Douglas and T.~K. Peucker, ``Algorithms for the reduction of the number
   Geovisualization}, vol.~10, no.~2, pp.~112--122, 1973.
 \newblock doi:10.3138/FM57-6770-U75U-7727.
 
+\bibitem{dean2008mapreduce}
+J.~Dean and S.~Ghemawat, ``Mapreduce: simplified data processing on large
+  clusters,'' {\em Communications of the ACM}, vol.~51, no.~1, pp.~107--113,
+  2008.
+
 \end{thebibliography}
