@@ -1,5 +1,3 @@
-
-
 \section{Introduction}
 The prevalence of positioning devices has drastically boosted 
 the scale and spectrum of trajectory collection to an unprecedented level. 
@@ -13,26 +11,24 @@ including traffic planning~\cite{zheng2011urban}, animal analysis~\cite{li2010mi
 A crucial task of data analysis on top of trajectories is 
 to discover co-moving patterns. A \emph{co-movement} pattern~\cite{li2013managing} 
 refers to a group of objects traveling together for a certain period of time 
-and the group is normally determined by spatial proximity. 
+and the group is normally determined according to spatial proximity. 
 A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such basic definition 
 and driven by different mining applications, there are a bunch of variants 
-of co-movement patterns that have been developed with more advanced constraints.
+of co-moving patterns that have been developed with more advanced constraints.
 
 Table~\ref{tbl:existing_co_patterns} summarizes several popular co-moving patterns 
-with different constraints in the attributes of clustering in spatial proximity,
-consecutiveness in temporal duration and computational complexity. 
+with different constraints in the attributes of clustering method and length of temporal duration. 
 In particular,  the \emph{flock}~\cite{gudmundsson2006flock} 
 and \emph{group}~\cite{wang2006grouppattern} patterns require 
 all the objects in a group to be enclosed by a disk with radius $r$; 
 whereas the \emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} 
-and \emph{platoon}~\cite{li2015platoon} patterns resort to density-based 
-spatial clustering. 
+and \emph{platoon}~\cite{li2015platoon} patterns adopt density-based 
+spatial clustering in determining groups. 
 In the temporal dimension, \emph{flock}~\cite{gudmundsson2006flock} 
 and \emph{convoy}~\cite{jeung2008convoy} require all the timestamps 
-of each detected spatial group to be consecutive, which is referred to as \emph{global consecutiveness}; 
+of each detected spatial group to be consecutive, which was referred to as \emph{global consecutiveness}; 
 whereas \emph{swarm}~\cite{li2010swarm} does not impose any restriction. 
-The \emph{group}~\cite{wang2006grouppattern} and \emph{platoon}~\cite{li2015platoon} adopt a compromised manner by allowing
-arbitrary gaps between the consecutive segments, which is called \emph{local consecutiveness}. 
+The \emph{group}~\cite{wang2006grouppattern} and \emph{platoon}~\cite{li2015platoon} use a compromised manner and allow gaps between the consecutive segments, which was referred to as \emph{local consecutiveness}. 
 They introduce a parameter $L$ to control the minimum length of each local consecutive segment.
 
 
@@ -48,20 +44,20 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline 
- & Proximity & Consecutiveness &  Time Complexity\\ 
+ & Spatial Proximity & Consecutiveness &  Time Complexity\\ 
 \hline 
 flock~\cite{gudmundsson2004flock} & disk-based &  global & $O(|\mathbb{O}||\mathbb{T}|^2 + |\mathbb{O}|log(|\mathbb{O}|))$ \\ 
 \hline 
-convoy~\cite{jeung2008convoy} & density-based &   global & $O(|\mathbb{O}|^2+|\mathbb{O}||\mathbb{T}|)$\\ 
+convoy~\cite{jeung2008convoy} & density-based &   global & $O(|T|^2+|\mathbb{O}||\mathbb{T}|)$\\ 
 \hline 
 group~\cite{wang2006grouppattern} & disk-based &  local & $O(|\mathbb{O}|^2|\mathbb{T}|)$ \\ 
 \hline 
-platoon~\cite{li2015platoon} & density-based &  local & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$\\ 
-\hline 
 swarm~\cite{li2010swarm} & density-based  & no constraint & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$  \\ 
 \hline 
+platoon~\cite{li2015platoon} & density-based &  local & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$\\ 
+\hline 
 \end{tabular} 
-\caption{Constraints and complexity of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects and $|\mathbb{T}|$ is the number of descritized timestamps.}
+\caption{Existing co-movement patterns. The time complexity stated are based on worst case analysis, where $|\mathbb{O}|$ is the total number of objects, $|\mathbb{T}|$ is the total number of timestamps.}
 \label{tbl:existing_co_patterns}
 \end{table}
 
@@ -82,32 +78,15 @@ clusters of objects in each snapshots are denoted using dotted circles.}
 %%We first provide a synthetic example to better illustrate these patterns in Figure~\ref{fig:related_work}, and the formal definitions are described in Section~\ref{sec:definition}.
 %UPDATE THE FIGURE TO CONTAIN SIX SNAPSHOTS. USE A NEW REPRESENTATION OF THE PATTERN. I DON'T LIKE $\{o_1,o_2\}\{1,2,3\}$. USE ONE PAIR OF $\{\}$ ONLY.
 
-To better compare and contrast these patterns, we illustrate them using six example
-trajectories in Figure~\ref{fig:related_work}.
-In the setting, the temporal dimension  is discretized into six snapshots. In each snapshot, objects are clustered as shown in the dotted circles. 
-First, if the \emph{global consecutiveness} is enforced, we discover one \emph{flock} pattern
-and one \emph{convoy} pattern (i.e., both correspond to $\{o_3,o_4:1,2,3\}$). This is because $\{o_3,o_4\}$ is the only group appears
-in three consecutive timestamps. Then, if a more relaxed \emph{local consecutive pattern} is  
-required, we discover three \emph{group} pattern and three \emph{platoon} pattern. 
-
-
-
 We illustrate these co-movement patterns in Figure~\ref{fig:related_work} with an example of six trajectories.
 The temporal dimension is discretized into six snapshots. 
 In each snapshot, the objects are clustered as shown in the dotted circle.
-By setting $M=2, K=3$, we are able to discover \emph{convoy}, \emph{flock}, and \emph{swarm} patterns. 
-\emph{Convoy} pattern finds the objects that travels in consecutive timestamps. Only one object group $\{o_3,o_4\}$
-matches the criteria with the timestamps $\{1,2,3\}$. Since the example treats the clusters as given, \emph{flock}
-shares the same pattern result \emph{convoy}.  When the consecutiveness constraint is relax, we discover more patterns.
-By setting $L = 2$, we find three \emph{group} patterns. For example $\{o_1,o_2\}$ forms a \emph{group} pattern
-since they appear together in $\{1,2,4,5\}$, where the local consecutiveness of size $2$ ($L = 2$) is met.
-
-
-
-It is worth noting that \emph{convoy} and \emph{flock} have the same result pattern because both patterns share 
-the same constraints on the time duration. I DON'T UNDERSTAND WHY YOU EMPHASIZE THIS. WHEN WILL THEY BE DIFFERENT?
-The groups detected by \emph{Swarm} are superset of \emph{convoy} and \emph{flock} patterns, as \emph{Swarm} imposes no constraint on temporal consecutiveness. By setting $L=2$, we find three \emph{group} patterns. 
-If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observable that the pattern $\{o_5,o_6:1,4,5\} \rangle$ is a \emph{swarm} but is neither a \emph{platoon} nor a \emph{group} since one of its local consecutive duration (i.e. $\{1\}$) is less than $2$. However, $\{o_5,o_6:1,4,5\} \rangle$ can be reduced to $\langle\{o_5,o_6:4,5\} \rangle$ which is a \emph{group} pattern because \emph{group} pattern only restricts the local consecutiveness but not the total size of a duration. TOO UGLY! NEED TO EXPLAIN THE FIGURE BASED ON TABLE $1$. AT LEAST READERS CAN HAVE A ROUGH IDEA HOW YOU OBTAIN THE RESULT GROUPS.
+By setting the parameters $M=2, K=3$, we are able to discover \emph{convoy}, \emph{flock}, and \emph{swarm} patterns. 
+It is notable that \emph{convoy} and \emph{flock} have the same result pattern, this is because both patterns share 
+the same constraints on the time duration. 
+\emph{Swarm} pattern results in a super set of \emph{convoy} and \emph{flock} patterns, as it 
+does not require any consecutiveness on the time duration. By setting $L=2$, we find three \emph{group} patterns. 
+If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observable that the pattern $\{o_5,o_6:1,4,5\} \rangle$ is a \emph{swarm} but is neither a \emph{platoon} nor a \emph{group} since one of its local consecutive duration (i.e. $\{1\}$) is less than $2$. However, $\{o_5,o_6:1,4,5\} \rangle$ can be reduced to $\langle\{o_5,o_6:4,5\} \rangle$ which is a \emph{group} pattern because \emph{group} pattern only restricts the local consecutiveness but not the total size of a duration. 
 
 % we achieve two \emph{platoon} patterns.
 % 
@@ -137,13 +116,14 @@ If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observabl
 
 %In this paper, our primary objectives are solving two 
 
-As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. Hence, there is a particular demand for a general platform to support all these co-movement patterns. The other issue with existing methods is that they are built on top of centralized indexes that are not scalable. To the best of our knowledge, the maximum number of trajectories ever evaluated is up to hundreds of thousands of trajectories. In practice, it is rather common to collect at least millions of trajectories and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns} as well as an experimental evaluation with million-scale cardinality of a trajectory database (as shown in Figure~\ref{}). Results show that their performances degrade dramatically as the dataset size scales up and none of the existing solutions is scalable to handle large-scale trajectories.
-%In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
-%complexities of \emph{swarm} and \emph{platoon} are already exponential. 
-%Therefore, none of them can handle millions of trajectories efficiently. 
+As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. Hence, there is a particular demand for a general platform to support all these co-movement patterns. The other issue with existing methods is that they are built on top of centralized indexes that are not scalable. To the best of our knowledge, the maximum number of trajectories ever evaluated is up to hundreds of thousands of trajectories. In practice, it is rather common to collect at least millions of trajectories and their scalability is left unknown. We, for the first time, evaluate the pattern mining performance at the million scale and report the performance in Figure~\ref{}. The results show that their performances degrade dramatically as the dataset size scales up. In fact, as shown in Table~\ref{tbl:existing_co_patterns}, the mining of co-movement patterns require high complexity. For instance, the
+complexities of \emph{swarm} and \emph{platoon} are already exponential. 
+Therefore, none of them can handle millions of trajectories efficiently. 
 %CAN YOU ANALYSE THEIR COMPLEXITY TO ADDRESS THE PROBLEM OF SCALABILITY.
 
-Therefore, our primary contributions in this paper are to close these two gaps. First, we propose a general co-movement pattern definition to incorporate all the related variants in the existing literature. We observe that even though \emph{platoon} is the most general pattern ever proposed, it suffers from the \emph{loose connection} problem, which refers to groups loosely connected in the temporal dimension. For example, in Figure~\ref{fig:platoon_weakpoint}, two objects $o_1, o_2$ 
+Therefore, our primary contributions in this paper are to close these two gaps. First, we propose a general co-movement pattern definition to incorporate all the related variants in the existing literature. We observe that even though \emph{platoon} is the most general pattern among existing patterns, it suffers from \emph{loose connection} problem. 
+The \emph{loose connection} problem refers to the patterns that discovered 
+are loosely-connected in the temporal domain. For example, in Figure~\ref{fig:platoon_weakpoint}, two objects $o_1, o_2$ 
 would form a \emph{platoon} pattern $\{o_1,o_2:1,2,3, 102,103,104\}$. However, the consecutive segment on the pattern's 
 duration is $98$ timestamps apart, making the co-movement behavior very weak.
 %
@@ -192,9 +172,8 @@ Apache Spark which is one of the most popular MapReduce platforms.
 %belonging clusters. Based on the star partition, we then propose a series of optimization techniques which
 %largely improve the system performance. NEED TO EMPHASIZE YOUR TECHNICAL CONTRIBUTION!
 
-We conduct a set of extensive experiments on XXX datasets with million-scale trajectories. The results show that XXX.
+Third, we conduct a set of extensive experiments on XXX datasets with million-scale trajectories. The results show that XXX.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
 trajectory pattern mining; Section~\ref{sec:definition} forms the definition of the general co-movement pattern mining; Section~\ref{sec:system_overview} presents our parallel architecture; The solution of mining the general co-movement pattern mining is presented in Section~\ref{sec:trm_solution} and Section~\ref{sec:spm_solution}. Section~\ref{sec:optimization} discuss various optimization techniques to boost the system performance; Section~\ref{sec:experiment} conducts extensive experiments to showcase the usefulness and efficiency of our system and finally Section~\ref{sec:conclusion} concludes our paper.
-
 
