@@ -2,7 +2,7 @@
 \label{sec:system_overview}
 We adapt the MapReduce paradigm for designing
 a parallel solution of mining GCMP. In this section,
-we briefly cover the preliminary on MapReduce and then describe
+we briefly describe the preliminaries on MapReduce and then describe
 the overview of our framework in mining GCMP.
 
 \subsection{Preliminary on MapReduce}
@@ -15,17 +15,17 @@ used as large-scale data processing platforms.
 %in backends. Such systems include Hadoop, Shark and Spark to name a few.
 In simple words, there are two conceptual types of computing nodes in MR,
 namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
-algorithm consists of three stages: First, input data
-are partitioned and read by a \emph{map} function on each mapper. Then, mappers
-emit key-value pairs which are \emph{shuffle}d over the network to reducers. Finally,
-reducers process received data using a \emph{reduce} function then write the
+algorithm consists of two stages: First, input data
+are partitioned and read by a \emph{map} function on each mapper. Mappers
+emit key-value pairs which are \emph{shuffle}d over the network to reducers. Second,
+reducers process the received data using a \emph{reduce} function then write the
 outputs. 
 
 Despite the simpleness of the paradigm, there are two concerns raised in designing MR algorithms
-First, since it requires reducers to be independent, partitioning  
+First, since reducers are required to be independent, partitioning  
 data to fit the independence could be challenging. Second, since the \emph{shuffle}
 stage requires network access, the data been shuffled should be minimized. 
-We take these concerns in consideration in designing our solutions for mining GCMP.
+We take these concerns in consideration when designing our solutions for mining GCMP.
 %We would bare this concerns in designing our GCMP mining algorithm.
 %a natural
 %problem is how to partition the data in map and shuffle phase so that reducers 
@@ -40,14 +40,14 @@ We take these concerns in consideration in designing our solutions for mining GC
 %to minimize the shuffle amounts and shuffle counts. 
 
 \subsection{MapReduce Processing for Mining GCMP}
-Our GCMP mining process consists of two MR jobs. The two jobs
-contains four MR stages as illustrated in Figure~\ref{fig:overview}.
+Our GCMP mining process consists of two MR jobs, which are further
+divided into four MR stages as illustrated in Figure~\ref{fig:overview}.
 The first MR job is to cluster objects at each snapshot (i.e.,
-computing $\forall t, o, C_t(o)$). As shown in Figures~\ref{fig:overview}(a)-(b),
-trajectories are first reorganized by timestamps in map phase and object locations
-at the same timestamps form a cluster. The clustering takes place in reduce phase, where
-each snapshot is processed independently. The second MR job is to mine GCMPs from 
-clusters at each snapshot. We design two MR algorithms (i.e., TRM and SPM) for 
+ $\forall t, o,$ compute $C_t(o)$). As shown in Figures~\ref{fig:overview}(a)-(b),
+in map phase, trajectories are first reorganized by timestamps and object locations
+at the same timestamps form a cluster. In reduce phase, clustering of objects at each
+snapshot is processed independently. The second MR job is to mine GCMPs from 
+clusters in each snapshot. We design two MR algorithms (i.e., TRM and SPM) for 
 the purpose of comparison. Both the two algorithms would partition snapshots in map phase
 (as in Figure~\ref{fig:overview}(c))
 and mine GCMPs from each partition in reduce phase(as in Figure~\ref{fig:overview}(d)).
@@ -69,9 +69,9 @@ and mine GCMPs from each partition in reduce phase(as in Figure~\ref{fig:overvie
 Although we need two MR jobs to complete the GCMP mining task, 
 it is easy to pipeline the two jobs to exploit data locality.
 Specifically, the reducer output at step (b) can be directly reused 
-as the input to mappers at step (c). Therefore we do not need to 
-transfer data from (b) to (c). Modern MR platforms, especially Spark, have
-already supported such a kind of pipeline.
+as the input to the mappers at step (c). Therefore we do not need to 
+transfer data between the two jobs. Modern MR platforms, especially Spark, have
+already supported such a kind of pipeline by default.
 
 \begin{figure} [t]
 \center
@@ -84,18 +84,18 @@ already supported such a kind of pipeline.
 We note that the first MR job is easy to design since each reducer only
 needs one snapshot for clustering.
 In contrast, it is challenging to design the second job. 
-This is because valid patterns may spray across multiple snapshots, where inappropriate partitioning
+This is because valid patterns may spray across multiple snapshots or contain different object sets, where inappropriate partitioning
 of snapshots may fail to discover certain valid patterns.
-Formally, a reasonable partition strategy 
+Formally, a valid partition strategy 
 needs to meet the following requirements: (a) the resulted partitions need
 to preserve enough information so that real patterns can be discovered in the reduce phase. 
 (b) the resulted partitions need to ensure that
 the patterns discovered in the reduce phase are valid patterns so that
-no further verification is required. We formalize the two 
+no further verification is required. We formalize these two 
 properties as \emph{completeness} and \emph{soundness} as follows:
 
 \begin{definition}[Completeness and Soundness]
-Let a partition method $\mathbb{P}$ partitions original trajectories $Tr$ into multiple parts, $Par_1,...,Par_m$. $\mathbb{P}$ is complete if for every pattern $P$ that is valid in $Tr$, $\exists Par_i$ such that $P$ is valid in $Par_i$. $\mathbb{P}$ is sound if for all patterns $P$ that is valid in any $Par_i$, it is also valid in $TR$.
+Let a partition method $\mathbb{P}$ partitions original trajectories $Tr$ into multiple parts, $Par_1,...,Par_m$. $\mathbb{P}$ is complete if for every pattern $P$ that is valid in $Tr$, $\exists Par_i$ s.t. $P$ is valid in $Par_i$. $\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $TR$.
 \end{definition}
 The completeness ensures that no true patterns are missed out. 
 The soundness ensures that no false patterns are reported. 

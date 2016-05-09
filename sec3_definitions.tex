@@ -71,17 +71,21 @@ object \emph{size} constraints. $K$ represents \emph{duration} constraint. $L$ r
 \label{tbl:patterns}
 \end{table}
  
-It is also observable that the number of patterns in GCMP is exponential. To reduce the size of output, 
-we notice that, for two patterns $P_1,P_2$, if $P_1.O \subseteq P_2.O$ and $P_2$ is a proper pattern, then $P_1$ is also a proper pattern. Therefore, we can define the \emph{Closed General Co-Movement Pattern} as follows:
+It is also observable that the number of patterns in GCMP could be exponential under some parameter settings (i.e., 
+when expressing \emph{swarm}). In particular, given a parameter $M$, if a pattern $P$ is valid, then any subset of $P$ with 
+size $M$ is also a valid pattern. This results in additional $\Sigma_{M\geq i \geq |P.O|} {|P.O| \choose i}$ patterns,
+which is clearly overwhelming and redundant. For all these patterns, output $P$ is sufficient. Therefore, we define the \emph{Closed General Co-Movement Pattern} as follows:
+%
+%To reduce the size of output, 
+%we notice that, for two patterns $P_1,P_2$, if $P_1.O \subseteq P_2.O$ and $P_2$ is a proper pattern, then $P_1$ is also a proper pattern. 
 
 \begin{definition}[Closed General Co-Movement Pattern]
 A general co-moving pattern $P=\langle O:T \rangle$ is closed if and only if there does not exist another general co-moving pattern $P'$ s.t. $P.O \subseteq P'.O$.
 \end{definition}
 
 For example, let $M=2,K=2,,L=1,G=1$. In Figure~\ref{fig:related_work},
-the pattern $P_1 = \{o_3,o_4:1,2,3\}$ is not a closed pattern. This is because $P_2=\{o_3,o_4,o_5:2,3\}$ is a closed pattern and $P_2.O \supset P_1.O$. The closed pattern avoids outputting duplicate information, thus making the result patterns more compact. 
-
-LETS KEEP THE CLOSED INFORMATION AT THE MOMENT. IF NO CLOSED IS DEFINED, WE CANNOT REDUCE GCMP TO OTHER PATTERNS SINCE THOSE PATTERNS ARE ALL DEFINED AS ``CLOSED''
+the pattern $P_1 = \{o_3,o_4:1,2,3\}$ is not a closed pattern. This is because $P_2=\{o_3,o_4,o_5:2,3\}$ is a closed pattern since $P_2.O \supset P_1.O$. The closed pattern avoids outputting duplicate information, thus making the result patterns more compact. 
+%LETS KEEP THE CLOSED INFORMATION AT THE MOMENT. IF NO CLOSED IS DEFINED, WE CANNOT REDUCE GCMP TO OTHER PATTERNS SINCE THOSE PATTERNS ARE ALL DEFINED AS ``CLOSED''
 %For example, let $n=2,k=2,l=1,g=1$, the pattern $\{o_3,o_4\} \{1,2,3\}$ in Figure~\ref{fig:related_work} is not a closed pattern, while $\{o_3, o_4\} \{t_1,t_2,t_3\}$ is a closed pattern. 
 
 %Although the general co-moving pattern is free from the clustering methods used at each snapshot, as suggested in~\cite{jeung2008convoy}, the \emph{density}-based clustering method is better in detecting object clusters with arbitrary spatio-shapes. Therefore in this paper, we mainly consider density-based clustering.
@@ -103,10 +107,10 @@ $Tr_i$ & Trajectory of object $i$\\
 $S_t$ & Snapshot of objects at time $t$ \\
 \hline 
 $\mathbb{O}$ & Set of objects \\ 
-\hline 
-$K$ & Duration constraint\\
 \hline
 $M$ & Object size constraint \\
+\hline 
+$K$ & Duration constraint\\
 \hline
 $L$ & Consecutiveness constraint\\
 \hline

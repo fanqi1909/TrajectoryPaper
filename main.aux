@@ -22,37 +22,39 @@
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Constraints and complexity of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb  {O}|$ is the total number of objects and $|\mathbb  {T}|$ is the number of descritized timestamps.\relax }}{1}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{tbl:existing_co_patterns}{{1}{1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. The clusters of objects in each snapshots are denoted using dotted circles.\relax }}{1}}
-\newlabel{fig:related_work}{{1}{1}}
+\citation{li2010swarm}
+\citation{li2015platoon}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. The clusters of objects in each snapshots are denoted using dotted circles. Each type of pattern has its parameters. $M$ denotes the minimum size of objects. $K$ denotes the minimum size of timestamps. $L$ denotes the minimum size of locally consecutive timestamps.\relax }}{2}}
+\newlabel{fig:related_work}{{1}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Two anomalies in existing patterns. (a) \emph  {Missing-pattern} anomaly in \emph  {flock} and \emph  {convoy}. When $K=4$, none of the two patterns can be discovered. (b) \emph  {Loose-connection} anomaly in \emph  {platoon} and \emph  {swarm}. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.\relax }}{2}}
+\newlabel{fig:platoon_weakpoint}{{2}{2}}
 \citation{wang2006grouppattern}
 \citation{gudmundsson2004flock}
 \citation{jeung2008convoy}
 \citation{li2010swarm}
 \citation{li2015platoon}
 \citation{zheng2015survey}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Loosely connected pattern in platoon and swarm. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.\relax }}{2}}
-\newlabel{fig:platoon_weakpoint}{{2}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Works}{2}}
-\newlabel{sec:related_works}{{2}{2}}
 \citation{birant2007st}
 \citation{laube2005finding}
 \citation{douglas1973trajectorysimplification}
 \citation{li2015platoon}
 \citation{li2015platoon}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Works}{3}}
+\newlabel{sec:related_works}{{2}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Flock and Convoy}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Group, Swarm and Platoon}{3}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Definitions}{3}}
 \newlabel{sec:definition}{{3}{3}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicate a user specified value. $M$ represents the object \emph  {size} constraints. $K$ represents \emph  {duration} constraint. $L$ represents \emph  {consecutiveness} constraint. $G$ represents the \emph  {connection} constraints.\relax }}{3}}
-\newlabel{tbl:patterns}{{2}{3}}
 \citation{dean2008mapreduce}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Notions that will be used\relax }}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicate a user specified value. $M$ represents the object \emph  {size} constraints. $K$ represents \emph  {duration} constraint. $L$ represents \emph  {consecutiveness} constraint. $G$ represents the \emph  {connection} constraints.\relax }}{4}}
+\newlabel{tbl:patterns}{{2}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Overview of Mining GCMP in Parallel}{4}}
 \newlabel{sec:system_overview}{{4}{4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preliminary on MapReduce}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces System flow of mining GCMP. (a)(b) correspond to the first MR job which compute the clusters at each snapshot; (c)(d) correspond to the second MR jobs which mines GCMP in parrallel.\relax }}{4}}
-\newlabel{fig:overview}{{3}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Notions that will be used\relax }}{4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}MapReduce Processing for Mining GCMP}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces System flow of mining GCMP. (a)(b) correspond to the first MR job which compute the clusters at each snapshot; (c)(d) correspond to the second MR jobs which mines GCMP in parrallel.\relax }}{5}}
+\newlabel{fig:overview}{{3}{5}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Temporal Replication and Mining}{5}}
 \newlabel{sec:trm_solution}{{5}{5}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Temporal Replication and Mining\relax }}{5}}
@@ -66,19 +68,18 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.0.1}Temporal Replication Partition}{5}}
 \newlabel{thm:replication_partition}{{1}{5}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.0.2}Line Sweep Mining}{5}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Line Sweep Mining\relax }}{5}}
-\newlabel{algo:line-sweep}{{2}{5}}
-\newlabel{code:ls-can-set}{{1}{5}}
-\newlabel{code:ls-init-start}{{2}{5}}
-\newlabel{code:ls-init-end}{{4}{5}}
-\newlabel{code:ls-join}{{6}{5}}
-\newlabel{code:ls-add}{{8}{5}}
-\newlabel{code:ls-remove}{{11}{5}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Line Sweep Mining\relax }}{6}}
+\newlabel{algo:line-sweep}{{2}{6}}
+\newlabel{code:ls-can-set}{{1}{6}}
+\newlabel{code:ls-init-start}{{2}{6}}
+\newlabel{code:ls-init-end}{{4}{6}}
+\newlabel{code:ls-join}{{6}{6}}
+\newlabel{code:ls-add}{{8}{6}}
+\newlabel{code:ls-remove}{{11}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of trajectory replication and mining\relax }}{6}}
 \newlabel{fig:trm_process}{{4}{6}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Star Partition and Mining}{6}}
 \newlabel{sec:spm_solution}{{6}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.0.3}Star Partition}{6}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Star Partition and Mining\relax }}{6}}
 \newlabel{algo:spm_overview}{{3}{6}}
 \newlabel{code:spm-map-start}{{1}{6}}
@@ -88,6 +89,7 @@
 \newlabel{code:spm-shuffle-end}{{12}{6}}
 \newlabel{code:spm-reduce-start}{{13}{6}}
 \newlabel{code:spm-reduce-end}{{16}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.0.3}Star Partition}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and mining of trajectories in Figure\nobreakspace  {}1\hbox {}\relax }}{7}}
 \newlabel{fig:star_partition}{{5}{7}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.0.4}Apriori Mining}{7}}
@@ -95,9 +97,19 @@
 \newlabel{algo:apriori_mining}{{4}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Optimization}{7}}
 \newlabel{sec:optimization}{{7}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Edge Simplification}{7}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Edge Simplification}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Candidate Pruning via Temporal Monotonicity}{8}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Edge Simplification\relax }}{8}}
+\newlabel{algo:simp_prune}{{5}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Load Balancing}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Duplication Detection}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Handling Overlapping Clusters}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Experimental Study}{8}}
+\newlabel{sec:experiment}{{8}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion and Future Work}{8}}
+\newlabel{sec:conclusion}{{9}{8}}
 \bibcite{zheng2011urban}{1}
 \bibcite{li2010miningperiodic}{2}
 \bibcite{bao2013survey}{3}
@@ -107,19 +119,10 @@
 \bibcite{jeung2008convoy}{7}
 \bibcite{li2010swarm}{8}
 \bibcite{li2015platoon}{9}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Edge Simplification\relax }}{8}}
-\newlabel{algo:simp_prune}{{5}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Candidate Pruning via Temporal Monotonicity}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Load Balancing}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Duplication Detection}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Experimental Study}{8}}
-\newlabel{sec:experiment}{{8}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion and Future Work}{8}}
-\newlabel{sec:conclusion}{{9}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}References}{8}}
 \bibcite{gudmundsson2004flock}{10}
 \bibcite{zheng2015survey}{11}
 \bibcite{birant2007st}{12}
 \bibcite{laube2005finding}{13}
 \bibcite{douglas1973trajectorysimplification}{14}
 \bibcite{dean2008mapreduce}{15}
+\@writefile{toc}{\contentsline {section}{\numberline {10}References}{9}}

@@ -75,39 +75,50 @@ swarm~\cite{li2010swarm} & density-based  & no constraint & $O(2^{|\mathbb{O}|}|
 \centering
 \includegraphics[width=0.45\textwidth]{related_work.eps}
 \caption{Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. The
-clusters of objects in each snapshots are denoted using dotted circles.}
+clusters of objects in each snapshots are denoted using dotted circles. Each type of pattern has its parameters. 
+$M$ denotes the minimum size of objects.
+$K$ denotes the minimum size of timestamps.
+$L$ denotes the minimum size of locally consecutive timestamps.}
 \label{fig:related_work}
 \end{figure}
 
 %%We first provide a synthetic example to better illustrate these patterns in Figure~\ref{fig:related_work}, and the formal definitions are described in Section~\ref{sec:definition}.
 %UPDATE THE FIGURE TO CONTAIN SIX SNAPSHOTS. USE A NEW REPRESENTATION OF THE PATTERN. I DON'T LIKE $\{o_1,o_2\}\{1,2,3\}$. USE ONE PAIR OF $\{\}$ ONLY.
 
-To better compare and contrast these patterns, we illustrate them using six example
-trajectories in Figure~\ref{fig:related_work}.
-In the setting, the temporal dimension  is discretized into six snapshots. In each snapshot, objects are clustered as shown in the dotted circles. 
-First, if the \emph{global consecutiveness} is enforced, we discover one \emph{flock} pattern
-and one \emph{convoy} pattern (i.e., both correspond to $\{o_3,o_4:1,2,3\}$). This is because $\{o_3,o_4\}$ is the only group appears
-in three consecutive timestamps. Then, if a more relaxed \emph{local consecutive pattern} is  
-required, we discover three \emph{group} pattern and three \emph{platoon} pattern. 
+To better illustrate the temporal constraints of these 
+co-movement patterns, we design a scenario with six example trajectories in Figure~\ref{fig:related_work}.
+In the setting, the temporal dimension  is discretized into six snapshots. 
+In each snapshot, objects are clustered as shown in the dotted circles. We use $M$ to denote
+the minimum size of a object group, $K$ to denote the minimum number 
+of timestamps in a duration, $L$ to denote the minimum size of local-consecutive segments in a duration.
+
+\noindent\textbf{Global consecutiveness}: \emph{Flock} and \emph{convoy} patterns enforce the pattern duration to be \emph{global consecutive}. We discover one \emph{flock} and one \emph{convoy} pattern, which both correspond to $\{o_3,o_4:1,2,3\}$. It can be verified that no other object groups appears in more than three consecutive timestamps. 
+
+\noindent\textbf{Local consecutiveness}: \emph{Group} and \emph{platoon} patterns require the duration to be \emph{locally consecutive}. When setting $L = 2$,
+we observe three \emph{group} patterns and three \emph{platoon} patterns. Specifically, \emph{group} aims to find the
+pattern with maximal object set whose duration conforms to $L$ consecutiveness. Taking the pattern $\{o_3,o_4,o_5:2,3\}$ as an example. $\{o_3,o_4,o_5\}$ is indeed maximal. If another object, say $o_2$, is added to the group, the duration reduces to $\{3\}$ which is not $L$-consecutive. In fact, adding any other object to this group invalidates the $L$-consecutiveness. In contrary, \emph{platoon} finds the maximal object set whose duration is not only $L$-consecutive but also with size no less than $K$. Therefore, \emph{platoon} finds a different set of patterns. For example, $\{o_4,o_5:2,3,5,6\}$ is a \emph{platoon} pattern but not a \emph{group} pattern. This is because the object set $\{o_4,o_5\}$ is not maximal wrt. \emph{group}, as we can see that adding $o_3$ to the object set results in a larger \emph{group} pattern. Therefore, $\{o_4,o_5:2,3,5,6\}$ is not a \emph{group}.
+
+\noindent\textbf{No consecutiveness}: \emph{Swarm} pattern relaxes the consecutiveness in the duration. Thus as shown in the Figure, \emph{swarm} discover the most number of patterns. In particular, given the same $M$ and $K$, \emph{swarm} result covers all patterns discovered in \emph{flock}, \emph{convoy} and \emph{platoon}. Furthermore, it finds more patterns that are not covered by \emph{flock}, \emph{convoy} and \emph{platoon}. For instance, $\{o_5,o_6, 1,4,5\}$ is a \emph{swarm} but is neither a \emph{platoon} (with $L=2$) nor a \emph{convoy}.
 
 
-
-We illustrate these co-movement patterns in Figure~\ref{fig:related_work} with an example of six trajectories.
-The temporal dimension is discretized into six snapshots. 
-In each snapshot, the objects are clustered as shown in the dotted circle.
-By setting $M=2, K=3$, we are able to discover \emph{convoy}, \emph{flock}, and \emph{swarm} patterns. 
-\emph{Convoy} pattern finds the objects that travels in consecutive timestamps. Only one object group $\{o_3,o_4\}$
-matches the criteria with the timestamps $\{1,2,3\}$. Since the example treats the clusters as given, \emph{flock}
-shares the same pattern result \emph{convoy}.  When the consecutiveness constraint is relax, we discover more patterns.
-By setting $L = 2$, we find three \emph{group} patterns. For example $\{o_1,o_2\}$ forms a \emph{group} pattern
-since they appear together in $\{1,2,4,5\}$, where the local consecutiveness of size $2$ ($L = 2$) is met.
+%Therefore, patterns $\{o_1,o_2:1,2,4,5\}$,
+%$\{o_3,o_4,o_5:2,3\}$ and $\{o_5,o_6,4,5\}$ are found. Taking 
 
 
+%We illustrate these co-movement patterns in Figure~\ref{fig:related_work} with an example of six trajectories.
+%The temporal dimension is discretized into six snapshots. 
+%In each snapshot, the objects are clustered as shown in the dotted circle.
+%By setting $M=2, K=3$, we are able to discover \emph{convoy}, \emph{flock}, and \emph{swarm} patterns. 
+%\emph{Convoy} pattern finds the objects that travels in consecutive timestamps. Only one object group $\{o_3,o_4\}$
+%matches the criteria with the timestamps $\{1,2,3\}$. Since the example treats the clusters as given, \emph{flock}
+%shares the same pattern result \emph{convoy}.  When the consecutiveness constraint is relax, we discover more patterns.
+%By setting $L = 2$, we find three \emph{group} patterns. For example $\{o_1,o_2\}$ forms a \emph{group} pattern
+%since they appear together in $\{1,2,4,5\}$, where the local consecutiveness of size $2$ ($L = 2$) is met.
 
-It is worth noting that \emph{convoy} and \emph{flock} have the same result pattern because both patterns share 
-the same constraints on the time duration. I DON'T UNDERSTAND WHY YOU EMPHASIZE THIS. WHEN WILL THEY BE DIFFERENT?
-The groups detected by \emph{Swarm} are superset of \emph{convoy} and \emph{flock} patterns, as \emph{Swarm} imposes no constraint on temporal consecutiveness. By setting $L=2$, we find three \emph{group} patterns. 
-If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observable that the pattern $\{o_5,o_6:1,4,5\} \rangle$ is a \emph{swarm} but is neither a \emph{platoon} nor a \emph{group} since one of its local consecutive duration (i.e. $\{1\}$) is less than $2$. However, $\{o_5,o_6:1,4,5\} \rangle$ can be reduced to $\langle\{o_5,o_6:4,5\} \rangle$ which is a \emph{group} pattern because \emph{group} pattern only restricts the local consecutiveness but not the total size of a duration. TOO UGLY! NEED TO EXPLAIN THE FIGURE BASED ON TABLE $1$. AT LEAST READERS CAN HAVE A ROUGH IDEA HOW YOU OBTAIN THE RESULT GROUPS.
+%It is worth noting that \emph{convoy} and \emph{flock} have the same result pattern because both patterns share 
+%the same constraints on the time duration. I DON'T UNDERSTAND WHY YOU EMPHASIZE THIS. WHEN WILL THEY BE DIFFERENT?
+%The groups detected by \emph{Swarm} are superset of \emph{convoy} and \emph{flock} patterns, as \emph{Swarm} imposes no constraint on temporal consecutiveness. By setting $L=2$, we find three \emph{group} patterns. 
+%If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observable that the pattern $\{o_5,o_6:1,4,5\} \rangle$ is a \emph{swarm} but is neither a \emph{platoon} nor a \emph{group} since one of its local consecutive duration (i.e. $\{1\}$) is less than $2$. However, $\{o_5,o_6:1,4,5\} \rangle$ can be reduced to $\langle\{o_5,o_6:4,5\} \rangle$ which is a \emph{group} pattern because \emph{group} pattern only restricts the local consecutiveness but not the total size of a duration. TOO UGLY! NEED TO EXPLAIN THE FIGURE BASED ON TABLE $1$. AT LEAST READERS CAN HAVE A ROUGH IDEA HOW YOU OBTAIN THE RESULT GROUPS.
 
 % we achieve two \emph{platoon} patterns.
 % 
@@ -137,27 +148,50 @@ If further set $M=2,K=3$, two \emph{platoon} patterns are found. It is observabl
 
 %In this paper, our primary objectives are solving two 
 
-As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. Hence, there is a particular demand for a general platform to support all these co-movement patterns. The other issue with existing methods is that they are built on top of centralized indexes that are not scalable. To the best of our knowledge, the maximum number of trajectories ever evaluated is up to hundreds of thousands of trajectories. In practice, it is rather common to collect at least millions of trajectories and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns} as well as an experimental evaluation with million-scale cardinality of a trajectory database (as shown in Figure~\ref{}). Results show that their performances degrade dramatically as the dataset size scales up and none of the existing solutions is scalable to handle large-scale trajectories.
+As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. 
+%Besides, we observe that, the number of co-movement patterns could be nearly exponential. 
+%For instance, in the small example in Figure~\ref{fig:related_work}, \emph{swarm} already discovers 5 patterns.
+We further identify that existing patterns either miss out interesting patterns (i.e, \emph{convoy}) 
+or likely contain non-interesting patterns (i.e., \emph{swarm}, \emph{platoon}).
+Hence, there is a particular demand for a new pattern model to fine control the pattern result without losing expressiveness. 
+The other issue with existing methods is that they are built on top of centralized indexes that are not scalable. To the best of our knowledge, the maximum number of trajectories ever evaluated is up to hundreds of thousands of trajectories. In practice, it is rather common to collect at least millions of trajectories and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns} as well as an experimental evaluation with million-scale cardinality of a trajectory database (as shown in Figure~\ref{}). Results show that their performances degrade dramatically as the dataset size scales up and none of the existing solutions is scalable to handle large-scale trajectories.
 %In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
 %complexities of \emph{swarm} and \emph{platoon} are already exponential. 
 %Therefore, none of them can handle millions of trajectories efficiently. 
 %CAN YOU ANALYSE THEIR COMPLEXITY TO ADDRESS THE PROBLEM OF SCALABILITY.
 
-Therefore, our primary contributions in this paper are to close these two gaps. First, we propose a general co-movement pattern definition to incorporate all the related variants in the existing literature. We observe that even though \emph{platoon} is the most general pattern ever proposed, it suffers from the \emph{loose connection} problem, which refers to groups loosely connected in the temporal dimension. For example, in Figure~\ref{fig:platoon_weakpoint}, two objects $o_1, o_2$ 
+Therefore, our primary contributions in this paper are to close these two gaps. 
+First, we summarize two anomalies from existing patterns, namely, \emph{missing-pattern} and \emph{loose-connection}.
+The \emph{missing-pattern}~\cite{li2010swarm} anomaly arises due to the stringent constraints on the duration of a pattern. As shown in 
+Figure~\ref{fig:platoon_weakpoint} (a). if the duration size is set to be $K=4$, neither \emph{flock}s nor \emph{convoy}s
+can be discovered. As we notice, object $o_1$ is temporally far from $o_2$ at timestamp $4$, which is likely to be
+the result of errors in interpretation of missing points, or $o_1$ faces traffic control at time $4$. Such an anomaly can
+be resolved by \emph{swarm} and \emph{platoon} due to a relaxed constraint on the duration. However, 
+\emph{swarm} and \emph{platoon}'s relaxations encompass a type of non-interesting patterns which is referred
+as \emph{loose-connection}~\cite{li2015platoon} anomaly. As shown in Figure~\ref{fig:platoon_weakpoint} (b),
+the two objects $o_1, o_2$ 
 would form a \emph{platoon} pattern $\{o_1,o_2:1,2,3, 102,103,104\}$. However, the consecutive segment on the pattern's 
 duration is $98$ timestamps apart, making the co-movement behavior very weak.
 %
 %
 %%This is because that \emph{platoon} allows the timestamps in a pattern duration to be in arbitrary distance, making the object group loosely
 %connected. For instance, patterns with duration $\{1,2,100,101\}$ could be a valid \emph{platoon}; however, the two timestamps $2,100$ are too far from each other.
-In reality, such a pattern is likely to be induced by periodic movements of unrelated objects such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. To cope with this anomaly, we propose the \emph{general co-movement pattern} by introducing the gap parameter $G$, which requires the distance of timestamps in the duration to be no larger than $G$. By so doing, we gain a fine-grained control over the pattern duration, which alleviates the \emph{loose connection} problem. Meanwhile, the general co-movement pattern does not concede its expressiveness. As we show in later sections, the general co-movement pattern is able to express existing patterns by setting appropriate parameters. 
+In reality, such a pattern is likely to be induced by periodic movements of unrelated objects such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. In current literature,
+users are unable to explicitly exclude the loosely-connected patterns even when those patterns are unwanted.
+%When such loosely-connected patterns are unwanted, users currently are unable to directly control the outputs.
+To cope with both of the two anomalies, we propose the \emph{general co-movement pattern} 
+by introducing the gap parameter $G$, which requires the distance of 
+timestamps in the duration to be no larger than $G$. 
+By so doing, we gain a fine-grained control over the pattern duration, which alleviates both the \emph{missing-pattern} and the \emph{loose connection} problem. Meanwhile, the general co-movement pattern does not concede its expressiveness. As we show in later sections, the general co-movement pattern is able to express existing patterns by setting appropriate parameters. Therefore, users are still able to exclude non-consecutive patterns 
+or include loosely-connected patterns when they feel necessary.
 %IS IT POSSIBLE TO USE FIGURE 1 TO ADDRESS THE PROBLEM OF PLATOON, INSTEAD OF PROPOSING A NEW EXAMPLE SCENARIO?
 
 %
 \begin{figure}[h]
 \center
-\includegraphics[width=0.45\textwidth]{platoon_weakpoint.eps}
-\caption{Loosely connected pattern in platoon and swarm. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.}
+\includegraphics[width=0.4\textwidth]{platoon_weakpoint.eps}
+\caption{Two anomalies in existing patterns. (a) \emph{Missing-pattern} anomaly
+in \emph{flock} and \emph{convoy}. When $K=4$, none of the two patterns can be discovered. (b) \emph{Loose-connection} anomaly in \emph{platoon} and \emph{swarm}. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.}
 \label{fig:platoon_weakpoint}
 \end{figure}
  

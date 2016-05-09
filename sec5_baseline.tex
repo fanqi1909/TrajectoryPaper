@@ -1,12 +1,10 @@
 \section{Temporal Replication and Mining}
 \label{sec:trm_solution}
-The \emph{temporal-based} method of mining GCMP follows the solution framework 
-as in Figure~\ref{fig:overview}. The idea of the \emph{temporal-based} method 
+The idea of \emph{Temporal Replication and Mining} (TRM)
 is to group temporally closed snapshots together, such that patterns can be
-mined on each group of the snapshot.
-In order to achieve the \emph{completeness}
-and \emph{soundness} during partitioning, we design a \emph{Temporal Replication
-and Mining} (TRM) algorithm as shown in Algorithm~\ref{algo:trm_overview}.
+mined on each group of the snapshot. In order to achieve the \emph{completeness}
+and \emph{soundness} during partitioning, we allow replication of
+snapshots among groups. The TRM is described in Algorithm~\ref{algo:trm_overview}.
 
 %%The straightforward strategy of parallelizing the second stage is to vertically partition the trajectories based on snapshots. 
 %A simple but effective method
@@ -44,9 +42,9 @@ and Mining} (TRM) algorithm as shown in Algorithm~\ref{algo:trm_overview}.
 \end{algorithmic}
 \end{algorithm}
 
-As shown in Algorithm~\ref{algo:trm_overview}, the \emph{Temporal Replication and Mining} (TRM) algorithm takes
-three steps. First, in map phase, each snapshots is keyed with is timestamp (lines~\ref{code:trm-map-start}-\ref{code:trm-map-end}). Second, in the partition phase, every snapshot is grouped with its next $(\lfloor \frac{K}{L} \rfloor -1)*G+K+L$ snapshots to form a partition (lines~\ref{code:trm-par-start}-\ref{code:trm-par-end}). We will shortly discuss how the group size is determined. Third, in the reduce phase, a lineSweepMining method is invoked to mine GCMP within each partition (lines~\ref{code:trm-red-start}-\ref{code:trm-red-end}). 
-It is easy to see that this method replicates a snapshots $(\lfloor \frac{K}{L} \rfloor -1)*G+K+L$ times.
+As shown in Algorithm~\ref{algo:trm_overview}, the TRM algorithm takes
+three steps. First, in the map phase, each snapshot is keyed with its timestamp (lines~\ref{code:trm-map-start}-\ref{code:trm-map-end}). Second, in the partition phase, every snapshot is grouped with its next $(\lfloor \frac{K}{L} \rfloor -1)*G+K+L$ snapshots to form a partition (lines~\ref{code:trm-par-start}-\ref{code:trm-par-end}). We will shortly discuss how the group size is determined. Third, in the reduce phase, a lineSweepMining method is invoked to mine GCMP within each partition (lines~\ref{code:trm-red-start}-\ref{code:trm-red-end}). 
+It is easy to see that this method replicates a snapshots at most $(\lfloor \frac{K}{L} \rfloor -1)*G+K+L$ times.
 
 \subsubsection{Temporal Replication Partition}
 The size of replication is critical for the performance of TRM algorithm.
