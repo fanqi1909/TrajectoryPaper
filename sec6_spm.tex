@@ -1,16 +1,17 @@
 \section{Star Partition and Mining}
 \label{sec:spm_solution}
-In order to develop a method that achieves good parallelism under any pattern parameters, 
-we propose the \emph{Star Partition and Mining} (SPM) method. In SPM,
+In order to develop a method that achieves good parallelism 
+under any pattern parameters, we propose 
+the \emph{Star Partition and Mining} (SPM) method. In SPM,
 we first design a novel object-based partition method named \emph{star partition}. 
-Then, we design an \emph{Apriori}-like 
+Then, we adapt an \emph{Apriori}-like 
 method to mine GCMP patterns out of each partition.
 The overview of the SPM method is presented in Algorithm~\ref{algo:spm_overview}.
 As shown, the SPM method takes three phases. 
 In the map phase, objects from the same cluster forms object-object pairs. 
 The object-object pairs are then paired up with the timestamp of 
-the snapshot to form a 3-uple(lines~\ref{code:spm-map-start}-\ref{code:spm-map-end}). 
-In the partition phase, 3-uples with the same leading object form a \emph{star} which will be explained shortly 
+the snapshot to form a triplet(lines~\ref{code:spm-map-start}-\ref{code:spm-map-end}). 
+In the partition phase, triplets with the same leading object form a \emph{star} which will be explained shortly 
 (lines~\ref{code:spm-shuffle-start}-\ref{code:spm-shuffle-end}).
 Lastly in the reduce phase, patterns are mined from each star structure (lines~\ref{code:spm-reduce-start}-\ref{code:spm-reduce-end}).
 
@@ -49,13 +50,12 @@ Lastly in the reduce phase, patterns are mined from each star structure (lines~\
 \end{algorithm}
 
 \subsubsection{Star Partition}
-The intuition of star partition is that, if two objects are part of
-the same pattern, then at some snapshots, they must belong to the same 
-cluster. Therefore, we may link objects that belong to the same cluster
-at some snapshots to form a \emph{connection graph}. Objects that are
-not connected surely do not belong to a pattern. We may further
-partition the connection graph so that mining proper patterns can be
-done in parallel. We define the \emph{connection graph} and \emph{star}
+The intuition of star partition is that, if two objects are part 
+of the same pattern, they must belong to the same cluster at 
+some snapshots. Therefore, we may link objects that belong to the same cluster to form a \emph{connection graph}. Objects that are
+not connected surely fail to form a pattern. We may then
+partition the connection graph based on vertex connectivity
+s.t. mining GCMPs can be done in parallel. We define the \emph{connection graph} and \emph{star}
 as follows:
 \begin{definition}[Connection Graph and Star]
 A connection graph is an undirected graph $G=(V:E)$, where 
@@ -112,8 +112,8 @@ in $Sr_s$. Therefore, $P$ is a valid pattern in $Sr_s$.
 \end{proof}
 
 Based on the above theorem, we can mine GCMP from each partition independently.
-It is notable that, in star partition, original data is replicated for $O(\mathbb{O})$ times
-as each object may be sent to $O(\mathbb{O})$ partitions. Since this complexity is free
+It is notable that, in star partition, original data is replicated for $O(|\mathbb{O}|)$ times
+as each object may be sent to $O(|\mathbb{O}|)$ partitions. Since this complexity is free
 from pattern parameters, the star partition is more scalable than the temporal replication.
 In later sections, we will describe several engineering level optimization to further reduce the amount of replicated data.
 
@@ -124,7 +124,7 @@ is similar to the technique in frequent item mining literature. During the algor
 Our algorithm runs in iterations. During each iteration $R$, we try to generate all $(R+1)$-patterns. In iteration $1$, the $2$-pattern is the edges in $Sr_s$. In particular,
 for each $e(s,v)=ET$, pattern $p=(\{s,v\}, ET)$ is formed. During each iteration, 
 we generate $(R+1)$-patterns by joining $R$-patterns with $2$-patterns. Specifically,
-the join between $p_1=(O_1, T_1)$ and $p_2=(O_2, T_2)$ would generate a new pattern $p_3=(O_1 \cup O_2, T_1 \cap T_2)$. Notice that in $Sr_s$, each $R$-pattern consists of the object $s$, thus the join will grow a $R$-pattern at most to a $(R+1)$-pattern.
+the join between $p_1=(O_1:T_1)$ and $p_2=(O_2:T_2)$ would generate a new pattern $p_3=(O_1 \cup O_2:T_1 \cap T_2)$. Notice that in $Sr_s$, each $R$-pattern consists of the object $s$, thus the join will grow a $R$-pattern at most to a $(R+1)$-pattern.
 Our mining algorithm stops where no further patterns are generated. The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
 
 \begin{algorithm}

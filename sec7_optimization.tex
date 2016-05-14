@@ -139,7 +139,8 @@ by the candidate sequence results in a more compact storage.
 %\end{proof}
 
 
-\subsection{Candidate Pruning via Temporal Monotonicity}
+\subsection{Candidate Pruning}
+\subsubsection{Temporal monotonicity}
 During the apriori phase, we repeatedly join candidate patterns in different levels to generate a larger set
 of a patterns. We observe that traditional monotonic property of Apriori algorithms \textbf{does not}
 hold in GCMP mining. That is given two candidate $P_1, P_2$, if $P_1.O \subset P_2.O$ and $P_1$ is not 
@@ -163,8 +164,10 @@ be reduced. It follows that $c_2.T$ cannot be reduced neither. Thus,
 if $c_1.T$ cannot be reduced to a candidate sequence, $c_2$ can be pruned. 
 \end{proof}
 
+\subsubsection{Forward closure checking}
+
 \begin{example}
-We use Figure~\ref{fig:star_partition} (c) to demonstrate the candidate pruning. As shown, at the initial stage, $\{3,6\}\{1,4\}$ is pruned, since $\{1,4\}$ is not a candidate sequence. By temporal monotonicity, candidates containing objects $\{3,6\}$ can all be pruned. Therefore, we are able to directly prune $\{3,4,6\}$, $\{3,5,6\}$ and $\{3,4,5,6\}$.
+We use Figure~\ref{fig:star_partition} (c) to demonstrate the candidate pruning. As shown, at the initial stage, $\{3,6:1,4\}$ is pruned, since $\{1,4\}$ is not a candidate sequence. By temporal monotonicity, candidates containing objects $\{3,6\}$ can all be pruned. Therefore, we are able to directly prune $\{3,4,6\}$, $\{3,5,6\}$ and $\{3,4,5,6\}$.
 \end{example}
 %
 %With the help of the \emph{Monotonic Property}, the number of new candidates in each level is greatly reduced. We verify this in the experiment session as well.

@@ -6,25 +6,24 @@ we briefly describe the preliminaries on MapReduce and then describe
 the overview of our framework in mining GCMP.
 
 \subsection{Preliminary on MapReduce}
-MapReduce (MR) was formally proposed by Dean et. al.~\cite{dean2008mapreduce}
+MapReduce (MR) was formally proposed by Dean et.al.~\cite{dean2008mapreduce}
 and has subsequently implemented by many open source systems. Those systems
-provide handy APIs with fualt tolerances and are popularly
+provide handy APIs with fault tolerances and are popularly
 used as large-scale data processing platforms. 
 % become a ubiquitous parallel platform for large-scaled data processing. 
 %Current open source MapReduce systems provide handy programming APIs with fault tolerances
 %in backends. Such systems include Hadoop, Shark and Spark to name a few.
 In simple words, there are two conceptual types of computing nodes in MR,
 namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
-algorithm consists of two stages: First, input data
-are partitioned and read by a \emph{map} function on each mapper. Mappers
-emit key-value pairs which are \emph{shuffle}d over the network to reducers. Second,
-reducers process the received data using a \emph{reduce} function then write the
-outputs. 
+algorithm consists of three major steps: First, input data
+are partitioned and read by a \emph{map} function on each mapper. Then, mappers
+emit key-value pairs which are \emph{shuffle}d over the network to reducers. Lastly,
+reducers process the received data using a \emph{reduce} function. 
 
 Despite the simpleness of the paradigm, there are two concerns raised in designing MR algorithms
 First, since reducers are required to be independent, partitioning  
 data to fit the independence could be challenging. Second, since the \emph{shuffle}
-stage requires network access, the data been shuffled should be minimized. 
+step requires network access, the data been shuffled should be minimized. 
 We take these concerns in consideration when designing our solutions for mining GCMP.
 %We would bare this concerns in designing our GCMP mining algorithm.
 %a natural
@@ -40,15 +39,14 @@ We take these concerns in consideration when designing our solutions for mining 
 %to minimize the shuffle amounts and shuffle counts. 
 
 \subsection{MapReduce Processing for Mining GCMP}
-Our GCMP mining process consists of two MR jobs, which are further
-divided into four MR stages as illustrated in Figure~\ref{fig:overview}.
+Our GCMP mining process consists of two MR jobs as illustrated in Figure~\ref{fig:overview}.
 The first MR job is to cluster objects at each snapshot (i.e.,
  $\forall t, o,$ compute $C_t(o)$). As shown in Figures~\ref{fig:overview}(a)-(b),
-in map phase, trajectories are first reorganized by timestamps and object locations
-at the same timestamps form a cluster. In reduce phase, clustering of objects at each
+in map phase, trajectories are firstly reorganized by timestamps and object locations
+at the same timestamps form a snapshot. In reduce phase, clustering of objects at each
 snapshot is processed independently. The second MR job is to mine GCMPs from 
-clusters in each snapshot. We design two MR algorithms (i.e., TRM and SPM) for 
-the purpose of comparison. Both the two algorithms would partition snapshots in map phase
+clusters in each snapshot. We design and compare two MR algorithms (i.e., TRM and SPM)for 
+GCMP mining. Both the two algorithms would partition snapshots in map phase
 (as in Figure~\ref{fig:overview}(c))
 and mine GCMPs from each partition in reduce phase(as in Figure~\ref{fig:overview}(d)).
 
@@ -71,7 +69,7 @@ it is easy to pipeline the two jobs to exploit data locality.
 Specifically, the reducer output at step (b) can be directly reused 
 as the input to the mappers at step (c). Therefore we do not need to 
 transfer data between the two jobs. Modern MR platforms, especially Spark, have
-already supported such a kind of pipeline by default.
+already supported such a kind of pipeline.
 
 \begin{figure} [t]
 \center
@@ -84,7 +82,8 @@ already supported such a kind of pipeline by default.
 We note that the first MR job is easy to design since each reducer only
 needs one snapshot for clustering.
 In contrast, it is challenging to design the second job. 
-This is because valid patterns may spray across multiple snapshots or contain different object sets, where inappropriate partitioning
+This is because valid patterns may spray across multiple snapshots 
+or contain different object sets, where inappropriate partitioning
 of snapshots may fail to discover certain valid patterns.
 Formally, a valid partition strategy 
 needs to meet the following requirements: (a) the resulted partitions need
@@ -110,64 +109,3 @@ In the following sections, we describe a naive \emph{temporal-based} partition-a
 we present a novel \emph{object-based} partition-and-mining method
 called \emph{Star Partition and Mining} (SPM) which resolves
 the deficiencies of TRM method.
-
-%Depends on the pattern mining strategy, the size of shuffle and replication may differ. We show that if the pattern mining strategy is not selected carefully, the second stage will suffer from large data replication and shuffling.
-
-
-%
-%In particular, we need
-%the number of partitions to be reasonably large in order to achieve
-%good parallelism in stage (d). Meanwhile, we need to ensure a partition 
-%of snapshots containing enough information so that patterns discovered 
-%in stage (d) are complete.  Furthermore, we have to ensure that the
-%patterns that discovered in stage (d) are real patterns.
-
-%However, there are two conflicting requirements that restrain us from 
-%designing a simple and effective solution. 
-%On one hand, we need to partition snapshots in stage (c) as many as possible 
-%so that good parallelism could be achieved in stage (d). 
-%On the other hand, in stage (d), 
-%we require each partition containing enough information in order to discover
-%proper GCMP patterns. This prevents us from arbitrarily partition snapshots in
-%stage (d). To design a working algorithm, find the minimum size of partition is
-%crucial. In the following section, we first design a naive approach that
-%partitions snapshots by allowing overlapping among partitions. Such a partition strategy
-%although has overhead in shuffling, it corrects find GCMPs in parallel in stage (d).
-%In order to discover all patterns, we require a partitioning method to be \emph{complete} and \emph{Sound}. 
-
-%\section{Temporal Replication and Mining}
-%
-%
-%%It is notable that some patterns 
-%%may be very long in duration (e.g., when discovering \emph{swarm}) or some patterns 
-%%may contain a large set of objects (e.g., when discover \emph{group} patterns with small $L$).
-%%Therefore, we require the size of partition to be large enough. Reaching the
-%%balance between the two requirement is crucial. In the following sections, we will
-%%describe a naive partition scheme which meets the two requirements.
-%
-%%Our parallel solution incurs two rounds of shuffles. The first round of shuffle happens in step (a). This
-%%is because that the trajectories stored in HDFS needs to be regrouped to form snapshots. 
-%%The second round of shuffle occurs in step(d). This is because that 
-%% the clusters need to be regrouped so that subsequent pattern detection can be performed.
-%% Despite the simpleness of our parallel solution, it is actually nontrivial to work out a scalable solution.
-%% The major challenge lies in the step (d) and (e). 
-%
-%
-%%\section{Preliminary on Apache Spark}
-%%\label{sec:system_overview}
-%%Apache Spark is an open sourced modern parallel processing platform
-%%based on Resilient-Distributed-Dataset (RDD). Each RDD is able to take an action (including Map, Reduce, GroupByKey etc.) and then transforms to a new RDD. Algorithms in Spark is implemented by supplying various actions to an input RDD. Each RDD in Spark has a pre-defined and fixed number of partitions, where each partition forms a task assigned to an executor.
-%%
-%%Compared to MapReduce, Spark 
-%%utilizes distributed memory to cache the programming data modeled as RDDs, which brings computational benefits~\cite{shi2015clash}. In order to fully utilize the memory, Spark creates one thread for each task and then multiple tasks belonging to the same JVM share the available memory.
-%Due to threading, there is a paradigm shift from MapReduce to Spark. In MapReduce, the cost of starting a task is expensive, as each task in MapReduce requires a dedicated JVM process. While in Spark, the cost of starting a task is negligible since each task is done by a thread.  Therefore in Spark, we may create many more parallel tasks than in MapReduce before reaching to the system limitation.
-
-
-%\section{Mining Generalized Co-moving Pattern}
-%\label{sec:solution}
-%There are two stages in mining GCMP. The first stage is to cluster objects in each snapshots. Then the seconds stage is to mine patterns from clusters in parallel. The overview of the parallel approach is 
-%shown in Figure~\ref{fig:overview}. As shown, trajectory data is initially stored in HDFS. The first stage is to 
-%read trajectories and cluster objects in the same snapshots. Since the objects at each snapshots are independent, this stage can be easily performed in parallel. The first stage involves network IO. Afterwards, the clusters in each snapshots are shuffled and replicated to make various partitions.
-
-
-
