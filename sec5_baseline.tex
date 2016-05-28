@@ -116,10 +116,11 @@ We illustrate the process of TRM in Figure~\ref{fig:trm_process} using $M=2, K=2
 for each partition, which equals to $(\lceil \frac{K}{L} \rceil-1) *G+2K = 4$. Therefore, in (b), every four snapshots
 are grouped into a partition. Then a line sweep method is performed in (c) for partition 1. Each
 $C_i$ refers to the candidate set  when the algorithm sweeps each snapshot. Initially, $C_1$ contains
-patterns whose object set is in $S_1$. When scanning the other snapshots, patterns in $C_1$ grow
-their timestamps. At $S_3$, since the timestamps of $\{o_5,o_6\}$ is $\{1\}$ which is neither
-a qualified pattern nor matches $G$ constraint, thus this candidate is removed from $C_3$. When line
-sweep finishes, only $\{o_3,o_4\}$ is the qualified pattern and is outputted.
+patterns whose object set is in $S_1$. When scanning the snapshots, patterns in $C_1$ grow
+their timestamps. At $S_4$, since the timestamps of $\{o_1,o_2\}$ and $\{o_5,o_6\}$ 
+are both $\{1,2,4\}$ which is neither a qualified set of timestamps nor matches $G$ constraint, 
+thus the two candidates are removed from $C_4$. After all snapshots are scanned, 
+only $\{o_3,o_4\}$ is the qualified pattern and is outputted.
 \end{example}
 
 

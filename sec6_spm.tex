@@ -1,6 +1,6 @@
 \section{Star Partition and Mining}
 \label{sec:spm_solution}
-In order to develop a method that achieves good parallelism 
+In order to achieve a good parallelism 
 under any pattern parameters, we propose 
 the \emph{Star Partition and Mining} (SPM) method. In SPM,
 we first design a novel object-based partition method named \emph{star partition}. 
@@ -50,7 +50,7 @@ Lastly in the reduce phase, patterns are mined from each star structure (lines~\
 \end{algorithm}
 
 \subsubsection{Star Partition}
-The intuition of star partition is that, if two objects are part 
+The intuition of the star partition is that, if two objects are part 
 of the same pattern, they must belong to the same cluster at 
 some snapshots. Therefore, we may link objects that belong to the same cluster to form a \emph{connection graph}. Objects that are
 not connected surely fail to form a pattern. We may then
@@ -132,8 +132,7 @@ Our mining algorithm stops where no further patterns are generated. The algorith
 \label{algo:apriori_mining}
 \begin{algorithmic}[1]
 \Require{$Sr_s$}
-\State { Lv $\gets \{\}$}
-\State { Ground $\gets \{\}$}
+\State { Lv $\gets \{\}$,Ground $\gets \{\}$, Output $\gets \{\}$}
 \ForAll{$e(s,t) = T \in Sr_s$}
 \State Ground.add($\langle \{s,t\}, T \rangle$);
 \State Lv $\gets$ Ground;
@@ -144,16 +143,22 @@ Our mining algorithm stops where no further patterns are generated. The algorith
 		\ForAll{$cand_v \in Lv$}
 			\ForAll{$cand \in $Ground}
 				\State $p \gets cand_v$ join $cand$
-				\If{$p.T$ is partly valid} 
+				\If{$p.T$ is a candidate sequence} 
 					\State LvCand.add($p$)
 				\EndIf
 			\EndFor
 		\EndFor
+		\If{$Lv$ is a pattern}
+			\State{Output.add($Lv$)}
+			\State{break}			 
+		\EndIf
 		\State {Lv $\gets$ LvCand}
 	\Else
 		\State{break}
 	\EndIf
 \EndWhile
+\State output.addAll($Lv$)
+\State \Return output
 \end{algorithmic}
 \end{algorithm}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  14 MAY 2016 13:00
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  28 MAY 2016 13:39
 entering extended mode
 **main.tex
 (F:\GitHubRepos\TrajectoryPaper\main.tex
@@ -441,38 +441,31 @@ oosted
  []
 
 
-Overfull \hbox (27.17056pt too wide) in paragraph at lines 39--54
+Overfull \hbox (16.55008pt too wide) in paragraph at lines 39--54
  [][] 
  []
 
 Package epstopdf Info: Source file: <./charts/related_work.eps>
-(epstopdf)                    date: 2016-05-12 09:34:51
-(epstopdf)                    size: 548912 bytes
+(epstopdf)                    date: 2016-05-18 11:44:06
+(epstopdf)                    size: 559976 bytes
 (epstopdf)             Output file: <./charts/related_work-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2016-05-12 09:34:53
-(epstopdf)                    size: 50251 bytes
+(epstopdf)                    date: 2016-05-18 11:44:10
+(epstopdf)                    size: 52583 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/related_work-eps-c
 onverted-to.pdf ./charts/related_work.eps>
-(epstopdf)             \includegraphics on input line 61.
+(epstopdf)             \includegraphics on input line 63.
 Package epstopdf Info: Output file is already uptodate.
-<./charts/related_work-eps-converted-to.pdf, id=1, 622.325pt x 471.7625pt>
+<./charts/related_work-eps-converted-to.pdf, id=1, 617.30624pt x 494.84875pt>
 File: ./charts/related_work-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/related_work-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/related_work-eps-converted-to.pdf used on inp
-ut line 61.
-(pdftex.def)             Requested size: 226.79846pt x 171.92912pt.
+ut line 63.
+(pdftex.def)             Requested size: 226.79846pt x 181.80754pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-LaTeX Warning: Reference `' on page 1 undefined on input line 102.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -481,47 +474,92 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Underfull \vbox (badness 1189) has occurred while \output is active []
-
 Package epstopdf Info: Source file: <./charts/platoon_weakpoint.eps>
-(epstopdf)                    date: 2016-05-09 11:03:08
-(epstopdf)                    size: 381744 bytes
+(epstopdf)                    date: 2016-05-16 14:26:32
+(epstopdf)                    size: 367817 bytes
 (epstopdf)             Output file: <./charts/platoon_weakpoint-eps-converted-t
 o.pdf>
-(epstopdf)                    date: 2016-05-09 11:03:21
-(epstopdf)                    size: 30148 bytes
+(epstopdf)                    date: 2016-05-16 14:26:38
+(epstopdf)                    size: 28787 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/platoon_weakpoint-
 eps-converted-to.pdf ./charts/platoon_weakpoint.eps>
-(epstopdf)             \includegraphics on input line 137.
+(epstopdf)             \includegraphics on input line 92.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/platoon_weakpoint-eps-converted-to.pdf, id=21, 379.4175pt x 300.12125
-pt>
+<./charts/platoon_weakpoint-eps-converted-to.pdf, id=21, 323.2075pt x 252.945pt
+>
 File: ./charts/platoon_weakpoint-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/platoon_weakpoint-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/platoon_weakpoint-eps-converted-to.pdf used o
-n input line 137.
-(pdftex.def)             Requested size: 201.59692pt x 159.46649pt.
+n input line 92.
+(pdftex.def)             Requested size: 176.40308pt x 138.05492pt.
+Package epstopdf Info: Source file: <./charts/rw_perf_O.eps>
+(epstopdf)                    date: 2016-05-28 13:34:28
+(epstopdf)                    size: 418982 bytes
+(epstopdf)             Output file: <./charts/rw_perf_O-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-05-28 13:35:13
+(epstopdf)                    size: 32365 bytes
+(epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_O-eps-conv
+erted-to.pdf ./charts/rw_perf_O.eps>
+(epstopdf)             \includegraphics on input line 143.
+Package epstopdf Info: Output file is already uptodate.
 
-Overfull \hbox (4.66188pt too wide) in paragraph at lines 174--175
+<./charts/rw_perf_O-eps-converted-to.pdf, id=22, 507.8975pt x 302.12875pt>
+File: ./charts/rw_perf_O-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./charts/rw_perf_O-eps-converted-to.pdf>
+Package pdftex.def Info: ./charts/rw_perf_O-eps-converted-to.pdf used on input 
+line 143.
+(pdftex.def)             Requested size: 115.91785pt x 68.95337pt.
+Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
+(epstopdf)                    date: 2016-05-28 13:35:06
+(epstopdf)                    size: 421921 bytes
+(epstopdf)             Output file: <./charts/rw_perf_T-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-05-28 13:35:14
+(epstopdf)                    size: 32217 bytes
+(epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_T-eps-conv
+erted-to.pdf ./charts/rw_perf_T.eps>
+(epstopdf)             \includegraphics on input line 149.
+Package epstopdf Info: Output file is already uptodate.
+
+<./charts/rw_perf_T-eps-converted-to.pdf, id=23, 756.8275pt x 451.6875pt>
+File: ./charts/rw_perf_T-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./charts/rw_perf_T-eps-converted-to.pdf>
+Package pdftex.def Info: ./charts/rw_perf_T-eps-converted-to.pdf used on input 
+line 149.
+(pdftex.def)             Requested size: 115.91785pt x 69.17688pt.
+
+Underfull \vbox (badness 1173) has occurred while \output is active []
+
+
+Overfull \hbox (3.04529pt too wide) in paragraph at lines 161--171
+\OT1/cmr/m/it/9 movement pat-tern \OT1/cmr/m/n/9 (GCMP) which mod-els var-i-ous
+ co-moment
+ []
+
+[2 <F:/GitHubRepos/TrajectoryPaper/charts/related_work-eps-converted-to.pdf> <F
+:/GitHubRepos/TrajectoryPaper/charts/platoon_weakpoint-eps-converted-to.pdf> <F
+:/GitHubRepos/TrajectoryPaper/charts/rw_perf_O-eps-converted-to.pdf> <F:/GitHub
+Repos/TrajectoryPaper/charts/rw_perf_T-eps-converted-to.pdf>]
+Overfull \hbox (4.66188pt too wide) in paragraph at lines 209--210
 []\OT1/cmr/m/n/9 We con-duct a set of ex-ten-sive ex-per-i-ments on XXX dataset
 s
  []
 
 ) (F:\GitHubRepos\TrajectoryPaper\sec2_relatedworks.tex
-Overfull \hbox (1.80247pt too wide) in paragraph at lines 176--1
+Overfull \hbox (1.80247pt too wide) in paragraph at lines 211--1
 \OT1/cmr/m/n/9 sum-ma-rizes the rel-e-vant lit-er-a-ture on tra-jec-tory pat-te
 rn min-
  []
 
 
-Overfull \hbox (3.0173pt too wide) in paragraph at lines 176--1
+Overfull \hbox (3.0173pt too wide) in paragraph at lines 211--1
 \OT1/cmr/m/n/9 ing; Sec-tion 3[] forms the def-i-ni-tion of the gen-eral co-mov
 ement
  []
 
-[2 <F:/GitHubRepos/TrajectoryPaper/charts/related_work-eps-converted-to.pdf> <F
-:/GitHubRepos/TrajectoryPaper/charts/platoon_weakpoint-eps-converted-to.pdf>]
+
 Overfull \hbox (3.85289pt too wide) in paragraph at lines 3--11
 []\OT1/cmr/m/n/9 The \OT1/cmr/m/it/9 co-movement pat-terns \OT1/cmr/m/n/9 in li
 t-er-a-ture con-sist of five mem-
@@ -566,9 +604,10 @@ converted-to.pdf ./charts/system_layout.eps>
 (epstopdf)             \includegraphics on input line 76.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/system_layout-eps-converted-to.pdf, id=66, 689.57625pt x 328.22626pt>
+<./charts/system_layout-eps-converted-to.pdf, id=116, 689.57625pt x 328.22626pt
+>
 File: ./charts/system_layout-eps-converted-to.pdf Graphic file (type pdf)
-<use ./charts/system_layout-eps-converted-to.pdf>
+ <use ./charts/system_layout-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/system_layout-eps-converted-to.pdf used on in
 put line 76.
 (pdftex.def)             Requested size: 252.0pt x 119.94933pt.
@@ -578,98 +617,128 @@ Overfull \hbox (12.0pt too wide) in paragraph at lines 76--78
  []
 
 [4 <F:/GitHubRepos/TrajectoryPaper/charts/system_layout-eps-converted-to.pdf>])
-(F:\GitHubRepos\TrajectoryPaper\sec5_baseline.tex [5]
+(F:\GitHubRepos\TrajectoryPaper\sec5_baseline.tex
 Package epstopdf Info: Source file: <./charts/trm_process.eps>
-(epstopdf)                    date: 2016-05-10 16:53:03
-(epstopdf)                    size: 683376 bytes
+(epstopdf)                    date: 2016-05-18 11:51:12
+(epstopdf)                    size: 691048 bytes
 (epstopdf)             Output file: <./charts/trm_process-eps-converted-to.pdf>
 
-(epstopdf)                    date: 2016-05-10 16:54:02
-(epstopdf)                    size: 64562 bytes
+(epstopdf)                    date: 2016-05-18 11:51:20
+(epstopdf)                    size: 65716 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/trm_process-eps-co
 nverted-to.pdf ./charts/trm_process.eps>
 (epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/trm_process-eps-converted-to.pdf, id=160, 590.205pt x 446.66875pt>
+<./charts/trm_process-eps-converted-to.pdf, id=207, 534.99875pt x 442.65375pt>
 File: ./charts/trm_process-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/trm_process-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/trm_process-eps-converted-to.pdf used on inpu
 t line 109.
-(pdftex.def)             Requested size: 252.0pt x 190.71432pt.
+(pdftex.def)             Requested size: 252.0pt x 208.50658pt.
 
 Overfull \hbox (12.0pt too wide) in paragraph at lines 109--110
  [][] 
  []
 
-) (F:\GitHubRepos\TrajectoryPaper\sec6_spm.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5]) (F:\GitHubRepos\TrajectoryPaper\sec6_spm.tex
 Package epstopdf Info: Source file: <./charts/spm.eps>
-(epstopdf)                    date: 2016-05-10 16:53:56
-(epstopdf)                    size: 1223971 bytes
+(epstopdf)                    date: 2016-05-18 11:47:25
+(epstopdf)                    size: 1373037 bytes
 (epstopdf)             Output file: <./charts/spm-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-05-10 16:54:03
-(epstopdf)                    size: 171467 bytes
+(epstopdf)                    date: 2016-05-18 11:47:32
+(epstopdf)                    size: 198357 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/spm-eps-converted-
 to.pdf ./charts/spm.eps>
 (epstopdf)             \includegraphics on input line 81.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/spm-eps-converted-to.pdf, id=161, 427.5975pt x 412.54124pt>
+<./charts/spm-eps-converted-to.pdf, id=213, 458.71375pt x 417.56pt>
 File: ./charts/spm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/spm-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/spm-eps-converted-to.pdf used on input line 8
 1.
-(pdftex.def)             Requested size: 201.59692pt x 194.49872pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6 <F:/GitHubRepos/TrajectoryPaper/charts/trm_process-eps-converted-to.pdf>])
+(pdftex.def)             Requested size: 201.59692pt x 183.51033pt.
+ [6 <F:/GitHubRepos/TrajectoryPaper/charts/trm_process-eps-converted-to.pdf>])
 (F:\GitHubRepos\TrajectoryPaper\sec7_optimization.tex [7 <F:/GitHubRepos/Trajec
-toryPaper/charts/spm-eps-converted-to.pdf>])
-(F:\GitHubRepos\TrajectoryPaper\sec8_experiment.tex)
-(F:\GitHubRepos\TrajectoryPaper\sec9_conclusion.tex)
-(F:\GitHubRepos\TrajectoryPaper\main.bbl [8]
+toryPaper/charts/spm-eps-converted-to.pdf>] [8]
+Package epstopdf Info: Source file: <./charts/star-alt.eps>
+(epstopdf)                    date: 2016-05-18 11:48:08
+(epstopdf)                    size: 853081 bytes
+(epstopdf)             Output file: <./charts/star-alt-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-05-18 11:48:13
+(epstopdf)                    size: 96999 bytes
+(epstopdf)             Command: <epstopdf --outfile=./charts/star-alt-eps-conve
+rted-to.pdf ./charts/star-alt.eps>
+(epstopdf)             \includegraphics on input line 226.
+Package epstopdf Info: Output file is already uptodate.
+
+<./charts/star-alt-eps-converted-to.pdf, id=392, 467.7475pt x 129.48375pt>
+File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./charts/star-alt-eps-converted-to.pdf>
+Package pdftex.def Info: ./charts/star-alt-eps-converted-to.pdf used on input l
+ine 226.
+(pdftex.def)             Requested size: 201.59692pt x 55.80731pt.
+ [9 <F:/GitHubRepos/TrajectoryPaper/charts/star-alt-eps-converted-to.pdf>])
+(F:\GitHubRepos\TrajectoryPaper\sec8_experiment.tex
+Overfull \hbox (2.00362pt too wide) in paragraph at lines 4--10
+\OT1/cmr/m/n/9 Apache Hadoop []. Since Spark di-rectly sup-ports the MapRe-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--34
+[][]\OT1/cmr/m/n/9 http://spark.apache.org/docs/latest/programming-
+ []
+
+
+Overfull \hbox (1.04741pt too wide) in paragraph at lines 55--84
+\OT1/cmr/m/n/9 node com-mu-ni-ca-tion is car-ried by the 1Gbps Eth-er-net. Some
+
+ []
+
+) (F:\GitHubRepos\TrajectoryPaper\sec9_conclusion.tex)
+(F:\GitHubRepos\TrajectoryPaper\main.bbl [10]
 Missing character: There is no â in font cmr8!
 Missing character: There is no € in font cmr8!
 Missing character: There is no ” in font cmr8!
-) [9
+) [11
 
 ]
-(F:\GitHubRepos\TrajectoryPaper\main.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+(F:\GitHubRepos\TrajectoryPaper\main.aux) ) 
 Here is how much of TeX's memory you used:
- 5001 strings out of 493921
- 71519 string characters out of 3154491
- 149668 words of memory out of 3000000
- 8159 multiletter control sequences out of 15000+200000
- 23269 words of font info for 59 fonts, out of 3000000 for 9000
+ 5037 strings out of 493921
+ 72385 string characters out of 3154491
+ 151720 words of memory out of 3000000
+ 8188 multiletter control sequences out of 15000+200000
+ 24619 words of font info for 65 fonts, out of 3000000 for 9000
  844 hyphenation exceptions out of 8191
- 42i,10n,38p,1253b,403s stack positions out of 5000i,500n,10000p,200000b,50000s
-{D:/MikTex/fonts/enc/dvips/fontname/8r.enc}<D:/MikTex/fonts/type1/public/amsf
-onts/cm/cmbx9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><D:/
-MikTex/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/MikTex/fonts/type1/public/a
-msfonts/cm/cmmi6.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Mi
-kTex/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/MikTex/fonts/type1/public/ams
-fonts/cm/cmr5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/MikTex
-/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/MikTex/fonts/type1/public/amsfonts
-/cm/cmr8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/MikTex/font
-s/type1/public/amsfonts/cm/cmsy5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/
-cmsy6.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/MikTex/fonts/
-type1/public/amsfonts/cm/cmsy9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cm
-ti8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti9.pfb><D:/MikTex/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/public/amsfonts/s
-ymbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/msbm7.pfb><D:/M
-ikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmb
-8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (9 pages, 749494 bytes).
+ 42i,16n,38p,1609b,496s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/MikTex/fonts/enc/dvips/fontname/
+8r.enc}<D:/MikTex/fonts/type1/public/amsfonts/cm/cmbx9.pfb><D:/MikTex/fonts/typ
+e1/public/amsfonts/cmextra/cmex9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/
+cmmi5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/MikTex/fonts/
+type1/public/amsfonts/cm/cmmi7.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/MikTex/fonts/ty
+pe1/public/amsfonts/cm/cmr5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr6.
+pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/MikTex/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr9.pfb><
+D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy5.pfb><D:/MikTex/fonts/type1/publi
+c/amsfonts/cm/cmsy6.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:
+/MikTex/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D:/MikTex/fonts/type1/public/
+amsfonts/cm/cmti8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti9.pfb><D:/M
+ikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/pub
+lic/amsfonts/symbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/m
+sbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/type1/
+urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (11 pages, 968654 bytes).
 PDF statistics:
- 400 PDF objects out of 1000 (max. 8388607)
+ 527 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

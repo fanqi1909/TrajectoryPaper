@@ -20,16 +20,16 @@ Table~\ref{tbl:existing_co_patterns} summarizes several popular co-moving patter
 with different constraints in the attributes of clustering in spatial proximity,
 consecutiveness in temporal duration and computational complexity. 
 In particular,  the \emph{flock}~\cite{gudmundsson2006flock} 
-and \emph{group}~\cite{wang2006grouppattern} patterns require 
+and the \emph{group}~\cite{wang2006grouppattern} patterns require 
 all the objects in a group to be enclosed by a disk with radius $r$; 
-whereas the \emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} 
-and \emph{platoon}~\cite{li2015platoon} patterns resort to density-based 
+whereas the \emph{convoy}~\cite{jeung2008convoy}, the \emph{swarm}~\cite{li2010swarm} 
+and the \emph{platoon}~\cite{li2015platoon} patterns resort to density-based 
 spatial clustering. 
-In the temporal dimension, \emph{flock}~\cite{gudmundsson2006flock} 
-and \emph{convoy}~\cite{jeung2008convoy} require all the timestamps 
+In the temporal dimension, the \emph{flock}~\cite{gudmundsson2006flock} 
+and the \emph{convoy}~\cite{jeung2008convoy} require all the timestamps 
 of each detected spatial group to be consecutive, which is referred to as \emph{global consecutiveness}; 
-whereas \emph{swarm}~\cite{li2010swarm} does not impose any restriction. 
-The \emph{group}~\cite{wang2006grouppattern} and \emph{platoon}~\cite{li2015platoon} adopt a compromised manner by allowing
+whereas the \emph{swarm}~\cite{li2010swarm} does not impose any restriction. 
+The \emph{group}~\cite{wang2006grouppattern} and the \emph{platoon}~\cite{li2015platoon} adopt a compromised manner by allowing
 arbitrary gaps between the consecutive segments, which is called \emph{local consecutiveness}. 
 They introduce a parameter $L$ to control the minimum length of each local consecutive segment.
 
@@ -38,13 +38,13 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline 
- & Proximity & Consecutiveness &  Time Complexity\\ 
+ & {\tiny Proximity} & {\tiny Consecutiveness} & {\tiny Time Complexity}\\ 
 \hline 
-flock~\cite{gudmundsson2004flock} & disk-based &  global & $O(|\mathbb{O}||\mathbb{T}|^2 + |\mathbb{O}|log(|\mathbb{O}|))$ \\ 
+flock~\cite{gudmundsson2004flock} & disk-based &  global & $O(|\mathbb{O}||\mathbb{T}|(M + log(|\mathbb{O}|))$ \\ 
 \hline 
 convoy~\cite{jeung2008convoy} & density-based &   global & $O(|\mathbb{O}|^2+|\mathbb{O}||\mathbb{T}|)$\\ 
 \hline 
-swarm~\cite{li2010swarm} & density-based  & no constraint & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$  \\ 
+swarm~\cite{li2010swarm} & density-based  & - & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$  \\ 
 \hline 
 group~\cite{wang2006grouppattern} & disk-based &  local & $O(|\mathbb{O}|^2|\mathbb{T}|)$ \\ 
 \hline 
@@ -56,116 +56,151 @@ platoon~\cite{li2015platoon} & density-based &  local & $O(2^{|\mathbb{O}|}|\mat
 \end{table}
 
 
+
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.45\textwidth]{related_work.eps}
-\caption{Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. The
-clusters of objects in each snapshots are denoted using dotted circles. Each type of pattern has its parameters. 
-$M$ denotes the minimum size of objects.
-$K$ denotes the minimum size of timestamps.
-$L$ denotes the minimum size of locally consecutive timestamps.}
+\caption{Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.}
 \label{fig:related_work}
 \end{figure}
 
-Figure~\ref{fig:related_work} is an example to demonstrate the concepts of various co-movement patterns. The trajectory database consists of six moving objects and the temporal dimension is discretized into six snapshots. In each snapshot, we treat the clustering methods as a black-box and assume that they generate the same clusters. Objects in proximity are grouped in the dotted circles. As aforementioned, there are three parameters to determine the co-movement patterns and the default settings in this example are $M=2$, $K=3$ and $L=2$. Both \emph{flock} and \emph{convoy} require the spatial clusters to last for at least $K$ consecutive  timestamps. Hence,$\{o_3,o_4\}$ remains the only candidate matching the patterns. \textit{Swarm} relaxes the pattern matching by discarding the temporal consecutiveness constraint. Thus, it generates many more candidates than \textit{flock} and \textit{convoy}. \textit{Group} and \textit{platoon} add a new constraint on local consecutiveness to retain meaningful patterns. For instance, $\{o_1,o_2:1,2,4,5\}$ is a pattern matching local consecutiveness because timestamps $\{1,2\}$ and $\{4,5\}$ are two segments with length no smaller than $L=2$. 
-The difference between \textit{group} and \textit{platoon} is that \textit{platoon} further requires the total size of timestamps to be greater than $K$ while \textit{group} do not have such a constraint. This explains why a group pattern $\{o_3,o_4,o_5:2,3\}$ is not included in the \textit{platoon} pattern.
-%The difference between \textit{group} and \textit{platoon} is that \textit{group} requires the consecutiveness constraint to be applied in all the local segments while platoon only requires at least one segment to be local consecutive.
+Figure~\ref{fig:related_work} is an example to demonstrate the concepts of various co-movement patterns. The trajectory database consists of six moving objects and the temporal dimension is discretized into six snapshots. In each snapshot, we treat the clustering methods as a black-box and assume that they generate the same clusters. Objects in proximity are grouped in the dotted circles. As aforementioned, there are three parameters to determine the co-movement patterns and the default settings in this example are $M=2$, $K=3$ and $L=2$. Both the \emph{flock} and the \emph{convoy} require the spatial clusters to last for at least $K$ consecutive  timestamps. Hence,$\{o_3,o_4\}$ and $\{o_5,o_6\}$  remains the only two candidates matching the patterns. The \textit{swarm} relaxes the pattern matching by discarding the temporal consecutiveness constraint. Thus, it generates many more candidates than the \textit{flock} and the \textit{convoy}. The \textit{group} and the \textit{platoon} add another constraint on local consecutiveness to retain meaningful patterns. For instance, $\{o_1,o_2:1,2,4,5\}$ is a pattern matching local consecutiveness because timestamps $\{1,2\}$ and $\{4,5\}$ are two segments with length no smaller than $L=2$. The difference between the \textit{group} and the \textit{platoon} is that the \textit{platoon} has an additional parameter $K$ to specify the minimum number of snapshots for the spatial clusters. This explains why $\{o_3,o_4,o_5:2,3\}$ is a  \textit{group} pattern but not a \textit{platoon} pattern.
 
+As can be seen, there are various co-movement patterns requested by different 
+applications and it is cumbersome to design a tailored solution for each type. 
+In addition, existing pattern definitions are not expressive enough and may miss 
+interesting patterns or return noisy results. We summarize 
+the two scenarios as \emph{missing-pattern} anomaly
+and \emph{loose-connection} anomaly.
+A \emph{missing-pattern} anomaly arises due to the stringent constraints on the pattern duration.
+As shown in Figure~\ref{fig:platoon_weakpoint} (a), if we set $K=4$, 
+neither \emph{flock}s nor \emph{convoy}s can be discovered. This is because
+$o_1$ is away from $o_2$ at timestamp $4$, which is likely caused by
+the traffic control or the clustering inaccuracy at time $4$. On the other hand,
+the \emph{loose-connection} anomaly occurs due to an over-relaxed constraint on 
+the duration. As shown in Figure~\ref{fig:platoon_weakpoint} (b),
+the two objects $o_1, o_2$ form a \emph{platoon} pattern 
+$\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
+making the co-moving behavior very weak.
+In reality, such an anomaly is likely to be induced by the periodic movements of unrelated objects 
+such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. 
+It is easy to see that none of the existing co-movement patterns are able to avoid these two anomalies.
 
-
-
-%
-%\begin{figure}[h]
-%\center
-%\includegraphics[width=0.5\textwidth]{platoon_weakpoint.eps}
-%\caption{Miss-pattern in platoon}
-%\label{fig:platoon_weakpoint}
-%\end{figure}
-
-%In platoon, a pattern for $n=2,k=4,l=2$ could be $\{o_1, o_2\}\{t_1,t_2,t_4,t_5,t_{100},t_{101}\}$. However, the snapshots $t_{100}$ and $t_{101}$ is too far away from previous snapshots. Such two snapshots are in less relation with previous snapshots and thus should be removed from the pattern. Based on this observation, we defined a \emph{generalized co-moving} pattern (as in Section~\ref{sec:definition}) to provide a more fine granular control of the pattern. In \emph{generalized co-moving} pattern, a parameter $g$ is introduce the control the \emph{maximum gap} allowed between consecutive snapshots. By so doing our generalized co-moving pattern is more expressive and can represent all the existing co-moving patterns.
-
-%In step with the advances in localization technologies, the growth in the volume of trajectory data is rapid. Traditional single-machine methods face severe scalability problem in handling large trajectory data. For example, as reported in~\cite{li2015platoon}, a \emph{Swarm} pattern takes around 100 seconds to discover for 100k trajectories. With upto billions of trajectories in nowadays datasets, such approaches apparently become unfeasible. To tackle this challenge, we propose a  paralleled solution for discovering \emph{generalized co-moving} patterns. We then deploy our idea on the modern MapReduce platform. As our experiments show, our solution achieves well load-balance and can process billions of trajectories in XXX seconds. Several optimizations are also designed to boost our solution to be orders of magnitudes faster than baseline algorithms.
-
-%In practice, it is cumbersome to design tailed solutions to different types of co-movement pattern discovery. 
-
-%In reality, it is cumbersome to design tailed solutions to support 
-%generality and scalability
-
-%In this paper, our primary objectives are solving two 
-
-As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. 
-%Besides, we observe that, the number of co-movement patterns could be nearly exponential. 
-%For instance, in the small example in Figure~\ref{fig:related_work}, \emph{swarm} already discovers 5 patterns.
-We further identify that existing patterns either miss out interesting patterns (i.e, \emph{convoy}) 
-or likely contain non-interesting patterns (i.e., \emph{swarm}, \emph{platoon}).
-Hence, there is a particular demand for a new pattern model to fine control the pattern result without losing expressiveness. 
-The other issue with existing methods is that they are built on top of centralized indexes that are not scalable. To the best of our knowledge, the maximum number of trajectories ever evaluated is up to hundreds of thousands of trajectories. In practice, it is rather common to collect at least millions of trajectories and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns} as well as an experimental evaluation with million-scale cardinality of a trajectory database (as shown in Figure~\ref{}). Results show that their performances degrade dramatically as the dataset size scales up and none of the existing solutions is scalable to handle large-scale trajectories.
-%In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
-%complexities of \emph{swarm} and \emph{platoon} are already exponential. 
-%Therefore, none of them can handle millions of trajectories efficiently. 
-%CAN YOU ANALYSE THEIR COMPLEXITY TO ADDRESS THE PROBLEM OF SCALABILITY.
-
-Therefore, our primary contributions in this paper are to close these two gaps. 
-First, we summarize two anomalies from existing patterns, namely, \emph{missing-pattern} and \emph{loose-connection}.
-The \emph{missing-pattern}~\cite{li2010swarm} anomaly arises due to the stringent constraints on the duration of a pattern. As shown in 
-Figure~\ref{fig:platoon_weakpoint} (a). if the duration size is set to be $K=4$, neither \emph{flock}s nor \emph{convoy}s
-can be discovered. As we notice, object $o_1$ is temporally far from $o_2$ at timestamp $4$, which is likely to be
-the result of errors in interpretation of missing points, or $o_1$ faces traffic control at time $4$. Such an anomaly can
-be resolved by \emph{swarm} and \emph{platoon} due to a relaxed constraint on the duration. However, 
-\emph{swarm} and \emph{platoon}'s relaxations encompass a type of non-interesting patterns which is referred
-as \emph{loose-connection}~\cite{li2015platoon} anomaly. As shown in Figure~\ref{fig:platoon_weakpoint} (b),
-the two objects $o_1, o_2$ 
-would form a \emph{platoon} pattern $\{o_1,o_2:1,2,3, 102,103,104\}$. However, the consecutive segment on the pattern's 
-duration is $98$ timestamps apart, making the co-movement behavior very weak.
-%
-%
-%%This is because that \emph{platoon} allows the timestamps in a pattern duration to be in arbitrary distance, making the object group loosely
-%connected. For instance, patterns with duration $\{1,2,100,101\}$ could be a valid \emph{platoon}; however, the two timestamps $2,100$ are too far from each other.
-In reality, such a pattern is likely to be induced by periodic movements of unrelated objects such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. In current literature,
-users are unable to explicitly exclude the loosely-connected patterns even when those patterns are unwanted.
-%When such loosely-connected patterns are unwanted, users currently are unable to directly control the outputs.
-To cope with both of the two anomalies, we propose the \emph{general co-movement pattern} 
-by introducing the gap parameter $G$, which requires the distance of 
-timestamps in the duration to be no larger than $G$. 
-By so doing, we gain a fine-grained control over the pattern duration, which alleviates both the \emph{missing-pattern} and the \emph{loose connection} problem. Meanwhile, the general co-movement pattern does not concede its expressiveness. As we show in later sections, the general co-movement pattern is able to express existing patterns by setting appropriate parameters. Therefore, users are still able to exclude non-consecutive patterns 
-or include loosely-connected patterns when they feel necessary.
-%IS IT POSSIBLE TO USE FIGURE 1 TO ADDRESS THE PROBLEM OF PLATOON, INSTEAD OF PROPOSING A NEW EXAMPLE SCENARIO?
-
-%
 \begin{figure}[h]
 \center
-\includegraphics[width=0.4\textwidth]{platoon_weakpoint.eps}
+\includegraphics[width=0.35\textwidth]{platoon_weakpoint.eps}
 \caption{Two anomalies in existing patterns. (a) \emph{Missing-pattern} anomaly
 in \emph{flock} and \emph{convoy}. When $K=4$, none of the two patterns can be discovered. (b) \emph{Loose-connection} anomaly in \emph{platoon} and \emph{swarm}. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.}
 \label{fig:platoon_weakpoint}
 \end{figure}
- 
+
+%In current literature,
+%users are unable to explicitly exclude the loosely-connected patterns even when those patterns are unwanted.
+%
+%
+% we summarize two anomalies 
+%The \emph{missing-pattern}~\cite{li2010swarm} anomaly arises due to the stringent constraints on the duration of a pattern. As shown in 
+%Figure~\ref{fig:platoon_weakpoint} (a).  As we notice, object $o_1$ is temporally far from $o_2$ at timestamp $4$, which is likely to be
+%the result of errors in interpretation of missing points, or $o_1$ faces traffic control at time $4$. Such an anomaly can
+%be resolved by \emph{swarm} and \emph{platoon} due to a relaxed constraint on the duration. However, 
+%\emph{swarm} and \emph{platoon}'s relaxations encompass a type of non-interesting patterns which is referred
+%as \emph{loose-connection}~\cite{li2015platoon} anomaly. 
+%
+%
+%%This is because that \emph{platoon} allows the timestamps in a pattern duration to be in arbitrary distance, making the object group loosely
+%connected. For instance, patterns with duration $\{1,2,100,101\}$ could be a valid \emph{platoon}; however, the two timestamps $2,100$ are too far from each other.
+
+%For instance, PUT THE FIGURE AND EXPLANATION HERE.
+
+%\begin{figure}[h]
+%\center
+%\includegraphics[width=0.35\textwidth]{rw_perf_O.eps}
+%\caption{Two anomalies in existing patterns. (a) \emph{Missing-pattern} anomaly
+%in \emph{flock} and \emph{convoy}. When $K=4$, none of the two patterns can be discovered. (b) \emph{Loose-connection} anomaly in \emph{platoon} and \emph{swarm}. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.}
+%\label{fig:platoon_weakpoint}
+%\end{figure}
+
+
+The other issue with existing methods is that they are 
+built on top of centralized indexes that are not scalable. 
+To the best of our knowledge, the maximum number of trajectories 
+ever evaluated is up to hundreds of trajectories. 
+In practice, it is rather common to collect at least hundreds of thousands of trajectories 
+and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns}) as well as an experimental evaluation with a real trajectory database including million-scale points(as shown in Figure~\ref{fig:related_work_scalability}). 
+Results show that their performances degrade dramatically as the dataset size scales up. For instances,
+performance of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
+performance of \emph{group} drops over seven times as the number of snapshots grows from \emph{1.5k} to \emph{2.4k}.
+It is easy to spot that none of the existing solutions are scalable to handle large-scale trajectories which may include billion-scale points.
+%In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
+%complexities of \emph{swarm} and \emph{platoon} are already exponential. 
+%Therefore, none of them can handle millions of trajectories efficiently. 
+%CAN YOU ANALYSE THEIR COMPLEXITY TO ADDRESS THE PROBLEM OF SCALABILITY.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.23\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{rw_perf_O.eps}
+		\subcaption{$1k$ objects}
+    \label{fig:fig1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{rw_perf_T.eps}
+         \subcaption{$1.2k$ timestamps}
+    \label{fig:fig2}
+    \end{subfigure}
+    \caption{Performance measures on existing co-movement patterns. A sampled Geolife data set
+    is used with over 2 million points.}
+    \label{fig:related_work_scalability}
+\end{figure}
+
+
+
+
+Therefore, our primary contributions in this paper are to close these two gaps. 
+First, we propose the \emph{general co-movement pattern} (GCMP) which models
+various co-moment patterns in a unified way while avoids 
+the two identified anomalies. In GCMP, we gain a
+fine-grained control over pattern duration by introducing the gap 
+parameter $G$, which enforces the gap between 
+timestamps to be no larger than $G$.  
+The adoption of $G$ seamlessly integrates with other pattern parameters,
+which preserves the expressiveness while
+alleviates both the \emph{missing-pattern} and the \emph{loose connection} anomalies.
+
+%Therefore, users are 
+%still able to exclude non-consecutive patterns 
+%or include loosely-connected patterns when they feel necessary.
+
+
+%We introduce the gap parameter $G$,
+%When such loosely-connected patterns are unwanted, users currently are unable to directly control the outputs.
+%To cope with both of the two anomalies, we propose 
+%by introducing the gap parameter $G$, 
+
+%By so doing, we gain a fine-grained control s, which As we show in later sections, the general co-movement pattern is able to express existing patterns by setting appropriate parameters. 
+%IS IT POSSIBLE TO USE FIGURE 1 TO ADDRESS THE PROBLEM OF PLATOON, INSTEAD OF PROPOSING A NEW EXAMPLE SCENARIO?
+%
+
 Second, we propose a parallel solution on modern MapReduce platforms for scalable pattern mining.
 The major challenge in designing MapReduce-based algorithms is to make proper partitions of input data.
 In GCMP mining, we enforce both the \emph{soundness} and the \emph{completeness} 
 of the partitions. Such properties ensure that neither false-patterns 
 nor miss-patterns are possible in our solution. To meet such partition requirements
-as well as to keep the shuffle amount to a minimum,
-% 
-%%Second, we propose a . Our
-%%solution is a three-step MapReduce alike approach. First, trajectories are partitioned
-%%into snapshots where clusters from each snapshots are formed in parallel. Second, 
-%%clusters at various timestamps are shuffled and regrouped. Third, the general co-movement patterns
-%%are mined from each group. 
-%
-%The challenge here is to ensure that
-%the patterns mined at step three is complete. If not, further shuffles and computations are required which 
-%significantly drag down the system performance. In order to resolve the challenges and meanwhile keep the 
-%shuffle amount at each stage to a minimum, 
+as well as to keep the shuffle amount to a minimum, 
 we first design a naive \emph{Temporal Replication and Mining} (TRM)
 approach, which partitions trajectories into groups of consecutive snapshots. Then, we design a line-sweep
 method for mining GCMP from each partition. We prove that in TRM, the partition is complete and sound when a snapshot is replicated $O(|T|)$ times. 
 Then, we design a novel \emph{Star Partition and Mining} (SRM) approach which significantly reduces the data shuffled
 as compare to TRM. In SRM, we design a conceptual connection graph based on proximity among objects. We adapt
 a \emph{star partition} which cut the graph by replicating vertices. Afterwards, we design an Apriori-like method to mine
-GCMP in each partition. We prove the correctness of SPM and show that total data been replicated is $O(|\mathbb{O}|)$.
-Moreover, we utilize \emph{temporal monotonicity} in GCMP to further reduce the shuffling and mining cost in SPM. Lastly, we adapt various engineering level techniques to support efficiently deploying our algorithms in 
-Apache Spark which is one of the most popular MapReduce platforms.
+GCMP in each partition. We prove the correctness of SPM and show that total data been replicated is $O(|\mathbb{O}|)$. 
+Despite the simpleness of star partition, we theoretically prove its optimality.
+Furthermore, we utilize \emph{temporal monotonicity} to further reduce the 
+shuffling and mining cost in SPM. 
+%Lastly, we adapt various engineering level techniques to support efficiently deploying our algorithms in 
+%Apache Spark which is one of the most popular MapReduce platforms.
 
 %we design a novel star-based partition scheme to efficiently partition objects based on their
 %belonging clusters. Based on the star partition, we then propose a series of optimization techniques which
