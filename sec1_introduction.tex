@@ -69,29 +69,34 @@ Figure~\ref{fig:related_work} is an example to demonstrate the concepts of vario
 
 As can be seen, there are various co-movement patterns requested by different 
 applications and it is cumbersome to design a tailored solution for each type. 
-In addition, existing pattern definitions are not expressive enough and may miss 
-interesting patterns or return noisy results. We summarize 
-the two scenarios as \emph{missing-pattern} anomaly
-and \emph{loose-connection} anomaly.
-A \emph{missing-pattern} anomaly arises due to the stringent constraints on the pattern duration.
-As shown in Figure~\ref{fig:platoon_weakpoint} (a), if we set $K=4$, 
-neither \emph{flock}s nor \emph{convoy}s can be discovered. This is because
-$o_1$ is away from $o_2$ at timestamp $4$, which is likely caused by
-the traffic control or the clustering inaccuracy at time $4$. On the other hand,
-the \emph{loose-connection} anomaly occurs due to an over-relaxed constraint on 
-the duration. As shown in Figure~\ref{fig:platoon_weakpoint} (b),
-the two objects $o_1, o_2$ form a \emph{platoon} pattern 
+As pointed in \cite{li2015platoon, li2010swarm}, stringent temporal constraints (e.g., global consecutiveness on \emph{flock} and \emph{convoy}) may miss out many interesting patterns. However, we observe that pattern definitions with overly-relaxed temporal constraints (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) lose the fine control of a pattern which introduce noisy results and unnecessary computations. We name this scenario as \emph{loose-connection} anomaly. To illustrate, as shown in Figure~\ref{fig:platoon_weakpoint}, the two objects $o_1, o_2$ form a \emph{platoon} pattern 
 $\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
-making the co-moving behavior very weak.
-In reality, such an anomaly is likely to be induced by the periodic movements of unrelated objects 
-such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. 
-It is easy to see that none of the existing co-movement patterns are able to avoid these two anomalies.
+making the co-moving behavior very loose.
+In reality, such an anomaly is likely induced by the periodic movements of unrelated objects 
+such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc.  Interestingly, none of the temporal-relaxed patterns (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) is able to avoid such an anomaly directly.
+
+%In addition, existing pattern definitions are not expressive enough and may miss 
+%interesting patterns or return noisy results. We summarize 
+%the two scenarios as \emph{missing-pattern} anomaly
+%and \emph{loose-connection} anomaly.
+%A \emph{missing-pattern} anomaly arises due to the stringent constraints on the pattern duration.
+%As shown in Figure~\ref{fig:platoon_weakpoint} (a), if we set $K=4$, 
+%neither \emph{flock}s nor \emph{convoy}s can be discovered. This is because
+%$o_1$ is away from $o_2$ at timestamp $4$, which is likely caused by
+%the traffic control or the clustering inaccuracy at time $4$. On the other hand,
+%the \emph{loose-connection} anomaly occurs due to an over-relaxed constraint on 
+%the duration. As shown in Figure~\ref{fig:platoon_weakpoint} (b),
+%the two objects $o_1, o_2$ form a \emph{platoon} pattern 
+%$\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
+%making the co-moving behavior very weak.
+%In reality, such an anomaly is likely to be induced by the periodic movements of unrelated objects 
+%such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. 
+%It is easy to see that none of the existing co-movement patterns are able to avoid these two anomalies.
 
 \begin{figure}[h]
 \center
 \includegraphics[width=0.35\textwidth]{platoon_weakpoint.eps}
-\caption{Two anomalies in existing patterns. (a) \emph{Missing-pattern} anomaly
-in \emph{flock} and \emph{convoy}. When $K=4$, none of the two patterns can be discovered. (b) \emph{Loose-connection} anomaly in \emph{platoon} and \emph{swarm}. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in platoon and swarm results.}
+\caption{\emph{Loose-connection} anomaly. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in \emph{platoon}, \emph{swarm} and \emph{group} results.}
 \label{fig:platoon_weakpoint}
 \end{figure}
 
@@ -161,13 +166,13 @@ It is easy to spot that none of the existing solutions are scalable to handle la
 Therefore, our primary contributions in this paper are to close these two gaps. 
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way while avoids 
-the two identified anomalies. In GCMP, we gain a
+the \emph{loose-connection} anomaly. In GCMP, we gain a
 fine-grained control over pattern duration by introducing the gap 
 parameter $G$, which enforces the gap between 
 timestamps to be no larger than $G$.  
 The adoption of $G$ seamlessly integrates with other pattern parameters,
 which preserves the expressiveness while
-alleviates both the \emph{missing-pattern} and the \emph{loose connection} anomalies.
+alleviates the \emph{loose connection} anomalies.
 
 %Therefore, users are 
 %still able to exclude non-consecutive patterns 
