@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  28 MAY 2016 13:39
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  1 JUN 2016 18:43
 entering extended mode
 **main.tex
 (F:\GitHubRepos\TrajectoryPaper\main.tex
@@ -494,41 +494,51 @@ Package pdftex.def Info: ./charts/platoon_weakpoint-eps-converted-to.pdf used o
 n input line 92.
 (pdftex.def)             Requested size: 176.40308pt x 138.05492pt.
 Package epstopdf Info: Source file: <./charts/rw_perf_O.eps>
-(epstopdf)                    date: 2016-05-28 13:34:28
-(epstopdf)                    size: 418982 bytes
+(epstopdf)                    date: 2016-06-01 18:42:48
+(epstopdf)                    size: 417790 bytes
 (epstopdf)             Output file: <./charts/rw_perf_O-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-05-28 13:35:13
-(epstopdf)                    size: 32365 bytes
+(epstopdf)                    date: 2016-06-01 18:41:31
+(epstopdf)                    size: 31634 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_O-eps-conv
 erted-to.pdf ./charts/rw_perf_O.eps>
 (epstopdf)             \includegraphics on input line 143.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=./charts/rw_perf_O-eps-converted-to.pdf ./charts/r
+w_perf_O.eps)...executed (allowed).
 
-<./charts/rw_perf_O-eps-converted-to.pdf, id=22, 507.8975pt x 302.12875pt>
+Package epstopdf Info: Result file: <./charts/rw_perf_O-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-01 18:43:08
+(epstopdf)                    size: 31478 bytes.
+
+<./charts/rw_perf_O-eps-converted-to.pdf, id=22, 517.935pt x 340.27126pt>
 File: ./charts/rw_perf_O-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_O-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_O-eps-converted-to.pdf used on input 
 line 143.
-(pdftex.def)             Requested size: 115.91785pt x 68.95337pt.
+(pdftex.def)             Requested size: 115.91785pt x 76.15274pt.
 Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
-(epstopdf)                    date: 2016-05-28 13:35:06
-(epstopdf)                    size: 421921 bytes
+(epstopdf)                    date: 2016-06-01 18:43:04
+(epstopdf)                    size: 416775 bytes
 (epstopdf)             Output file: <./charts/rw_perf_T-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-05-28 13:35:14
-(epstopdf)                    size: 32217 bytes
+(epstopdf)                    date: 2016-06-01 18:41:32
+(epstopdf)                    size: 31398 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_T-eps-conv
 erted-to.pdf ./charts/rw_perf_T.eps>
 (epstopdf)             \includegraphics on input line 149.
-Package epstopdf Info: Output file is already uptodate.
+runsystem(epstopdf --outfile=./charts/rw_perf_T-eps-converted-to.pdf ./charts/r
+w_perf_T.eps)...executed (allowed).
 
-<./charts/rw_perf_T-eps-converted-to.pdf, id=23, 756.8275pt x 451.6875pt>
+Package epstopdf Info: Result file: <./charts/rw_perf_T-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-01 18:43:09
+(epstopdf)                    size: 31273 bytes.
+
+<./charts/rw_perf_T-eps-converted-to.pdf, id=23, 506.89375pt x 319.1925pt>
 File: ./charts/rw_perf_T-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_T-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_T-eps-converted-to.pdf used on input 
 line 149.
-(pdftex.def)             Requested size: 115.91785pt x 69.17688pt.
+(pdftex.def)             Requested size: 115.91785pt x 72.99387pt.
 
 Underfull \vbox (badness 1173) has occurred while \output is active []
 
@@ -604,7 +614,7 @@ converted-to.pdf ./charts/system_layout.eps>
 (epstopdf)             \includegraphics on input line 76.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/system_layout-eps-converted-to.pdf, id=116, 689.57625pt x 328.22626pt
+<./charts/system_layout-eps-converted-to.pdf, id=104, 689.57625pt x 328.22626pt
 >
 File: ./charts/system_layout-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/system_layout-eps-converted-to.pdf>
@@ -630,7 +640,7 @@ nverted-to.pdf ./charts/trm_process.eps>
 (epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/trm_process-eps-converted-to.pdf, id=207, 534.99875pt x 442.65375pt>
+<./charts/trm_process-eps-converted-to.pdf, id=195, 534.99875pt x 442.65375pt>
 File: ./charts/trm_process-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/trm_process-eps-converted-to.pdf>
@@ -657,7 +667,7 @@ to.pdf ./charts/spm.eps>
 (epstopdf)             \includegraphics on input line 81.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/spm-eps-converted-to.pdf, id=213, 458.71375pt x 417.56pt>
+<./charts/spm-eps-converted-to.pdf, id=201, 458.71375pt x 417.56pt>
 File: ./charts/spm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/spm-eps-converted-to.pdf>
@@ -678,7 +688,7 @@ rted-to.pdf ./charts/star-alt.eps>
 (epstopdf)             \includegraphics on input line 226.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/star-alt-eps-converted-to.pdf, id=392, 467.7475pt x 129.48375pt>
+<./charts/star-alt-eps-converted-to.pdf, id=380, 467.7475pt x 129.48375pt>
 File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/star-alt-eps-converted-to.pdf>
@@ -736,9 +746,9 @@ ikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/pub
 lic/amsfonts/symbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/m
 sbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/type1/
 urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (11 pages, 968654 bytes).
+Output written on main.pdf (11 pages, 966711 bytes).
 PDF statistics:
- 527 PDF objects out of 1000 (max. 8388607)
+ 515 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

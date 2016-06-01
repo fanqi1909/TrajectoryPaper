@@ -267,7 +267,7 @@ $O(1)$ time solution which is good enough as stated in the
 following theorem.
 
 \begin{theorem}[Balance of Star Partition]
-Let $G$ be a connection graph with degree $d$ and $n$ vertexes.
+Let $G$ be a connection graph with $n$ vertexes and the average degree $d$.
 Let $\mathbb{A}^*$ be the optimal numbering wrt. Equation 1.
 For any numbering, $\mathbb{A}$, with high probability, the 
 absolute difference between $\mathbb{A}^*$ and $\mathbb{A}$ is $O(\sqrt{n \log n})$.
@@ -277,7 +277,7 @@ $||\mathbb{A}\vec{b}||_\infty = ||\mathbb{A}^*\vec{b}||_\infty + O(\sqrt{n \log 
 
 \begin{proof}
 Let $\mathbb{A}^*$ be the optimal solution wrt Equation 1. Since we have a star
-for each object, by the pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
+for each object, by the degree-sum formula and pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
 Next, let $e_{i,j}$ be a 0-1 indicator variable determining whether vertex $i$ connects vertex $j$
 in $G$. Note that edges in $G$ are independent. We use $d_i$ 
 to denote the degree of object $i$ in $G$.  It follows that $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$.
@@ -306,18 +306,19 @@ $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 \end{equation*}
 
 The first step is due to the fact that all $a_{i,j}$ are bounded in the range of [0,1]. 
-Next, since the event $(\max_{1\leq j \leq n}(c_j) > \mu + t)$ can be viewed as
-$\cup_{c_i} (c_i > \mu + t )$, by Union Bound, we achieve the following:
+Next, since the event $(\max_{1\leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
+$\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
 \begin{equation*}
 \begin{split}
-	Pr(||A\vec{b}||_\infty > \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) > \mu + t)  \\
+	Pr(||A\vec{b}||_\infty \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
+		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
 		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\
 		& = n^{-1} = 1/n
 \end{split}
 \end{equation*}
 Substitute $t$ and $\mu$, we achieve the following concise form:
 \begin{equation*}
-	Pr(||A\vec{b}||_\infty > (d/2 + \sqrt{n\log n})) \leq 1/n
+	Pr(||A\vec{b}||_\infty \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
 This indicates that, the probability of $(||A\vec{b}||_\infty-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. With the observed fact that $||A^*\vec{b}||_\infty \geq d/2$, we conclude that
 with probability greater than $(1-1/n)$, 
@@ -328,7 +329,7 @@ In fact, we have a tighter bound of $||A\vec{b}||_\infty -||A^*\vec{b}||_\infty$
 the connection graph is \emph{dense}. Specifically, if $d\geq \sqrt{12\log n}$, the following
 equation holds:
 \begin{equation*}
-Pr(||A\vec{b}||_\infty > (d/2 + O(\sqrt{d\log n})) \leq 1/n
+Pr(||A\vec{b}||_\infty \geq (d/2 + O(\sqrt{d\log n})) \leq 1/n
 \end{equation*}
 
 Induced by the Theorem 5, taking object IDs as the numbering (i.e., in Algorithm~\ref{algo:spm_overview})
