@@ -1,0 +1,97 @@
+\documentclass{vldb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{epstopdf}
+\usepackage{pbox}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{algorithm, algpseudocode, amsmath,amsthm,amssymb}
+
+\graphicspath{ {./charts/}, {./exp/} }
+\epstopdfsetup{outdir=./charts/}
+\newcommand{\reminder}[1]{ {\mbox{$<==$}} [[[ { \bf #1 } ]]] {\mbox{$==>$}}}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\newcommand*{\argminl}{\argmin\limits}
+\newcommand*{\argmaxl}{\argmax\limits}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+% ****************** TITLE ****************************************
+
+\title{A General and Parallel Platform for Mining Co-Movement Patterns over Large-scale Trajectories}
+
+% ****************** AUTHORS **************************************
+
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+%\author{
+%	\IEEEauthorblockN{
+%		Qi Fan\IEEEauthorrefmark{1},
+%		Yuchen Li\IEEEauthorrefmark{1},
+%		Dongxiang Zhang\IEEEauthorrefmark{2} and
+%		Kian-Lee Tan\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}
+%		}
+%	\IEEEauthorblockA{
+%		\IEEEauthorrefmark{1}NUS Graduate School for Integrative Sciences and Engineering,
+%		National University of Singapore, Singapore\\
+%		\{fan.qi, liyuchen\}@nus.edu.sg
+%	}
+%	\IEEEauthorblockA{
+%		\IEEEauthorrefmark{2}School of Computing,
+%		National University of Singapore, Singapore \\
+%		\{zhangdo,tankl\}@comp.nus.edu.sg
+%	}
+%}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\input{sec1_introduction}
+\input{sec2_relatedworks}
+\input{sec3_definitions}
+\input{sec4_system}
+\input{sec5_baseline}
+\input{sec6_spm}
+\input{sec7_optimization}
+\input{sec8_experiment}
+\input{sec9_conclusion}
+
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{IEEEtr}
+\small
+\bibliography{citations}
+\end{document}

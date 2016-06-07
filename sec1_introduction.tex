@@ -69,11 +69,28 @@ Figure~\ref{fig:related_work} is an example to demonstrate the concepts of vario
 
 As can be seen, there are various co-movement patterns requested by different 
 applications and it is cumbersome to design a tailored solution for each type. 
-As pointed in \cite{li2015platoon, li2010swarm}, stringent temporal constraints (e.g., global consecutiveness on \emph{flock} and \emph{convoy}) may miss out many interesting patterns. However, we observe that pattern definitions with overly-relaxed temporal constraints (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) lose the fine control of a pattern which introduce noisy results and unnecessary computations. We name this scenario as \emph{loose-connection} anomaly. To illustrate, as shown in Figure~\ref{fig:platoon_weakpoint}, the two objects $o_1, o_2$ form a \emph{platoon} pattern 
+It is notable that \emph{platoon} pattern is able to represent other
+patterns by setting appropriate parameters. However, we observe
+that such a pattern definition, due to its overly-relaxed temporal constraints,
+loses the fine control of a pattern
+which leads to noisy results and unnecessary computations. We name this
+scenario as \emph{loose-connection} anomaly. To illustrate, as shown in Figure~\ref{fig:platoon_weakpoint}, the two objects $o_1, o_2$ form a \emph{platoon} pattern 
 $\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
-making the co-moving behavior very loose.
-In reality, such an anomaly is likely induced by the periodic movements of unrelated objects 
-such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc.  Interestingly, none of the temporal-relaxed patterns (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) is able to avoid such an anomaly directly.
+making the co-moving behavior very weak. In reality, 
+such an anomaly is likely induced by the periodic movements of unrelated objects 
+such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. 
+In fact, none of the temporal-relaxed patterns (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) 
+are able to directly avoid such an anomaly.
+
+
+%As can be seen, there are various co-movement patterns requested by different 
+%applications and it is cumbersome to design a tailored solution for each type. 
+%As pointed in \cite{li2015platoon, li2010swarm}, stringent temporal constraints (e.g., global consecutiveness on \emph{flock} and \emph{convoy}) may miss out many interesting patterns. However, we 
+%further observe that pattern definitions with overly-relaxed temporal constraints (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) lose the fine control of a pattern which lead to noisy results and unnecessary computations. We name this scenario as \emph{loose-connection} anomaly. To illustrate, as shown in Figure~\ref{fig:platoon_weakpoint}, the two objects $o_1, o_2$ form a \emph{platoon} pattern 
+%$\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
+%making the co-moving behavior very loose.
+%In reality, such an anomaly is likely induced by the periodic movements of unrelated objects 
+%such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc.  Interestingly, none of the temporal-relaxed patterns (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) are able to directly avoid such an anomaly.
 
 %In addition, existing pattern definitions are not expressive enough and may miss 
 %interesting patterns or return noisy results. We summarize 
@@ -96,7 +113,7 @@ such as, vehicles stopping at the same petrol station, animals pausing at the sa
 \begin{figure}[h]
 \center
 \includegraphics[width=0.35\textwidth]{platoon_weakpoint.eps}
-\caption{\emph{Loose-connection} anomaly. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is included in \emph{platoon}, \emph{swarm} and \emph{group} results.}
+\caption{\emph{Loose-connection} anomaly. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is valid in \emph{platoon}, \emph{swarm} and \emph{group} results.}
 \label{fig:platoon_weakpoint}
 \end{figure}
 
@@ -128,15 +145,21 @@ such as, vehicles stopping at the same petrol station, animals pausing at the sa
 
 
 The other issue with existing methods is that they are 
-built on top of centralized indexes that are not scalable. 
-To the best of our knowledge, the maximum number of trajectories 
-ever evaluated is up to hundreds of trajectories. 
-In practice, it is rather common to collect at least hundreds of thousands of trajectories 
-and their scalability is left unknown. We conduct a theoretical analysis on the worst-case complexity (as listed in Table~\ref{tbl:existing_co_patterns}) as well as an experimental evaluation with a real trajectory database including million-scale points(as shown in Figure~\ref{fig:related_work_scalability}). 
-Results show that their performances degrade dramatically as the dataset size scales up. For instances,
-performance of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
-performance of \emph{group} drops over seven times as the number of snapshots grows from \emph{1.5k} to \emph{2.4k}.
-It is easy to spot that none of the existing solutions are scalable to handle large-scale trajectories which may include billion-scale points.
+built on top of centralized indexes which face scalability challenges. 
+To the best of our knowledge, the maximum number of trajectories
+ever evaluated is up to a million data points.
+In practice, it is rather common to collect hundreds of millions data points
+and the scalabilities of current solutions are left unknown. 
+We conduct a theoretical analysis on the worst-case complexity 
+(as listed in Table~\ref{tbl:existing_co_patterns}) as well as 
+an experimental evaluation with a real trajectory database 
+with upto 2.4 million points (as shown in Figure~\ref{fig:related_work_scalability}). 
+Results show that their performances degrade dramatically as the dataset scales up. For instances,
+the performance of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
+the performance of \emph{group} drops over seven times as the number of snapshots grows from \emph{1.4k} to \emph{2.4k}.
+Therefore, directly applying these patterns on billion-scale real trajectories is impractical.
+
+%It is easy to spot that none of the existing solutions are scalable to handle large-scale trajectories which include near billions of data points.
 %In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
 %complexities of \emph{swarm} and \emph{platoon} are already exponential. 
 %Therefore, none of them can handle millions of trajectories efficiently. 
@@ -156,7 +179,7 @@ It is easy to spot that none of the existing solutions are scalable to handle la
     \label{fig:fig2}
     \end{subfigure}
     \caption{Performance measures on existing co-movement patterns. A sampled Geolife data set
-    is used with over 2 million points.}
+    is used with up two 2.4 million data points.}
     \label{fig:related_work_scalability}
 \end{figure}
 
