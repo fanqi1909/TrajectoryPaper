@@ -1,3 +1,4 @@
+
 \section{Introduction}
 The prevalence of positioning devices has drastically boosted 
 the scale and spectrum of trajectory collection to an unprecedented level. 
@@ -67,20 +68,8 @@ platoon~\cite{li2015platoon} & density-based &  local & $O(2^{|\mathbb{O}|}|\mat
 
 Figure~\ref{fig:related_work} is an example to demonstrate the concepts of various co-movement patterns. The trajectory database consists of six moving objects and the temporal dimension is discretized into six snapshots. In each snapshot, we treat the clustering methods as a black-box and assume that they generate the same clusters. Objects in proximity are grouped in the dotted circles. As aforementioned, there are three parameters to determine the co-movement patterns and the default settings in this example are $M=2$, $K=3$ and $L=2$. Both the \emph{flock} and the \emph{convoy} require the spatial clusters to last for at least $K$ consecutive  timestamps. Hence,$\{o_3,o_4\}$ and $\{o_5,o_6\}$  remains the only two candidates matching the patterns. The \textit{swarm} relaxes the pattern matching by discarding the temporal consecutiveness constraint. Thus, it generates many more candidates than the \textit{flock} and the \textit{convoy}. The \textit{group} and the \textit{platoon} add another constraint on local consecutiveness to retain meaningful patterns. For instance, $\{o_1,o_2:1,2,4,5\}$ is a pattern matching local consecutiveness because timestamps $\{1,2\}$ and $\{4,5\}$ are two segments with length no smaller than $L=2$. The difference between the \textit{group} and the \textit{platoon} is that the \textit{platoon} has an additional parameter $K$ to specify the minimum number of snapshots for the spatial clusters. This explains why $\{o_3,o_4,o_5:2,3\}$ is a  \textit{group} pattern but not a \textit{platoon} pattern.
 
-As can be seen, there are various co-movement patterns requested by different 
-applications and it is cumbersome to design a tailored solution for each type. 
-It is notable that \emph{platoon} pattern is able to represent other
-patterns by setting appropriate parameters. However, we observe
-that such a pattern definition, due to its overly-relaxed temporal constraints,
-loses the fine control of a pattern
-which leads to noisy results and unnecessary computations. We name this
-scenario as \emph{loose-connection} anomaly. To illustrate, as shown in Figure~\ref{fig:platoon_weakpoint}, the two objects $o_1, o_2$ form a \emph{platoon} pattern 
-$\{o_1,o_2:1,2,3,102,103,104\}$. However, the consecutive segments are $98$ timestamps apart, 
-making the co-moving behavior very weak. In reality, 
-such an anomaly is likely induced by the periodic movements of unrelated objects 
-such as, vehicles stopping at the same petrol station, animals pausing at the same water source etc. 
-In fact, none of the temporal-relaxed patterns (e.g., \emph{swarm}, \emph{group} and \emph{platoon}) 
-are able to directly avoid such an anomaly.
+As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. In addition, despite the generality of the \emph{platoon} (i.e., it can be reduced to other types of patterns via proper parameter settings), it suffers from the so-called \emph{loose-connection} anomaly. We use two objects $o_1$ and $o_2$ in Figure~\ref{fig:platoon_weakpoint} as an example to illustrate the scenario. These two objects form a \emph{platoon} pattern in timestamps $\{1,2,3,102,103,104\}$. However, the two consecutive segments are $98$ timestamps apart, resulting in a false positive co-movement pattern. In reality, such an anomaly may be caused  by the periodic movements of unrelated objects, such as vehicles stopping at the same petrol station or animals pausing at the same water source. 
+Unfortunately, none of the existing patterns have directly addressed this anomaly.
 
 
 %As can be seen, there are various co-movement patterns requested by different 
@@ -113,7 +102,9 @@ are able to directly avoid such an anomaly.
 \begin{figure}[h]
 \center
 \includegraphics[width=0.35\textwidth]{platoon_weakpoint.eps}
-\caption{\emph{Loose-connection} anomaly. The consecutive segment of $o_1$ and $o_2$ are 98 timestamps apart, however, the pattern $\{o_1, o_2: 1,2,3,102,103,104\}$ is valid in \emph{platoon}, \emph{swarm} and \emph{group} results.}
+\caption{\emph{Loose-connection} anomaly. Even though $\{o_1, o_2: 1,2,3,102,103,104\}$ is considered as a valid \emph{platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments  are 98 timestamps apart. 
+% in \emph{platoon}, \emph{swarm} and \emph{group} results.
+}
 \label{fig:platoon_weakpoint}
 \end{figure}
 
@@ -144,20 +135,10 @@ are able to directly avoid such an anomaly.
 %\end{figure}
 
 
-The other issue with existing methods is that they are 
-built on top of centralized indexes which face scalability challenges. 
-To the best of our knowledge, the maximum number of trajectories
-ever evaluated is up to a million data points.
-In practice, it is rather common to collect hundreds of millions data points
-and the scalabilities of current solutions are left unknown. 
-We conduct a theoretical analysis on the worst-case complexity 
-(as listed in Table~\ref{tbl:existing_co_patterns}) as well as 
-an experimental evaluation with a real trajectory database 
-with upto 2.4 million points (as shown in Figure~\ref{fig:related_work_scalability}). 
-Results show that their performances degrade dramatically as the dataset scales up. For instances,
-the performance of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
+The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance,
+the detection time of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
 the performance of \emph{group} drops over seven times as the number of snapshots grows from \emph{1.4k} to \emph{2.4k}.
-Therefore, directly applying these patterns on billion-scale real trajectories is impractical.
+These observations imply that existing methods are not scalable to support large-scale trajectory databases. 
 
 %It is easy to spot that none of the existing solutions are scalable to handle large-scale trajectories which include near billions of data points.
 %In fact, as shown in Table~, the mining of co-movement patterns require high complexity. For instance, the
@@ -188,14 +169,8 @@ Therefore, directly applying these patterns on billion-scale real trajectories i
 
 Therefore, our primary contributions in this paper are to close these two gaps. 
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
-various co-moment patterns in a unified way while avoids 
-the \emph{loose-connection} anomaly. In GCMP, we gain a
-fine-grained control over pattern duration by introducing the gap 
-parameter $G$, which enforces the gap between 
-timestamps to be no larger than $G$.  
-The adoption of $G$ seamlessly integrates with other pattern parameters,
-which preserves the expressiveness while
-alleviates the \emph{loose connection} anomalies.
+various co-moment patterns in a unified way and can avoid 
+the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. By setting a feasible $G$, the loose-connection anomaly can be avoided. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing the parameters.
 
 %Therefore, users are 
 %still able to exclude non-consecutive patterns 
@@ -211,22 +186,69 @@ alleviates the \emph{loose connection} anomalies.
 %IS IT POSSIBLE TO USE FIGURE 1 TO ADDRESS THE PROBLEM OF PLATOON, INSTEAD OF PROPOSING A NEW EXAMPLE SCENARIO?
 %
 
-Second, we propose a parallel solution on modern MapReduce platforms for scalable pattern mining.
-The major challenge in designing MapReduce-based algorithms is to make proper partitions of input data.
-In GCMP mining, we enforce both the \emph{soundness} and the \emph{completeness} 
-of the partitions. Such properties ensure that neither false-patterns 
-nor miss-patterns are possible in our solution. To meet such partition requirements
-as well as to keep the shuffle amount to a minimum, 
-we first design a naive \emph{Temporal Replication and Mining} (TRM)
-approach, which partitions trajectories into groups of consecutive snapshots. Then, we design a line-sweep
-method for mining GCMP from each partition. We prove that in TRM, the partition is complete and sound when a snapshot is replicated $O(|T|)$ times. 
-Then, we design a novel \emph{Star Partition and Mining} (SRM) approach which significantly reduces the data shuffled
-as compare to TRM. In SRM, we design a conceptual connection graph based on proximity among objects. We adapt
-a \emph{star partition} which cut the graph by replicating vertices. Afterwards, we design an Apriori-like method to mine
-GCMP in each partition. We prove the correctness of SPM and show that total data been replicated is $O(|\mathbb{O}|)$. 
-Despite the simpleness of star partition, we theoretically prove its optimality.
-Furthermore, we utilize \emph{temporal monotonicity} to further reduce the 
-shuffling and mining cost in SPM. 
+Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partition and Mining} (SPM) algorithm as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori method is adopted to mine the co-movement patterns. Third, we propose two types of optimization techniques to further improve the performance, including \emph{edge-simplification} to boost the shuffle process and \emph{temporal monotonicity pruning} and 
+\emph{forward closure checking} to significantly reduce the number of enumerated candidates in the Aproiro algorithm.
+
+
+
+%
+%Second, we investigate on deploying our GCMP detector to facilitate scalable pattern mining.
+%In order to support large real trajectories, to the best of our knowledge, we
+%are the first to study GCMP mining in MapReduce (MR) systems. There are a
+%few challengers associated with designing an efficient MR-based pattern 
+%detection algorithms. 
+%
+%First, in order to support effective parallelism, we need
+%to partition the trajectory database with almost equal sizes. Our initial attempts
+%develops a temporal based partition approached named as 
+%\emph{Temporal Replication and Mining} (TRM). In TRM, neighboring snapshots form
+%a equal-sized partition such that co-movement patterns can be mined independently.
+%However, such a scheme require $O(|\mathbb{T}|)$ replication of input, which is 
+%inefficient for large-scale trajectories. To support efficient mining, 
+%we design a novel \emph{Star Partition and Mining} (SPM) approach which utilize
+%the potential co-movement relationship among objects.
+%
+%Our initial attempt develops a naive but effective 
+%\emph{Temporal Replication and Mining} (TRM) approach 
+%which requires to replicate entire data set $O(|\mathbb{T}|)$ times. Such a 
+%large set of 
+
+%There
+%are a few challenges arises in designing the MR based pattern detection algorithm.
+%First, we 
+
+%The major challenge
+%we face is to make proper data partitions such
+%that each partition can be efficiently processed independently. Our initial attempt develops
+%a naive but effective \emph{Temporal Replication and Mining} (TRM) approach which requires to replicate
+%entire data set $O(|\mathbb{T}|)$ times. To improve the efficiency, we design a novel \emph{Star Partition and Mining} (SPM)
+%algorithm. In SPM, potential co-moving objects are first grouped into partitions. Subsequently,
+%an apriori based method is applied to discover the patterns from each partition.
+%Despite the simpleness of the star partition, we theoretically prove its correctness
+%and optimality. Using SPM as the foundation, we develop and integrate
+%a series of optimization techniques including \emph{edge simplification}, \emph{candidate pruning}
+%and \emph{forward closure checking} to further boost the
+%performances.
+%
+
+
+%
+%Second, we investigate how to deploy our GCMP detector  on Spark for scalable pattern mining.
+%The major challenge in designing MapReduce-based algorithms is to make proper partitions of input data.
+%In GCMP mining, we enforce both the \emph{soundness} and the \emph{completeness} 
+%of the partitions. Such properties ensure that neither false-patterns 
+%nor miss-patterns are possible in our solution. To meet such partition requirements
+%as well as to keep the shuffle amount to a minimum, 
+%we first design a naive \emph{Temporal Replication and Mining} (TRM)
+%approach, which partitions trajectories into groups of consecutive snapshots. Then, we design a line-sweep
+%method for mining GCMP from each partition. We prove that in TRM, the partition is complete and sound when a snapshot is replicated $O(|T|)$ times. 
+%Then, we design a novel \emph{Star Partition and Mining} (SRM) approach which significantly reduces the data shuffled
+%as compare to TRM. In SRM, we design a conceptual connection graph based on proximity among objects. We adapt
+%a \emph{star partition} which cut the graph by replicating vertices. Afterwards, we design an Apriori-like method to mine
+%GCMP in each partition. We prove the correctness of SPM and show that total data been replicated is $O(|\mathbb{O}|)$. 
+%Despite the simpleness of star partition, we theoretically prove its optimality.
+%Furthermore, we utilize \emph{temporal monotonicity} to further reduce the 
+%shuffling and mining cost in SPM. 
 %Lastly, we adapt various engineering level techniques to support efficiently deploying our algorithms in 
 %Apache Spark which is one of the most popular MapReduce platforms.
 
@@ -234,7 +256,7 @@ shuffling and mining cost in SPM.
 %belonging clusters. Based on the star partition, we then propose a series of optimization techniques which
 %largely improve the system performance. NEED TO EMPHASIZE YOUR TECHNICAL CONTRIBUTION!
 
-We conduct a set of extensive experiments on XXX datasets with million-scale trajectories. The results show that XXX.
+We conduct a set of extensive experiments on XXX datasets with billion-scale trajectory points. The results show that XXX.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining; Section~\ref{sec:definition} forms the definition of the general co-movement pattern mining; Section~\ref{sec:system_overview} presents our parallel architecture; The solution of mining the general co-movement pattern mining is presented in Section~\ref{sec:trm_solution} and Section~\ref{sec:spm_solution}. Section~\ref{sec:optimization} discuss various optimization techniques to boost the system performance; Section~\ref{sec:experiment} conducts extensive experiments to showcase the usefulness and efficiency of our system and finally Section~\ref{sec:conclusion} concludes our paper.
+trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:system_overview} provides an overview of our parallel architecture. Solutions to mining the general co-movement patterns are presented in Section~\ref{sec:trm_solution} and Section~\ref{sec:spm_solution}. Section~\ref{sec:optimization} discusses various optimization techniques to boost the system performance; Section~\ref{sec:experiment} conducts extensive experiments to verify the usefulness and efficiency of our system. Finally Section~\ref{sec:conclusion} concludes the paper.

@@ -47,7 +47,58 @@ However, the three patterns are not able to directly discover the general co-mov
 Furthermore, their pruning rules heavily rely on the depth-first search nature, which lost its efficiency
 in the parallel scenario.
 
-THESE WORKS ARE MOST RELATED TO OUR PROBLEMS, SO I REMOVED OTHER RELATED WORKS FOR NOW. 
+%THESE WORKS ARE MOST RELATED TO OUR PROBLEMS, SO I REMOVED OTHER RELATED WORKS FOR NOW. 
+
+\subsection{MaReduce Framework}
+MapReduce (MR) was formally proposed by Dean et.al.~\cite{dean2008mapreduce}
+and has subsequently implemented by many open source systems. Those systems
+provide handy APIs with fault tolerances and are popularly
+used as large-scale data processing platforms. 
+In simple words, there are two conceptual types of computing nodes in MR,
+namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
+algorithm consists of three major steps: First, input data
+are partitioned and read by a \emph{map} function on each mapper. Then, mappers
+emit key-value pairs which are \emph{shuffle}d over the network to reducers. Lastly,
+reducers process the received data using a \emph{reduce} function. 
+
+%Despite the simpleness of the paradigm, there are two concerns raised in designing MR algorithms
+%First, since reducers are required to be independent, partitioning  
+%data to fit the independence could be challenging. Second, since the \emph{shuffle}
+%step requires network access, the data been shuffled should be minimized. 
+%We take these concerns in consideration when designing our solutions for mining GCMP.
+%
+%Our GCMP mining process consists of two MR jobs as illustrated in Figure~\ref{fig:overview}.
+%The first MR job is to cluster objects at each snapshot (i.e.,
+% $\forall t, o,$ compute $C_t(o)$). As shown in Figures~\ref{fig:overview}(a)-(b),
+%in map phase, trajectories are firstly reorganized by timestamps and object locations
+%at the same timestamps form a snapshot. In reduce phase, clustering of objects at each
+%snapshot is processed independently. The second MR job is to mine GCMPs from 
+%clusters in each snapshot. We design and compare two MR algorithms (i.e., TRM and SPM)for 
+%GCMP mining. Both the two algorithms would partition snapshots in map phase
+%(as in Figure~\ref{fig:overview}(c))
+%and mine GCMPs from each partition in reduce phase(as in Figure~\ref{fig:overview}(d)).
+
+% corresponds to Figures~\ref{fig:overview}(a)-(b). The objective
+%of the first job is to cluster trajectories based on snapshots (i.e.,).
+%As illustrated in (a), input trajectories are read in by mappers 
+%and are sprinkled into $\langle t,o \rangle$ pairs. In (b), objects with the same timestamp
+%form a snapshot. Then, a user defined clustering method is applied on the objects
+%in each snapshot in reducers. Between step (a) and (b), a shuffle is necessary. 
+%The second
+%MapReduce job corresponds to Figures~\ref{fig:overview} (c)-(d). The objective 
+%of the second job is to mine the GCMP from the snapshots computed in the first job. We design
+%two approaches (to be described shortly)for mining GCMP in parallel. In overview, as shown in (c), snapshots
+%are first fed to mappers and different partition strategies may be selected to create
+%partitions among snapshots. In (d), the partitions are then send to reducers to mine GCMP.
+%The final computed results are then outputted to the end users. 
+
+%Although we need two MR jobs to complete the GCMP mining task, 
+%it is easy to pipeline the two jobs to exploit data locality.
+%Specifically, the reducer output at step (b) can be directly reused 
+%as the input to the mappers at step (c). Therefore we do not need to 
+%transfer data between the two jobs. Modern MR platforms, especially Spark, have
+%already supported such a kind of pipeline.
+
 
 %\subsection{Platoon Pattern}
 %Li et. al.~\cite{li2015platoon} design a prefix table based pruning rule for fast compute Platoon Pattern.

@@ -2,11 +2,15 @@
 \label{sec:spm_solution}
 In order to achieve a good parallelism 
 under any pattern parameters, we propose 
-the \emph{Star Partition and Mining} (SPM) method. In SPM,
-we first design a novel object-based partition method named \emph{star partition}. 
-Then, we adapt an \emph{Apriori}-like 
-method to mine GCMP patterns out of each partition.
-The overview of the SPM method is presented in Algorithm~\ref{algo:spm_overview}.
+the \emph{Star Partition and Mining} (SPM) method. 
+In SPM, we first design a novel object-based partition 
+method named \emph{star partition}. Then, we adapt
+an \emph{Apriori} method to mine GCMP patterns
+out of each partition. 
+
+
+ The overview of the SPM method 
+is presented in Algorithm~\ref{algo:spm_overview}.
 As shown, the SPM method takes three phases. 
 In the map phase, objects from the same cluster forms object-object pairs. 
 The object-object pairs are then paired up with the timestamp of 
@@ -49,7 +53,7 @@ Lastly in the reduce phase, patterns are mined from each star structure (lines~\
 \end{algorithmic}
 \end{algorithm}
 
-\subsubsection{Star Partition}
+\subsection{Star Partition}
 The intuition of the star partition is that, if two objects are part 
 of the same pattern, they must belong to the same cluster at 
 some snapshots. Therefore, we may link objects that belong to the same cluster to form a \emph{connection graph}. Objects that are
@@ -76,12 +80,13 @@ the smallest vertex in a star, there are no edges been replicated. In implementa
 as stated in Algorithm~\ref{algo:spm_overview} line~\ref{code:spm-edge-direct}, the
 comparison between vertices/objects are based on the vertex/object ID.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=0.4\textwidth]{spm.eps}
-\caption{Star partition and mining of trajectories in Figure~\ref{fig:related_work}}
+\includegraphics[width=0.9\textwidth]{spm.eps}
+\caption{Star partition and mining. (a) Conceptual connection graph from Figure 1.(b) Five star partitions are generated
+(c) Apriori Mining with various pruning techniques.}
 \label{fig:star_partition}
-\end{figure}
+\end{figure*}
 
 %After computing the star, each partition is applied with a reduce task. 
 %Indeed, a star $Sr_s$ can be viewed as a subset of original trajectories. 
@@ -117,7 +122,7 @@ as each object may be sent to $O(|\mathbb{O}|)$ partitions. Since this complexit
 from pattern parameters, the star partition is more scalable than the temporal replication.
 In later sections, we will describe several engineering level optimization to further reduce the amount of replicated data.
 
-\subsubsection{Apriori Mining}
+\subsection{Apriori Mining}
 In the mining phase, we need to find the patterns within each star. 
 To systematically discover the patterns, we design the \emph{Apriori Mining} method which
 is similar to the technique in frequent item mining literature. During the algorithm, we call a candidate pattern $R$-pattern if the size of its object set is $R$. 
