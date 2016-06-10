@@ -1,9 +1,12 @@
-\section{Optimization}
+\section{Optimizing SPM}
 \label{sec:optimization}
-In this section, we describe several optimizations to the star-partition and mining algorithm.
-In addition, we also address some practical issues when deploying the SPM algorithm
-to real MapReduce based systems.
-
+It is notable that Algorithm~\ref{algo:apriori_mining} takes exponential
+time to mine GCMP. There are two major factors dragging 
+down the performance. First, the size of $Sr_s$ affects the initial 
+size of $2$-patterns. Second, the candidates generated in each 
+level affects the join performance.
+In this section, we describe several practical techniques to boost the performance
+of SPM.
 %We have analyzed that the bottlenecks of Algorithm~\ref{algo:apriori_mining} 
 %lies in two factors. The size of each $Sr_s$ and the size of candidates in each level of Apriori.
 %In this section, we provide several optimizations to boost the bottlenecks.
@@ -139,8 +142,7 @@ by the candidate sequence results in a more compact storage.
 %\end{proof}
 
 
-\subsection{Candidate Pruning}
-\subsubsection{Temporal monotonicity}
+\subsection{Temporal monotonicity}
 During the apriori phase, we repeatedly join candidate patterns in different levels to generate a larger set
 of a patterns. We observe that traditional monotonic property of Apriori algorithms \textbf{does not}
 hold in GCMP mining. That is given two candidate $P_1, P_2$, if $P_1.O \subset P_2.O$ and $P_1$ is not 
@@ -164,7 +166,7 @@ be reduced. It follows that $c_2.T$ cannot be reduced neither. Thus,
 if $c_1.T$ cannot be reduced to a candidate sequence, $c_2$ can be pruned. 
 \end{proof}
 
-\subsubsection{Forward closure checking}
+\subsection{Forward closure checking}
 Although leveraging \emph{temporal monotonicity} could largely prune false candidates and reduce
 the apriori search space, it is ineffective when a \textit{true} pattern exists. 
 For example, if a final pattern of a star $Sr_s$ is the \textit{union of all vertices} in the star, 
@@ -215,123 +217,6 @@ valid candidate. Therefore, $\{3,4\}$ and $\{3,5\}$ are pruned, and $\{3,4,5\}$ 
 %
 %With the help of the \emph{Monotonic Property}, the number of new candidates in each level is greatly reduced. We verify this in the experiment session as well.
 
-\subsection{Star Partition Analysis}
-As we see in Section~\ref{sec:spm_solution}, the apriori phase in SPM may
-take exponential time. An important factor affecting the performance of
-SPM is the size of stars. We notice that, the
-size of star is related to the way the vertexes are numbered. 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.4\textwidth]{star-alt.eps}
-\caption{An alternative numbering and partitioning of the connection graph in Figure~\ref{fig:star_partition}.}
-\label{fig:star-alt}
-\end{figure}
-
-For example,
-Figure~\ref{fig:star-alt} gives an alternative numbering of vertexes 
-in connection graph thus produces a different set of stars. This partitioning constructs
-four stars with the maximum star consisting of 5 edges. Compared to the partitioning
-in Figure~\ref{fig:star_partition}(b) where five stars are produced with maximum star of 3 edges, this
-partition is inferior in two aspects. First, this partition lacks of one star, which
-results in a smaller number of parallelism. Second, this partition has a larger size
-of maximum edges. With the exponential time complexity in Apriori, the largest star takes
-much more time to compute.
-
-The example shows that different numbering of vertexes in connection graph indeed affects
-the SPM performance. Therefore we wish to find a numbering scheme of connection graph
-such that the edges in each star are best distributed. Notice that the sum of edges 
-is invariant for any numbering scheme of the graph. Thus, our goal is equivalent to find
-a numbering such that the maximum edge size from all stars is minimized. 
-
-To formalize the objective, we design an linear algebra model as follows: Let $G$ denote a connection graph.
-Let $\mathbb{A}$ be an arbitrary numbering of vertexes in $G$.
-Let $(A:a_{i,j})$ be the matrix representing the induced graph wrt. $\mathbb{A}$. Let vector $\vec{b}$
-be the \textit{one}\footnote{Every element in $\vec{b}$ is $1$} vector. Let $\vec{c}:c_j$ be the
-vector equals to $A\vec{b}$. It is easy to see that each $c_j$ denotes the size of star for vertex $j$.
-Therefore, the objective of load balancing can be formalized as follows:
-\begin{equation}
-\mathbb{A}  = \argmin(||A\vec{b}||_\infty) \text{,where } ||A\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
-\end{equation}
-
-Though the objective is well-defined as above, it is challenging to directly optimize
-the equation. First, suppose there are $n$ vertex in $G$, enumerating
-all possible $\mathbb{A}$s leads to $n!$ combinations. 
-Such a high complexity is trivially unpractical. Second,
-since $G$ is constructed at runtime, 
-the load planning can only start after $G$ is created. 
-The planning time are thus required to be short enough otherwise the benefit cannot payoff the planning time.
-
-Despite these challenges, we observe that there is a 
-$O(1)$ time solution which is good enough as stated in the 
-following theorem.
-
-\begin{theorem}[Balance of Star Partition]
-Let $G$ be a connection graph with $n$ vertexes and the average degree $d$.
-Let $\mathbb{A}^*$ be the optimal numbering wrt. Equation 1.
-For any numbering, $\mathbb{A}$, with high probability, the 
-absolute difference between $\mathbb{A}^*$ and $\mathbb{A}$ is $O(\sqrt{n \log n})$.
-That is, it is very likely that 
-$||\mathbb{A}\vec{b}||_\infty = ||\mathbb{A}^*\vec{b}||_\infty + O(\sqrt{n \log n})$.
-\end{theorem}
-
-\begin{proof}
-Let $\mathbb{A}^*$ be the optimal solution wrt Equation 1. Since we have a star
-for each object, by the degree-sum formula and pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
-Next, let $e_{i,j}$ be a 0-1 indicator variable determining whether vertex $i$ connects vertex $j$
-in $G$. Note that edges in $G$ are independent. We use $d_i$ 
-to denote the degree of object $i$ in $G$.  It follows that $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$.
-Since in the star partition, each edge is assigned to the ending vertex
-with lower ID, the connection between $a_{i,j}$ and $e_{i,j}$ can be written as:
-\begin{equation*}
-a_{i,j} = \begin{cases}
-			e_{i,j}, i>j \\
-			0, otherwise
-		  \end{cases}  
-\end{equation*}
-There are two observations made on the above equation. First, since $e_{i,j}$s are independent,
-$a_{i,j}$s are independent. Second, since $i>j$ and $e_{i,j}$ are independent. 
-$E[a_{i,j}] = E[e_{i,j}]E[i>j]= E[e_{i,j}]/2$.
-
-By definition, $c_i = \Sigma_{1\leq j \leq n} a_{i,j}$, 
-is a sum of $n$ independent 0-1 variables. Taking expectation on both sides, 
-we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} a_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$. Let $\mu =E[c_i] = d/2$, 
-$t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
-\begin{equation*}
-\begin{split}
-	Pr(c_i \geq \mu + t) 
-						&\leq \exp(\frac{-2t^2}{n}) \\
-						&= \exp(-2\log n) = n^{-2}
-\end{split}
-\end{equation*}
-
-The first step is due to the fact that all $a_{i,j}$ are bounded in the range of [0,1]. 
-Next, since the event $(\max_{1\leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
-$\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
-\begin{equation*}
-\begin{split}
-	Pr(||A\vec{b}||_\infty \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
-		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
-		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\
-		& = n^{-1} = 1/n
-\end{split}
-\end{equation*}
-Substitute $t$ and $\mu$, we achieve the following concise form:
-\begin{equation*}
-	Pr(||A\vec{b}||_\infty \geq (d/2 + \sqrt{n\log n})) \leq 1/n
-\end{equation*}
-This indicates that, the probability of $(||A\vec{b}||_\infty-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. With the observed fact that $||A^*\vec{b}||_\infty \geq d/2$, we conclude that
-with probability greater than $(1-1/n)$, 
-the difference between $||A\vec{b}||_\infty$ and $||A^*\vec{b}||_\infty$ is less than $O(\sqrt{n\log n})$.
-\end{proof}
-
-In fact, we have a tighter bound of $||A\vec{b}||_\infty -||A^*\vec{b}||_\infty$ if 
-the connection graph is \emph{dense}. Specifically, if $d\geq \sqrt{12\log n}$, the following
-equation holds:
-\begin{equation*}
-Pr(||A\vec{b}||_\infty \geq (d/2 + O(\sqrt{d\log n})) \leq 1/n
-\end{equation*}
-
 Induced by the Theorem 5, taking object IDs as the numbering (i.e., in Algorithm~\ref{algo:spm_overview})
 would be guaranteed to produce a partition which is almost optimal.
 %By definition, $c_i = \Sigma_{1\leq j \leq n} a_{i,j}$, is a sum of $n$ independent 0-1 variables.
@@ -366,4 +251,6 @@ would be guaranteed to produce a partition which is almost optimal.
 %The partitioning in Algorithm~\ref{algo:spm_overview} differs at most $O(\sqrt{d\log |\mathbb{O}|})$ 
 %from optimal partitioning with probability $(1-1/|\mathbb{O}|)$.
 %\end{theorem}
+
+
 

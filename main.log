@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  9 JUN 2016 17:47
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  10 JUN 2016 16:26
 entering extended mode
 **main.tex
 (F:\GitHubRepos\TrajectoryPaper\main.tex
@@ -616,19 +616,17 @@ Package epstopdf Info: Source file: <./charts/spm.eps>
 (epstopdf)                    size: 168560 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/spm-eps-converted-
 to.pdf ./charts/spm.eps>
-(epstopdf)             \includegraphics on input line 85.
+(epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
 <./charts/spm-eps-converted-to.pdf, id=169, 714.67pt x 260.975pt>
 File: ./charts/spm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/spm-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/spm-eps-converted-to.pdf used on input line 8
-5.
+Package pdftex.def Info: ./charts/spm-eps-converted-to.pdf used on input line 1
+09.
 (pdftex.def)             Requested size: 453.59692pt x 165.64162pt.
-)
-(F:\GitHubRepos\TrajectoryPaper\sec7_optimization.tex [6] [7 <F:/GitHubRepos/Tr
-ajectoryPaper/charts/spm-eps-converted-to.pdf>]
+ [6]
 Package epstopdf Info: Source file: <./charts/star-alt.eps>
 (epstopdf)                    date: 2016-06-08 17:57:57
 (epstopdf)                    size: 408016 bytes
@@ -637,26 +635,25 @@ Package epstopdf Info: Source file: <./charts/star-alt.eps>
 (epstopdf)                    size: 24240 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/star-alt-eps-conve
 rted-to.pdf ./charts/star-alt.eps>
-(epstopdf)             \includegraphics on input line 226.
+(epstopdf)             \includegraphics on input line 244.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/star-alt-eps-converted-to.pdf, id=297, 542.025pt x 244.915pt>
+<./charts/star-alt-eps-converted-to.pdf, id=173, 542.025pt x 244.915pt>
 File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/star-alt-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/star-alt-eps-converted-to.pdf used on input l
-ine 226.
+ine 244.
 (pdftex.def)             Requested size: 201.59692pt x 91.09174pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8]) (F:\GitHubRepos\TrajectoryPaper\sec8_experiment.tex
+ [7 <F:/GitHubRepos/TrajectoryPaper/charts/spm-eps-converted-to.pdf> <F:/GitHub
+Repos/TrajectoryPaper/charts/star-alt-eps-converted-to.pdf>])
+(F:\GitHubRepos\TrajectoryPaper\sec7_optimization.tex [8])
+(F:\GitHubRepos\TrajectoryPaper\sec8_experiment.tex
 Overfull \hbox (2.00362pt too wide) in paragraph at lines 4--10
 \OT1/cmr/m/n/9 Apache Hadoop []. Since Spark di-rectly sup-ports the MapRe-
  []
 
-[9 <F:/GitHubRepos/TrajectoryPaper/charts/star-alt-eps-converted-to.pdf>]
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 34--34
 [][]\OT1/cmr/m/n/9 http://spark.apache.org/docs/latest/programming-
  []
@@ -675,9 +672,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Missing character: There is no â in font cmr8!
 Missing character: There is no € in font cmr8!
 Missing character: There is no ” in font cmr8!
- [10]) [11
-
-]
+) [10]
 (F:\GitHubRepos\TrajectoryPaper\main.aux)
 
 LaTeX Warning: There were undefined references.
@@ -686,7 +681,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  5032 strings out of 493921
  72124 string characters out of 3154491
- 151703 words of memory out of 3000000
+ 152703 words of memory out of 3000000
  8184 multiletter control sequences out of 15000+200000
  24619 words of font info for 65 fonts, out of 3000000 for 9000
  844 hyphenation exceptions out of 8191
@@ -708,9 +703,9 @@ pe1/public/amsfonts/cm/cmti9.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols
 /fonts/type1/public/amsfonts/symbols/msbm7.pfb><D:/MikTex/fonts/type1/urw/helve
 tic/uhvb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmb8a.pfb><D:/MikTex/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on main.pdf (11 pages, 779244 bytes).
+Output written on main.pdf (10 pages, 779577 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
+ 396 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
