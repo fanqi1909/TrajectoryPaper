@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  11 JUN 2016 14:49
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  11 JUN 2016 14:40
 entering extended mode
-**main.tex
-(F:\GitHubRepos\TrajectoryPaper\main.tex
+**main_cp.tex
+(F:\GitHubRepos\TrajectoryPaper\main_cp.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -355,19 +355,19 @@ LaTeX Info: Redefining \qed on input line 283.
 \c@theorem=\count128
 \c@example=\count129
 
-(F:\GitHubRepos\TrajectoryPaper\main.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+(F:\GitHubRepos\TrajectoryPaper\main_cp.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -419,15 +419,15 @@ LaTeX Font Info:    ... okay on input line 25.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 76.
+LaTeX Font Info:    Try loading font information for U+msa on input line 75.
  (D:\MikTex\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 76.
+LaTeX Font Info:    Try loading font information for U+msb on input line 75.
  (D:\MikTex\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 76.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 75.
 (D:\MikTex\tex\latex\base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
@@ -435,13 +435,81 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Warning: No \author given.
 
 (F:\GitHubRepos\TrajectoryPaper\sec1_introduction.tex
+
+LaTeX Warning: Citation `zheng2011urban' on page 1 undefined on input line 9.
+
+
+LaTeX Warning: Citation `li2010miningperiodic' on page 1 undefined on input lin
+e 9.
+
+
+LaTeX Warning: Citation `bao2013survey' on page 1 undefined on input line 9.
+
+
 Overfull \hbox (8.53656pt too wide) in paragraph at lines 3--10
 []\OT1/cmr/m/n/9 The preva-lence of po-si-tion-ing de-vices has dras-ti-cally b
 oosted
  []
 
 
-Overfull \hbox (16.55008pt too wide) in paragraph at lines 40--55
+LaTeX Warning: Citation `li2013managing' on page 1 undefined on input line 13.
+
+
+LaTeX Warning: Citation `gudmundsson2006flock' on page 1 undefined on input lin
+e 23.
+
+
+LaTeX Warning: Citation `wang2006grouppattern' on page 1 undefined on input lin
+e 24.
+
+
+LaTeX Warning: Citation `jeung2008convoy' on page 1 undefined on input line 26.
+
+
+
+LaTeX Warning: Citation `li2010swarm' on page 1 undefined on input line 26.
+
+
+LaTeX Warning: Citation `li2015platoon' on page 1 undefined on input line 27.
+
+
+LaTeX Warning: Citation `gudmundsson2006flock' on page 1 undefined on input lin
+e 29.
+
+
+LaTeX Warning: Citation `jeung2008convoy' on page 1 undefined on input line 30.
+
+
+
+LaTeX Warning: Citation `li2010swarm' on page 1 undefined on input line 32.
+
+
+LaTeX Warning: Citation `wang2006grouppattern' on page 1 undefined on input lin
+e 33.
+
+
+LaTeX Warning: Citation `li2015platoon' on page 1 undefined on input line 33.
+
+
+LaTeX Warning: Citation `gudmundsson2004flock' on page 1 undefined on input lin
+e 44.
+
+
+LaTeX Warning: Citation `jeung2008convoy' on page 1 undefined on input line 46.
+
+
+
+LaTeX Warning: Citation `li2010swarm' on page 1 undefined on input line 48.
+
+
+LaTeX Warning: Citation `wang2006grouppattern' on page 1 undefined on input lin
+e 50.
+
+
+LaTeX Warning: Citation `li2015platoon' on page 1 undefined on input line 52.
+
+
+Overfull \hbox (16.84587pt too wide) in paragraph at lines 40--55
  [][] 
  []
 
@@ -486,7 +554,7 @@ eps-converted-to.pdf ./charts/platoon_weakpoint.eps>
 (epstopdf)             \includegraphics on input line 104.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/platoon_weakpoint-eps-converted-to.pdf, id=21, 323.2075pt x 100.375pt
+<./charts/platoon_weakpoint-eps-converted-to.pdf, id=23, 323.2075pt x 100.375pt
 >
 File: ./charts/platoon_weakpoint-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/platoon_weakpoint-eps-converted-to.pdf>
@@ -501,15 +569,15 @@ Package epstopdf Info: Source file: <./charts/rw_perf_O.eps>
 (epstopdf)                    size: 26475 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_O-eps-conv
 erted-to.pdf ./charts/rw_perf_O.eps>
-(epstopdf)             \includegraphics on input line 151.
+(epstopdf)             \includegraphics on input line 152.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/rw_perf_O-eps-converted-to.pdf, id=22, 768.8725pt x 497.86pt>
+<./charts/rw_perf_O-eps-converted-to.pdf, id=24, 768.8725pt x 497.86pt>
 File: ./charts/rw_perf_O-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_O-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_O-eps-converted-to.pdf used on input 
-line 151.
+line 152.
 (pdftex.def)             Requested size: 115.91785pt x 75.0556pt.
 Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
 (epstopdf)                    date: 2016-06-07 16:26:23
@@ -519,37 +587,58 @@ Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
 (epstopdf)                    size: 25885 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_T-eps-conv
 erted-to.pdf ./charts/rw_perf_T.eps>
-(epstopdf)             \includegraphics on input line 157.
+(epstopdf)             \includegraphics on input line 158.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/rw_perf_T-eps-converted-to.pdf, id=23, 776.9025pt x 492.84125pt>
+<./charts/rw_perf_T-eps-converted-to.pdf, id=25, 776.9025pt x 492.84125pt>
 File: ./charts/rw_perf_T-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_T-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_T-eps-converted-to.pdf used on input 
-line 157.
+line 158.
 (pdftex.def)             Requested size: 115.91785pt x 73.53194pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (3.04529pt too wide) in paragraph at lines 169--173
+Overfull \hbox (3.04529pt too wide) in paragraph at lines 170--174
 \OT1/cmr/m/it/9 movement pat-tern \OT1/cmr/m/n/9 (GCMP) which mod-els var-i-ous
  co-moment
  []
 
 
-Overfull \hbox (4.66188pt too wide) in paragraph at lines 258--259
+Overfull \hbox (4.66188pt too wide) in paragraph at lines 259--260
 []\OT1/cmr/m/n/9 We con-duct a set of ex-ten-sive ex-per-i-ments on XXX dataset
 s
  []
 
 ) (F:\GitHubRepos\TrajectoryPaper\sec2_relatedworks.tex
-Overfull \hbox (1.80247pt too wide) in paragraph at lines 260--1
+Overfull \hbox (1.80247pt too wide) in paragraph at lines 261--1
 \OT1/cmr/m/n/9 sum-ma-rizes the rel-e-vant lit-er-a-ture on tra-jec-tory pat-te
 rn min-
  []
+
+
+LaTeX Warning: Citation `wang2006grouppattern' on page 2 undefined on input lin
+e 4.
+
+
+LaTeX Warning: Citation `gudmundsson2004flock' on page 2 undefined on input lin
+e 4.
+
+
+LaTeX Warning: Citation `jeung2008convoy' on page 2 undefined on input line 5.
+
+
+LaTeX Warning: Citation `li2010swarm' on page 2 undefined on input line 5.
+
+
+LaTeX Warning: Citation `li2015platoon' on page 2 undefined on input line 5.
+
+
+LaTeX Warning: Citation `zheng2015survey' on page 2 undefined on input line 10.
+
 
 
 Overfull \hbox (3.85289pt too wide) in paragraph at lines 3--11
@@ -557,15 +646,33 @@ Overfull \hbox (3.85289pt too wide) in paragraph at lines 3--11
 t-er-a-ture con-sist of five mem-
  []
 
+
+LaTeX Warning: Citation `birant2007st' on page 2 undefined on input line 24.
+
+
+LaTeX Warning: Citation `laube2005finding' on page 2 undefined on input line 25
+.
+
+
+LaTeX Warning: Citation `douglas1973trajectorysimplification' on page 2 undefin
+ed on input line 27.
+
 [2 <F:/GitHubRepos/TrajectoryPaper/charts/related_work-eps-converted-to.pdf> <F
 :/GitHubRepos/TrajectoryPaper/charts/platoon_weakpoint-eps-converted-to.pdf> <F
 :/GitHubRepos/TrajectoryPaper/charts/rw_perf_O-eps-converted-to.pdf> <F:/GitHub
 Repos/TrajectoryPaper/charts/rw_perf_T-eps-converted-to.pdf>]
-Overfull \hbox (5.15771pt too wide) in paragraph at lines 53--63
-[]\OT1/cmr/m/n/9 MapReduce (MR) was for-mally pro-posed by Dean et.al. [15]
- []
+
+LaTeX Warning: Citation `li2015platoon' on page 3 undefined on input line 44.
+
+
+LaTeX Warning: Citation `dean2008mapreduce' on page 3 undefined on input line 5
+3.
 
 ) (F:\GitHubRepos\TrajectoryPaper\sec3_definitions.tex
+
+LaTeX Warning: Citation `li2015platoon' on page 3 undefined on input line 3.
+
+
 Overfull \hbox (13.7502pt too wide) in paragraph at lines 21--23
 \OT1/cmr/bx/n/9 Definition 1 \OT1/cmr/m/n/9 ($\OML/cmm/m/it/9 G$\OT1/cmr/m/n/9 
 -connected)\OT1/cmr/bx/n/9 . \OT1/cmr/m/it/9 A time se-quence $\OML/cmm/m/it/9 
@@ -594,7 +701,7 @@ to.pdf ./charts/trm.eps>
 (epstopdf)             \includegraphics on input line 29.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/trm-eps-converted-to.pdf, id=93, 710.655pt x 314.17375pt>
+<./charts/trm-eps-converted-to.pdf, id=94, 710.655pt x 314.17375pt>
 File: ./charts/trm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/trm-eps-converted-to.pdf>
@@ -615,7 +722,7 @@ to.pdf ./charts/spm.eps>
 (epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/spm-eps-converted-to.pdf, id=169, 714.67pt x 260.975pt>
+<./charts/spm-eps-converted-to.pdf, id=170, 714.67pt x 260.975pt>
 File: ./charts/spm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/spm-eps-converted-to.pdf>
@@ -634,7 +741,7 @@ rted-to.pdf ./charts/star-alt.eps>
 (epstopdf)             \includegraphics on input line 235.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/star-alt-eps-converted-to.pdf, id=173, 542.025pt x 244.915pt>
+<./charts/star-alt-eps-converted-to.pdf, id=174, 542.025pt x 244.915pt>
 File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/star-alt-eps-converted-to.pdf>
@@ -677,38 +784,36 @@ Overfull \hbox (1.04741pt too wide) in paragraph at lines 55--84
  []
 
 ) (F:\GitHubRepos\TrajectoryPaper\sec8_conclusion.tex)
-(F:\GitHubRepos\TrajectoryPaper\main.bbl
-Missing character: There is no â in font cmr8!
-Missing character: There is no € in font cmr8!
-Missing character: There is no ” in font cmr8!
-) [10]
-(F:\GitHubRepos\TrajectoryPaper\main.aux) ) 
+No file main_cp.bbl.
+[10
+
+] (F:\GitHubRepos\TrajectoryPaper\main_cp.aux) ) 
 Here is how much of TeX's memory you used:
- 5021 strings out of 493921
- 71855 string characters out of 3154491
- 152703 words of memory out of 3000000
- 8176 multiletter control sequences out of 15000+200000
- 24619 words of font info for 65 fonts, out of 3000000 for 9000
+ 5018 strings out of 493921
+ 71789 string characters out of 3154491
+ 152652 words of memory out of 3000000
+ 8175 multiletter control sequences out of 15000+200000
+ 24577 words of font info for 65 fonts, out of 3000000 for 9000
  844 hyphenation exceptions out of 8191
- 42i,16n,38p,1609b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
-{D:/MikTex/fonts/enc/dvips/fontname/
-8r.enc}<D:/MikTex/fonts/type1/public/amsfonts/cm/cmbx9.pfb><D:/MikTex/fonts/typ
-e1/public/amsfonts/cmextra/cmex9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/
-cmmi5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/MikTex/fonts/
-type1/public/amsfonts/cm/cmmi7.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cm
-mi8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi9.pfb><D:/MikTex/fonts/ty
-pe1/public/amsfonts/cm/cmr5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr6.
-pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/MikTex/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr9.pfb><
-D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy5.pfb><D:/MikTex/fonts/type1/publi
-c/amsfonts/cm/cmsy6.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:
-/MikTex/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D:/MikTex/fonts/type1/public/
-amsfonts/cm/cmti8.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti9.pfb><D:/M
-ikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/pub
-lic/amsfonts/symbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/m
-sbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/type1/
-urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (10 pages, 778972 bytes).
+ 42i,16n,38p,1612b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/MikTex/fonts/enc/dvips/font
+name/8r.enc}<D:/MikTex/fonts/type1/public/amsfonts/cm/cmbx7.pfb><D:/MikTex/font
+s/type1/public/amsfonts/cm/cmbx9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cme
+xtra/cmex9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/MikTex/f
+onts/type1/public/amsfonts/cm/cmmi6.pfb><D:/MikTex/fonts/type1/public/amsfonts/
+cm/cmmi7.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/MikTex/fon
+ts/type1/public/amsfonts/cm/cmmi9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm
+/cmr5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/MikTex/fonts/t
+ype1/public/amsfonts/cm/cmr7.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr8
+.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/MikTex/fonts/type1/
+public/amsfonts/cm/cmsy5.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy6.pf
+b><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/MikTex/fonts/type1/pu
+blic/amsfonts/cm/cmsy9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+<D:/MikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type
+1/public/amsfonts/symbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symb
+ols/msbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/t
+ype1/urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main_cp.pdf (10 pages, 753136 bytes).
 PDF statistics:
  396 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

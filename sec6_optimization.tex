@@ -1,12 +1,12 @@
 \section{Optimizing SPM}
-\label{sec:optimization}
-It is notable that Algorithm~\ref{algo:apriori_mining} takes exponential
-time to mine GCMP. There are two major factors dragging 
-down the performance. First, the size of $Sr_s$ affects the initial 
+\label{sec:opt}
+In Algorithm~\ref{algo:apriori_mining}, there are
+ two major factors affecting the performance.
+First, the edges in $Sr_s$ affects the initial 
 size of $2$-patterns. Second, the candidates generated in each 
 level affects the join performance.
-In this section, we describe several practical techniques to boost the performance
-of SPM.
+In this section, we describe several practical 
+techniques to boost the performance.
 %We have analyzed that the bottlenecks of Algorithm~\ref{algo:apriori_mining} 
 %lies in two factors. The size of each $Sr_s$ and the size of candidates in each level of Apriori.
 %In this section, we provide several optimizations to boost the bottlenecks.
@@ -28,23 +28,52 @@ of SPM.
 \subsection{Edge Simplification}
 Each edge $e(s,v)$ in $Sr_s$ contains a time sequence $ET$ 
 which represents the co-occurrence of $s$ and $v$. We notice that the edge 
-between $s$ and $t$ is not always necessary. For example, if an edge has a
+between $s$ and $v$ is not always necessary. For example, if an edge has a
 cardinality less than $K$, it is unnecessary to include this edge to 
 $Sr_s$ since it cannot contribute to any patterns.
-This motivates us to simplify the edges in $Sr_s$ 
-to boost the overall performance.
+This motivates us to simplify the edges in $Sr_s$.
 
-Our goal of edge simplification is to, given a time sequence $T$, find a subsequence
-of $T' \subseteq T$, such that $T'$ is potentially conforms to $K,L,G$. And we
-wish $|T'|$ to be as small as possible.  
-We star-off by observing that for every time sequence $T$, $T$ can be 
-divided into a set of maximally $G$-connected subsequences. Note that
-a maximally $G$-connected subsequence can potentially contribute to
-a pattern if it conforms to $K,L$.
-Therefore, we are able to reduce $T$
-to its maximally $G$-connected subseuqnces which conform to $K,L$.
+Our intuition is thus to, remove the unnecessary timestamps among 
+the edges in a star, such that the valid patterns
+would not be affected. To realize this idea,
+we formally design the concept of \emph{candidate sequence} as follows:
 
-To formally describe the idea, we define the \emph{candidate sequence} as follows:
+\begin{definition}[Candidate Sequence]
+Given the pattern parameters: $L,K,G$, a sequence $T$ is a \emph{Candidate Sequence} 
+if for any of its maximal $G$-connected sequence $T'$, $T'$ conforms to $L,K$. 
+\end{definition}
+For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11,13)$ is 
+not a candidate sequence since one of its maximal $2$-connected sequence $(9,10,11,13)$
+does not conform to $L$. In contrast, sequence $T_2=(1,2,4,5,6,8,9)$ is 
+a candidate sequence.
+
+Not that, although $T_1$ is not a candidate sequence, it can be simplified
+to a candidate sequence (i.e, $T_2$). Generally, for any time sequence $T$, 
+if it does not contain a \emph{candidate sequence}, then it cannot contribute
+to any valid patterns. In fact, only the candidate sequence inside $T$ affects
+the final patterns. Therefore, we may use the candidate sequence to simplify edges in 
+a star. During the simplification, if an edge results in a candidate
+sequence of size zero, then it is removed from the star. Otherwise,
+the simplified edge is kept. By so doing, the size of the new star
+is much smaller.
+
+We design an efficient linear time algorithm for the simplification process.
+It takes two rounds scan of $T$ as shown in Algorithm~\ref{algo:simp_prune}. 
+In the first round, the consecutive portions of $T$ with size less than $L$ are removed.
+In the second round, the maximal $G$-connected sequences of size less than $K$ are
+removed. Clearly the simplification algorithm takes $O(T)$ time.
+
+%Our goal of edge simplification is to, given a time sequence $T$, find a 
+%subsequence of $T' \subseteq T$, such that $T'$ conforms to $K,L,G$. And we
+%wish $|T'|$ to be as small as possible.  
+%We star-off by observing that for every time sequence $T$, $T$ can be 
+%divided into a set of maximally $G$-connected subsequences. Note that
+%a maximally $G$-connected subsequence can potentially contribute to
+%a pattern if it conforms to $K,L$.
+%Therefore, we are able to reduce $T$
+%to its maximally $G$-connected subseuqnces which conform to $K,L$.
+
+%To formally describe the idea, we define the \emph{candidate sequence} as follows:
 
 %\begin{definition}[Candidate Sequence]
 %Given the pattern parameters: $K,L,G$, a sequence $T$ is 
@@ -61,38 +90,33 @@ To formally describe the idea, we define the \emph{candidate sequence} as follow
 %candidate sequence, it can be pruned from $Sr_s$. To efficiently
 %test whether a given sequence is partly candidate, we define the \emph{Fully Candidate Sequence}:
 
-\begin{definition}[Candidate Sequence]
-Given the pattern parameters: $L,K,G$, a sequence $T$ is a \emph{Candidate Sequence} 
-if for any of its maximal $G$-connected sequence $T'$, $T'$ conforms to $L,K$.
-\end{definition}
+%\begin{definition}[Candidate Sequence]
+%Given the pattern parameters: $L,K,G$, a sequence $T$ is a \emph{Candidate Sequence} 
+%if for any of its maximal $G$-connected sequence $T'$, $T'$ conforms to $L,K$.
+%\end{definition}
+%
+%For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11,13)$ is 
+%not a fully candidate sequence since one of its maximal $G$-connected sequence $(9,10,11)$
+%is not a partly candidate sequence. In contrast, sequence $T_2=(1,2,4,5,6)$ is 
+%a fully candidate sequence.
 
-For example, let $L = 2, K = 4, G = 2$, sequence $T_1=(1,2,4,5,6,9,10,11,13)$ is 
-not a fully candidate sequence since one of its maximal $G$-connected sequence $(9,10,11)$
-is not a partly candidate sequence. In contrast, sequence $T_2=(1,2,4,5,6)$ is 
-a fully candidate sequence.
 
-To reduce a sequence $T$ to a candidate sequence, we need to strip out its 
-maximal $G$-connected subsequences which does not form to $K,L$. Such a reduction
-takes two rounds scan of $T$ as shown in Algorithm~\ref{algo:simp_prune}. In the 
-first round, the consecutive portions of $T$ with size less than $L$ are removed.
-In the second round, the maximal $G$-connected sequences of size less than $K$ are
-removed. Clearly the simplification algorithm runs in linear time.
 \begin{algorithm}
 \caption{Edge Simplification}
 \label{algo:simp_prune}
 \begin{algorithmic}[1]
 \Require $T$
-\State{---Remove the consecutive segment with size less than $L$---}
+\State{---$L$ Phase---}
 \State $c \gets 0$
 \For {$i \in (0,...,|T|)$}
-	\If{$T[i] - T[i-1] != 1$} 
+	\If{$T[i] - T[i-1] > 1$} 
 		\If{$i - c < L$} 
 			\State $T$ remove $[c:i)$
 		\EndIf
 		\State $c \gets i$
 	\EndIf
 \EndFor
-\State{---Remove the $G$-connected segment with size less than $K$---}
+\State{---$G$-$K$ Phase---}
 \State $s\gets 1$, $c\gets 0$
 \For{$i \in (0: |T|)$}
 	\If{$T[i] - T[i-1] > G$}
@@ -110,9 +134,9 @@ removed. Clearly the simplification algorithm runs in linear time.
 \begin{example}
 Take $T_1=\{1,2,4,5,6,9,10,11,13\}$ as an example of edge simplification. Let $L = 2, K = 4, G = 2$.
 In the first round of scan. $T_1$ reduces to $\{1,2,4,5,6,9,10,11\}$. The consecutive subsequence $\{13\}$
-is removed by $L=2$. $T_1$ has two maximal $G$-consecutive subsequences, which 
+is removed by $L=2$. $T_1$ has two maximal $2$-consecutive subsequences, which 
 are $\{1,2,4,5,6\}$ and $\{9,10,11\}$. Since $K=4$, $\{9,10,11\}$ is removed
-from $T_1$ in the second round of scan. Therefore, $T_1$ is simplified to $\{1,2,4,5,6\}$.
+from $T_1$ in the second round of scan. Therefore, $T_1$ is simplified to $\{1,2,4,5,6\}$, which is shortened $44\%$.
 \end{example}
 
 %
@@ -124,12 +148,12 @@ from $T_1$ in the second round of scan. Therefore, $T_1$ is simplified to $\{1,2
 %In the second round of scan, the pseudo-consecutive portion of $T$ with size less than $K$
 %is removed. 
 
-
-By leveraging the edge simplification technique, 
-the size of the edges in $Sr_s$ can be greatly reduced. If
-an edge cannot be reduced to a candidate sequence, then it is directly removed from $Sr_s$.
-If an edge can be reduced to a candidate sequence, replacing itself 
-by the candidate sequence results in a more compact storage.
+%
+%By leveraging the edge simplification technique, 
+%the size of the edges in $Sr_s$ can be greatly reduced. If
+%an edge cannot be reduced to a candidate sequence, then it is directly removed from $Sr_s$.
+%If an edge can be reduced to a candidate sequence, replacing itself 
+%by the candidate sequence results in a more compact storage.
 
 %We use the following theorem to state the completeness and correctness of the 
 %edge reduction algorithm.
@@ -142,58 +166,64 @@ by the candidate sequence results in a more compact storage.
 %\end{proof}
 
 
-\subsection{Temporal monotonicity}
-During the apriori phase, we repeatedly join candidate patterns in different levels to generate a larger set
-of a patterns. We observe that traditional monotonic property of Apriori algorithms \textbf{does not}
-hold in GCMP mining. That is given two candidate $P_1, P_2$, if $P_1.O \subset P_2.O$ and $P_1$ is not 
-a valid pattern, then $P_2$ may or may not be a valid pattern. However, we notice that
-we may form another monotonic property based on the \emph{candidate sequence} such that
-the Apriori algorithm could still benefit.
+\subsection{Temporal Monotonicity}
+In Apriori, we repeatedly join candidate patterns with different sizes.
+We observe that traditional monotonic property of Apriori algorithms \textbf{does not}
+hold in GCMP mining. Specifically, given two candidates $P_1, P_2$, 
+if $P_1.O \subset P_2.O$ and $P_1$ is not a valid pattern, 
+then $P_2$ may or may not be a valid pattern. However, we notice that
+we may form another monotonic property based on the \emph{candidate sequence}.
 
-The intuition is that if a candidate $P_1.T$ cannot be reduce to a \emph{candidate sequence}, then $P_1$ cannot 
-be valid pattern. Furthermore, any candidate $P_2$, with $P_1.O \subset P_2.O$ cannot be a valid pattern.
-This \emph{temporal monotonic property} 
-is explicitly described as in the follow theorem:
+The intuition is that if a candidate $P_1.T$ cannot be simplified to 
+a \emph{candidate sequence}, then $P_1$ cannot be valid pattern. 
+Furthermore, any candidate $P_2$, with $P_1.O \subset P_2.O$ cannot be a valid pattern.
+This \emph{temporal monotonic property} is explicitly described as in the follow theorem:
 
-\begin{theorem}[Temporal Monotonic Property of GCMP]
-Given the temporal parameters $L,G,K$, for a candidate $c$ in Algorithm~\ref{algo:apriori_mining},
-if $c.T$ cannot be reduced to a candidate sequence, then for any candidate $c'$ with $c.O \subset c'.O$, $c'$ can be pruned.
+\begin{theorem}[Temporal Monotonicity]
+Given the temporal parameters $L,G,K$, for a candidate pattern $P$,
+if $P.T$ cannot be simplified to a candidate sequence,
+then, for any candidate $P'$ with $P.O \subseteq P'.O$, $P'$ cannot be a true pattern.
 \end{theorem}
 \begin{proof}
-Let $c_1$, $c_2$ be two candidates with $c_1.O \subset c_2.O$. It is easy to see that $c_1.T \supseteq c_2.T$.
-If $c_1.T$ cannot be reduced to a candidate sequence, then any subset of $c_1.T$ cannot
-be reduced. It follows that $c_2.T$ cannot be reduced neither. Thus,
-if $c_1.T$ cannot be reduced to a candidate sequence, $c_2$ can be pruned. 
+Let $P_1$, $P_2$ be two candidates with $P_1.O \subseteq P_2.O$. It is easy to see that $P_1.T \supseteq P_2.T$.
+Suppose $P_1.T$ cannot be simplified to a candidate sequence. Then
+by proof of contradiction, any subset of $P_1.T$ cannot
+be simplified. It follows that $P_2.T$ cannot be simplified to a candidate sequence. 
+In summary, if $P_1.T$ cannot be simplified, $P_2$ can be pruned. 
 \end{proof}
 
 \subsection{Forward closure checking}
-Although leveraging \emph{temporal monotonicity} could largely prune false candidates and reduce
-the apriori search space, it is ineffective when a \textit{true} pattern exists. 
-For example, if a final pattern of a star $Sr_s$ is the \textit{union of all vertices} in the star, 
+Although leveraging \emph{temporal monotonicity} could largely prune
+false candidates and reduce the apriori search space, 
+it is ineffective when a \textit{true} pattern exists. 
+In an extreme case, if a final pattern of a star $Sr_s$ is 
+the \textit{union of all vertices} in the star,
 then in apriori, ${|Sr_s|}\choose{i + 1}$ candidates needs to be generated at 
 each level $i$. This results in an exponential search space while
 the output only contains one pattern.  
-In general, when candidates at level $i$ collectively forms a true pattern, 
+Generally, when candidates at level $i$ collectively forms a true pattern, 
 running aprior produces many wasted candidates. 
 
 Let $Lv_i$ be the set of candidates at level $i$ of Algorithm~\ref{algo:apriori_mining},
 we use the \emph{forward closure} $FC_i$ to denote the union of the objects in
 all candidates in $Lv_i$. Then, the \emph{forward closure checking} is stated as follows:
-\begin{theorem}[Forward Closure Checking Rule]
+\begin{theorem}[Forward Closure Checking]
 Let $Lv_i$ be the candidates generated at level $i$ in Algorithm~\ref{algo:apriori_mining},
 if $FC_i$ is a proper pattern, then it is safe to terminate Algorithm~\ref{algo:apriori_mining}
 and directly output $FC_i$.
 \end{theorem}
 
 \begin{proof}
-We prove by contradiction. Suppose there exists another pattern $P$ such that $P.O \neq FC_i$, let 
-$X=P.O - FC_i \neq \emptyset$. Consider a subset of $P$ which contains $X$ with size $i+1$, (i.e., $P_1 \subseteq P, P_1\subseteq X, |P_1|=i+1$). Since $P$ is a proper pattern, then $P_1$ is also a proper pattern. Therefore $P_1 \in Lv_i$.
-Then it follows $X$ is in the forward closure of $FC_i$, (i.e.,$X \in FC_i$), which contradicts with $X\notin FC_i$.
+We prove by contradiction. Suppose there exists another pattern $P$ such that $P.O \neq FC_i$, 
+let $X=P.O - FC_i \neq \emptyset$. Consider a subset $P_1$ of $P$ which contains $X$ with size $i+1$, 
+(i.e., $P_1 \subseteq P, P_1\subseteq X, |P_1|=i+1$). Since $P$ is a proper pattern, 
+then $P_1$ is also a proper pattern. Therefore $P_1 \in Lv_i$.
+It follows $X$ is in the forward closure of $FC_i$, (i.e.,$X \in FC_i$), which contradicts with $X\notin FC_i$.
 \end{proof}
 
 It is notable that, as the level grows in Algorithm~\ref{algo:apriori_mining}, the closure $FC$
-reduces, thus the pruning power of $FC$ would be stronger.
-
+reduces, thus the pruning power of $FC$ would be stronger. We give hybrid example of the three
+optimization as follows:
 %To facilitate efficient mining, we adapt the \emph{forward closure checking} rule to 
 %quickly determine whether it is sufficient to terminate the apriori search. Given the candidates at
 %level $i$ $Lv_i$, we define the \emph{forward closure} of $Lv_i$ as the union of objects from
@@ -217,8 +247,6 @@ valid candidate. Therefore, $\{3,4\}$ and $\{3,5\}$ are pruned, and $\{3,4,5\}$ 
 %
 %With the help of the \emph{Monotonic Property}, the number of new candidates in each level is greatly reduced. We verify this in the experiment session as well.
 
-Induced by the Theorem 5, taking object IDs as the numbering (i.e., in Algorithm~\ref{algo:spm_overview})
-would be guaranteed to produce a partition which is almost optimal.
 %By definition, $c_i = \Sigma_{1\leq j \leq n} a_{i,j}$, is a sum of $n$ independent 0-1 variables.
 %Taking expectation on both sides, we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} a_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$. Let $\mu =E[c_i] = d/2$, $\delta = \sqrt{12\log n/d}$, by Chernoff Bound, 
 %the following holds:

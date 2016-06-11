@@ -1,5 +1,5 @@
 \section{Star Partition and Mining}
-\label{sec:spm_solution}
+\label{sec:spm}
 TRM approach requires to replicate entire
 trajectories $O(|\mathbb{T}|)$ times, which is inefficient
 in parallelism. To overcome this limitation, we 
@@ -144,28 +144,18 @@ The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
 \Require{$Sr_s$}
 \State { Lv $\gets \{\}$,Ground $\gets \{\}$, Output $\gets \{\}$}
 \ForAll{$e(s,t) = T \in Sr_s$}
-\State Ground.add($\langle \{s,t\}, T \rangle$);
-\State Lv $\gets$ Ground;
+\State{Simply $e(s,t)$} \Comment{Edge Simplification}
+\State {Ground.add($\langle \{s,t\}, T \rangle$)}
+\State {Lv $\gets$ Ground}
 \EndFor
-\While{true}
-	\If{Lv is not empty} 
-		\State{LvCand $\gets \{\}$ }
-		\ForAll{$cand_v \in Lv$}
-			\ForAll{$cand \in $Ground}
-				\State $p \gets cand_v$ join $cand$
-				\If{$p.T$ is a candidate sequence} 
-					\State LvCand.add($p$)
-				\EndIf
-			\EndFor
-		\EndFor
-		\If{$Lv$ is a pattern}
-			\State{Output.add($Lv$)}
-			\State{break}			 
+\While{Lv is not empty}
+		\State {Lv $\gets$ Lv $\oplus $ Ground}
+		\State {Remove false patterns in Lv}
+		\Comment{Temporal Monotonicity}
+		\If{union of Lv is a valid patter}
+			\State{output.add(Lv)} \Comment{Forward Closure}
+			\State{break}
 		\EndIf
-		\State {Lv $\gets$ LvCand}
-	\Else
-		\State{break}
-	\EndIf
 \EndWhile
 \State output.addAll($Lv$)
 \State \Return output
@@ -225,15 +215,16 @@ in $Sr_s$. Therefore, $P$ is a valid pattern in $Sr_s$.
 
 \subsubsection{Optimal Star Partition}
 An important concern in design parallel algorithms is 
-the distribution of work loads. Unlike TRM where each partition
-contains equal-sized snapshot, the size distribution 
-of stars remains SPM unknown. 
+the distribution of work loads.  
 Traditionally, the quality of a partition strategy 
 is measured based on two aspects: (1) the number of result partition, which
 affects the maximum parallelism
-(2) the balance of partition sizes, which affects the finishing
-time of a job. We notice that, in star partition, the total sizes of 
-stars are invariant. Therefore, the quality of a partition strategy
+(2) the size balance of partitions, which affects the finishing
+time of a job. Unlike TRM where each partition
+contains equal-sized snapshots, the size distribution 
+of stars in SPM remains unknown.
+Nevertheless, we notice that, in SPM, the total sizes of 
+stars are invariant. Therefore, the quality of a star partition
 can be formalized as the \emph{skewness}, which is the maximum star size
 among all stars. Smaller \emph{skewness} naturally results in more partitions
 and less imbalance.
@@ -241,7 +232,7 @@ and less imbalance.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.4\textwidth]{star-alt.eps}
+\includegraphics[width=0.5\textwidth]{star-alt.eps}
 \caption{An alternative numbering and partitioning of the connection graph in Figure~\ref{fig:star_partition}.}
 \label{fig:star-alt}
 \end{figure}
@@ -249,19 +240,22 @@ and less imbalance.
 Interestingly, we note that the \emph{skewness} of star partition is affected by
 the way the vertexes are numbered in the connection graph. For example,
 Figure~\ref{fig:star-alt} gives two valid numbering of vertexes 
-in the same connection graph, but produces two different set of stars. 
-The upper partitioning constructs four stars with the maximum star consisting of 5 edges.
-The lower partitioning constructs five stars with the maximum star consisting of 3 edges.
+of the same connection graph, but produces two different set of stars. 
+The upper partitioning constructs 4 stars with the maximum star consisting of 5 edges.
+The lower partitioning constructs 5 stars with the maximum star consisting of 3 edges.
 Apparently the upper partitioning is inferior because its \emph{skewness} is 5 while the
 lower one's \emph{skewness} is 3.
 
 Ideally we wish to find a numbering scheme of connection graph
 that minimize the \emph{skewness}.
-To quantify the objective, we design an linear algebra model as follows: Let $G$ denote a connection graph.
+To quantify, we use an linear algebra model as follows: 
+Let $G$ denote a connection graph.
 Let $\mathbb{A}$ be an arbitrary numbering of vertexes in $G$.
-Let $(A:a_{i,j})$ be a boolean assignment matrix wrt. $\mathbb{A}$ (i.e., $a_{i,j}$ indicates whether vertex $j$ is included in $Sr_i$). Let vector $\vec{b}$
-be the \textit{one}\footnote{Every element in $\vec{b}$ is $1$} vector. Let $\vec{c} = A\vec{b}$, then
-each $c_i \in \vec{c}$ denotes the size of star for vertex $i$.
+Let $(A:a_{i,j})$ be a boolean assignment matrix wrt. $\mathbb{A}$
+(i.e., $a_{i,j}$ indicates whether vertex $j$ is included in $Sr_i$). 
+Let vector $\vec{b}$ be the \textit{one}\footnote{Every element in $\vec{b}$ is $1$} 
+vector. Let $\vec{c} = A\vec{b}$, then each $c_i \in \vec{c}$ 
+denotes the size of the star $Sr_i$.
 Therefore, minimizing the \emph{skewness} can be formulated as follows:
 \begin{equation}
 \mathbb{A}  = \argmin(||A\vec{b}||_\infty) \text{,where } ||A\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
@@ -280,14 +274,14 @@ following theorem.
 \begin{theorem}[Balance of Star Partition]
 Let $G$ be a connection graph with $n$ vertexes and the average degree $d$.
 Let $\mathbb{A}^*$ be the optimal numbering wrt. Equation 1.
-For any numbering, $\mathbb{A}$, with high probability, the 
+For an random numbering, $\mathbb{A}$, with high probability, the 
 absolute skewness difference between $\mathbb{A}^*$ and $\mathbb{A}$ is $O(\sqrt{n \log n})$.
 That is, it is very likely that 
 $||\mathbb{A}\vec{b}||_\infty = ||\mathbb{A}^*\vec{b}||_\infty + O(\sqrt{n \log n})$.
 \end{theorem}
 
 \begin{proof}
-Let $\mathbb{A}^*$ be the optimal solution wrt Equation 1. Since we have a star
+Let $\mathbb{A}^*$ be the optimal numbering wrt Equation 1. Since we have a star
 for each object, by the degree-sum formula and pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
 Next, let $e_{i,j}$ be an entry in the adjacent matrix of $G$. Note that edges in $G$ are independent. 
 Let $d_i$ denote the degree of vertex $i$ in $G$. 
@@ -317,7 +311,7 @@ $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 \end{equation*}
 
 The first step is due to the fact that all $a_{i,j}$ are bounded in the range of [0,1]. 
-Next, since the event $(\max_{1\leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
+Next, since the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
 $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
 \begin{equation*}
 \begin{split}
@@ -327,7 +321,7 @@ $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
 		& = n^{-1} = 1/n
 \end{split}
 \end{equation*}
-Substitute $t$ and $\mu$, we achieve the following concise form:
+Substitute back $t$ and $\mu$, we achieve the following concise form:
 \begin{equation*}
 	Pr(||A\vec{b}||_\infty \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
@@ -342,3 +336,7 @@ equation holds:
 \begin{equation*}
 Pr(||A\vec{b}||_\infty \geq (d/2 + O(\sqrt{d\log n})) \leq 1/n
 \end{equation*}
+
+Utilizing Theorem 3, in SPM, it is safe to choose the object IDs as 
+the vertex number. This because in reality, object IDs are often 
+hashed and can be deemed as random.

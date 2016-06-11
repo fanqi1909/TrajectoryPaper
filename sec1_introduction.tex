@@ -39,7 +39,7 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline 
- & {\tiny Proximity} & {\tiny Consecutiveness} & {\tiny Time Complexity}\\ 
+Patterns & {\tiny Proximity} & {\tiny Consecutiveness} & {\tiny Time Complexity}\\ 
 \hline 
 flock~\cite{gudmundsson2004flock} & disk-based &  global & $O(|\mathbb{O}||\mathbb{T}|(M + log(|\mathbb{O}|))$ \\ 
 \hline 
@@ -135,9 +135,8 @@ Unfortunately, none of the existing patterns have directly addressed this anomal
 %\end{figure}
 
 
-The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance,
-the detection time of \emph{swarm} drops five times as the number of objects grows from \emph{1k} to \emph{2k}. Similarly,
-the performance of \emph{group} drops over seven times as the number of snapshots grows from \emph{1.4k} to \emph{2.4k}.
+The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance, the detection time of \emph{group} drops twenty times as the number of objects grows from \emph{1k} to \emph{4k}. Similarly,
+the performance of \emph{swarm} drops over fifteen times as the number of snapshots grows from \emph{1k} to \emph{2.5k}.
 These observations imply that existing methods are not scalable to support large-scale trajectory databases. 
 
 %It is easy to spot that none of the existing solutions are scalable to handle large-scale trajectories which include near billions of data points.
@@ -150,17 +149,17 @@ These observations imply that existing methods are not scalable to support large
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_O.eps}
-		\subcaption{$1k$ objects}
+		\subcaption{$1k$ timestamps}
     \label{fig:fig1}
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_T.eps}
-         \subcaption{$1.2k$ timestamps}
+         \subcaption{$1k$ objects}
     \label{fig:fig2}
     \end{subfigure}
     \caption{Performance measures on existing co-movement patterns. A sampled Geolife data set
-    is used with up two 2.4 million data points.}
+    is used with up two 2.4 million data points. Default parameters are $M=10$ $K=20$ $L=10$.}
     \label{fig:related_work_scalability}
 \end{figure}
 
@@ -259,4 +258,5 @@ Second, we investigate deploying our GCMP detector on MapReduce platforms (such 
 We conduct a set of extensive experiments on XXX datasets with billion-scale trajectory points. The results show that XXX.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:system_overview} provides an overview of our parallel architecture. Solutions to mining the general co-movement patterns are presented in Section~\ref{sec:trm_solution} and Section~\ref{sec:spm_solution}. Section~\ref{sec:optimization} discusses various optimization techniques to boost the system performance; Section~\ref{sec:experiment} conducts extensive experiments to verify the usefulness and efficiency of our system. Finally Section~\ref{sec:conclusion} concludes the paper.
+trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a naive \emph{temporal replication and mining} solution. An advanced solution named
+\emph{star partition and mining} is presented in Section~\ref{sec:spm}. Section~\ref{sec:opt} discusses various optimization techniques. Section~\ref{sec:exp} conducts extensive experiments to verify the usefulness and efficiency of our system. Finally Section~\ref{sec:concl} concludes the paper.

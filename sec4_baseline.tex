@@ -1,12 +1,12 @@
 \section{Temporal Replication and Mining}
 \label{sec:trm}
 We resort to the MapReduce (MR) paradigm for designing 
-a parallel solution in mining GCMP. It is straightforward 
+a scalable parallel solution in mining GCMP. It is straightforward 
 to partition the trajectory database into equal-sized 
 temporal segments; and then mining the GCMP patterns out of each segments. However, GCMP
-patterns may cross multiple temporal segments. In order to ensure
-the correctness of results, we need to guarantee that
-every valid patterns can be mined within at least 
+patterns may cross multiple temporal segments. To ensure
+the correctness, we need to guarantee that
+every valid pattern can be mined within at least 
 one partitions.
 Thus, some snapshots need to be 
 replicated several times in multiple partitions. This
@@ -188,7 +188,7 @@ be valid in that partition. This proves the completeness.
 \end{proof}
 
 \begin{example}
-We illustrate the entire TRM method using Figure~\ref{fig:trm} (c)(d) with $M=2, K=2, L = 2, G=2$. 
+We illustrate the work flow of  TRM method using Figure~\ref{fig:trm} (c)(d) with $M=2, K=2, L = 2, G=2$. 
 In Figure~\ref{fig:trm} (c), snapshots are combined into partitions with sizes equal to 
 $(\lceil \frac{K}{L} \rceil-1) *G+2K = 4$. Then a line sweep method is performed in (d) 
 for partition $1$. Each $C_i$ refers to the candidate set during sweeping snapshot $i$. 

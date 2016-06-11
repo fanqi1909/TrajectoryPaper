@@ -1,5 +1,5 @@
 \section{Experimental Study}
-\label{sec:experiment}
+\label{sec:exp}
 \subsection{Implementation Issues}
 We use Apache Spark~\footnote{http://spark.apache.org/} as the experimental
 platform. Spark is one of the most popular MapReduce-like platform which
@@ -75,16 +75,23 @@ spark.executor.instances & 11 \\
 \hline 
 spark.executor.memory & 7GB \\ 
 \hline 
-spark.master & yarn-cluster \\ 
+spark.master & yarn-cluster \\
 \hline 
 spark.serializer & KryoSerializer \\ 
 \hline 
 \end{tabular} 
 \end{table}
 
-We setup HDFS on the same cluster and all trajectory data
-are initially stored in the HDFS. We prepare two set of
-large-scaled trajectories with the following properties:
+The clusters is managed by Yarn 2.7.1 and we use HDFS
+as the distributed storage. We prepare three real data
+set as follows:
+\begin{itemize}
+\item{Geolife}:
+\item{ACTShopping}:
+\item{SingTaxi}:
+\end{itemize}
+
+
 
 
 
