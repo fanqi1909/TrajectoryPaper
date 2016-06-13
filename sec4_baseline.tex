@@ -22,7 +22,7 @@ MR job is the \emph{TRM} algorithm. In the \emph{map} phase
 (i.e., Figure~\ref{fig:trm} (c)), temporally closed snapshots are grouped
 into a partition. In the \emph{reduce} phase (i.e., Figure~\ref{fig:trm} (d)),
 a \emph{Line Sweeping} method is developed to discover GCMP in each partition. Finally,
-patterns from different partitions are then collected to form the output.
+patterns from different partitions are then collected to form the final output.
 
 \begin{figure*} [t]
 \center
@@ -32,10 +32,10 @@ patterns from different partitions are then collected to form the output.
 \label{fig:trm}
 \end{figure*}
 
-Since in the first MR job, each partition contains only one snapshot
-for clustering, it is not necessary to replicate any snapshot. Thus, we
+In the first MR job, each partition contains only one snapshot
+for clustering, thus it is unnecessary to replicate any snapshots. Therefore, we
 focus on describing the second MR job which is the \emph{Temporal
-Replication and Mining} algorithm. We use $R$ to denote the replication factor.
+Replication and Mining} algorithm. We use $\eta$ to denote the replication factor.
 The outline of TRM is 
 shown in Algorithm~\ref{algo:trm_overview}.
 
@@ -44,7 +44,7 @@ shown in Algorithm~\ref{algo:trm_overview}.
 \label{algo:trm_overview}
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
-\State $R \gets (\lceil \frac{K}{L} \rceil -1)*G+2K-2$
+\State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*G+2K-2$
 \State {---Map Phase---}
 \label{code:trm-map-start}
 \ForAll{$\langle t, S_t \rangle$}
@@ -73,18 +73,15 @@ As shown in Algorithm~\ref{algo:trm_overview}, the TRM algorithm contains
 three steps. First, in the map phase, each snapshot is keyed 
 with its timestamp (lines~\ref{code:trm-map-start}-\ref{code:trm-map-end}). 
 Second, in the partition phase, every snapshot is grouped with its next 
-$R$ snapshots to form a partition (lines~\ref{code:trm-par-start}-\ref{code:trm-par-end}). 
-We will shortly discuss how the $R$ value is derived. 
+$\eta$ snapshots to form a partition (lines~\ref{code:trm-par-start}-\ref{code:trm-par-end}). 
 Third, in the reduce phase, a line sweeping method is invoked 
 to mine GCMP within each partition (lines~\ref{code:trm-red-start}-\ref{code:trm-red-end}). 
-It is easy to see that this method replicates a snapshots at most $R$ times.
-%\subsubsection{Temporal Replication Partition}
-The replication factor $R$ is critical for the performance of TRM.
-If the $R$ is large, the shuffle cost as well as the reduce cost would be high. 
-On the contrary, if $R$ is small, valid patterns may
+It is easy to see that this method replicates a snapshots at most $\eta$ times.
+The replication factor $\eta$ is critical for the performance of TRM.
+If the $\eta$ is large, the shuffle cost as well as the reduce cost would be high. 
+On the contrary, if $\eta$ is small, valid patterns may
 be missed out. In the Algorithm~\ref{algo:trm_overview}, the 
-$R$ is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K-2$. We will show
-later the correctness of this value.
+$\eta$ is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K-2$. We will shortly show that this is the minimum $\eta$ to guarantee the correctness.
 
 %In the Algorithm~\ref{algo:trm_overview}, 
 %the partition size is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K$. As stated in the following
@@ -102,9 +99,8 @@ later the correctness of this value.
 
 \subsection{Line Sweep Mining}
 Each task in the reduce phase processes a partition $Par_i$, which contains
-$R$ snapshots starting from snapshot $S_i$. We observe that within each $Par_i$, 
-only the patterns whose object sets are contained in the first snapshot 
-are necessary to be reported. Therefore, we design a simple 
+$\eta$ snapshots starting from snapshot $S_i$. We observe that within each $Par_i$, 
+only the patterns whose object sets are contained in the first snapshot are necessary to be reported. Therefore, we design a simple 
 \emph{line-sweep mining}(LSM) method for discovering
 GCMPs. The algorithm works as in Algorithm~\ref{algo:line-sweep}.
 
@@ -149,10 +145,10 @@ form a new candidate set $C$ and any invalid patterns are discarded(lines~\ref{c
 %\end{figure}
 
 \subsection{Correctness of TRM}
-We prove the correctness of TRM from three aspects. First,
-setting $R = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$
+We prove the correctness of TRM in three aspects. First,
+setting $\eta = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$
 would not miss any valid patterns. Second, no false patterns
-are reported in any partitions. Third, the choice of $R$ is
+are reported in any partitions. Third, the choice of $\eta$ is
 minimum. We formalize the first two 
 properties as \emph{completeness} and \emph{soundness} as follows:
 
@@ -160,12 +156,12 @@ properties as \emph{completeness} and \emph{soundness} as follows:
 Let a partition method $\mathbb{P}$ partitions a trajectory database $Tr$ 
 into segments, $Par_1,...,Par_m$. $\mathbb{P}$ is complete 
 if for every valid pattern $P$ in $Tr$, $\exists Par_i$ s.t. $P$ is valid in $Par_i$. 
-$\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $TR$.
+$\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $Tr$.
 \end{definition}
 
-Apparently, in TRM, replicating the entire trajectories (i.e., $R=\mathbb{|T|}$)
+Apparently, in TRM, replicating the entire trajectories (i.e., $\eta=\mathbb{|T|}$)
 meets the \emph{soundness} and \emph{completeness} requirements. However, it burdens the network shuffle and limits the parallelism. We prove in the following theorem 
-that the minimum $R$ is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$ 
+that the minimum $\eta$ is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$ 
 to ensure the correctness:
 
 %We carefully chose $R = (\lceil \frac{K}{L} \rceil -1)*G+2K$ and use
@@ -173,35 +169,35 @@ to ensure the correctness:
 
 \begin{theorem}[Correctness of Temporal Replication]
 \label{thm:replication_partition}
-The minimum $R$ to ensure sound and complete of the temporal replication 
+The minimum $\eta$ to ensure sound and complete of the temporal replication 
 is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
-\end{theorem}z
+\end{theorem}
 \begin{proof}
 The soundness of partition can be observed from the fact 
 that each partition represents a consecutive segments of trajectories. 
 Therefore patterns in a partition can be directly mapped 
 back to original trajectories. 
 For completeness, let $T'$ be the \emph{shortest} valid subsequence (wrt. $K,L,G$) 
-of a valid sequence $T$. Let $R$ be the upper bound for all $T'$s among 
+of a valid sequence $T$. Let $\eta$ be the upper bound for all $T'$s among 
 all possible valid sequence. It is easy to see that, under such a setting,
 any valid sequence would be captured by one of the partitions in temporal
 replication. This proves the completeness. Now, we compute the minimum value
-of $R$ as follows:
-$T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
-and $n-1$ gaps with sizes $g_1,...,g_{n-1}$. Therefore $R$ is formulated 
+of $\eta$ as follows:
+any $T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
+and $n-1$ gaps with sizes $g_1,...,g_{n-1}$. Since $\eta$ is the upper bond among all $T'$s, $\eta$ can be formulated 
 as follows:
 \begin{equation}
-R = \max_{n} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
+\eta = \max_{n,l_i,g_i} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
 \end{equation}
 With the following constraints: (1)$\forall l_i, L \leq l_i \leq K-1$;(2)
 $\forall g_i, 1 \leq g_i \leq G$; (3) $\Sigma_{i=1}^{i=n} l_i \geq K$ and
 (4) $\Sigma_{i=1}^{i=n-1}l_i  \leq K-1$. The constraint (1)(2)(3) due to the 
 validity of $T'$ and the constraint (4) is because of the minimum size of $T'$.
-Observe that, constraints (1)-(4) form a convex polygon and $R$ is monotone
-increasing wrt. $n$, the maximum value of $R$ is thus taken at the boundaries. Further
+Observe that, constraints (1)-(4) form a convex polygon and $\eta$ is monotone
+increasing wrt. $n,l_i,g_i$, the maximum value of $\eta$ is thus taken at the boundaries. Further
 observe that $n \in [2, \lceil \frac{K}{L} \rceil]$ and $K \geq 1$, these
 conditions naturally derive
-$R = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
+$\eta = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
 %valid pattern $P$, let $T'$ be the subsequence of $P.T$ which conforms to $K,L,G$ 
 %with the smallest length. Note that there could be many qualified $T'$s. 
 %Let the $i^{th}$ local-consecutive segment of $T'$ be $l_i$ and 
@@ -220,17 +216,14 @@ In Figure~\ref{fig:trm} (c), snapshots are combined into partitions with sizes e
 $(\lceil \frac{K}{L} \rceil-1) *G+2K - 2 = 4$. Then a line sweep method is performed in (d) 
 for partition $1$. Each $C_i$ refers to the candidate set during sweeping snapshot $i$. 
 Initially, $C_1$ contains patterns whose object set is in snapshot $1$.
-As line sweeps, at snapshot $4$, since the timestamps of $\{o_1,o_2\}$ and $\{o_5,o_6\}$ 
-are both $\{1,2\}$ which violate the $G$ constraint, 
-thus the two candidates are removed from $C_4$. After all snapshots are swept, 
-$\{o_3,o_4\}$ is the qualified pattern and is outputted.
+As line sweeps, at snapshot $3$, since the timestamps of  $\{o_5,o_6\}$ is $\{1\}$, which violates both the $L$,and $G$ constraints, this candidate is eliminated.
+At snapshot $4$, since the timestamps of $\{o_1,o_2\}$ is $\{1,2\}$, which violates the $L$ constraints, thus it is removed. Therefore, $\{o_3,o_4\}$ is the qualified pattern and is outputted.
 \end{example}
 
 The TRM approach though achieves good parallelism, 
-it requires to replicate the data multiple times. 
-Specifically, each snapshots are replicate $(\lceil \frac{K}{L} \rceil -1) *G+2K$ times. 
-In the cases of \emph{swarm}, \emph{group} and \emph{platoon}, $G$ is as large as $|T|$. 
-Handling those cases is equivalent to replicate the entire snapshots to each partition, 
+it requires to replicate the data $\eta$ times. 
+In the cases of \emph{swarm}, \emph{group} and \emph{platoon}, $\eta$ meeds to be as large as $|\mathbb{T}|$. 
+Handling those cases are equivalent to replicate the entire snapshots to each partition, 
 which surrenders the benefit of parallelism.
 
 
