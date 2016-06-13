@@ -44,7 +44,7 @@ shown in Algorithm~\ref{algo:trm_overview}.
 \label{algo:trm_overview}
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
-\State $R \gets (\lceil \frac{K}{L} \rceil -1)*G+2K$
+\State $R \gets (\lceil \frac{K}{L} \rceil -1)*G+2K-2$
 \State {---Map Phase---}
 \label{code:trm-map-start}
 \ForAll{$\langle t, S_t \rangle$}
@@ -83,7 +83,7 @@ The replication factor $R$ is critical for the performance of TRM.
 If the $R$ is large, the shuffle cost as well as the reduce cost would be high. 
 On the contrary, if $R$ is small, valid patterns may
 be missed out. In the Algorithm~\ref{algo:trm_overview}, the 
-$R$ is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K$. We will show
+$R$ is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K-2$. We will show
 later the correctness of this value.
 
 %In the Algorithm~\ref{algo:trm_overview}, 
@@ -149,10 +149,11 @@ form a new candidate set $C$ and any invalid patterns are discarded(lines~\ref{c
 %\end{figure}
 
 \subsection{Correctness of TRM}
-We prove the correctness of TRM from two aspects. First,
-the choice of $R = (\lceil \frac{K}{L} \rceil -1)*G+2K$ would 
-not miss out any valid patterns. Second, no false patterns
-are reported in any partitions. We formalize these two 
+We prove the correctness of TRM from three aspects. First,
+setting $R = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$
+would not miss any valid patterns. Second, no false patterns
+are reported in any partitions. Third, the choice of $R$ is
+minimum. We formalize the first two 
 properties as \emph{completeness} and \emph{soundness} as follows:
 
 \begin{definition}[Completeness and Soundness]
@@ -163,38 +164,64 @@ $\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they ar
 \end{definition}
 
 Apparently, in TRM, replicating the entire trajectories (i.e., $R=\mathbb{|T|}$)
-meets the \emph{soundness} and \emph{completeness} requirements. However, it burdens the network shuffle and limits the parallelism. We carefully chose $R = (\lceil \frac{K}{L} \rceil -1)*G+2K$ and use
-the following theorem to state the correctness:
+meets the \emph{soundness} and \emph{completeness} requirements. However, it burdens the network shuffle and limits the parallelism. We prove in the following theorem 
+that the minimum $R$ is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$ 
+to ensure the correctness:
 
-\begin{theorem}[Correctness of Replication]
+%We carefully chose $R = (\lceil \frac{K}{L} \rceil -1)*G+2K$ and use
+%the following theorem to state the correctness:
+
+\begin{theorem}[Correctness of Temporal Replication]
 \label{thm:replication_partition}
-Temporal replication partition is sound and complete.
+The minimum $R$ to ensure sound and complete of the temporal replication 
+is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
 \end{theorem}z
 \begin{proof}
 The soundness of partition can be observed from the fact 
 that each partition represents a consecutive segments of trajectories. 
 Therefore patterns in a partition can be directly mapped 
-back to original trajectories. For completeness, with a
-valid pattern $P$, let $T'$ be the subsequence of $P.T$ which conforms to $K,L,G$ 
-with the smallest length. Note that there could be many qualified $T'$s. 
-Let the $i^{th}$ local-consecutive segment of $T'$ be $l_i$ and 
-let the $i^{th}$ gap of $T'$ be $g_i$. Then, the size of $T'$ can 
-be written as $\Sigma_i (l_i + g_i)$.  Since $T'$ conforms to $K,L,G$, 
-then $2K \geq \Sigma_i (l_i) \geq K$, $l_i \geq L$, $g_i \leq G$. 
-It follows: $\Sigma_i(l_i+g_i) \leq (\lceil \frac{K}{L} \rceil -1) *G+2K$. 
-If every partition is of at least such a size, then $T'$ must be
-captured by at least one of the partition. Thus, the pattern $P$ would 
-be valid in that partition. This proves the completeness.
+back to original trajectories. 
+For completeness, let $T'$ be the \emph{shortest} valid subsequence (wrt. $K,L,G$) 
+of a valid sequence $T$. Let $R$ be the upper bound for all $T'$s among 
+all possible valid sequence. It is easy to see that, under such a setting,
+any valid sequence would be captured by one of the partitions in temporal
+replication. This proves the completeness. Now, we compute the minimum value
+of $R$ as follows:
+$T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
+and $n-1$ gaps with sizes $g_1,...,g_{n-1}$. Therefore $R$ is formulated 
+as follows:
+\begin{equation}
+R = \max_{n} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
+\end{equation}
+With the following constraints: (1)$\forall l_i, L \leq l_i \leq K-1$;(2)
+$\forall g_i, 1 \leq g_i \leq G$; (3) $\Sigma_{i=1}^{i=n} l_i \geq K$ and
+(4) $\Sigma_{i=1}^{i=n-1}l_i  \leq K-1$. The constraint (1)(2)(3) due to the 
+validity of $T'$ and the constraint (4) is because of the minimum size of $T'$.
+Observe that, constraints (1)-(4) form a convex polygon and $R$ is monotone
+increasing wrt. $n$, the maximum value of $R$ is thus taken at the boundaries. Further
+observe that $n \in [2, \lceil \frac{K}{L} \rceil]$ and $K \geq 1$, these
+conditions naturally derive
+$R = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
+%valid pattern $P$, let $T'$ be the subsequence of $P.T$ which conforms to $K,L,G$ 
+%with the smallest length. Note that there could be many qualified $T'$s. 
+%Let the $i^{th}$ local-consecutive segment of $T'$ be $l_i$ and 
+%let the $i^{th}$ gap of $T'$ be $g_i$. Then, the size of $T'$ can 
+%be written as $\Sigma_i (l_i + g_i)$.  Since $T'$ conforms to $K,L,G$, 
+%then $2K \geq \Sigma_i (l_i) \geq K$, $l_i \geq L$, $g_i \leq G$. 
+%It follows: $\Sigma_i(l_i+g_i) \leq (\lceil \frac{K}{L} \rceil -1) *G+2K$. 
+%If every partition is of at least such a size, then $T'$ must be
+%captured by at least one of the partition. Thus, the pattern $P$ would 
+%be valid in that partition. This proves the completeness.
 \end{proof}
 
 \begin{example}
-We illustrate the work flow of  TRM method using Figure~\ref{fig:trm} (c)(d) with $M=2, K=2, L = 2, G=2$. 
+We illustrate the work flow of  TRM method using Figure~\ref{fig:trm} (c)(d) with $M=2, K=3, L = 2, G=2$. 
 In Figure~\ref{fig:trm} (c), snapshots are combined into partitions with sizes equal to 
-$(\lceil \frac{K}{L} \rceil-1) *G+2K = 4$. Then a line sweep method is performed in (d) 
+$(\lceil \frac{K}{L} \rceil-1) *G+2K - 2 = 4$. Then a line sweep method is performed in (d) 
 for partition $1$. Each $C_i$ refers to the candidate set during sweeping snapshot $i$. 
 Initially, $C_1$ contains patterns whose object set is in snapshot $1$.
 As line sweeps, at snapshot $4$, since the timestamps of $\{o_1,o_2\}$ and $\{o_5,o_6\}$ 
-are both $\{1,2,4\}$ which violate the $G$ constraint, 
+are both $\{1,2\}$ which violate the $G$ constraint, 
 thus the two candidates are removed from $C_4$. After all snapshots are swept, 
 $\{o_3,o_4\}$ is the qualified pattern and is outputted.
 \end{example}

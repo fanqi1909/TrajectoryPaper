@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  11 JUN 2016 14:49
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  13 JUN 2016 20:07
 entering extended mode
 **main.tex
 (F:\GitHubRepos\TrajectoryPaper\main.tex
@@ -584,26 +584,27 @@ Overfull \hbox (5.48714pt too wide) in paragraph at lines 101--126
 
 ) (F:\GitHubRepos\TrajectoryPaper\sec4_baseline.tex
 Package epstopdf Info: Source file: <./charts/trm.eps>
-(epstopdf)                    date: 2016-06-09 09:37:26
-(epstopdf)                    size: 982085 bytes
+(epstopdf)                    date: 2016-06-13 20:05:40
+(epstopdf)                    size: 818363 bytes
 (epstopdf)             Output file: <./charts/trm-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-06-09 09:37:33
-(epstopdf)                    size: 125541 bytes
+(epstopdf)                    date: 2016-06-13 20:05:51
+(epstopdf)                    size: 99399 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/trm-eps-converted-
 to.pdf ./charts/trm.eps>
 (epstopdf)             \includegraphics on input line 29.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/trm-eps-converted-to.pdf, id=93, 710.655pt x 314.17375pt>
+<./charts/trm-eps-converted-to.pdf, id=93, 713.66624pt x 304.13625pt>
 File: ./charts/trm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/trm-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/trm-eps-converted-to.pdf used on input line 2
 9.
-(pdftex.def)             Requested size: 504.0pt x 222.82042pt.
- [4])
-(F:\GitHubRepos\TrajectoryPaper\sec5_spm.tex [5 <F:/GitHubRepos/TrajectoryPaper
-/charts/trm-eps-converted-to.pdf>]
+(pdftex.def)             Requested size: 504.0pt x 214.7827pt.
+ [4] [5 <F:/GitHubRepos/TrajectoryPaper/charts/trm-eps-converted-to.pdf>]) (F:\
+GitHubRepos\TrajectoryPaper\sec5_spm.tex
+Underfull \vbox (badness 1205) has occurred while \output is active []
+
 Package epstopdf Info: Source file: <./charts/spm.eps>
 (epstopdf)                    date: 2016-06-09 11:25:18
 (epstopdf)                    size: 1174742 bytes
@@ -615,7 +616,7 @@ to.pdf ./charts/spm.eps>
 (epstopdf)             \includegraphics on input line 109.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/spm-eps-converted-to.pdf, id=169, 714.67pt x 260.975pt>
+<./charts/spm-eps-converted-to.pdf, id=151, 714.67pt x 260.975pt>
 File: ./charts/spm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/spm-eps-converted-to.pdf>
@@ -634,7 +635,7 @@ rted-to.pdf ./charts/star-alt.eps>
 (epstopdf)             \includegraphics on input line 235.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/star-alt-eps-converted-to.pdf, id=173, 542.025pt x 244.915pt>
+<./charts/star-alt-eps-converted-to.pdf, id=156, 542.025pt x 244.915pt>
 File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/star-alt-eps-converted-to.pdf>
@@ -645,9 +646,6 @@ ine 235.
 Overfull \hbox (12.0pt too wide) in paragraph at lines 235--236
  [][] 
  []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7 <F:/GitHubRepos/TrajectoryPaper/charts/spm-eps-converted-to.pdf> <F:/GitHubR
 epos/TrajectoryPaper/charts/star-alt-eps-converted-to.pdf>])
@@ -661,22 +659,12 @@ m/n/9 2\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 4\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 5\OML
  []
 
 [8]) (F:\GitHubRepos\TrajectoryPaper\sec7_experiment.tex
-Overfull \hbox (2.00362pt too wide) in paragraph at lines 4--10
-\OT1/cmr/m/n/9 Apache Hadoop []. Since Spark di-rectly sup-ports the MapRe-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--34
-[][]\OT1/cmr/m/n/9 http://spark.apache.org/docs/latest/programming-
- []
-
-[9]
-Overfull \hbox (1.04741pt too wide) in paragraph at lines 55--84
+Overfull \hbox (1.04741pt too wide) in paragraph at lines 54--83
 \OT1/cmr/m/n/9 node com-mu-ni-ca-tion is car-ried by the 1Gbps Eth-er-net. Some
 
  []
 
-) (F:\GitHubRepos\TrajectoryPaper\sec8_conclusion.tex)
+[9]) (F:\GitHubRepos\TrajectoryPaper\sec8_conclusion.tex)
 (F:\GitHubRepos\TrajectoryPaper\main.bbl
 Missing character: There is no â in font cmr8!
 Missing character: There is no € in font cmr8!
@@ -686,7 +674,7 @@ Missing character: There is no ” in font cmr8!
 Here is how much of TeX's memory you used:
  5021 strings out of 493921
  71855 string characters out of 3154491
- 152703 words of memory out of 3000000
+ 150703 words of memory out of 3000000
  8176 multiletter control sequences out of 15000+200000
  24619 words of font info for 65 fonts, out of 3000000 for 9000
  844 hyphenation exceptions out of 8191
@@ -708,9 +696,9 @@ ikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D:/MikTex/fonts/type1/pub
 lic/amsfonts/symbols/msbm5.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/m
 sbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTex/fonts/type1/
 urw/times/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (10 pages, 778972 bytes).
+Output written on main.pdf (10 pages, 750740 bytes).
 PDF statistics:
- 396 PDF objects out of 1000 (max. 8388607)
+ 378 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

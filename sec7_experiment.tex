@@ -2,53 +2,52 @@
 \label{sec:exp}
 \subsection{Implementation Issues}
 We use Apache Spark~\footnote{http://spark.apache.org/} as the experimental
-platform. Spark is one of the most popular MapReduce-like platform which
-uses in-memory cache to gain high speedup against Apache Hadoop~\cite{}. Since
-Spark directly supports the MapReduce paradigm, our algorithm is able to 
-be easily implemented in Spark. In order to help reproduce our experiments,
-we further address some implementation issues.
-\subsubsection{Task Assignment}
-In spark, each task in reduce phase is an Apriori mining phase of 
-a star.
-Although our star partition method is theoretically balanced, 
-it is still necessary to assign equal number of tasks to each executors. 
-Spark naturally uses hashing to partition data into tasks, where such
-a partitioning does not care on the tasks size. In order to
-fully utilize the clusters, it is important to perform a weight-aware
-partition. In our implementation, we collect the number of edges
-in each star after map phase. Afterwards, we use a simple \emph{best-fit} strategy,
-where we assign stars in decreasing order with their sizes and each star
-is assigned to the currently least-loaded executor.  HERE WE MAY HAVE ANOTHER BOUND
-FROM LITERATURE, BUT I DIDN'T FIND YET. The injection of load balancing strategy
-between map and reduce phase can be naturally implemented in Spark, where the 
-map result can be cached and the reduce phase can be paused until when the
-partition strategy is ready.
-
-\subsubsection{Duplication Detection}
-It is notable that the patterns discovered from different tasks (stars) could
-be redundant due to containment relationship. For example, a pattern $\{a,b,c\}$
-can be discovered from the star $Sr_a$, while the pattern $\{b,c\}$ can be discovered
-from the star $Sr_b$. Though in most applications, such a duplicate pattern
-is permitted, we offer an option to eliminate these patterns. The strategy is 
-to broadcast each reducers output to every other reducers. This can be
-efficiently done via \emph{broadcast} variables~\footnote{http://spark.apache.org/docs/latest/programming-guide.html\#broadcast-variables} in Spark. Afterwards, each reduce can check 
-whether any resulted patterns are subsumed and thus filter those patterns.
-Theoretically, advanced techniques, such as Bloom Filters, can be applied to efficiently
-deal with the duplication detection. However, as the number of final patterns are
-normally quit small, we leave the exploration for those techniques to the future.
-
-\subsubsection{Handling Overlapping Clusters}
-When handling patterns such as \emph{flock} and \emph{group}, disk-based clustering
-on objects are applied. Such a clustering method may result one object belonging to
-multiple clusters. In such a case, just keeping the timestamps in the edge
-of connection graph is insufficient. Instead, we extend every timestemp $t$
-to a pair $\langle t,C \rangle$, where $C$ is the set of clusters objects
-belong to at time $t$. The only adaption we need to take the join during
-apriori phase. Given two timestamp set $T_1$ and $T_2$, the join result of
-$T_1$ and $T_2$ instead of being $\{\forall t | t\in T_1 \wedge t_\in T_2\}$,
-it changes to $\{\forall (t,C) | t\in T_1 \wedge t \in T_2 \wedge C = (T_1.C \cap T_2.C) \wedge C \neq \emptyset\}$.
-It is obvious to see the \emph{edge simplification} and \emph{candidate pruning} 
-still holds under this new setting.
+platform. Spark is one of the most popular MapReduce platform which
+uses in-memory cache to gain high speedup against Apache Hadoop~\cite{}. 
+Due to the direct support of MapReduce, our algorithm can be easily implemented in Spark. 
+In order to help reproduce our experiments, we further address some implementation issues.
+%\subsubsection{Task Assignment}
+%In spark, each task in reduce phase is an Apriori mining phase of 
+%a star.
+%Although our star partition method is theoretically balanced, 
+%it is still necessary to assign equal number of tasks to each executors. 
+%Spark naturally uses hashing to partition data into tasks, where such
+%a partitioning does not care on the tasks size. In order to
+%fully utilize the clusters, it is important to perform a weight-aware
+%partition. In our implementation, we collect the number of edges
+%in each star after map phase. Afterwards, we use a simple \emph{best-fit} strategy,
+%where we assign stars in decreasing order with their sizes and each star
+%is assigned to the currently least-loaded executor.  HERE WE MAY HAVE ANOTHER BOUND
+%FROM LITERATURE, BUT I DIDN'T FIND YET. The injection of load balancing strategy
+%between map and reduce phase can be naturally implemented in Spark, where the 
+%map result can be cached and the reduce phase can be paused until when the
+%partition strategy is ready.
+%
+%\subsubsection{Duplication Detection}
+%It is notable that the patterns discovered from different tasks (stars) could
+%be redundant due to containment relationship. For example, a pattern $\{a,b,c\}$
+%can be discovered from the star $Sr_a$, while the pattern $\{b,c\}$ can be discovered
+%from the star $Sr_b$. Though in most applications, such a duplicate pattern
+%is permitted, we offer an option to eliminate these patterns. The strategy is 
+%to broadcast each reducers output to every other reducers. This can be
+%efficiently done via \emph{broadcast} variables~\footnote{http://spark.apache.org/docs/latest/programming-guide.html\#broadcast-variables} in Spark. Afterwards, each reduce can check 
+%whether any resulted patterns are subsumed and thus filter those patterns.
+%Theoretically, advanced techniques, such as Bloom Filters, can be applied to efficiently
+%deal with the duplication detection. However, as the number of final patterns are
+%normally quit small, we leave the exploration for those techniques to the future.
+%
+%\subsubsection{Handling Overlapping Clusters}
+%When handling patterns such as \emph{flock} and \emph{group}, disk-based clustering
+%on objects are applied. Such a clustering method may result one object belonging to
+%multiple clusters. In such a case, just keeping the timestamps in the edge
+%of connection graph is insufficient. Instead, we extend every timestemp $t$
+%to a pair $\langle t,C \rangle$, where $C$ is the set of clusters objects
+%belong to at time $t$. The only adaption we need to take the join during
+%apriori phase. Given two timestamp set $T_1$ and $T_2$, the join result of
+%$T_1$ and $T_2$ instead of being $\{\forall t | t\in T_1 \wedge t_\in T_2\}$,
+%it changes to $\{\forall (t,C) | t\in T_1 \wedge t \in T_2 \wedge C = (T_1.C \cap T_2.C) \wedge C \neq \emptyset\}$.
+%It is obvious to see the \emph{edge simplification} and \emph{candidate pruning} 
+%still holds under this new setting.
 
 
 \subsection{Experimental Setup}
@@ -91,9 +90,35 @@ set as follows:
 \item{SingTaxi}:
 \end{itemize}
 
+The summary of statistics are presented as in the following table:
+
+\begin{table}
+\center
+\caption{Statistics of data set}
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & Geolife & ACTShopping & SingTaxi \\ 
+\hline 
+\# objects & a & a & a\\ 
+\hline
+\# timestamps & a & a & a\\ 
+\hline
+\# data points & a & a & a\\ 
+\hline
+\end{tabular}
+\end{table}
 
 
+\subsection{Effectiveness of GCMP}
 
+\subsection{Performance Comparison}
+\subsubsection{Effects of clusters $\epsilon$, $minPt$}
+\subsubsection{Effects of pattern parameters $M,L,K,G$}
+
+
+\subsection{SPM Analysis}
+\subsubsection{Load Balance}
+\subsubsection{Scalability}
 
 
 
