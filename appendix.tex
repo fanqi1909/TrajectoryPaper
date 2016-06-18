@@ -1,0 +1,119 @@
+\appendix
+\section{Proofs of Theorems}
+\subsection{Proof of Theorem~\ref{THM:RP_ETA}}
+%\begin{proof}
+%Let $T'$ be the \emph{shortest} valid subsequence (wrt. $K,L,G$) 
+%of a valid sequence $T$. Let $\eta$ be the upper bound for all $T'$s among 
+%all possible valid sequence. It is easy to see that, under such a setting,
+%any valid sequence would be captured by one of the partitions in temporal
+%replication. This proves the completeness. Now, we compute the minimum value
+%of $\eta$ as follows:
+%any $T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
+%and $n-1$ gaps with sizes $g_1,...,g_{n-1}$. Since $\eta$ is the upper bond among all $T'$s, $\eta$ can be formulated 
+%as follows:
+%\begin{equation}
+%\eta = \max_{n,l_i,g_i} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
+%\end{equation}
+%With the following constraints: (1)$\forall l_i, L \leq l_i \leq K-1$;(2)
+%$\forall g_i, 1 \leq g_i \leq G$; (3) $\Sigma_{i=1}^{i=n} l_i \geq K$ and
+%(4) $\Sigma_{i=1}^{i=n-1}l_i  \leq K-1$. The constraint (1)(2)(3) due to the 
+%validity of $T'$ and the constraint (4) is because of the minimum size of $T'$.
+%Observe that, constraints (1)-(4) form a convex polygon and $\eta$ is monotone
+%increasing wrt. $n,l_i,g_i$, the maximum value of $\eta$ is thus taken at the boundaries. Further
+%observe that $n \in [2, \lceil \frac{K}{L} \rceil]$ and $K \geq 1$, these
+%conditions naturally derive
+%$\eta = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
+%%valid pattern $P$, let $T'$ be the subsequence of $P.T$ which conforms to $K,L,G$ 
+%%with the smallest length. Note that there could be many qualified $T'$s. 
+%%Let the $i^{th}$ local-consecutive segment of $T'$ be $l_i$ and 
+%%let the $i^{th}$ gap of $T'$ be $g_i$. Then, the size of $T'$ can 
+%%be written as $\Sigma_i (l_i + g_i)$.  Since $T'$ conforms to $K,L,G$, 
+%%then $2K \geq \Sigma_i (l_i) \geq K$, $l_i \geq L$, $g_i \leq G$. 
+%%It follows: $\Sigma_i(l_i+g_i) \leq (\lceil \frac{K}{L} \rceil -1) *G+2K$. 
+%%If every partition is of at least such a size, then $T'$ must be
+%%captured by at least one of the partition. Thus, the pattern $P$ would 
+%%be valid in that partition. This proves the completeness.
+%\end{proof}
+
+\subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
+\begin{proof}
+If $P$ is a valid pattern in original trajectories, 
+let $s$ be the object with smallest ID in $P.O$. 
+Based on the definition of GCMP, $\forall t \in P.T$, $\forall o \in P.O$, $C_t(s) = C_t(o)$.
+It follows that all object $o \in P.O$ are in $Sr_s$. 
+Furthermore, every timestamp in $P.T$ is included
+in $Sr_s$. Therefore, $P$ is a valid pattern in $Sr_s$. This completes the proof of Theorem~\ref{THM:SPM_CORRECT}.
+The correctness of Lemma~\ref{LEM:SPM_CORRECT} can be directly derived from the above arguments:
+let $o_i$ be the smallest element in $p_i.O$ and $o_j$ be the smallest element in $p_j.O$. 
+Since $p_i$ and $p_j$ belongs to different stars, then $o_i \neq o_j$, 
+therefore $p_i.O \not\equiv p_j.O$. This proves the lemma.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{THM:SPM_LB}}
+\begin{proof}
+Let $\mathbb{A}^*$ be the optimal numbering wrt Equation 1. Since we have a star
+for each object, by the degree-sum formula and pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
+Next, let $e_{i,j}$ be an entry in the adjacent matrix of $G$. Note that edges in $G$ are independent. 
+Let $d_i$ denote the degree of vertex $i$ in $G$. 
+It follows that $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$.
+Since in the star partition, each edge is assigned to the vertex
+with smaller IDs, the connection between $a_{i,j}$ and $e_{i,j}$ can be written as:
+\begin{equation*}
+a_{i,j} = \begin{cases}
+			e_{i,j}, i>j \\
+			0, otherwise
+		  \end{cases}  
+\end{equation*}
+There are two observations made on the above equation. First, since $e_{i,j}$s are independent,
+$a_{i,j}$s are independent. Second, since $i>j$ and $e_{i,j}$ are independent. 
+$E[a_{i,j}] = E[e_{i,j}]E[i>j]= E[e_{i,j}]/2$.
+
+By definition, $c_i = \Sigma_{1\leq j \leq n} a_{i,j}$, 
+is a sum of $n$ independent 0-1 variables. Taking expectation on both sides, 
+we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} a_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$. Let $\mu =E[c_i] = d/2$, 
+$t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
+\begin{equation*}
+\begin{split}
+	Pr(c_i \geq \mu + t) 
+						&\leq \exp(\frac{-2t^2}{n}) \\
+						&= \exp(-2\log n) = n^{-2}
+\end{split}
+\end{equation*}
+
+The first step is due to the fact that all $a_{i,j}$ are bounded in the range of [0,1]. 
+Next, since the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
+$\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
+\begin{equation*}
+\begin{split}
+	Pr(||A\vec{b}||_\infty \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
+		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
+		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\
+		& = n^{-1} = 1/n
+\end{split}
+\end{equation*}
+Substitute back $t$ and $\mu$, we achieve the following concise form:
+\begin{equation*}
+	Pr(||A\vec{b}||_\infty \geq (d/2 + \sqrt{n\log n})) \leq 1/n
+\end{equation*}
+This indicates that, the probability of $(||A\vec{b}||_\infty-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. With the observed fact that $||A^*\vec{b}||_\infty \geq d/2$, we conclude that
+with probability greater than $(1-1/n)$, 
+the difference between $||A\vec{b}||_\infty$ and $||A^*\vec{b}||_\infty$ is less than $O(\sqrt{n\log n})$.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{THM:SPM_TM}}
+\begin{proof}
+Let $P_1$, $P_2$ be two candidates with $P_1.O \subseteq P_2.O$. It is easy to see that $P_1.T \supseteq P_2.T$.
+Suppose $P_1.T$ cannot be simplified to a candidate sequence. Then
+by proof of contradiction, any subset of $P_1.T$ cannot
+be simplified. It follows that $P_2.T$ cannot be simplified to a candidate sequence. 
+In summary, if $P_1.T$ cannot be simplified, $P_2$ can be pruned. 
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{THM:SPM_FCC}}
+\begin{proof}
+We prove by contradiction. Suppose there exists another pattern $P$ such that $P.O \neq FC_i$, 
+let $X=P.O - FC_i \neq \emptyset$. Consider a subset $P_1$ of $P$ which contains $X$ with size $i+1$, 
+(i.e., $P_1 \subseteq P, P_1\subseteq X, |P_1|=i+1$). Since $P$ is a proper pattern, 
+then $P_1$ is also a proper pattern. Therefore $P_1 \in Lv_i$.
+It follows $X$ is in the forward closure of $FC_i$, (i.e.,$X \in FC_i$), which contradicts with $X\notin FC_i$.
+\end{proof}

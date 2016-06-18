@@ -189,74 +189,8 @@ Second, we investigate deploying our GCMP detector on MapReduce platforms (such 
 \emph{forward closure checking} to significantly reduce the number of enumerated candidates in the Aproiro algorithm.
 
 
-
-%
-%Second, we investigate on deploying our GCMP detector to facilitate scalable pattern mining.
-%In order to support large real trajectories, to the best of our knowledge, we
-%are the first to study GCMP mining in MapReduce (MR) systems. There are a
-%few challengers associated with designing an efficient MR-based pattern 
-%detection algorithms. 
-%
-%First, in order to support effective parallelism, we need
-%to partition the trajectory database with almost equal sizes. Our initial attempts
-%develops a temporal based partition approached named as 
-%\emph{Temporal Replication and Mining} (TRM). In TRM, neighboring snapshots form
-%a equal-sized partition such that co-movement patterns can be mined independently.
-%However, such a scheme require $O(|\mathbb{T}|)$ replication of input, which is 
-%inefficient for large-scale trajectories. To support efficient mining, 
-%we design a novel \emph{Star Partition and Mining} (SPM) approach which utilize
-%the potential co-movement relationship among objects.
-%
-%Our initial attempt develops a naive but effective 
-%\emph{Temporal Replication and Mining} (TRM) approach 
-%which requires to replicate entire data set $O(|\mathbb{T}|)$ times. Such a 
-%large set of 
-
-%There
-%are a few challenges arises in designing the MR based pattern detection algorithm.
-%First, we 
-
-%The major challenge
-%we face is to make proper data partitions such
-%that each partition can be efficiently processed independently. Our initial attempt develops
-%a naive but effective \emph{Temporal Replication and Mining} (TRM) approach which requires to replicate
-%entire data set $O(|\mathbb{T}|)$ times. To improve the efficiency, we design a novel \emph{Star Partition and Mining} (SPM)
-%algorithm. In SPM, potential co-moving objects are first grouped into partitions. Subsequently,
-%an apriori based method is applied to discover the patterns from each partition.
-%Despite the simpleness of the star partition, we theoretically prove its correctness
-%and optimality. Using SPM as the foundation, we develop and integrate
-%a series of optimization techniques including \emph{edge simplification}, \emph{candidate pruning}
-%and \emph{forward closure checking} to further boost the
-%performances.
-%
-
-
-%
-%Second, we investigate how to deploy our GCMP detector  on Spark for scalable pattern mining.
-%The major challenge in designing MapReduce-based algorithms is to make proper partitions of input data.
-%In GCMP mining, we enforce both the \emph{soundness} and the \emph{completeness} 
-%of the partitions. Such properties ensure that neither false-patterns 
-%nor miss-patterns are possible in our solution. To meet such partition requirements
-%as well as to keep the shuffle amount to a minimum, 
-%we first design a naive \emph{Temporal Replication and Mining} (TRM)
-%approach, which partitions trajectories into groups of consecutive snapshots. Then, we design a line-sweep
-%method for mining GCMP from each partition. We prove that in TRM, the partition is complete and sound when a snapshot is replicated $O(|T|)$ times. 
-%Then, we design a novel \emph{Star Partition and Mining} (SRM) approach which significantly reduces the data shuffled
-%as compare to TRM. In SRM, we design a conceptual connection graph based on proximity among objects. We adapt
-%a \emph{star partition} which cut the graph by replicating vertices. Afterwards, we design an Apriori-like method to mine
-%GCMP in each partition. We prove the correctness of SPM and show that total data been replicated is $O(|\mathbb{O}|)$. 
-%Despite the simpleness of star partition, we theoretically prove its optimality.
-%Furthermore, we utilize \emph{temporal monotonicity} to further reduce the 
-%shuffling and mining cost in SPM. 
-%Lastly, we adapt various engineering level techniques to support efficiently deploying our algorithms in 
-%Apache Spark which is one of the most popular MapReduce platforms.
-
-%we design a novel star-based partition scheme to efficiently partition objects based on their
-%belonging clusters. Based on the star partition, we then propose a series of optimization techniques which
-%largely improve the system performance. NEED TO EMPHASIZE YOUR TECHNICAL CONTRIBUTION!
-
 We conduct a set of extensive experiments on XXX datasets with billion-scale trajectory points. The results show that XXX.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a naive \emph{temporal replication and mining} solution. An advanced solution named
+trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline \emph{temporal replication and mining} solution. An advanced solution named
 \emph{star partition and mining} is presented in Section~\ref{sec:spm}. Section~\ref{sec:opt} discusses various optimization techniques. Section~\ref{sec:exp} conducts extensive experiments to verify the usefulness and efficiency of our system. Finally Section~\ref{sec:concl} concludes the paper.

@@ -1,11 +1,11 @@
 \section{Experimental Study}
 \label{sec:exp}
-\subsection{Implementation Issues}
-We use Apache Spark~\footnote{http://spark.apache.org/} as the experimental
-platform. Spark is one of the most popular MapReduce platform which
-uses in-memory cache to gain high speedup against Apache Hadoop~\cite{}. 
-Due to the direct support of MapReduce, our algorithm can be easily implemented in Spark. 
-In order to help reproduce our experiments, we further address some implementation issues.
+%\subsection{Implementation Issues}
+%We use Apache Spark~\footnote{http://spark.apache.org/} as the experimental
+%platform. Spark is one of the most popular MapReduce platform which
+%uses in-memory cache to gain high speedup against Apache Hadoop~\cite{}. 
+%Due to the direct support of MapReduce, our algorithm can be easily implemented in Spark. 
+%In order to help reproduce our experiments, we further address some implementation issues.
 %\subsubsection{Task Assignment}
 %In spark, each task in reduce phase is an Apriori mining phase of 
 %a star.
@@ -51,11 +51,13 @@ In order to help reproduce our experiments, we further address some implementati
 
 
 \subsection{Experimental Setup}
+We adapt one of the most popular MapReduce platform, Apache Spark, 
+to conduct experiments on mining GCMPs. 
 Our experiments run on a 9-node cluster, with Apache Yarn as
 the cluster manager. We use 1 node for Yarn resource manager, 
-and use the remaining 8 nodes as executors in Spark. In the 
-cluster, each node is uniformly equipped with a 2.2GHz quad-core CPU
-with 32 GB memory. Inter-node communication is carried by 
+and use the remaining 8 nodes as executors. Each node in the cluster
+is uniformly equipped with a 2.2GHz quad-core CPU with 32 GB memory. 
+Inter-node communication is carried by 
 the 1Gbps Ethernet.  Some critical configuration of Spark is 
 as follows:
 \begin{table} [h]
@@ -81,38 +83,109 @@ spark.serializer & KryoSerializer \\
 \end{tabular} 
 \end{table}
 
-The clusters is managed by Yarn 2.7.1 and we use HDFS
-as the distributed storage. We prepare three real data
-set as follows:
+We prepare three real datasets for study. The details of the datasets are as follows:
 \begin{itemize}
-\item{Geolife}:
-\item{ACTShopping}:
-\item{SingTaxi}:
+\item{Geolife}~\footnote{http://research.microsoft.com/en-us/projects/geolife/}: contains 18,670 
+GPS trajectories for passengers in Beijing over three years. The data are collected per 1~5 seconds.
+We use linear interpretation for missing data in short-intervals (i.e., 5 seconds), since interpolating
+big intervals introduces large errors.
+\item{ACTShopping}~\footnote{http://www.irc.atr.jp/crest2010\_HRI/ATC\_dataset/}: contains visitors trajectories in ATC shopping center in Osaka from October 24, 2012 to November 29, 2013. There are in total 18670 trajectories, with 41 million data points. 
+\item{SingTaxi}: contains 15,054 Singapore taxi trajectories in August 2012.
 \end{itemize}
 
 The summary of statistics are presented as in the following table:
 
-\begin{table}
+\begin{table} [h]
 \center
 \caption{Statistics of data set}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|l|l|l|l|}
 \hline
  & Geolife & ACTShopping & SingTaxi \\ 
 \hline 
-\# objects & a & a & a\\ 
+\# objects & 18,670 & 13,183 & 15,054\\ 
 \hline
-\# timestamps & a & a & a\\ 
+\# average ts & 2,924 & 3,114 & 19,667 \\ 
 \hline
-\# data points & a & a & a\\ 
+\# longest ts & 17,281 & 24,407 & 43,717 \\
+\hline
+\# data points & 54,594,696 & 41,052,242 & 296,075,837\\ 
 \hline
 \end{tabular}
 \end{table}
 
+\begin{figure*}[t]
+\centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{exp/effectiveness/effect_geolife.eps}
+        \caption{Geolife}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \includegraphics[width=\textwidth]{exp/effectiveness/effect_shopping.eps}
+        \caption{ACTShopping}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{exp/effectiveness/effect_taxi.eps}
+        \caption{SingTaxi}
+    \end{subfigure}
+\caption{Effectiveness of GCMP model on sampled datasets.}
+\label{exp:effectiveness}
+\end{figure*}
 
-\subsection{Effectiveness of GCMP}
+
+\subsection{Effects of $G$ on GCMP}
+We study the effects of the gap parameter $G$ on discovering co-movement patterns. 
+As shown in Figure~\ref{fig:related_work_scalability},
+existing works are not able to handle large trajectories, we sample and cluster $1$ million  
+trajectory points from the three real data. We use two instances of GCMPs, GCMP-L where the
+$L$ value is default and GCMP where $L = 1$.  We measure the number
+of patterns discvoered by different methods. The results are presented in Figure~\ref{exp:effectiveness}.
+
+We can see from Figures~\ref{exp:effectiveness} that the number of patterns
+discovered by GCMP is a positively related to $G$. When $G =1$, the number
+of patterns returned by GCMP and GCMP-L are identical to \emph{convoy}. As $G$ grows,
+the number returned by GCMP-L converges to \emph{platoon}. For example, in (a), two
+patterns converge when $G$ is $40$. Similarly in (b) and (c), two patterns converge
+when $G$ is $50$. The reason is that when $G$ is large enough,
+ all consecutive segments in \emph{platoon} satisfy the $G$-connectivity. Similar
+ trend applies between GCMP and \emph{swarm}. As see from the figures, in (a), two
+ patterns converge at $G=50$; while in (b) and (c) the two patterns converge
+ at $G=60$ and $G=40$ respectively. We further
+ note that, existing patterns has different granularity in temporal domain. As we seen
+ from the three figures, the number of \emph{swarm} is greater than \emph{platoon} and
+ \emph{convoy}. Despite none of the existing patterns are able to fine-grain control
+ the temporal domain of patterns, GCMP can discover the patterns more precisely. 
+ These results confirms the usefulness of GCMP in expressing other patterns.
+  
+
+
 
 \subsection{Performance Comparison}
-\subsubsection{Effects of clusters $\epsilon$, $minPt$}
+We now study the performance of our GCMP methods. We use TRPM as
+the baseline algorithm and implement SPM and SPM+.
+
+\begin{table}
+\begin{tabular}{c|c|l}
+\hline 
+\textbf{Variables} & \textbf{Meaning} & \textbf{Values} \\ 
+\hline 
+M & min size of object set &  20, 40, \textbf{60},80,100 \\ 
+\hline 
+K & min duration & 60, 120, \textbf{180}, 240, 300 \\ 
+\hline 
+L & min local duration & 10, 20, \textbf{30}, 40,50 \\ 
+\hline 
+G & max gap & 5,10,\textbf{15},20,25 \\ 
+\hline 
+$\epsilon$ & DBSCAN parameter & 3,6,\textbf{9},12 \\ 
+\hline 
+minPt & DBSCAN parameter & 3,6,\textbf{9},12 \\ 
+\hline 
+\end{tabular} 
+\caption{Pattern Parameters and their default values.}
+\end{table}
+
+
+\subsubsection{Effects of clusters $\epsilon$, minPt}
 \subsubsection{Effects of pattern parameters $M,L,K,G$}
 
 

@@ -1,141 +1,125 @@
-\section{Temporal Replication and Mining}
-\label{sec:trm}
-We resort to the MapReduce (MR) paradigm for designing 
-a scalable parallel solution in mining GCMP. It is straightforward 
-to partition the trajectory database into equal-sized 
-temporal segments; and then mining the GCMP patterns out of each segments. However, GCMP
-patterns may cross multiple temporal segments. To ensure
-the correctness, we need to guarantee that
-every valid pattern can be mined within at least 
-one partitions.
-Thus, some snapshots need to be 
-replicated several times in multiple partitions. This
-leads us to design the \emph{Temporal Replication and Mining}
-(TRM) algorithm.
 
-The work flow of TRM is illustrate as in Figure~\ref{fig:trm}. 
-In brief, there are two pipeline MR jobs which further consist of four stages. 
-The first MR job is considered as a preprocessing, where input trajectories
-are grouped into snapshots and each snapshot runs a clustering method (e.g., Disk-based, DBSCAN, etc.).
-The output is shown as in Figure~\ref{fig:trm}(b). The second
-MR job is the \emph{TRM} algorithm. In the \emph{map} phase 
-(i.e., Figure~\ref{fig:trm} (c)), temporally closed snapshots are grouped
-into a partition. In the \emph{reduce} phase (i.e., Figure~\ref{fig:trm} (d)),
-a \emph{Line Sweeping} method is developed to discover GCMP in each partition. Finally,
-patterns from different partitions are then collected to form the final output.
+\section{Baseline: Temporal Replication and Parallel Mining}
+\label{sec:trm}
+In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two cycles of map-reduce jobs connected in a pipeline manner. The first cycle deals with spatial clustering in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining. In particular, the timestamp is treated as the key in the map phrase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phrase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of $S_t$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
+
+Our focus in this paper is the second map-reduce cycle of parallel mining, which essentially consists of two key questions to solve. The first is how to employ effective data partitioning such that the mining can be conducted independently; and the second is how to efficiently mine the valid patterns within each partition. 
+
+
+It is obvious that we cannot simply split the trajectory database into disjoint partitions because a GCMP pattern requires $L$-consecutive and the corresponding segments may cross multiple partitions. Our strategy is to use data replication to enable parallel mining. Each snapshot will replicate its clusters to $\eta$ preceding snapshots. In other words, the partition for the snapshot $S_t$ contains clusters in $S_t$, $S_{t+1}\ldots,S_{t+\eta}$. Determining a proper $\eta$ is critical in ensuring the
+correctness and efficiency of TRPM. If $\eta$ is too small, certain cross-partition patterns may be missed. If $\eta$ is set too large, expensive network communication and CPU processing costs would be incurred in the map and reduce phrases respectively. 
+
+To guarantee that no valid pattern is missing, we enforce the
+following statement on $\eta$:
+I HAVE NO IDEA WHAT YOU ARE TALKING ABOUT STARTING FROM HERE!!!
+ \emph{Let $T'$ be the \emph{shortest} 
+valid subsequence (wrt. $K,L,G$) of a valid temporal sequence $T$. 
+Then, $\eta$ needs to be the upper bound for all $T'$ among all valid temporal sequences to ensure the completeness.} 
+Finding the \emph{minimum} $\eta$ is not
+straightforward. We notice the minimum $\eta$ is related to the temporal
+parameters $K,L,G$ by making the following observation on $G=1$:
+
 
 \begin{figure*} [t]
 \center
 \includegraphics[width=\textwidth]{trm.eps}
-\caption{Work flow of Temporal Replication and Mining. (a)(b) correspond to the first MR job which computes the clusters at each snapshot; 
-(c)(d) correspond to the second MR job which uses TRM to mine GCMP in parallel.}
+\caption{Work flow of Temporal Replication and Mining. (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot;  (c)(d) correspond to the second map-reduce cycle which uses temporal replication to mine GCMP in parallel.}
 \label{fig:trm}
 \end{figure*}
 
-In the first MR job, each partition contains only one snapshot
-for clustering, thus it is unnecessary to replicate any snapshots. Therefore, we
-focus on describing the second MR job which is the \emph{Temporal
-Replication and Mining} algorithm. We use $\eta$ to denote the replication factor.
-The outline of TRM is 
-shown in Algorithm~\ref{algo:trm_overview}.
 
-\begin{algorithm}
-\caption{Temporal Replication and Mining}
-\label{algo:trm_overview}
-\begin{algorithmic}[1]
-\Require list of $\langle t, S_t \rangle$ pairs
-\State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*G+2K-2$
-\State {---Map Phase---}
-\label{code:trm-map-start}
-\ForAll{$\langle t, S_t \rangle$}
-	\ForAll{$i \in 1...R$}
-		\State emit a $\langle t-i, S_t \rangle$ pair
-	\EndFor  
-\EndFor
-\label{code:trm-map-end}
-\State {---Partition and Shuffle Phase---}
-\label{code:trm-par-start}
-\ForAll{$\langle t, S \rangle$ pair} 
-\State group-by $t$, emit a $\langle t, Par_t\rangle$
-\State where $Par_t = \{S_t, S_{t+1}, .. S_{t+R}\} $
-\EndFor
-\label{code:trm-par-end}
-\State {---Reduce Phase---}
-\label{code:trm-red-start}
-\ForAll{$\langle t,Par_t \rangle$}
-\State lineSweepMining($Par_t$)
-\label{code:trm-red-end}
-\EndFor
-\end{algorithmic}
-\end{algorithm}
 
-As shown in Algorithm~\ref{algo:trm_overview}, the TRM algorithm contains
-three steps. First, in the map phase, each snapshot is keyed 
-with its timestamp (lines~\ref{code:trm-map-start}-\ref{code:trm-map-end}). 
-Second, in the partition phase, every snapshot is grouped with its next 
-$\eta$ snapshots to form a partition (lines~\ref{code:trm-par-start}-\ref{code:trm-par-end}). 
-Third, in the reduce phase, a line sweeping method is invoked 
-to mine GCMP within each partition (lines~\ref{code:trm-red-start}-\ref{code:trm-red-end}). 
-It is easy to see that this method replicates a snapshots at most $\eta$ times.
-The replication factor $\eta$ is critical for the performance of TRM.
-If the $\eta$ is large, the shuffle cost as well as the reduce cost would be high. 
-On the contrary, if $\eta$ is small, valid patterns may
-be missed out. In the Algorithm~\ref{algo:trm_overview}, the 
-$\eta$ is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K-2$. We will shortly show that this is the minimum $\eta$ to guarantee the correctness.
 
-%In the Algorithm~\ref{algo:trm_overview}, 
-%the partition size is chosen as $(\lceil \frac{K}{L} \rceil -1)*G+2K$. As stated in the following
-%theorem, such a partition method is sound and complete.
-%\begin{theorem}[Soundness and Completeness of Replication]
-%\label{thm:replication_partition}
-%Let $\mathbb{P}$ be as follows: for each snapshot $S_t$, create a partition $Par_t = \{S_t, ...,S_{t+(\lceil \frac{K}{L} \rceil - 1) *G+2K}\}$. Then $\mathbb{P}$ is sound and complete.
-%\end{theorem}
-%\begin{proof}
-%The soundness of partition can be observed from the fact that each partition represents partial trajectories with consecutive snapshots, therefore patterns in a partition can be directly mapped back to original trajectories.
-%Given a valid pattern $P$, let $T' \subseteq P.T$ be the subsequence of $P.T$ which conforms to $K,L,G$ with the smallest size. Note that there could be many qualified $T'$s.  
-%Let the $i^{th}$ local-consecutive part of $T'$ be $l_i$ and let the $i^{th}$ gap of $T'$ be $g_i$. Then, the size of $T'$ can be written as $\Sigma_i (l_i + g_i)$. 
-%Since $T'$ conforms to $K,L,G$, then $2K \geq \Sigma_i (l_i) \geq K$, $l_i \geq L$, $g_i \leq G$. Therefore, $\Sigma_i(l_i+g_i) \leq (\lceil \frac{K}{L} \rceil -1) *G+2K$. Thus ensuring each $Par_t$ to be of that size would capture at least one of the $T'$s, therefore the pattern $P$ would be valid in $Par_t$. This proves the completeness of the partitioning method.
-%\end{proof}
 
-\subsection{Line Sweep Mining}
-Each task in the reduce phase processes a partition $Par_i$, which contains
-$\eta$ snapshots starting from snapshot $S_i$. We observe that within each $Par_i$, 
-only the patterns whose object sets are contained in the first snapshot are necessary to be reported. Therefore, we design a simple 
-\emph{line-sweep mining}(LSM) method for discovering
-GCMPs. The algorithm works as in Algorithm~\ref{algo:line-sweep}.
+
+
+
+\emph{
+Let $T$ be an arbitrary valid temporal sequence. Since $G$ equals to 1,
+$T$ can be represented as $T=(t_1, t_2,...,t_m)$, where
+$t_i +1 = t_{i+1}$ and $m \geq K$. Let $T' = (t_1,...,t_k)$, $T'$ is the shortest
+valid temporal sequence of $T$. Note that $T'$ is fully contained
+in the partition $\lambda_{t_1} = \{S_{t_1},...,S_{t_k}\}$, therefore it can be
+mined in $\lambda_{t_1}$. 
+Since $T$ is an arbitrary valid temporal sequence, the minimum $\eta$ is thus $K$.
+}
+
+Inspired by the observation, we generalize the relationship between
+the minimum $\eta$ and temporal parameters using the following theorem:
+
+\begin{theorem}
+\label{THM:RP_ETA}
+The minimum $\eta$ to ensure the completeness of the temporal replication is:
+\[
+   \eta = 
+\begin{cases}
+    (\lceil \frac{K}{L} \rceil -1)*(G-1)+2K -2, & \text{if } G \geq 2\\
+    K,              & \text{if } G = 1
+\end{cases}
+\]
+, where $K,L,G$ are the temporal parameters.
+\end{theorem}
+
+\begin{proof}
+When $G = 1$, we have demonstrated $\eta=K$
+in the above observation. When $G \geq 2$, we compute $\eta$ as follows:
+any $T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
+and $n-1$ gaps with sizes $g_1,...,g_{n-1}$.
+Since $\eta$ is the upper bond among all $T'$s, $\eta$ can be formulated 
+as follows:
+\begin{equation}
+\eta = \max_{n,l_i,g_i} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
+\end{equation}
+With the following constraints: (1)$\forall l_i, L \leq l_i \leq K-1$; (2)
+$\forall g_i, 1 \leq g_i \leq G-1 $; (3) $\Sigma_{i=1}^{i=n} l_i \geq K$ and
+(4) $\Sigma_{i=1}^{i=n-1}l_i  \leq K-1$. Constraints (1)(2)(3) due to the 
+validity of $T'$ and $G\geq 2$ (4) is because $|T'|$ is minimum.
+Based on (1)(3)(4), we can derive (5):  $n \in [1, \lceil \frac{K}{L} \rceil]$.
+Constraints (1)-(5) form a convex polygon and $\eta$ is monotone
+increasing wrt. $n, l_i, g_i$, therefore, the maximum value of $\eta$ is taken at the upper boundaries
+where $g_i = G-1$, 
+$\Sigma_{i=1}^{i=n-1}l_i = K-1$, $l_i = K-1$
+and $n = \lceil \frac{K}{L} \rceil$. This leads to  $\eta = (\lceil \frac{K}{L} \rceil -1)*(G-1)+2K -2$.
+\end{proof}
+
+Based on the above theorem, during TRPM, every consecutive $\eta$ snapshots
+form a partition. In particular, for every snapshot $S_t$, there is
+a partition $\lambda_t=\{S_t,...,S_{t+\eta-1}\}$. With this partition strategy,
+when discovering GCMPS in $\lambda_t$, we only need to keep the pattern candidates whose
+object set are in $S_t$. This motivates to design an efficient 
+\emph{line-sweep} mining (LSM) method for each partition. The intuition of LSM is 
+to sequentially scan all snapshots. During scanning, a set of pattern candidates is maintained.
+When all snapshots are scanned, the remaining candidates are the true patterns.
+The detail of LSM is presented in Algorithm~\ref{algo:line-sweep}.
+A candidate set $C$ is maintained throughout the algorithm(line~\ref{code:ls-can-set}). $C$
+is initialized by inserting clusters at $S_t$ (lines~\ref{code:ls-init-start}-\ref{code:ls-init-end}).
+During scanning snapshot $S_j$, candidates in $C$ are joined with clusters at $S_j$. In
+the join, a candidate grows its temporal sequence while potentially reduces its object set. After the join,
+false patterns are deleted (line~\ref{code:ls-remove}). 
+Note that the size of $C$ is always decreasing, therefore the complexity of LSM $\lambda_t$ is $O(\eta|S_t||\overline{S}|)$,where $|\overline{S}|$ is the average snapshot size in $\lambda_t$.
+
+
 
 \begin{algorithm}
 \caption{Line Sweep Mining}
 \label{algo:line-sweep}
 \begin{algorithmic}[1]
-\Require $Par_t = \{S_t, S_{t+1}, ...\}$
+\Require $\lambda_t = \{S_t, ..., S_{t+\eta-1}\}$
 \State{$C \gets \{\}$} \Comment{Candidate set} \label{code:ls-can-set}
 \For{$c \in S_t$} 
 \label{code:ls-init-start}
 \State $C$.add($\langle c, t \rangle $)
 \EndFor
 \label{code:ls-init-end}
-\ForAll{$i \in [1,R]$}
-\State $N \gets S_{t+i} \oplus C$ \label{code:ls-join}
-	\ForAll {$n \in N$}
-		\If{$|n.O| \geq M$}
-			$C$.add($n$).
-			\label{code:ls-add}
-		\EndIf
-	\EndFor
-\State{remove unqualified candidate from $C$}
+\ForAll{$j \in [t+1,t+\eta-1]$}
+\State $C \gets S_{j} \oplus C$ \label{code:ls-join}
+	\State{remove false candidates from $C$}
 	\label{code:ls-remove}
 \EndFor
-\State{output qualified candidate in $C$}
+\State{output true candidates in $C$}
 \end{algorithmic}
 \end{algorithm}
 
-The algorithm scans snapshots in a partition in sequence. During the scan, it
-maintains a candidate set $C$ which contains potential patterns (line~\ref{code:ls-can-set}).
-The algorithm starts by inserting clusters at $S_i$ to $C$ (lines~\ref{code:ls-init-start}-\ref{code:ls-init-end}).
-Subsequently, in each iteration, clusters in $C$ are joined with clusters at $S_i$ to generate
-a new set of patterns $N$(lines~\ref{code:ls-join}). The valid new patterns 
-form a new candidate set $C$ and any invalid patterns are discarded(lines~\ref{code:ls-add} and~\ref{code:ls-remove}).
 
 %\begin{figure}[h]
 %\centering
@@ -144,116 +128,50 @@ form a new candidate set $C$ and any invalid patterns are discarded(lines~\ref{c
 %\label{fig:trm_process}
 %\end{figure}
 
-\subsection{Correctness of TRM}
-We prove the correctness of TRM in three aspects. First,
-setting $\eta = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$
-would not miss any valid patterns. Second, no false patterns
-are reported in any partitions. Third, the choice of $\eta$ is
-minimum. We formalize the first two 
-properties as \emph{completeness} and \emph{soundness} as follows:
 
-\begin{definition}[Completeness and Soundness]
-Let a partition method $\mathbb{P}$ partitions a trajectory database $Tr$ 
-into segments, $Par_1,...,Par_m$. $\mathbb{P}$ is complete 
-if for every valid pattern $P$ in $Tr$, $\exists Par_i$ s.t. $P$ is valid in $Par_i$. 
-$\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $Tr$.
-\end{definition}
+The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of TRPM method using Figure~\ref{fig:trm} (c)(d) with pattern
+parameters $M=2, K=3, L = 2, G=2$. By Theorem~\ref{THM:RP_ETA}, $\eta$ is calculated
+as $(\lceil \frac{K}{L} \rceil-1) *(G-1)+2K - 2 = 5$. Therefore, 
+in Figure~\ref{fig:trm} (c), every $5$ consecutive snapshots are combined 
+into a partition in the map phase. In Figure~\ref{fig:trm} (d), a line sweep
+method is illustrated for partition $\lambda_1$. Let $C_i$ be the candidate set
+during sweeping snapshot $S_i$.
+Initially, $C_1$ contains patterns whose object set is in snapshot $S_1$.
+As line sweeps, the patterns in $C_i$ grows. At snapshot $S_4$, the candidate
+$\{o_5,o_6\}$ is removed. This is because the gap between its latest timestamp (i.e., $2$)
+and the next scanning timestamp (i.e., $5$) is $3$, which violates the $G$ constraint.
+Next, at snapshot $S_5$, the candidate $\{o_1,o_2\}$ is removed. This is
+because its local consecutive timestamps $\{4\}$ has only size $1$,
+which violates the $L$ constraint.
+Finally, $\{o_3,o_4\}$ is the qualified pattern and is outputted. Note that the minimum $\eta$
+under this setting is $5$. If $\eta$ is chosen as $4$, the pattern $\{o_3,o_4\}$ would be excluded. 
 
-Apparently, in TRM, replicating the entire trajectories (i.e., $\eta=\mathbb{|T|}$)
-meets the \emph{soundness} and \emph{completeness} requirements. However, it burdens the network shuffle and limits the parallelism. We prove in the following theorem 
-that the minimum $\eta$ is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$ 
-to ensure the correctness:
-
-%We carefully chose $R = (\lceil \frac{K}{L} \rceil -1)*G+2K$ and use
-%the following theorem to state the correctness:
-
-\begin{theorem}[Correctness of Temporal Replication]
-\label{thm:replication_partition}
-The minimum $\eta$ to ensure sound and complete of the temporal replication 
-is $(\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
-\end{theorem}
-\begin{proof}
-The soundness of partition can be observed from the fact 
-that each partition represents a consecutive segments of trajectories. 
-Therefore patterns in a partition can be directly mapped 
-back to original trajectories. 
-For completeness, let $T'$ be the \emph{shortest} valid subsequence (wrt. $K,L,G$) 
-of a valid sequence $T$. Let $\eta$ be the upper bound for all $T'$s among 
-all possible valid sequence. It is easy to see that, under such a setting,
-any valid sequence would be captured by one of the partitions in temporal
-replication. This proves the completeness. Now, we compute the minimum value
-of $\eta$ as follows:
-any $T'$ can be viewed as $n$ consecutive segments with sizes $l_1,..,l_n$
-and $n-1$ gaps with sizes $g_1,...,g_{n-1}$. Since $\eta$ is the upper bond among all $T'$s, $\eta$ can be formulated 
-as follows:
-\begin{equation}
-\eta = \max_{n,l_i,g_i} \{ \Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i \}
-\end{equation}
-With the following constraints: (1)$\forall l_i, L \leq l_i \leq K-1$;(2)
-$\forall g_i, 1 \leq g_i \leq G$; (3) $\Sigma_{i=1}^{i=n} l_i \geq K$ and
-(4) $\Sigma_{i=1}^{i=n-1}l_i  \leq K-1$. The constraint (1)(2)(3) due to the 
-validity of $T'$ and the constraint (4) is because of the minimum size of $T'$.
-Observe that, constraints (1)-(4) form a convex polygon and $\eta$ is monotone
-increasing wrt. $n,l_i,g_i$, the maximum value of $\eta$ is thus taken at the boundaries. Further
-observe that $n \in [2, \lceil \frac{K}{L} \rceil]$ and $K \geq 1$, these
-conditions naturally derive
-$\eta = (\lceil \frac{K}{L} \rceil -1)*G+2K -2$.
-%valid pattern $P$, let $T'$ be the subsequence of $P.T$ which conforms to $K,L,G$ 
-%with the smallest length. Note that there could be many qualified $T'$s. 
-%Let the $i^{th}$ local-consecutive segment of $T'$ be $l_i$ and 
-%let the $i^{th}$ gap of $T'$ be $g_i$. Then, the size of $T'$ can 
-%be written as $\Sigma_i (l_i + g_i)$.  Since $T'$ conforms to $K,L,G$, 
-%then $2K \geq \Sigma_i (l_i) \geq K$, $l_i \geq L$, $g_i \leq G$. 
-%It follows: $\Sigma_i(l_i+g_i) \leq (\lceil \frac{K}{L} \rceil -1) *G+2K$. 
-%If every partition is of at least such a size, then $T'$ must be
-%captured by at least one of the partition. Thus, the pattern $P$ would 
-%be valid in that partition. This proves the completeness.
-\end{proof}
-
-\begin{example}
-We illustrate the work flow of  TRM method using Figure~\ref{fig:trm} (c)(d) with $M=2, K=3, L = 2, G=2$. 
-In Figure~\ref{fig:trm} (c), snapshots are combined into partitions with sizes equal to 
-$(\lceil \frac{K}{L} \rceil-1) *G+2K - 2 = 4$. Then a line sweep method is performed in (d) 
-for partition $1$. Each $C_i$ refers to the candidate set during sweeping snapshot $i$. 
-Initially, $C_1$ contains patterns whose object set is in snapshot $1$.
-As line sweeps, at snapshot $3$, since the timestamps of  $\{o_5,o_6\}$ is $\{1\}$, which violates both the $L$,and $G$ constraints, this candidate is eliminated.
-At snapshot $4$, since the timestamps of $\{o_1,o_2\}$ is $\{1,2\}$, which violates the $L$ constraints, thus it is removed. Therefore, $\{o_3,o_4\}$ is the qualified pattern and is outputted.
-\end{example}
-
-The TRM approach though achieves good parallelism, 
-it requires to replicate the data $\eta$ times. 
-In the cases of \emph{swarm}, \emph{group} and \emph{platoon}, $\eta$ meeds to be as large as $|\mathbb{T}|$. 
-Handling those cases are equivalent to replicate the entire snapshots to each partition, 
-which surrenders the benefit of parallelism.
-
-
-
-%IMPORTANT!!!
-%In contrast, it is challenging to design the second job. 
-%This is because valid patterns may spray across multiple snapshots 
-%or contain different object sets, where inappropriate partitioning
-%of snapshots may fail to discover certain valid patterns.
-%Formally, a valid partition strategy 
-%needs to meet the following requirements: (a) the resulted partitions need
-%to preserve enough information so that real patterns can be discovered in the reduce phase. 
-%(b) the resulted partitions need to ensure that
-%the patterns discovered in the reduce phase are valid patterns so that
-%no further verification is required. We formalize these two 
-%properties as \emph{completeness} and \emph{soundness} as follows:
-%
-%\begin{definition}[Completeness and Soundness]
-%Let a partition method $\mathbb{P}$ partitions original trajectories $Tr$ into multiple parts, $Par_1,...,Par_m$. $\mathbb{P}$ is complete if for every pattern $P$ that is valid in $Tr$, $\exists Par_i$ s.t. $P$ is valid in $Par_i$. $\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $TR$.
-%\end{definition}
-%The completeness ensures that no true patterns are missed out. 
-%The soundness ensures that no false patterns are reported. 
-%If a partition method is both sound and complete, then it can be used
-%in the second MR job to facilitate GCMP mining.
-%
-%Apparently, replicating the entire trajectories to each 
-%partition meets the \emph{soundness} and \emph{completeness} requirements. 
-%However, it burdens the network shuffle and limits the parallelism. 
-%Our objective is thus to design a complete and sound partition method that minimize the network shuffles.
-%In the following sections, we describe a naive \emph{temporal-based} partition-and-mining method called \emph{Temporal Replication and Mining}(TRM) towards a parallel solution of GCMP mining. Then,
-%we present a novel \emph{object-based} partition-and-mining method
-%called \emph{Star Partition and Mining} (SPM) which resolves
-%the deficiencies of TRM method.
+\begin{algorithm}
+\caption{Temporal Replication and Parallel Mining}
+\label{algo:trm_overview}
+\begin{algorithmic}[1]
+\Require list of $\langle t, S_t \rangle$ pairs
+\State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*(G-1)+2K-2$
+\State {---Map Phase---}
+\label{code:trm-map-start}
+\ForAll{$\langle t, S_t \rangle$}
+	\ForAll{$i \in 1...{\eta-1}$}
+		\State emit a $\langle \max(t-i,0), S_t \rangle$ pair
+	\EndFor  
+\EndFor
+\label{code:trm-map-end}
+\State {---Partition and Shuffle Phase---}
+\label{code:trm-par-start}
+\ForAll{$\langle t, S \rangle$ pair} 
+\State group-by $t$, emit a $\langle t, \lambda_t\rangle$
+\State where $\lambda_t = \{S_t, S_{t+1}, .. S_{t+\eta-1}\} $
+\EndFor
+\label{code:trm-par-end}
+\State {---Reduce Phase---}
+\label{code:trm-red-start}
+\ForAll{$\langle t,\lambda_t \rangle$}
+\State lineSweepMining($\lambda_t$)
+\label{code:trm-red-end}
+\EndFor
+\end{algorithmic}
+\end{algorithm}

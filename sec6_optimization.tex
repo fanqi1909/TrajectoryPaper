@@ -180,17 +180,12 @@ Furthermore, any candidate $P_2$, with $P_1.O \subset P_2.O$ cannot be a valid p
 This \emph{temporal monotonic property} is explicitly described as in the follow theorem:
 
 \begin{theorem}[Temporal Monotonicity]
+\label{THM:SPM_TM}
 Given the temporal parameters $L,G,K$, for a candidate pattern $P$,
 if $P.T$ cannot be simplified to a candidate sequence,
 then, for any candidate $P'$ with $P.O \subseteq P'.O$, $P'$ cannot be a true pattern.
 \end{theorem}
-\begin{proof}
-Let $P_1$, $P_2$ be two candidates with $P_1.O \subseteq P_2.O$. It is easy to see that $P_1.T \supseteq P_2.T$.
-Suppose $P_1.T$ cannot be simplified to a candidate sequence. Then
-by proof of contradiction, any subset of $P_1.T$ cannot
-be simplified. It follows that $P_2.T$ cannot be simplified to a candidate sequence. 
-In summary, if $P_1.T$ cannot be simplified, $P_2$ can be pruned. 
-\end{proof}
+
 
 \subsection{Forward closure checking}
 Although leveraging \emph{temporal monotonicity} could largely prune
@@ -208,18 +203,12 @@ Let $Lv_i$ be the set of candidates at level $i$ of Algorithm~\ref{algo:apriori_
 we use the \emph{forward closure} $FC_i$ to denote the union of the objects in
 all candidates in $Lv_i$. Then, the \emph{forward closure checking} is stated as follows:
 \begin{theorem}[Forward Closure Checking]
+\label{THM:SPM_FCC}
 Let $Lv_i$ be the candidates generated at level $i$ in Algorithm~\ref{algo:apriori_mining},
 if $FC_i$ is a proper pattern, then it is safe to terminate Algorithm~\ref{algo:apriori_mining}
 and directly output $FC_i$.
 \end{theorem}
 
-\begin{proof}
-We prove by contradiction. Suppose there exists another pattern $P$ such that $P.O \neq FC_i$, 
-let $X=P.O - FC_i \neq \emptyset$. Consider a subset $P_1$ of $P$ which contains $X$ with size $i+1$, 
-(i.e., $P_1 \subseteq P, P_1\subseteq X, |P_1|=i+1$). Since $P$ is a proper pattern, 
-then $P_1$ is also a proper pattern. Therefore $P_1 \in Lv_i$.
-It follows $X$ is in the forward closure of $FC_i$, (i.e.,$X \in FC_i$), which contradicts with $X\notin FC_i$.
-\end{proof}
 
 It is notable that, as the level grows in Algorithm~\ref{algo:apriori_mining}, the closure $FC$
 reduces, thus the pruning power of $FC$ would be stronger. We give hybrid example of the three
