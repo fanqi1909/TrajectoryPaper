@@ -28,9 +28,6 @@
 \citation{li2010swarm}
 \citation{li2015platoon}
 \citation{zheng2015survey}
-\citation{birant2007st}
-\citation{laube2005finding}
-\citation{douglas1973trajectorysimplification}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.\relax }}{2}}
 \newlabel{fig:related_work}{{1}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \emph  {Loose-connection} anomaly. Even though $\{o_1, o_2: 1,2,3,102,103,104\}$ is considered as a valid \emph  {platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments are 98 timestamps apart. \relax }}{2}}
@@ -43,16 +40,19 @@
 \newlabel{fig:related_work_scalability}{{3}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Works}{2}}
 \newlabel{sec:related_works}{{2}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Flock and Convoy}{2}}
+\citation{birant2007st}
+\citation{laube2005finding}
+\citation{douglas1973trajectorysimplification}
 \citation{li2015platoon}
 \citation{dean2008mapreduce}
 \citation{li2015platoon}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Flock and Convoy}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Group, Swarm and Platoon}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}MaReduce Framework}{3}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Definitions}{3}}
 \newlabel{sec:definition}{{3}{3}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicate a user specified value. $M$ represents the object \emph  {size} constraints. $K$ represents \emph  {duration} constraint. $L$ represents \emph  {consecutiveness} constraint. $G$ represents the \emph  {connection} constraints.\relax }}{3}}
-\newlabel{tbl:patterns}{{2}{3}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicate a user specified value. $M$ represents the object \emph  {size} constraints. $K$ represents \emph  {duration} constraint. $L$ represents \emph  {consecutiveness} constraint. $G$ represents the \emph  {connection} constraints.\relax }}{4}}
+\newlabel{tbl:patterns}{{2}{4}}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Symbols and notions that will be used\relax }}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
@@ -66,57 +66,44 @@
 \newlabel{code:ls-init-end}{{4}{5}}
 \newlabel{code:ls-join}{{6}{5}}
 \newlabel{code:ls-remove}{{7}{5}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Temporal Replication and Parallel Mining\relax }}{5}}
-\newlabel{algo:trm_overview}{{2}{5}}
-\newlabel{code:trm-map-start}{{2}{5}}
-\newlabel{code:trm-map-end}{{7}{5}}
-\newlabel{code:trm-par-start}{{8}{5}}
-\newlabel{code:trm-par-end}{{12}{5}}
-\newlabel{code:trm-red-start}{{13}{5}}
-\newlabel{code:trm-red-end}{{15}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Star Partition and Mining}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}SPARE: Star Partitioning and Apriori Enumerator}{5}}
 \newlabel{sec:spm}{{5}{5}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Star Partition and Mining\relax }}{6}}
-\newlabel{algo:spm_overview}{{3}{6}}
-\newlabel{code:spm-map-start}{{1}{6}}
-\newlabel{code:spm-edge-direct}{{4}{6}}
-\newlabel{code:spm-map-end}{{8}{6}}
-\newlabel{code:spm-shuffle-start}{{9}{6}}
-\newlabel{code:spm-shuffle-end}{{12}{6}}
-\newlabel{code:spm-reduce-start}{{13}{6}}
-\newlabel{code:spm-reduce-end}{{16}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Star Partition}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Mining}{6}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Apriori Mining\relax }}{6}}
-\newlabel{algo:apriori_mining}{{4}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and mining. (a) Conceptual connection graph from Figure 1.(b) Five star partitions are generated (c) Apriori Mining with various pruning techniques.\relax }}{7}}
-\newlabel{fig:star_partition}{{5}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Analysis of SPM}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Correctness}{7}}
-\newlabel{THM:SPM_CORRECT}{{2}{7}}
-\newlabel{LEM:SPM_CORRECT}{{3}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Optimal Star Partition}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces An alternative numbering and partitioning of the connection graph in Figure\nobreakspace  {}5\hbox {}.\relax }}{7}}
-\newlabel{fig:star-alt}{{6}{7}}
-\newlabel{THM:SPM_LB}{{4}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Optimizing SPM}{8}}
-\newlabel{sec:opt}{{6}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Edge Simplification}{8}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Edge Simplification\relax }}{8}}
-\newlabel{algo:simp_prune}{{5}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Temporal Monotonicity}{8}}
-\newlabel{THM:SPM_TM}{{5}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Forward closure checking}{8}}
-\newlabel{THM:SPM_FCC}{{6}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Experimental Study}{9}}
-\newlabel{sec:exp}{{7}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Experimental Setup}{9}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Statistics of data set\relax }}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Effects of $G$ on GCMP}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Performance Comparison}{9}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.3.1}Effects of clusters $\epsilon $, minPt}{9}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.3.2}Effects of pattern parameters $M,L,K,G$}{9}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Pattern Parameters and their default values.\relax }}{9}}
+\citation{kwon2012skewtune}
+\citation{xin2013shark}
+\citation{coppa2015data}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and mining. (a) Conceptual connection graph from Figure 1.(b) Five star partitions are generated (c) Apriori Mining with various pruning techniques.\relax }}{6}}
+\newlabel{fig:star_partition}{{5}{6}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Temporal Replication and Parallel Mining\relax }}{6}}
+\newlabel{algo:trm_overview}{{2}{6}}
+\newlabel{code:trm-map-start}{{2}{6}}
+\newlabel{code:trm-map-end}{{7}{6}}
+\newlabel{code:trm-par-start}{{8}{6}}
+\newlabel{code:trm-par-end}{{12}{6}}
+\newlabel{code:trm-red-start}{{13}{6}}
+\newlabel{code:trm-red-end}{{15}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Star Partitioning}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Examples of star partitioning with different vertex ordering.\relax }}{6}}
+\newlabel{fig:star-alt}{{6}{6}}
+\newlabel{THM:SPM_LB}{{2}{7}}
+\newlabel{THM:SPM_LB}{{5.1}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Enumerator}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Monotonicity}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Proof of theorem 3.\relax }}{7}}
+\newlabel{fig:proof_thm_3}{{7}{7}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Edge Simplification\relax }}{8}}
+\newlabel{algo:simp_prune}{{3}{8}}
+\newlabel{THM:SPM_TM}{{4}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Apriori Algorithm}{8}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Apriori Mining\relax }}{8}}
+\newlabel{algo:apriori_mining}{{4}{8}}
+\newlabel{THM:SPM_FCC}{{5}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Correctness of SPARE}{9}}
+\newlabel{THM:SPM_CORRECT}{{6}{9}}
+\newlabel{LEM:SPM_CORRECT}{{7}{9}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Experimental Study}{9}}
+\newlabel{sec:exp}{{6}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Experimental Setup}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Effects of $G$ on GCMP}{9}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
 \bibcite{zheng2011urban}{1}
@@ -131,20 +118,27 @@
 \bibcite{gudmundsson2004flock}{10}
 \bibcite{zheng2015survey}{11}
 \bibcite{birant2007st}{12}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Effectiveness of GCMP model on sampled datasets.\relax }}{10}}
+\newlabel{exp:effectiveness}{{8}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Statistics of data set\relax }}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Pattern Parameters and their default values.\relax }}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Performance Comparison}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.3.1}Effects of clusters $\epsilon $, minPt}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.3.2}Effects of pattern parameters $M,L,K,G$}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}SPM Analysis}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.4.1}Load Balance}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.4.2}Scalability}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion and Future Work}{10}}
+\newlabel{sec:concl}{{7}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}References}{10}}
 \bibcite{laube2005finding}{13}
 \bibcite{douglas1973trajectorysimplification}{14}
 \bibcite{dean2008mapreduce}{15}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Effectiveness of GCMP model on sampled datasets.\relax }}{10}}
-\newlabel{exp:effectiveness}{{7}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}SPM Analysis}{10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.1}Load Balance}{10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.2}Scalability}{10}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion and Future Work}{10}}
-\newlabel{sec:concl}{{8}{10}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}References}{10}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}1\hbox {}}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}2\hbox {} and Lemma\nobreakspace  {}3\hbox {}}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Proof of Theorem\nobreakspace  {}4\hbox {}}{10}}
+\bibcite{kwon2012skewtune}{16}
+\bibcite{xin2013shark}{17}
+\bibcite{coppa2015data}{18}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}1\hbox {}}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}6\hbox {} and Lemma\nobreakspace  {}7\hbox {}}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Proof of Theorem\nobreakspace  {}5.1\hbox {}}{11}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Proof of Theorem\nobreakspace  {}5\hbox {}}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}Proof of Theorem\nobreakspace  {}6\hbox {}}{11}}

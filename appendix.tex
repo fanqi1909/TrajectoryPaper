@@ -36,41 +36,33 @@
 %\end{proof}
 
 \subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
-\begin{proof}
-If $P$ is a valid pattern in original trajectories, 
-let $s$ be the object with smallest ID in $P.O$. 
-Based on the definition of GCMP, $\forall t \in P.T$, $\forall o \in P.O$, $C_t(s) = C_t(o)$.
-It follows that all object $o \in P.O$ are in $Sr_s$. 
-Furthermore, every timestamp in $P.T$ is included
-in $Sr_s$. Therefore, $P$ is a valid pattern in $Sr_s$. This completes the proof of Theorem~\ref{THM:SPM_CORRECT}.
-The correctness of Lemma~\ref{LEM:SPM_CORRECT} can be directly derived from the above arguments:
-let $o_i$ be the smallest element in $p_i.O$ and $o_j$ be the smallest element in $p_j.O$. 
-Since $p_i$ and $p_j$ belongs to different stars, then $o_i \neq o_j$, 
-therefore $p_i.O \not\equiv p_j.O$. This proves the lemma.
-\end{proof}
+
 
 \subsection{Proof of Theorem~\ref{THM:SPM_LB}}
 \begin{proof}
-Let $\mathbb{A}^*$ be the optimal numbering wrt Equation 1. Since we have a star
-for each object, by the degree-sum formula and pigeon-hole theorem, $||A^*\vec{b}||_\infty \geq d/2$.
-Next, let $e_{i,j}$ be an entry in the adjacent matrix of $G$. Note that edges in $G$ are independent. 
-Let $d_i$ denote the degree of vertex $i$ in $G$. 
-It follows that $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$.
-Since in the star partition, each edge is assigned to the vertex
-with smaller IDs, the connection between $a_{i,j}$ and $e_{i,j}$ can be written as:
+Let $B*$ be the assignment matrix wrt the optimal numbering.
+Since we have a star for each object, by the degree-sum formula and pigeon-hole theorem, 
+$\Gamma^*=||B^*\vec{b}||_\infty \geq d/2$.
+Next, given a numbering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 
+edges in graph $G$ are independent, then $e_{i,j}$s are independent. Moreover,
+let $d_i$ denote the degree of vertex $i$, 
+then $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$. This is because renumbering the
+vertexes does not affect the average degree.
+Since $B=\text{triu}(PAP^T)$, entries in $B$ can be written as :
 \begin{equation*}
-a_{i,j} = \begin{cases}
+b_{i,j} = \begin{cases}
 			e_{i,j}, i>j \\
 			0, otherwise
 		  \end{cases}  
 \end{equation*}
-There are two observations made on the above equation. First, since $e_{i,j}$s are independent,
-$a_{i,j}$s are independent. Second, since $i>j$ and $e_{i,j}$ are independent. 
-$E[a_{i,j}] = E[e_{i,j}]E[i>j]= E[e_{i,j}]/2$.
+There are two observations made. First, since $e_{i,j}$s are independent,
+$b_{i,j}$s are independent. Second, since $i>j$ and $e_{i,j}$s are independent. 
+$E[b_{i,j}] = E[e_{i,j}]E[i>j]= E[e_{i,j}]/2$.
 
-By definition, $c_i = \Sigma_{1\leq j \leq n} a_{i,j}$, 
+By definition, $c_i = \Sigma_{1\leq j \leq n} b_{i,j}$, 
 is a sum of $n$ independent 0-1 variables. Taking expectation on both sides, 
-we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} a_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$. Let $\mu =E[c_i] = d/2$, 
+we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} b_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$.
+ Let $\mu =E[c_i] = d/2$, 
 $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 \begin{equation*}
 \begin{split}
@@ -80,12 +72,12 @@ $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 \end{split}
 \end{equation*}
 
-The first step is due to the fact that all $a_{i,j}$ are bounded in the range of [0,1]. 
+The first step is due to the fact that all $b_{i,j}$ are bounded in the range of [0,1]. 
 Next, since the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
 $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
 \begin{equation*}
 \begin{split}
-	Pr(||A\vec{b}||_\infty \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
+	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
 		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
 		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\
 		& = n^{-1} = 1/n
@@ -93,21 +85,25 @@ $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
 \end{equation*}
 Substitute back $t$ and $\mu$, we achieve the following concise form:
 \begin{equation*}
-	Pr(||A\vec{b}||_\infty \geq (d/2 + \sqrt{n\log n})) \leq 1/n
+	Pr(\Gamma \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
-This indicates that, the probability of $(||A\vec{b}||_\infty-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. With the observed fact that $||A^*\vec{b}||_\infty \geq d/2$, we conclude that
+This indicates that, the probability of $(\Gamma-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. 
+With the fact that $\Gamma^* \geq d/2$, we conclude that
 with probability greater than $(1-1/n)$, 
-the difference between $||A\vec{b}||_\infty$ and $||A^*\vec{b}||_\infty$ is less than $O(\sqrt{n\log n})$.
+the difference between $\Gamma$ and $\Gamma^*$ is less than $O(\sqrt{n\log n})$.
+When the aggregated graph is \emph{dense} (i.e., $d\geq \sqrt{12 \log n}$), we may use
+the Chernoff Bound instead of Hoeffding's Inequality to derive a tighter bound of 
+$O(\sqrt{\log n}) $ with the similar reasoning.
 \end{proof}
 
-\subsection{Proof of Theorem~\ref{THM:SPM_TM}}
-\begin{proof}
-Let $P_1$, $P_2$ be two candidates with $P_1.O \subseteq P_2.O$. It is easy to see that $P_1.T \supseteq P_2.T$.
-Suppose $P_1.T$ cannot be simplified to a candidate sequence. Then
-by proof of contradiction, any subset of $P_1.T$ cannot
-be simplified. It follows that $P_2.T$ cannot be simplified to a candidate sequence. 
-In summary, if $P_1.T$ cannot be simplified, $P_2$ can be pruned. 
-\end{proof}
+%\subsection{Proof of Theorem~\ref{THM:SPM_TM}}
+%\begin{proof}
+%Let $P_1$, $P_2$ be two candidates with $P_1.O \subseteq P_2.O$. It is easy to see that $P_1.T \supseteq P_2.T$.
+%Suppose $P_1.T$ cannot be simplified to a candidate sequence. Then
+%by proof of contradiction, any subset of $P_1.T$ cannot
+%be simplified. It follows that $P_2.T$ cannot be simplified to a candidate sequence. 
+%In summary, if $P_1.T$ cannot be simplified, $P_2$ can be pruned. 
+%\end{proof}
 
 \subsection{Proof of Theorem~\ref{THM:SPM_FCC}}
 \begin{proof}

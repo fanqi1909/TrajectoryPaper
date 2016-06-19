@@ -185,12 +185,21 @@ the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $
 %IS IT POSSIBLE TO USE FIGURE 1 TO ADDRESS THE PROBLEM OF PLATOON, INSTEAD OF PROPOSING A NEW EXAMPLE SCENARIO?
 %
 
-Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partition and Mining} (SPM) algorithm as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori method is adopted to mine the co-movement patterns. Third, we propose two types of optimization techniques to further improve the performance, including \emph{edge-simplification} to boost the shuffle process and \emph{temporal monotonicity pruning} and 
-\emph{forward closure checking} to significantly reduce the number of enumerated candidates in the Aproiro algorithm.
+Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partition and Mining} (SPM) algorithm as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori method is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP to design several optimization techniques including \emph{edge-simplification} to prune initial candidates, \emph{temporal apriori pruning} and \emph{forward closure checking} to reduce the number of enumerated candidates in the Apriori algorithm.
+%
+%we propose two types of optimization techniques to further improve the performance, including \emph{edge-simplification} to boost the shuffle process and \emph{temporal monotonicity pruning} and 
+%\emph{forward closure checking} to significantly reduce the number of enumerated candidates in the Aproiro algorithm.
 
 
-We conduct a set of extensive experiments on XXX datasets with billion-scale trajectory points. The results show that XXX.
+We conduct a set of extensive experiments on three large-scaled real datasets with hundreds of millions 
+temporal points. 
+The results show that our parallel scheme efficiently supports GCMP mining in large datasets.
+In particular, with near 200 million trajectory points, 
+our scheme runs within 10 minutes using 135 cores. Whereas centralized solution takes near 7 hours for 
+1 million trajectory points.
+Moreover, our optimized SPM methods achieves upto XXX times efficiency
+as compared to the baseline algorithm with near linear scalability.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline \emph{temporal replication and mining} solution. An advanced solution named
-\emph{star partition and mining} is presented in Section~\ref{sec:spm}. Section~\ref{sec:opt} discusses various optimization techniques. Section~\ref{sec:exp} conducts extensive experiments to verify the usefulness and efficiency of our system. Finally Section~\ref{sec:concl} concludes the paper.
+trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline solution. An advanced solution named
+\emph{star partition and mining} is presented in Section~\ref{sec:spm}. Section~\ref{sec:opt} discusses various optimization techniques. Section~\ref{sec:exp} conducts extensive experiments to verify the efficiency of our system. Finally Section~\ref{sec:concl} concludes the paper.

@@ -76,4 +76,20 @@ J.~Dean and S.~Ghemawat, ``Mapreduce: simplified data processing on large
   clusters,'' {\em Communications of the ACM}, vol.~51, no.~1, pp.~107--113,
   2008.
 
+\bibitem{kwon2012skewtune}
+Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia, ``Skewtune: mitigating skew in
+  mapreduce applications,'' in {\em Proceedings of the 2012 ACM SIGMOD
+  International Conference on Management of Data}, pp.~25--36, ACM, 2012.
+
+\bibitem{xin2013shark}
+R.~S. Xin, J.~Rosen, M.~Zaharia, M.~J. Franklin, S.~Shenker, and I.~Stoica,
+  ``Shark: Sql and rich analytics at scale,'' in {\em Proceedings of the 2013
+  ACM SIGMOD International Conference on Management of data}, pp.~13--24, ACM,
+  2013.
+
+\bibitem{coppa2015data}
+E.~Coppa and I.~Finocchi, ``On data skewness, stragglers, and mapreduce
+  progress indicators,'' in {\em Proceedings of the Sixth ACM Symposium on
+  Cloud Computing}, pp.~139--152, ACM, 2015.
+
 \end{thebibliography}
