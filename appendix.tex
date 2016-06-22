@@ -1,6 +1,40 @@
 \appendix
 \section{Proofs of Theorems}
-\subsection{Proof of Theorem~\ref{THM:RP_ETA}}
+\subsection{Proof of Theorem~\ref{THM:RP_ETA}} 
+\label{appx:proof-rp-eta}
+\begin{proof}
+We compute $\eta$ by analyzing $\range(\rho_{G,L,K}(\cdot))$.
+In the following, when no ambiguity, we use $\rho(T)$ to represent
+$\rho_{G,L,K}(T)$. For any sequence $T$, its $\rho(T)$ can
+be viewed as interleaving segments and gaps. 
+We may view $\rho(T)$ as $l_1,g_1,\ldots, l_{n-1}, g_{n-1}, l_n$, where $l_i$ is a
+segment and $g_i$ is a gap. For simplicity, we use $l_i$ and $g_i$ directly as their sizes.
+Then the
+range of $\rho(T)$ is $\Sigma_{i=1}^{i=n} l_i + \Sigma_{i=1}^{i=n-1} g_i$. 
+Since $\rho(T)$ is valid, the following constraints holds: 
+(1) $\Sigma_{i=1}^{i=n} l_i \geq K$; (2) $\forall l_i$, $l_i \geq L$;
+(3) $\forall g_i$, $g_i \leq G-1$. Based on constraint (1) and (2), 
+$n \leq \lceil \frac{K}{L}\rceil$. 
+This indicates that $\Sigma_{i=1}^{i=n-1} g_i \leq (\lceil \frac{K}{L}\rceil -1 ) (G-1)$.
+If $l_n > L$ and $\Sigma_{i=1}^{i=n} l_i > K$, we can reduce the range of $\rho(T)$
+by reducing $l_n$. If $\Sigma_{i=1}^{i=n} l_i - K < l_n - L$ 
+then, $\Sigma_{i=1}^{i=n} l_i - K$ can be reduced to $K$. In this case, the maximum range of $\rho(T)$ is 
+$\leq K +(\lceil \frac{K}{L}\rceil -1 ) (G-1)$.
+Otherwise, we can reduce $l_n$ to be $L$. When $l_n = L$, 
+since we wish $\rho(T)$ to be minimum, it indicates $\Sigma_{i=1}^{i=n} l_i \leq K-1$.
+Therefore $\Sigma_{i=1}^{i=n} l_i \leq K-1+L$. In this case,
+the maximum range of  $\rho(T)$ is $K-1+L +(\lceil \frac{K}{L}\rceil -1 ) (G-1)$.
+Taking maximum, the maximal possible $\rho(T)$ for all $T$s is thus $K-1+L +(\lceil \frac{K}{L}\rceil -1 ) (G-1)$. This proves the first half of the theorem.
+
+For the second half of theorem, we prove by construction. Given $G,L,K$, let $\eta^*$
+be the optimal value. Then consider the sequence $T$ generated 
+by replicate the following pattern: a $L$-segment followed by $G$-gap. The replication
+stops when $|T|\geq K$. Apparently $T$ is valid wrt. $G,L,K$.
+It is easy to see that the minimum $\range(\rho(T))$ 
+is $(\lceil \frac{K}{L}\rceil -1 ) (G-1) + K$. Since $\eta^*$ is optimal,
+$\eta^* \geq \range(\rho(T)) = (\lceil \frac{K}{L}\rceil -1 ) (G-1) + K$. Recall $\eta =(\lceil \frac{K}{L}\rceil -1 ) (G-1) + K +L-1$, this implies that $\eta \leq \eta^* + L - 1$. 
+\end{proof}
+%\subsection{Proof of Theorem~\ref{THM:RP_ETA}}
 %\begin{proof}
 %Let $T'$ be the \emph{shortest} valid subsequence (wrt. $K,L,G$) 
 %of a valid sequence $T$. Let $\eta$ be the upper bound for all $T'$s among 
@@ -35,12 +69,30 @@
 %%be valid in that partition. This proves the completeness.
 %\end{proof}
 
-\subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
+%\subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
 
 
 \subsection{Proof of Theorem~\ref{THM:SPM_LB}}
 \begin{proof}
-Let $B*$ be the assignment matrix wrt the optimal numbering.
+We formalize optimization of $\Gamma$ using a linear algebra model as follows:  
+Let $G_A$ be an aggregate graph, with a $n \times n$ adjacent matrix $J$.
+A vertex order is in fact a permutation of $J$. Therefore,
+the adjacent matrices of any reordered graphs can be represented as $PJP^T$
+where $P \in \mathbb{P}$ is a 
+\emph{permutation matrix}~\footnote{an identity matrix with rows shuffled} with dimension $n$.
+Since in star partition, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
+then the matrix $B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix}
+represents the assignment matrix wrt. $P$ (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$).
+Let vector $\vec{b}$ be the \textit{one}\footnote{every element in $\vec{b}$ is $1$} 
+vector of size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
+denotes the number of edges in star $Sr_i$. Thus, $\Gamma$ can be represented
+as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orders. 
+$\Gamma^*$ can then be formulated as follows:
+\begin{equation}
+\Gamma^* = \min_{P \in \mathbb{P}}{||B\vec{b}||_\infty} \text{ ,where } ||B\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
+\end{equation}
+
+Let $B*$ be the assignment matrix wrt the optimal vertex order.
 Since we have a star for each object, by the degree-sum formula and pigeon-hole theorem, 
 $\Gamma^*=||B^*\vec{b}||_\infty \geq d/2$.
 Next, given a numbering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 

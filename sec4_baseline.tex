@@ -1,25 +1,3 @@
-
-\section{Baseline: Temporal Replication and Parallel Mining}
-\label{sec:trm}
-In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two cycles of map-reduce jobs connected in a pipeline manner. The first cycle deals with spatial clustering in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining. In particular, the timestamp is treated as the key in the map phrase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phrase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of $S_t$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
-
-Our focus in this paper is the second map-reduce cycle of parallel mining, which essentially consists of two key questions to solve. The first is how to employ effective data partitioning such that the mining can be conducted independently; and the second is how to efficiently mine the valid patterns within each partition. 
-
-
-It is obvious that we cannot simply split the trajectory database into disjoint partitions because a GCMP pattern requires $L$-consecutive and the corresponding segments may cross multiple partitions. Our strategy is to use data replication to enable parallel mining. Each snapshot will replicate its clusters to $\eta$ preceding snapshots. In other words, the partition for the snapshot $S_t$ contains clusters in $S_t$, $S_{t+1}\ldots,S_{t+\eta}$. Determining a proper $\eta$ is critical in ensuring the
-correctness and efficiency of TRPM. If $\eta$ is too small, certain cross-partition patterns may be missed. If $\eta$ is set too large, expensive network communication and CPU processing costs would be incurred in the map and reduce phrases respectively. 
-
-To guarantee that no valid pattern is missing, we enforce the
-following statement on $\eta$:
-I HAVE NO IDEA WHAT YOU ARE TALKING ABOUT STARTING FROM HERE!!!
- \emph{Let $T'$ be the \emph{shortest} 
-valid subsequence (wrt. $K,L,G$) of a valid temporal sequence $T$. 
-Then, $\eta$ needs to be the upper bound for all $T'$ among all valid temporal sequences to ensure the completeness.} 
-Finding the \emph{minimum} $\eta$ is not
-straightforward. We notice the minimum $\eta$ is related to the temporal
-parameters $K,L,G$ by making the following observation on $G=1$:
-
-
 \begin{figure*} [t]
 \center
 \includegraphics[width=\textwidth]{trm.eps}
@@ -27,9 +5,66 @@ parameters $K,L,G$ by making the following observation on $G=1$:
 \label{fig:trm}
 \end{figure*}
 
+\section{Baseline: Temporal Replication and Parallel Mining}
+\label{sec:trm}
+In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two cycles of map-reduce jobs connected in a pipeline manner. The first cycle deals with spatial clustering in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining. In particular, the timestamp is treated as the key in the map phrase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phrase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of $S_t$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
 
 
+Our focus in this paper is the second map-reduce cycle of parallel mining, which essentially consists of two key questions to solve. The first is how to employ effective data partitioning such that the mining can be conducted independently; and the second is how to efficiently mine the valid patterns within each partition. 
 
+
+It is obvious that we cannot simply split the trajectory database 
+into disjoint partitions because a GCMP pattern requires $L$-consecutiveness 
+and the corresponding segments may cross multiple partitions. 
+Our strategy is to use data replication to enable parallel mining. 
+Each snapshot will replicate its clusters to $\eta-1$ preceding snapshots.
+In other words, the partition for the snapshot $S_t$ contains clusters 
+in $S_t$, $S_{t+1}\ldots,S_{t+\eta-1}$. 
+Determining a proper $\eta$ is critical in ensuring the
+correctness and efficiency of TRPM. If $\eta$ is too small, 
+certain cross-partition patterns may be missed. 
+If $\eta$ is set too large, expensive network communication and 
+CPU processing costs would be incurred in the map and reduce phrases respectively. 
+
+Before moving on to find the value of $\eta$, 
+we first use $\rho_{G,L,K}(T)$ to define the \emph{min-spanned valid subsequence} 
+of a sequence $T$. In simple words, $\rho_{G,L,K}(T)$ is the 
+subsequence of $T$ with the smallest range and is valid wrt. $K,L,G$. 
+%Let $\eta_T$ denote
+%the range of $\rho_{G,L,K}(T)$.
+To guarantee that no valid patterns are missing, $\eta$ needs
+to be greater than the range of $\rho_{G,L,K}(T)$ for any
+valid sequence $T$. To see this, consider an arbitrary valid sequence $T$.
+Since each partition contains $\eta$ snapshots,
+if $\eta \geq \range(\rho_{G,L,K}(T))$ holds, $\rho_{G,L,K}(T)$ must be completely located in one partition. Therefore, the patterns associated with $T$ would not be missing.
+Formally, $\eta$ can be computed as:
+\begin{equation}
+\eta = \max\{\range(\rho_{G,L,K}(T)) | T \text{ is valid wrt. } G,L,K\}
+\end{equation}
+
+Directly compute such $\eta$ is challenging. However,
+we provide the following theorem which states a bounded estimation on $\eta$: 
+\begin{theorem}
+\label{THM:RP_ETA}
+Let $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$. Then it guarantees 
+the completeness of the partition. Further:
+let $\eta^*$ be the optimal value for a given $G,L,K$, then the following holds:
+$\eta \leq \eta^* + L-1$.
+\end{theorem}
+\begin{proof}
+See Appendix.
+\end{proof}
+\eat{
+In order to formally compute the minimum value of $\eta$,
+we enforce the
+following statement on $\eta$:
+%I HAVE NO IDEA WHAT YOU ARE TALKING ABOUT STARTING FROM HERE!!!
+ \emph{Let $T'$ be the \emph{shortest} 
+valid subsequence (wrt. $K,L,G$) of a valid temporal sequence $T$. 
+Then, $\eta$ needs to be the upper bound for all $T'$ among all valid temporal sequences to ensure the completeness.} 
+Finding the \emph{minimum} $\eta$ is not
+straightforward. We notice the minimum $\eta$ is related to the temporal
+parameters $K,L,G$ by making the following observation on $G=1$:
 
 
 
@@ -81,6 +116,7 @@ where $g_i = G-1$,
 $\Sigma_{i=1}^{i=n-1}l_i = K-1$, $l_i = K-1$
 and $n = \lceil \frac{K}{L} \rceil$. This leads to  $\eta = (\lceil \frac{K}{L} \rceil -1)*(G-1)+2K -2$.
 \end{proof}
+}
 
 Based on the above theorem, during TRPM, every consecutive $\eta$ snapshots
 form a partition. In particular, for every snapshot $S_t$, there is
@@ -151,7 +187,7 @@ under this setting is $5$. If $\eta$ is chosen as $4$, the pattern $\{o_3,o_4\}$
 \label{algo:trm_overview}
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
-\State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*(G-1)+2K-2$
+\State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*(G-1)+K+L-1$
 \State {---Map Phase---}
 \label{code:trm-map-start}
 \ForAll{$\langle t, S_t \rangle$}
