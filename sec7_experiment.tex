@@ -4,9 +4,9 @@ In this section, we present our experimental findings on
 deploying our GCMP detectors to large-scaled real trajectories.
 All algorithms are were implemented in Java 1.7., and all the 
 experiments are carried out on our in-house cluster: Dianwei. The cluster
-includes 12 nodes, each of which has four quad-core 2.2GHz Intel processor,
+includes 12 nodes, each of which is equipped with four quad-core 2.2GHz Intel processors,
 32 GB memory and gigabit Ethernet. The cluster is installed with CentOS 5.5. 
-operating system, Java 1.7.0 VM.
+operating system and Java 1.7.0 VM.
 
 \textbf{Experiment Setup}: We use Yarn\footnote{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html}
 to manage the cluster. One node is dedicated as Yarn's master node, and each other node reserves one core and 2 GB memory for
@@ -99,8 +99,6 @@ spark.executor.memory & 5GB \\
 spark.master & yarn-cluster \\
 \hline 
 spark.serializer & KryoSerializer \\ 
-\hline 
-spark.shuffle.spill & true \\ 
 \hline 
 \end{tabular} 
 \end{table}
