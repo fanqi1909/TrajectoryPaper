@@ -49,17 +49,17 @@ in the parallel scenario.
 
 %THESE WORKS ARE MOST RELATED TO OUR PROBLEMS, SO I REMOVED OTHER RELATED WORKS FOR NOW. 
 
-\subsection{MaReduce Framework}
-MapReduce (MR) was formally proposed by Dean et.al.~\cite{dean2008mapreduce}
-and has subsequently implemented by many open source systems. Those systems
-provide handy APIs with fault tolerances and are popularly
-used as large-scale data processing platforms. 
-In simple words, there are two conceptual types of computing nodes in MR,
-namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
-algorithm consists of three major steps: First, input data
-are partitioned and read by a \emph{map} function on each mapper. Then, mappers
-emit key-value pairs which are \emph{shuffle}d over the network to reducers. Lastly,
-reducers process the received data using a \emph{reduce} function. 
+%\subsection{MaReduce Framework}
+%MapReduce (MR) was formally proposed by Dean et.al.~\cite{dean2008mapreduce}
+%and has subsequently implemented by many open source systems. Those systems
+%provide handy APIs with fault tolerances and are popularly
+%used as large-scale data processing platforms. 
+%In simple words, there are two conceptual types of computing nodes in MR,
+%namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
+%algorithm consists of three major steps: First, input data
+%are partitioned and read by a \emph{map} function on each mapper. Then, mappers
+%emit key-value pairs which are \emph{shuffle}d over the network to reducers. Lastly,
+%reducers process the received data using a \emph{reduce} function. 
 
 %Despite the simpleness of the paradigm, there are two concerns raised in designing MR algorithms
 %First, since reducers are required to be independent, partitioning  

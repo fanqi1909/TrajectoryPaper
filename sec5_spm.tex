@@ -321,7 +321,7 @@ In the second round, the maximal $G$-connected sequences of size less than $K$ a
 With Lemma~\ref{lemma:decom-sim}, we are ready to define the \emph{monotonicity} based on the simplified
 sequences to facilitate the pruning in the Apriori algorithm. 
 
-\begin{theorem}\label{THM:SPARE_MONO}
+\begin{theorem}[Monotonicity]\label{THM:SPARE_MONO}
 Given a candidate pattern $P=\{O:T\}$, if $\mathtt{sim}(P.T)=\emptyset$, then any pattern candidate $P'$ with $P.O \subseteq P'.O$ can be pruned.
 \end{theorem}
 
@@ -356,16 +356,17 @@ candidates with smaller objects set grow one object per iteration.
 Enumeration ends if no
 further candidates can be generated.
 
- Due the \emph{monotoniciy} proved in Theorem~\label{THM:SPARE_MONO}, we are able to use the \emph{monotonicity pruning} and \emph{forward closure checking} techniques to boost the enumeration process. We show the detail of the process
+ Due the \emph{monotonicity} proved in Theorem~\ref{THM:SPARE_MONO}, we are able to use the \emph{monotonic pruning} and \emph{forward closure check} to boost the enumeration process. We show the detail of the process
 in Algorithm~\ref{algo:apriori_mining}. As a start, 
 each input edge is treated as a candidate pattern, with the 
 inverted list as the time sequence. These candidates
-are kept in $\mathbf{G}$ as the ground set (Lines~\ref{code:init-start}-\ref{code:init-end}). During the initialization of $\mathbf{G}$, the inverted list are simplified (Line~\ref{code:simp1}) and unqualified edges are pruned (Line~\ref{code:init-prune}). Throughout the algorithm, we maintain a set of candidates denoted as $\mathbf{C}$ which is initialized to be the ground set $\mathbf{G}$ (Line~\ref{code:init-C}). 
+are kept in $\mathbf{G}$ as the ground set (Lines~\ref{code:init-start}-\ref{code:init-end}). In initialization, the inverted lists are simplified (Line~\ref{code:simp1}) and unqualified lists are pruned (Line~\ref{code:init-prune}). Throughout the algorithm, we maintain a set of candidates $\mathbf{C}$ which is initialized to the ground set $\mathbf{G}$ (Line~\ref{code:init-C}). 
 
-In each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}),  the members in candidate set are joined with the members in ground set to generate new candidates (Lines~\ref{code:join-start}-\ref{code:join-ends}). The join of two candidate $c$ and $g$ creates a 
-new candidate, whose objects are the union of $c.O$ and$g.O$ and the time sequence is the intersection of $c.T$ and $g.T$ (Line~\ref{code:join}). During the join, we use \emph{sequence simplification} to detect unqualified candidates. By \emph{monotonicity}, these candidates are safely excluded from the future iterations~(Line~\ref{code:mono-pruning}). If a candidate is not able to be extended by any ground set, we directly output it (Line~\ref{code:output1}). 
+In each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}),  the members in candidate set are joined with the members in ground set to generate new candidates (Lines~\ref{code:join-start}-\ref{code:join-ends}). The join of two candidates $c$ and $g$ creates a 
+new candidate, whose objects are the union of $c.O$ and$g.O$ and the time sequence is the intersection of $c.T$ and $g.T$ (Line~\ref{code:join}). During the join,
+we use \emph{sequence simplification} to detect unqualified candidates. By \emph{monotonicity}, these candidates are safely excluded from the future iterations~(Line~\ref{code:mono-pruning}). If a valid candidate is not able to be extended by any ground set, we directly output it (Line~\ref{code:output1}). 
 
-After the join process has finished, we start a \emph{forward closure} check (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-ends}). The forward closure checking is to test whether the union of all the candidates in $\mathbf{C}$ form a pattern. If the check succeeds, we output such union and stop the iteration~(Lines~\ref{code:fc-checking}).
+After the join finishes, we start a \emph{forward closure} check (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-ends}). We test whether the union of all candidates in $\mathbf{C}$ forms a valid pattern. If the check succeeds, we output such union and stop the iteration~(Lines~\ref{code:fc-checking}).
 
 \eat{
 to union all the candidates in the current candidate set, and quickly check whether the  
@@ -430,12 +431,12 @@ The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
 			\EndFor
 			\State $\mathbf{OT}$.add$(c)$, if $c$ is not extended.\label{code:output1}
 		\EndFor	\label{code:join-ends}
-		\State $U \gets $ union of $n_i \in \mathbf{N}$	\label{code:fc-checking-start}
+		\State {$\mathbf{C} \gets \mathbf{N}$}
+		\State $U \gets $ union of $n_i \in \mathbf{C}$	\label{code:fc-checking-start}
 		\If {$U$ is a valid pattern}
 			\State $\mathbf{Output}.\mathbf{add}(U)$ \label{code:fc-checking}
 			\State break;
 		\EndIf \label{code:fc-checking-ends}
-		\State {$\mathbf{C} \gets \mathbf{N}$}
 \EndWhile\label{code:level-ends}
 \State $\mathbf{OT}$.addAll$(\mathbf{C})$
 \State \Return $\mathbf{OT}$
@@ -451,8 +452,8 @@ The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
 \begin{example}
 We use Figure~\ref{fig:star_partition} (c) to 
 demonstrate the power of candidate pruning. 
-As shown, at the initial stage, $\{3,6:3\}$ is first pruned by \textit{Edge Simplification} since its
-timestamps fails to be a candidate sequence. Subsequently, all further candidates containing $\{3,6\}$ 
+As shown, at the initial stage, $\{3,6:3\}$ is first pruned by \textit{simplification}. 
+Subsequently, all further candidates containing $\{3,6\}$ 
 are pruned by \textit{Monotonicity}. Then, we check the \textit{Forward Closure} 
 of remaining candidates (i.e., $\{3,4\}$ and $\{3,5\}$) and find $\{3,4,5\}$ is a
 valid candidate. Therefore, $\{3,4\}$ and $\{3,5\}$ are pruned, and $\{3,4,5\}$ is the output.
@@ -520,8 +521,8 @@ optimization as follows:
 }
 
 \subsection{Put It Together}
-With the star partition and the Apriori enumerator, we are ready to assemble the Star Partition and ApRiori Enumerator (SPARE). 
-We summarize the workflow of SPARE framework in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, we build an aggregated graph $G_A$ to capture the clustering relationship. In the map phrase, we partition $G_A$ into stars and emit the star partitions to the reducers. Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a pattern candidate $\{o,i: e(o,i)\}$ is created. Then the Apriori algorithm enumerate the true patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. Note that we do not need to create an actual aggregate graph. Instead, we only to emitted the directed edges (Line~\ref{code:spm-edge-direct}).
+With the star partition and the Apriori enumerator, we are ready to assemble the Star Partition and ApRiori Enumerator (SPARE) framework. 
+We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows: After the parallel clustering in each snapshot, we build an aggregated graph $G_A$ to capture the clustering relationship. In the map phrase, we partition $G_A$ into stars and emit the star partitions to the reducers. Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a pattern candidate $\{o,i: e(o,i)\}$ is created. Then it enumerates all true patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. Note that we do not need to create an actual aggregate graph. Instead, we only to emitted the directed edges (Line~\ref{code:spm-edge-direct}).
 
 \begin{algorithm}
 \caption{Star Partition and ApRiori Enumerator}
@@ -558,7 +559,7 @@ We summarize the workflow of SPARE framework in Figure~\ref{fig:star_partition} 
 Our SPARE framework does not rely on the pattern parameters to determine the partition size,
 which is more stable than TRMP. In addition, we observe that the patterns mined from each
 reducer are unique. This property is stated as follows:
-\begin{theorem}[Pattern Uniqueness of Star Partition]
+\begin{theorem}[Pattern Uniqueness]
 \label{LEM:SPM_CORRECT}
 Let $Sr_i$ and $Sr_j$ ($i\neq j$) be two star partitions. Let $P_i$ (resp. $P_j$) be 
 the patterns discovered from $Sr_i$ (resp. $Sr_j$). 

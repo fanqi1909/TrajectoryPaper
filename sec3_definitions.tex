@@ -1,27 +1,40 @@
 \section{Definitions}
 \label{sec:definition}
-Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,m)$ be the discretized temporal dimension. 
-A time sequence $T$ is defined as a ordered subset of $\mathbb{T}$. 
-Let $T[i]$ be the $i$-th entry of the sequence $T$ and $i$ starts from 1.
-We allow the traditional set operators 
-such as \emph{membership}, \emph{union}, \emph{intersect},
-\emph{difference}, \emph{candinality}, \emph{min},  \emph{max} and  \emph{range} on 
-sequences without changing their semantics. 
-Since sequences are ordered, we distinguish the concept of \emph{subset}
-and \emph{subsequence}. Given two sequence $T_1$ and $T_2$, 
-$T_1$ is a \emph{subset} of $T_2$, if $\forall t \in T_1$ implies $t \in T_2$.
-$T_1$ is a \emph{subsequence} of $T_2$, if $\exists i \in (0,..,|T_2|), \forall j \in (1,..,|T_1|),  T_1[j]=T_2[i+j]$.
-It is notable that a subsequence is always a subset, but not vice versa. We use $T[i:j]$ to denote
-the subsequence of $T$ from $i$-th entry to $j$-th entry inclusively.
+Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as a ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define a bunch of commonly-used operators in this paper in Table~\ref{tbl:operators}.
+
+\begin{table}[h] \scriptsize
+\centering
+\begin{tabular}{|c|l|}
+\hline 
+\textbf{Operator} & \textbf{Definition} \\ 
+\hline
+$T[i]$ & the $i$-th element in the sequence $T$ \\ 
+\hline
+$|T|$ & the number of elements in $T$\\
+\hline
+$\max(T)$ & the maximum element in $T$\\
+\hline
+$\min(T)$ & the minimum element in $T$\\
+\hline
+$\range(T)$ & the range of $T$, i.e., $\max(T) - \min(T) +1$\\ 
+\hline 
+$T[i:j]$ & subsequence of $T$ from $T[i]$ to $T[j]$ (inclusive) \\ 
+\hline
+$T_1\subseteq T_2$ &  $\forall T_1[x]\in T_1$, we have $T_1[x]\in T_2$. \\\hline
+$T_3=T_1\cup T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ or $T_3[x] \in T_2$\\ 
+\hline
+$T_3=T_1\cap T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ and $T_3[x] \in T_2$\\ 
+\hline
+\end{tabular}
+\caption{Operators on time sequence.} \label{tbl:operators}
+\end{table} 
+ 
 
 We say a sequence $T$ is consecutive 
-if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer a consecutive
-portion of $T$ as a \emph{segment}.
+if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer each consecutive subsequence of $T$ as a \emph{segment}.
 It is obvious that any time sequence $T$ can be decomposed into
 segments and we say $T$ is \textit{L-consecutive}~\cite{li2015platoon} 
-if the length of every segment is no smaller than $L$. 
-
-As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose connection} problem. 
+if the length of every segment is no smaller than $L$. As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose connection} problem. 
 To avoid such an anomaly without losing pattern generality, we introduce a parameter $G$ to control the gaps between
 timestamps in a pattern. Formally, a $G$-connected time sequence is defined as follows:
 
@@ -34,18 +47,18 @@ We take $T=(1,2,3,5,6)$ as an example, which can be decomposed into two segments
 
 Given a trajectory database discretized into snapshots, we can conduct a clustering method, either disk-based or density-based, to identify groups with spatial proximity. Let $T$ be the set of timestamps in which a group of objects $O$ are clustered. We are ready to define a more general co-movement pattern:
 \begin{definition}[General Co-Movement Pattern]
-A general co-movement pattern finds a set of objects $O$ satisfying the following five constraints: 1) \textit{closeness:} the objects in $O$ belong to the same cluster in the timestamps of $T$; 2) \textit{significance:} $|O| \geq M$; 3) \textit{duration:} $|T| \geq K$; 4) \textit{consecutiveness:} $T$ is L-consecutive; and 5) \textit{connection:} $T$ is $G$-connected.
+A general co-movement pattern finds a set of objects $O$ satisfying the following five constraints: (1) \textit{closeness:} the objects in $O$ belong to the same cluster in the timestamps of $T$; (2) \textit{significance:} $|O| \geq M$; (3) \textit{duration:} $|T| \geq K$; (4) \textit{consecutiveness:} $T$ is L-consecutive; and (5) \textit{connection:} $T$ is $G$-connected.
 \end{definition}
 There are four parameters in our general co-movement pattern, including object constraint $M$ and temporal constraints $K,L,G$.  By customizing these parameters, our pattern can 
 express other patterns proposed in previous literature, as illustrated in Table~\ref{tbl:patterns}. 
 In particular, by setting $G=|\mathbb{T}|$, we achieve the \emph{platoon} pattern. By setting $G=|\mathbb{T}|,L=1$, we achieve the \emph{swarm} pattern. By setting $G=|\mathbb{T}|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we achieve the \emph{convoy} and \emph{flock} patterns. 
 In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose connection} anomaly by tuning the parameter $G$. 
 It is notable that GCMP cannot be modeled by existing patterns. 
-\begin{table}
+\begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline 
-Pattern & $M$ & $K$ & $L$ & $G$ & Clustering\\ 
+\textbf{Pattern} & $M$ & $K$ & $L$ & $G$ & \textbf{Clustering} \\ 
 \hline
 Group & $2$ & $1$ & $2$ & $|\mathbb{T}|$ & Disk-based\\
 \hline
@@ -62,7 +75,7 @@ Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & Density-based\\
 object \emph{size} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.}
 \label{tbl:patterns}
 \end{table}
- 
+\eat{ 
 It is also observable that the number of patterns in GCMP could be exponential under some parameter settings (i.e., 
 when expressing \emph{swarm}). In particular, given a parameter $M$, if a pattern $P$ is valid, then any subset of $P$ with 
 size $M$ is also a valid pattern. This results in additional $\Sigma_{M\geq i \geq |P.O|} {|P.O| \choose i}$ patterns,
@@ -75,19 +88,16 @@ A general co-moving pattern $P=\langle O:T \rangle$ is closed if and only if the
 
 For example, let $M=2,K=2,,L=1,G=1$. In Figure~\ref{fig:related_work},
 the pattern $P_1 = \{o_3,o_4:1,2,3\}$ is not a closed pattern. This is because $P_2=\{o_3,o_4,o_5:2,3\}$ is a closed pattern since $P_2.O \supset P_1.O$. The closed pattern avoids outputting duplicate information, thus making the result patterns more compact. 
+}
 
 Our definition of GCMP is independent of the clustering method. Users can apply different clustering methods to facilitate different application needs. 
-We currently expose both disc-region based clustering and DBSCAN as options to the users.
+We currently expose both disc-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMP from large-scale trajectory datasets. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
-In summary, the goal of this paper is to present a parallel solution for discovering closed GCMP from large-scale trajectory datasets.
-
-Before we move on to the algorithmic part, we list the notations that are used in the following sections.
-
-\begin{table}[h]
+\begin{table}[h]\scriptsize
 \centering
 \begin{tabular}{|c|l|} 
 \hline
-Symbols & Meanings \\
+Symbol & Meaning \\
 \hline
 $S_t$ & snapshot of objects at time $t$ \\
 \hline
@@ -99,17 +109,17 @@ $L$ & consecutiveness constraint\\
 \hline
 $G$ & connection constraint \\
 \hline
-$P=(O:T)$ & pattern with object set $O$, time sequence $T$\\
+$P=\langle O:T \rangle$ & pattern with object set $O$, time sequence $T$\\
 \hline
-$\eta$ & replication factor in TRM\\
+$\eta$ & replication factor in the TRPM framework\\
 \hline
 $C_t(o)$ & the cluster of object $o$ at time $t$ \\
 \hline 
 $S_t$ & the set of clusters at time $t$\\
 \hline 
-$\lambda_i$ & the partition with snapshots $S_t,..,S_{t+\eta-1}$ \\
+$\lambda_t$ & the partition with snapshots $S_t,..,S_{t+\eta-1}$ \\
 \hline
-$Sr_i $ &  the star of object $i$ \\
+$Sr_i $ &  the star partition for object $i$ \\
 \hline 
 \end{tabular} 
 \caption{Symbols and notions used}
