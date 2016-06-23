@@ -27,7 +27,7 @@ J.~Gudmundsson and M.~van Kreveld, ``Computing longest duration flocks in
 
 \bibitem{wang2006grouppattern}
 Y.~Wang, E.-P. Lim, and S.-Y. Hwang, ``Efficient mining of group patterns from
-  user movement data,'' {\em Data \& Knowledge Engineering}, vol.~57, no.~3,
+  user movement data,'' {\em Data and Knowledge Engineering}, vol.~57, no.~3,
   pp.~240--282, 2006.
 
 \bibitem{jeung2008convoy}
@@ -42,7 +42,7 @@ Z.~Li, B.~Ding, J.~Han, and R.~Kays, ``Swarm: Mining relaxed temporal moving
 
 \bibitem{li2015platoon}
 Y.~Li, J.~Bailey, and L.~Kulik, ``Efficient mining of platoon patterns in
-  trajectory databases,'' {\em Data \& Knowledge Engineering}, 2015.
+  trajectory databases,'' {\em Data and Knowledge Engineering}, 2015.
 
 \bibitem{gudmundsson2004flock}
 J.~Gudmundsson, M.~van Kreveld, and B.~Speckmann, ``Efficient detection of
@@ -56,7 +56,7 @@ Y.~Zheng, ``Trajectory data mining: an overview,'' {\em ACM Transactions on
 
 \bibitem{birant2007st}
 D.~Birant and A.~Kut, ``St-dbscan: An algorithm for clustering
-  spatial--temporal data,'' {\em Data \& Knowledge Engineering}, vol.~60,
+  spatial--temporal data,'' {\em Data and Knowledge Engineering}, vol.~60,
   no.~1, pp.~208--221, 2007.
 
 \bibitem{laube2005finding}
@@ -70,11 +70,6 @@ D.~H. Douglas and T.~K. Peucker, ``Algorithms for the reduction of the number
   Cartographica: The International Journal for Geographic Information and
   Geovisualization}, vol.~10, no.~2, pp.~112--122, 1973.
 \newblock doi:10.3138/FM57-6770-U75U-7727.
-
-\bibitem{dean2008mapreduce}
-J.~Dean and S.~Ghemawat, ``Mapreduce: simplified data processing on large
-  clusters,'' {\em Communications of the ACM}, vol.~51, no.~1, pp.~107--113,
-  2008.
 
 \bibitem{kwon2012skewtune}
 Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia, ``Skewtune: mitigating skew in
@@ -91,5 +86,23 @@ R.~S. Xin, J.~Rosen, M.~Zaharia, M.~J. Franklin, S.~Shenker, and I.~Stoica,
 E.~Coppa and I.~Finocchi, ``On data skewness, stragglers, and mapreduce
   progress indicators,'' in {\em Proceedings of the Sixth ACM Symposium on
   Cloud Computing}, pp.~139--152, ACM, 2015.
+
+\bibitem{wang2003closet+}
+J.~Wang, J.~Han, and J.~Pei, ``Closet+: Searching for the best strategies for
+  mining frequent closed itemsets,'' in {\em Proceedings of the ninth ACM
+  SIGKDD international conference on Knowledge discovery and data mining},
+  pp.~236--245, ACM, 2003.
+
+\bibitem{pei2000closet}
+J.~Pei, J.~Han, R.~Mao, {\em et~al.}, ``Closet: An efficient algorithm for
+  mining frequent closed itemsets.,'' in {\em ACM SIGMOD workshop on research
+  issues in data mining and knowledge discovery}, vol.~4, pp.~21--30, 2000.
+
+\bibitem{zaharia2012resilient}
+M.~Zaharia, M.~Chowdhury, T.~Das, A.~Dave, J.~Ma, M.~McCauley, M.~J. Franklin,
+  S.~Shenker, and I.~Stoica, ``Resilient distributed datasets: A fault-tolerant
+  abstraction for in-memory cluster computing,'' in {\em Proceedings of the 9th
+  USENIX conference on Networked Systems Design and Implementation}, pp.~2--2,
+  USENIX Association, 2012.
 
 \end{thebibliography}

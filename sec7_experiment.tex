@@ -182,6 +182,9 @@ N & number of executors & 1, 14, 24, 34, 44, \textbf{54}\\
 \label{tbl:parameters}
 \end{table}
 
+\textbf{Algorithms}: We implement TRPM, SPARE and SPARE+ for comparison study. TRPM and SPARE are implement as described in Section 4 and 5. In SPARE+, we hook an additional load balance stage to the map phase. When the map phase completes, SPARE+ collects the size of stars from all mappers. Then we use the best-fit strategy for task allocation. In best-fit, tasks are assigned in decreasing order of 
+their sizes, and the biggest unassigned task is allocated to the current most empty reducer. Our task size is estimated on the edges of stars, that is we try to balance the edges processed by each reducers.
+
 %\subsection{Effects of $G$ on GCMP}
 %\begin{figure*}[t]
 %\centering
@@ -227,7 +230,7 @@ N & number of executors & 1, 14, 24, 34, 44, \textbf{54}\\
 
 
 \subsection{Performance Comparison}
-Since the both TRPM and SPARE utlizes pruning rules that related to the 
+Since the both TRPM and SPARE utilizes pruning rules that related to the 
 pattern parameters $M$,$L$,$G$,$K$. It is interesting to
 see the performance of TRPM and SPARE under different parameter settings.
 %\textbf{Default Setting}: We now analyze the TRPM and SPARE algorithm under different
@@ -404,22 +407,31 @@ can quickly output true patterns without enumerating every of its subset.
 \label{exp:performance_vary}
 \end{figure*}
 
-\subsubsection{Detail comparison between SPARE and TRPM}
+%\subsubsection{Anatomy of SPARE and TRPM}
 
 
 
 \subsection{SPARE Analysis}
+Since SPARE is superior than TRPM, we further study the \emph{load balance} and \emph{scalability} of SPARE.
+
+\subsection{Pruning Power}
+
+\subsubsection{Load Balance}
+We first compare SPARE and SPARE+ by analyzing the running time at
+each map-reduce stage. The detail anatomy is shown in Figure~\ref{}
+
+
+To further study the superior performance of SPARE+, we compare load distribution from all executors. We display the result in Figure~\ref{}.
 
 \subsubsection{Scalability}
+We then test the performance of SPARE under different number of executors. The result on the three dataset is presented in Figure~\ref{exp:scalability}. We can see from the Figure that SPARE achieves good scalability under all three cases. For instance, for Taxi dataset, when the executors rises from 14 to 54, the performance improves 3.5 times which is almost linear to the increase of executors. Such a pattern also holds for other two datasets.
+
 \begin{figure}[h]
 \centering
    \includegraphics[width=0.45\textwidth]{/exp/spare/scalability.eps}
 \caption{Scalability of SPARE vary. $N$ under different datasets.}
-\label{exp:patterns_vary}
+\label{exp:scalability}
 \end{figure}
-
-
-\subsubsection{Load Balance}
 
 
 
