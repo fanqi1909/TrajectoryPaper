@@ -182,8 +182,49 @@ N & number of executors & 1, 14, 24, 34, 44, \textbf{54}\\
 \label{tbl:parameters}
 \end{table}
 
-\textbf{Algorithms}: We implement TRPM, SPARE and SPARE+ for comparison study. TRPM and SPARE are implement as described in Section 4 and 5. In SPARE+, we hook an additional load balance stage to the map phase. When the map phase completes, SPARE+ collects the size of stars from all mappers. Then we use the best-fit strategy for task allocation. In best-fit, tasks are assigned in decreasing order of 
-their sizes, and the biggest unassigned task is allocated to the current most empty reducer. Our task size is estimated on the edges of stars, that is we try to balance the edges processed by each reducers.
+\textbf{Algorithms}: We implement TRPM, SPARE and SPARE-LB for comparison study. TRPM and SPARE are implement as described in Section 4 and 5. SPARE-LB extends SPARE by appending an additional load balance stage to the map phase. 
+When the mapers complete, SPARE-LB collects the size of stars from all mappers. 
+Then the best-fit strategy is applied for task allocation. In best-fit, 
+tasks are assigned in decreasing order of their sizes, and the biggest 
+unassigned task is allocated to the current mostly empty reducer. 
+In SPARE-LB, we simply use the edge size of stars as an estimation of tasks. The other
+part of SPARE-LB is identical with SPARE.
+
+
+\textbf{Number of patterns under different parameters}: Figures~\ref{exp:patterns_vary} presents
+ the number of valid GCMP patterns exist in the three datasets. Since the $M$,$K$,$L$,$G$
+ impose different constraints on the patterns, the number of valid patterns changes as their 
+ values change. We observe that $L$ has a great initial impact on the number of patterns
+ discovered. As $L$ increases from $10$ to $20$, the number of patterns drops 50\%. As $L$
+ increases further, the number of patterns decreases slowly. Opposed to $L$, when $G$
+ is small, the number of patterns increases slowly. As $G$ reaches $30$, 
+ the number of patterns nearly doubles. The distribution of patterns under $G$ and $L$
+ reveals that there are many companions in real life which are short and repetitive. We can
+ either discover these patterns by adjusting property $L$ and $G$ in the GCMP model.
+
+
+\begin{figure}[h]
+\centering
+ 	 \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_M.eps}
+        \caption{Number of patterns vary $M$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_K.eps}
+        \caption{Number of patterns vary $K$}
+    \end{subfigure}  
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_L.eps}
+        \caption{Number of patterns vary $L$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_G.eps}
+        \caption{Number of patterns vary $G$}
+    \end{subfigure}    
+\caption{Number of patterns discovered in three datasets on different parameters}
+\label{exp:patterns_vary}
+\end{figure}
+
 
 %\subsection{Effects of $G$ on GCMP}
 %\begin{figure*}[t]
@@ -278,6 +319,63 @@ dataset and 5 times of geolife dataset. We observe that,
 in almost all cases, SPARE outperforms TRMP and analyze the detail
 of each scenario separately.
 
+\begin{figure*}[t]
+\centering
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_M.eps}
+        \caption{Shopping vary $M$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_K.eps}
+        \caption{Shopping vary $K$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_L.eps}
+        \caption{Shopping vary $L$}
+    \end{subfigure}
+       \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_G.eps}
+        \caption{Shopping vary $G$}
+    \end{subfigure}
+
+	\begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_M.eps}
+        \caption{Geolife vary $M$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_K.eps}
+        \caption{Geolife vary $K$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_L.eps}
+        \caption{Geolife vary $L$}
+    \end{subfigure}
+       \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_G.eps}
+        \caption{Geolife vary $G$}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_M.eps}
+        \caption{Taxi vary $M$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_K.eps}
+        \caption{Taxi vary $K$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_L.eps}
+        \caption{Taxi vary $L$}
+    \end{subfigure}
+       \begin{subfigure}[b]{0.23\textwidth}
+        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_G.eps}
+        \caption{Taxi vary $G$}
+    \end{subfigure}       
+\caption{Performance of SPARE and TRPM on real datasets under different pattern parameters.}
+\label{exp:performance_vary}
+\end{figure*}
+
+
 \subsubsection{Effects of pattern parameters M,L,K,G}
 \textbf{Vary $M$}: Figures~\ref{exp:performance_vary} (a),(e),(i)
 present the performance of TRPM and SPARE when $M$ changes under three datasets.
@@ -335,101 +433,132 @@ exponentially large as $G$ increases, the \emph{forward closure check} of SPARE
 can quickly output true patterns without enumerating every of its subset.
 %\subsubsection{Effects of clusters $\epsilon$, minPt}
 
-\textbf{Number of patterns under different parameters}: Figures~\ref{exp:patterns_vary}
-\begin{figure}[h]
-\centering
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_L.eps}
-        \caption{Number of patterns vary $L$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/effectiveness/patterns_vary_G.eps}
-        \caption{Number of patterns vary $G$}
-    \end{subfigure}    
-\caption{Number of patterns discovered in three datasets on different parameters}
-\label{exp:patterns_vary}
-\end{figure}
 
 
-\begin{figure*}[t]
-\centering
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_M.eps}
-        \caption{Shopping vary $M$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_K.eps}
-        \caption{Shopping vary $K$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_L.eps}
-        \caption{Shopping vary $L$}
-    \end{subfigure}
-       \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_G.eps}
-        \caption{Shopping vary $G$}
-    \end{subfigure}
 
-	\begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_M.eps}
-        \caption{Geolife vary $M$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_K.eps}
-        \caption{Geolife vary $K$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_L.eps}
-        \caption{Geolife vary $L$}
-    \end{subfigure}
-       \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_G.eps}
-        \caption{Geolife vary $G$}
-    \end{subfigure}
-    
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_M.eps}
-        \caption{Taxi vary $M$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_K.eps}
-        \caption{Taxi vary $K$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_L.eps}
-        \caption{Taxi vary $L$}
-    \end{subfigure}
-       \begin{subfigure}[b]{0.23\textwidth}
-        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_G.eps}
-        \caption{Taxi vary $G$}
-    \end{subfigure}       
-\caption{Performance of SPARE and TRPM on real datasets under different pattern parameters.}
-\label{exp:performance_vary}
-\end{figure*}
 
 %\subsubsection{Anatomy of SPARE and TRPM}
 
 
 
 \subsection{SPARE Analysis}
-Since SPARE is superior than TRPM, we further study the \emph{load balance} and \emph{scalability} of SPARE.
+Since SPARE is superior than TRPM,
+we further analyze the SPARE in terms of its power of pruning, load balance
+and scalablity.
 
-\subsection{Pruning Power}
+\subsubsection{Power of sequence simplification}
+One of the core techniques used in SPARE is the \emph{sequence simplification} (see Section 5.2.1). 
+As shown in  Algorithm~\ref{algo:apriori_mining}, we use $\mathtt{sim}(T)$
+to prune false candidates. To study the power of sequence simplification,
+we collect the total number of initial pairs that are pruned. The
+statistics are shown in Table~\ref{tbl:pruning} under default parameters. As the table
+shows, the \emph{sequence simplification} is a very powerful pruning technique.
+It cuts off near 90\% of the initial pairs, which significantly reduces the costs
+in Apriori Enumeration. This confirms the necessity of design such a technique.
+\begin{table}[h]
+\begin{tabular}{|l|c|c|c|}
+\hline 
+\textbf{Data Set} & \textbf{Shopping} & \textbf{Geolife} & \textbf{Taxi} \\ 
+\hline 
+Before pruning & 878,309 &  1,134,228 & 2,210,101 \\ 
+\hline 
+After pruning & 76,672 & 123,410 & 270,921 \\ 
+\hline 
+Prune ratio & 91.2\% & 89.1\% & 87.7\% \\ 
+\hline 
+\end{tabular} 
+%
+%\begin{tabular}{|c|c|c|c|}
+%\hline 
+%\textbf{Dataset} & \textbf{Initial Candidates} & \textbf{Real Candidates} & \textbf{Prune-Ratio} \\ 
+%\hline 
+%Shopping & 878,309 & 76,672 &  91.2\%\\ 
+%\hline 
+%Geolife & 1,134,228 & 123,410 & 89.1\% \\ 
+%\hline 
+%Taxi & 2,210,101 & 270.921 & 87.7\% \\ 
+%\hline 
+%\end{tabular} 
+\caption{Pruning power of SPARE}
+\label{tbl:pruning}
+\end{table}
+
 
 \subsubsection{Load Balance}
 We first compare SPARE and SPARE+ by analyzing the running time at
-each map-reduce stage. The detail anatomy is shown in Figure~\ref{}
+each map-reduce stage. The detail anatomy is shown in Figure~\ref{exp:wl}(a).
+We can see that for both SPARE and SPARE-LB on three datasets, the reduce 
+time takes the majority. The overall improvement of SPARE-LB is around 10-13\%
+under default settings. We observe that the mapping and shuffle time
+of SPARE and SPARE-LB are identical, where SPARE-LB spends a very small portion 
+of extra time (4\% of the total time)
+in applying the best-fit strategy. The time spent is worthwhile
+as in the reduce phase SPARE-LB saves around 20\% of the time. However, since 
+the star sizes in SPARE is almost identical (due to Theorem~2), the best-fit
+strategy does not win too much.
 
+We then look at the workload distribution of SPARE and SPARE-LB on the
+real datasets. We collect the statistics from executors
+and report their reduce times in Figure~\ref{exp:wl}. The figure shows
+ that SPARE-LB is able to provide a more balanced task allocation
+ as compared to SPARE in all three cases. Since SPARE takes random assignment
+of stars, it is likely to incur skewed workloads as many large stars 
+may be assigned to the same executor. 
+However, as bounded by Theorem~2, the difference between
+SPARE-LB and SPARE is not very large. In general cases, SPARE-LB is preferred
+as it offers more efficiency while takes only a small extra time in planning.
 
-To further study the superior performance of SPARE+, we compare load distribution from all executors. We display the result in Figure~\ref{}.
+\begin{figure*}[t]
+\centering
+	\begin{subfigure}[b]{0.22\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/detail.eps}
+        \caption{Comparison between SPARE and SPARE-LB}
+    \end{subfigure}
+ 	 \begin{subfigure}[b]{0.22\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/wl-shopping.eps}
+        \caption{Workload distribution in Shopping}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.22\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/wl-geolife.eps}
+        \caption{Workload distribution in Geolife}
+    \end{subfigure}  
+    \begin{subfigure}[b]{0.22\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/wl-taxi.eps}
+        \caption{Workload distribution in Taxi}
+    \end{subfigure}
+\caption{Load balance of SPARE and SPARE-LB in real datasets}
+\label{exp:wl}
+\end{figure*}
+
 
 \subsubsection{Scalability}
-We then test the performance of SPARE under different number of executors. The result on the three dataset is presented in Figure~\ref{exp:scalability}. We can see from the Figure that SPARE achieves good scalability under all three cases. For instance, for Taxi dataset, when the executors rises from 14 to 54, the performance improves 3.5 times which is almost linear to the increase of executors. Such a pattern also holds for other two datasets.
+We then study the scalability of SPARE-LB from two aspects. First, given
+the number of executors, we sample a subset of data from three datasets
+and test the performance of SPARE-LB. The results are shown in Figures~\ref{fig:scalability-wl}.
+\begin{figure}[h]
+\begin{subfigure}[b]{0.22\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{/exp/spare/scalability-vary-O.eps}
+        \caption{Scalability vary $O$}
+    \end{subfigure}
+ 	 \begin{subfigure}[b]{0.22\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/scalability-vary-T.eps}
+        \caption{Scalability vary $T$}
+    \end{subfigure}
+ \caption{Scalability of SPARE-LB wrt. different data sizes}
+ \label{fig:scalability-wl}
+\end{figure}
 
+We further test the scalalbility of SPARE under different number of executors. 
+The result on the three dataset is presented in Figure~\ref{exp:scalability}.
+We can see that SPARE achieves good scalability under all three cases. 
+For instance, for Taxi dataset, when the executors rises from 14 to 54, 
+the performance improves 3.5 times which is almost linear to the increase of executors. 
+Such a pattern also holds for other two datasets.
 \begin{figure}[h]
 \centering
-   \includegraphics[width=0.45\textwidth]{/exp/spare/scalability.eps}
-\caption{Scalability of SPARE vary. $N$ under different datasets.}
+   \includegraphics[width=0.3\textwidth]{/exp/spare/scalability.eps}
+\caption{Scalability of SPARE-LB vary. $N$ under different datasets.}
 \label{exp:scalability}
 \end{figure}
 

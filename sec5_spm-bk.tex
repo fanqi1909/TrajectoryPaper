@@ -1,3 +1,4 @@
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{spm.eps}
@@ -8,7 +9,7 @@
 
 \section{SPARE: Star Partitioning and Apriori Enumerator}
 \label{sec:spm}
-The aforementioned replicate partitioning is based on the temporal dimension which suffers from two drawbacks. First, the replication relies on $\eta$ which could be large. Second, the same valid pattern may be discovered from different partitions which results in redundant work.
+The aforementioned replicate partitioning is based on the temporal dimension which suffers from two drawbacks. First, the replication relies on $\eta$ which could be large. Second, the same valid pattern may be discovered from different partitions which results in redundant works.
 %and results in groups of snapshots in each partition.
 % ADD MORE DETAILS ABOUT THE LIMITATIONS HERE.
 To resolve the limitations caused by the replicate partitioning, 
@@ -343,186 +344,72 @@ We prove by contradiction. Suppose there exists a valid pattern $P_2$ such that 
 
 
 \subsubsection{Apriori Enumeration}
-We then design the Apriori enumeration method to
-systematically discover all valid patterns in a star.
-%During the enumeration, we refer a candidate pattern
-%$P$ as a $R$-candidate if $|P.O|=R$.
-The enumeration method discover patterns iteratively using ``bottom-up'' order:
-candidates with smaller objects set grow one object per iteration.
-%
-%in iteration $i$,  all $(i+1)$-candidates grows
-%to $(i+2)$-candidates.
-%
-Enumeration ends if no
-further candidates can be generated.
+We design an Apriori enumeration method to efficiently discover all the valid patterns in a star partition. The principle of Apriori algorithm is to construct a lattice structure and enumerate all the possible candidate sets in a bottom-up manner. Its merit lies in the monotonic property such that if a candidate set is not valid, then all its supersets can be pruned. Thus, it works well in practice in spite of the exponential search space.
 
- Due the \emph{monotonicity} proved in Theorem~\ref{THM:SPARE_MONO}, we are able to use the \emph{monotonic pruning} and \emph{forward closure check} to boost the enumeration process. We show the detail of the process
-in Algorithm~\ref{algo:apriori_mining}. As a start, 
-each input edge is treated as a candidate pattern, with the 
-inverted list as the time sequence. These candidates
-are kept in $\mathbf{G}$ as the ground set (Lines~\ref{code:init-start}-\ref{code:init-end}). In initialization, the inverted lists are simplified (Line~\ref{code:simp1}) and unqualified lists are pruned (Line~\ref{code:init-prune}). Throughout the algorithm, we maintain a set of candidates $\mathbf{C}$ which is initialized to the ground set $\mathbf{G}$ (Line~\ref{code:init-C}). 
-
-In each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}),  the members in candidate set are joined with the members in ground set to generate new candidates (Lines~\ref{code:join-start}-\ref{code:join-ends}). The join of two candidates $c$ and $g$ creates a 
-new candidate, whose objects are the union of $c.O$ and$g.O$ and the time sequence is the intersection of $c.T$ and $g.T$ (Line~\ref{code:join}). During the join,
-we use \emph{sequence simplification} to detect unqualified candidates. By \emph{monotonicity}, these candidates are safely excluded from the future iterations~(Line~\ref{code:mono-pruning}). If a valid candidate is not able to be extended by any ground set, we directly output it (Line~\ref{code:output1}). 
-
-After the join finishes, we start a \emph{forward closure} check (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-ends}). We test whether the union of all candidates in $\mathbf{C}$ forms a valid pattern. If the check succeeds, we output such union and stop the iteration~(Lines~\ref{code:fc-checking}).
-
-\eat{
-to union all the candidates in the current candidate set, and quickly check whether the  
-
-
-
-To systematically discover valid patterns in each star, 
-
-
-we enumerate all valid patterns in ``bottom-up" order: 
-pattern candidates with smallest object sizes are enumerated
-first and grew to pattern candidates with larger object sizes.
-During the enumeration, we call a candidate pattern
-$P$ a $R$-pattern, if $|P.O|=R$.  The enumerator takes
-a star as input, and treat each edge as a $2$-pattern.
-
-
-The input of
-the enumerator is a star. Each edge
-in the star is treated a $2$-candidate, with the inverted
-list to be the time sequence.  
-
-we design the \emph{Apriori Mining} algorithm. We borrow
-the terminologies in classic Aprirori algorithm: a candidate
-pattern $P$ is called $R$-pattern if the $|P.O|=R$. In Aprirori,
-candidates grows from $2$-pattern level by level.
-
-
-To describe the algorithm, we call a candidate pattern $R$-pattern 
-if the size of its object set is $R$.  Therefore, each edge
-in the star is effectively a $2$-pattern. The intuition of Apriori mining
-is the observation that $(R+1)$-patterns can be generated
-from $R$-patterns and $2$ patterns. Thus, we may iteratively 
-enumerate pattern candidates with all possible sizes.
-In particular, initially, for each $e(s,v)=ET$, pattern $p=(\{s,v\}, ET)$ is formed. 
-During each iteration, we generate $(R+1)$-patterns by joining $R$-patterns 
-with the $2$-patterns. Technically, the join between $p_1=(O_1:T_1)$ and $p_2=(O_2:T_2)$
-generates a new pattern $p_3=(O_1 \cup O_2:T_1 \cap T_2)$. Note that in $Sr_s$,
-each $R$-pattern contains the object $s$, thus the join only 
-grow a $R$-pattern at most to a $(R+1)$-pattern.
-Our mining algorithm stops where no further patterns are generated. 
-The algorithm is illustrated as in Algorithm~\ref{algo:apriori_mining}.
-}
+Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and unqualified candidates are excluded (Line~\ref{code:simp1}). A indicator \emph{level} is used to control the object size of the current candidates. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidate sets $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Lines~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that
+then all the candidates with $P.O\supseteq c'.O$ are excluded. If a candidate cannot generate any new candidates, then it is directly outputted (Lines~\ref{code:output1-start}-\ref{code:output1-end}).
+To further improve the performance, we adopt the idea of \textit{forward closure}~\cite{wang2003closet+,pei2000closet} and  aggressively check if the union of all the current candidates form a valid pattern (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-end}). If yes, we can early terminate the algorithm and output the results.
 
 \begin{algorithm}
 \caption{Apriori Enumerator}
 \label{algo:apriori_mining}
 \begin{algorithmic}[1]
 \Require{$Sr_s$}
-\State {$\mathbf{C} \gets \{\}$, $\mathbf{G} \gets \{\}$, $\mathbf{OT} \gets \{\}$}
-\ForAll{$e(s,t) = T \in Sr_s$} \label{code:init-start}
-\State {$T' \gets \mathtt{sim}(e(s,t))$} \label{code:simp1}
-\State {$\mathbf{G}.\mathtt{add}(\langle \{s,t\}: T' \rangle)$, unless $T' \neq \emptyset$}\label{code:init-prune}
+\State {$C \leftarrow \emptyset$}
+\ForAll{edges $c=\langle o_i\cup o_j, T_{o_i}\cap T_{o_j}\rangle$ in $Sr_s$} \label{code:init-start}
+\If {$\mathtt{sim}(T_{o_i}\cap T_{o_j})\neq \emptyset$}
+\State {$C\leftarrow C\cup \{c\}$} \label{code:simp1}
+%\ElsIf{$c$ is a valid pattern}
+%\State{output $c$}
+\EndIf 
 \EndFor\label{code:init-end}
-\State {$\mathbf{C} \gets \mathbf{G}$}\label{code:init-C}
-\While{$\mathbf{C} \neq \emptyset$} \label{code:level-start}
-		\State {$\mathbf{N} \gets \{\}$, $U \gets \{\}$}
-		\ForAll{$(c,g)\in \mathbf{C}$} \label{code:join-start}
-			\ForAll {$g \in \mathbf{G}$}		
-				\State {$c' \gets \langle c.O \cup g.O: \mathtt{sim}(c.T \cap g.T )\rangle$} \label{code:join}
-				\State {$\mathbf{N}$.add$(c')$, unless $c'.T \neq \emptyset$} \label{code:mono-pruning}
-			\EndFor
-			\State $\mathbf{OT}$.add$(c)$, if $c$ is not extended.\label{code:output1}
-		\EndFor	\label{code:join-ends}
-		\State {$\mathbf{C} \gets \mathbf{N}$}
-		\State $U \gets $ union of $n_i \in \mathbf{C}$	\label{code:fc-checking-start}
-		\If {$U$ is a valid pattern}
-			\State $\mathbf{Output}.\mathbf{add}(U)$ \label{code:fc-checking}
-			\State break;
-		\EndIf \label{code:fc-checking-ends}
+\State $\mathrm{level} \gets 2$ \label{code:level}
+\While{$C\neq \emptyset$} \label{code:level-start}
+	\ForAll{$c_1 \in C$}
+		\ForAll{$c_2 \in C$ and $|c_2.O \cup c_2.O| = \mathrm{level}$}\label{code:join-start}	
+			\State {$c' \gets \langle c_1.O \cup c_2.O:(c_1.T \cap c_2.T )\rangle$} \label{code:join}			
+			\If{ $\mathtt{sim}(c'.T)\neq \emptyset$} \label{code:simp2}
+					\State {$C'\leftarrow C'\cup \{c'\}$}
+			\EndIf			
+		\EndFor\label{code:join-end}
+		\If {no $c'$ is added to $C'$} \label{code:output1-start}
+			\If{$c_1$ is a valid pattern}
+				\State output $c_1$
+			\EndIf
+		\EndIf \label{code:output1-end}
+	\EndFor
+%	
+%		\ForAll{pairs $c_1\in C$, $c_2\in C$ and $c_1\neq c_2$} \label{code:join-start}
+%				\State {$c' \gets \langle c_1.O \cup c_2.O:(c_1.T \cap c_2.T )\rangle$} \label{code:join}
+%				\If{ $\mathtt{sim}(c_1.T \cap c_2.T )\neq \emptyset$}
+%					\State {$C'\leftarrow C'\cup \{c'\}$}
+%					\ElsIf{$c'$ is a valid pattern}
+%						\State{output $c'$}
+%				\EndIf
+%		\EndFor	\label{code:join-ends}
+	\State $O_u \gets $ union of $c.O$ in $C$	\label{code:fc-checking-start}
+	\State $T_u \gets $ intersection of $c.T$ in $C$	
+	\If {$\langle O_u, T_u\rangle$ is a valid pattern}
+		\State{output $\langle O_u, T_u\rangle$} \label{code:fc-checking}
+		\State break;
+	\EndIf \label{code:fc-checking-end}
+	\State {$C\leftarrow C';C'\leftarrow \emptyset; \mathrm{level} \gets \mathrm{level}+1$}	
 \EndWhile\label{code:level-ends}
-\State $\mathbf{OT}$.addAll$(\mathbf{C})$
-\State \Return $\mathbf{OT}$
+\State output $C$ \label{code:output2-end}
 \end{algorithmic}
 \end{algorithm}
- 
-%An illustration of Algorithm~\ref{algo:apriori_mining} is shown in Figure~\ref{fig:star_partition} (c).
-%As shown, the star $Sr_3=\{3,4,5,6\}$ initially generate three $2$-candidates. At every iteration, 
-%higher level candidates are generated by joining lower level candidates. When no more candidates 
-%can be generated, the algorithm stops by outputting the valid patterns.
-%
+
+
 
 \begin{example}
-We use Figure~\ref{fig:star_partition} (c) to 
-demonstrate the power of candidate pruning. 
-As shown, at the initial stage, $\{3,6:3\}$ is first pruned by \textit{simplification}. 
-Subsequently, all further candidates containing $\{3,6\}$ 
-are pruned by \textit{Monotonicity}. Then, we check the \textit{Forward Closure} 
-of remaining candidates (i.e., $\{3,4\}$ and $\{3,5\}$) and find $\{3,4,5\}$ is a
-valid candidate. Therefore, $\{3,4\}$ and $\{3,5\}$ are pruned, and $\{3,4,5\}$ is the output.
+As shown in Figure~\ref{fig:star_partition}(c), in the bottom level of the lattice structure, candidate $\{3,6:3\}$ is pruned because its simplified sequence is empty. Thus, all the object sets containing $\{3,6\}$ can be pruned. The remaining two candidates (i.e., $\{3,4:1,2,3\}$ and $\{3,5:2,3\}$)  derive a new  $\{3,4,5:2,3\}$ which is valid. By the forward closure checking, the algorithm can terminate and output $\{3,4,5:2,3\}$ as the final closed pattern.
 \end{example}
 
 
-%
-%It is notable that, in star partition, original data is 
-%replicated at most $O(|\mathbb{O}|)$ times.
-%In later sections, we will describe several 
-%more optimization techniques to further reduce the amount of replicated data.
 
-
-
-
-%In such a way, 
-%given an object $u$, all the objects potentially
-%co-moved with $u$ are captured in $u$'s neighborhood, which
-%forms a \emph{star} structure in graph terms. SPM utilizes
-%such structures to partition objects and then adapts an Apriori 
-%algorithm to discover true GCMPs from each partition.
-
-
-
-
-\eat{
-
-EXPLAIN CLEARLY HOW YOU IMPLEMENT THE FORWARD CLOSURE CHECKING! BETTER SHOW IT IN THE ABOVE PSEDUDO CODE IN THE APRIORI ALGORITHM.
-
-Although leveraging \emph{temporal monotonicity} could largely prune
-false candidates and reduce the apriori search space, 
-it is ineffective when a \textit{true} pattern exists. 
-In an extreme case, if a final pattern of a star $Sr_s$ is 
-the \textit{union of all vertices} in the star,
-then in apriori, ${|Sr_s|}\choose{i + 1}$ candidates needs to be generated at 
-each level $i$. This results in an exponential search space while
-the output only contains one pattern.  
-Generally, when candidates at level $i$ collectively forms a true pattern, 
-running aprior produces many wasted candidates. 
-
-Let $Lv_i$ be the set of candidates at level $i$ of Algorithm~\ref{algo:apriori_mining},
-we use the \emph{forward closure} $FC_i$ to denote the union of the objects in
-all candidates in $Lv_i$. Then, the \emph{forward closure checking} is stated as follows:
-\begin{theorem}[Forward Closure Checking]
-\label{THM:SPM_FCC}
-Let $Lv_i$ be the candidates generated at level $i$ in Algorithm~\ref{algo:apriori_mining},
-if $FC_i$ is a proper pattern, then it is safe to terminate Algorithm~\ref{algo:apriori_mining}
-and directly output $FC_i$.
-\end{theorem}
-
-
-It is notable that, as the level grows in Algorithm~\ref{algo:apriori_mining}, the closure $FC$
-reduces, thus the terminating power of $FC$ would be stronger. We give hybrid example of the three
-optimization as follows:
-%To facilitate efficient mining, we adapt the \emph{forward closure checking} rule to 
-%quickly determine whether it is sufficient to terminate the apriori search. Given the candidates at
-%level $i$ $Lv_i$, we define the \emph{forward closure} of $Lv_i$ as the union of objects from
-%all candidates. Then, the following \emph{forward closure checking} rule can be used:
-%
-%\begin{theorem}[Forward Closure Checking Rule]
-%Let $Lv_i$ be the candidates generated at level $i$ in Algorithm~\ref{algo:apriori_mining}, the forward closure
-%is $\mathbb{F}_i = \cup_{cand \in Lv_i} (cand.O) $. Algorithm~\ref{algo:apriori_mining} terminates when 
-%$FC_i$ forms a valid GCMP .
-%\end{theorem}
-}
 
 \subsection{Put It Together}
-With the star partition and the Apriori enumerator, we are ready to assemble the Star Partition and ApRiori Enumerator (SPARE) framework. 
-We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows: After the parallel clustering in each snapshot, we build an aggregated graph $G_A$ to capture the clustering relationship. In the map phrase, we partition $G_A$ into stars and emit the star partitions to the reducers. Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a pattern candidate $\{o,i: e(o,i)\}$ is created. Then it enumerates all true patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. Note that we do not need to create an actual aggregate graph. Instead, we only to emitted the directed edges (Line~\ref{code:spm-edge-direct}).
+We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, for ease of presentation, we used an aggregated graph $G_A$ to capture the clustering relationship. However, in the implementation of the map phrase, there is no need to create $G_A$ in advance.  Instead, we simply need to emit the edges within a star partition to the same reducer.  Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\{o,i: e(o,i)\}$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. 
 
 \begin{algorithm}
 \caption{Star Partition and ApRiori Enumerator}
@@ -532,8 +419,8 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 \State {---Map phase---}
 \label{code:spm-map-start}
 \ForAll{$C \in S_t$}
-	\ForAll {$(o_1 ,o_2) \in C \times C$}
-	\State emit a $\langle o_1, o_2, \{t\}\rangle$ triplet, if $o_1 < o_2$~\label{code:spm-edge-direct}
+	\ForAll {$o_1 \in C,  o_2 \in C, o_1 < o_2$}
+	\State emit a $\langle o_1, o_2, \{t\}\rangle$ triplet~\label{code:spm-edge-direct}
 	\EndFor
 \EndFor
 \label{code:spm-map-end}
@@ -556,25 +443,20 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 \end{algorithmic}
 \end{algorithm}
 
-Our SPARE framework does not rely on the pattern parameters to determine the partition size,
-which is more stable than TRMP. In addition, we observe that the patterns mined from each
-reducer are unique. This property is stated as follows:
+Compared with TPMP, the SPARE framework does not rely on snapshot replication to guarantee correctness. In addition, we can show that the patterns derived from a star partition are unique and there would not be duplicate patterns mined from different star partitions.
 \begin{theorem}[Pattern Uniqueness]
 \label{LEM:SPM_CORRECT}
 Let $Sr_i$ and $Sr_j$ ($i\neq j$) be two star partitions. Let $P_i$ (resp. $P_j$) be 
 the patterns discovered from $Sr_i$ (resp. $Sr_j$). 
-Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \not\equiv p_j.O$.
+Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \neq p_j.O$.
 \end{theorem}
 \begin{proof}
-We prove by contradiction. Suppose exists $p_i \in P_i$ and $p_j \in P_j$ s.t. $p_i.O \equiv p_j.O$.
-Let $o_i$ (resp. $o_j$) be the object with smallest ID in $p_i.O$ (resp. $p_j.O$).
-Since $p_i$ and $p_j$ belongs to different stars, then $o_i \neq o_j$,  which contradicts with
-the assumption $p_i.O \not\equiv p_j.O$. 
+We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertices of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are different stars, meaning their center vertices are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
 \end{proof}
 
-Theorem~\ref{LEM:SPM_CORRECT} confirms the superiority of SPARE to TRPM. In TRPM, a pattern
-may be repeatedly discovered from different partitions, while in SPARE a pattern is only discovered once. This suggests that SPARE require less redundant works. We finally conclude this section with the following theorem:
-
+Theorem~\ref{LEM:SPM_CORRECT} implies that no mining efforts are wasted in discovering redundant patterns  
+%that no replication is required 
+in the SPARE framework, which is superior to the TRPM baseline. Finally, we prove the correctness of the SPARE framework.
 \begin{theorem}
 \label{THM:SPM_CORRECT}
 The SPARE framework guarantees completeness and soundness.
@@ -582,84 +464,3 @@ The SPARE framework guarantees completeness and soundness.
 \begin{proof}
 See Appendix XXXX.
 \end{proof}
-
-
-
-\eat{ \subsection{Correctness of SPARE}
-We summarize the workflow of SPARE framework in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, we build an aggregated graph $G_A$ to capture the clustering relationship. In the map phrase, we partition $G_A$ into stars and emit the star partitions to the reducers. Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a pattern candidate $\{o,i: e(o,i)\}$ is created. Then the Apriori algorithm enumerate the true patterns from the candidate patterns. Meanwhile, the \emph{simplification}, \emph{monotonicity pruning} and \emph{forward closure checking} are applied to boost the enumeration process.
-ADD THE DETAILS WHEN THE REDUCER RECEIVE THE STAR PARTITIONS. HOW THEY DERIVE THE FINAL RESULT PATTERNS.
-
-
-\eat{
-\begin{algorithm}
-\caption{Star Partition and Mining}
-\label{algo:spm_overview}
-\begin{algorithmic}[1]
-\Require list of $\langle t, S_t \rangle$ pairs
-\State {---Map phase---}
-\label{code:spm-map-start}
-\ForAll{$C \in S_t$}
-	\ForAll {$(o_1 ,o_2) \in C \times C$}
-		\If{$o_1 < o_2$}  \label{code:spm-edge-direct}
-			\State emit a $\langle o_1, o_2, \{t\}\rangle$ triplet
-		\EndIf
-	\EndFor
-\EndFor
-\label{code:spm-map-end}
-
-\State {---Partition and Shuffle phase---}
-\label{code:spm-shuffle-start}
-\ForAll{$\langle o_1, o_2, \{t\}\rangle$ triplets} 
-	\State group-by $o_1$, emit $\langle o_1, Sr_{o_1} \rangle$ 
-	%\State group-by $o_2$, emit $\langle o_2, Sr_{o_2} \rangle$
-\EndFor
-\label{code:spm-shuffle-end}
-
-\State {---Reduce phase---}
-\label{code:spm-reduce-start}
-\ForAll{$\langle o, Sr_{o} \rangle$}
-\State Apriori($Sr_o$)
-\EndFor
-\label{code:spm-reduce-end}
-
-\end{algorithmic}
-\end{algorithm}
-}
-
-
-In the following, we show the correctness of the SPARE framework.
-\begin{theorem}
-\label{THM:SPM_CORRECT}
-The SPARE framework guarantees completeness and soundness.
-\end{theorem}
-\begin{proof}
-If $P$ is a valid pattern in original trajectories, 
-let $s$ be the object with smallest ID in $P.O$. 
-Based on the definition of GCMP, $\forall t \in P.T$, $\forall o \in P.O$, $C_t(s) = C_t(o)$.
-It follows that all object $o \in P.O$ are in $Sr_s$. 
-Furthermore, every timestamp in $P.T$ is included
-in $Sr_s$. Therefore, $P$ is a valid pattern in $Sr_s$. This ensures the \emph{completeness}. For any pattern $P$ enumerated by SPARE, by definition of star partition, $\forall o_1, o_2 \in P.O$, $\forall t \in P.T$, $C_t(o_1) = C_t(o_2)$. This ensure the \emph{soundness}.
-\end{proof}
-
-In fact, besides that every valid patterns can be
-mined in some stars, star partition further ensures
-that patterns discovered
-from different star partitions cannot be the same. 
-This can be formulated as:
-
-\eat{It is also interesting to observe that no duplicate patterns will be generated from the star partitions.}
-\begin{lemma}[Pattern Uniqueness of Star Partition]
-\label{LEM:SPM_CORRECT}
-Let $Sr_i$ and $Sr_j$ ($i\neq j$) be two star partitions. Let $P_i$ (resp. $P_j$) be 
-the patterns discovered from $Sr_i$ (resp. $Sr_j$). 
-Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \not\equiv p_j.O$.
-\end{lemma}
-\begin{proof}
-The correctness of Lemma~\ref{LEM:SPM_CORRECT} can be directly derived from the above arguments:
-let $o_i$ be the smallest element in $p_i.O$ and $o_j$ be the smallest element in $p_j.O$. 
-Since $p_i$ and $p_j$ belongs to different stars, then $o_i \neq o_j$, 
-therefore $p_i.O \not\equiv p_j.O$. This proves the lemma.
-\end{proof}
-
-This lemma verifies the superiority of the SPARE framework over the TRPM framework.
-}

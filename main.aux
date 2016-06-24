@@ -57,47 +57,47 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
 \newlabel{THM:RP_ETA}{{1}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Mining. (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot; (c)(d) correspond to the second map-reduce cycle which uses temporal replication to mine GCMP in parallel.\relax }}{5}}
+\citation{kwon2012skewtune}
+\citation{xin2013shark}
+\citation{coppa2015data}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Parallel Mining. (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot; (c)(d) correspond to the second map-reduce cycle uses TRPM to detect GCMP in parallel.\relax }}{5}}
 \newlabel{fig:trm}{{4}{5}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}SPARE: Star Partitioning and Apriori Enumerator}{5}}
 \newlabel{sec:spm}{{5}{5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Star Partitioning}{5}}
-\citation{kwon2012skewtune}
-\citation{xin2013shark}
-\citation{coppa2015data}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and mining. (a) Conceptual connection graph from Figure 1.(b) Five star partitions are generated (c) Apriori Mining with various pruning techniques.\relax }}{6}}
 \newlabel{fig:star_partition}{{5}{6}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Line Sweep Mining\relax }}{6}}
-\newlabel{algo:line-sweep}{{1}{6}}
-\newlabel{code:ls-can-set}{{1}{6}}
-\newlabel{code:ls-init-start}{{2}{6}}
-\newlabel{code:ls-init-end}{{4}{6}}
-\newlabel{code:ls-sweep-starts}{{5}{6}}
-\newlabel{code:ls-join-start}{{7}{6}}
-\newlabel{code:ls-join}{{8}{6}}
-\newlabel{code:ls-m-prun}{{12}{6}}
-\newlabel{code:ls-join-ends}{{14}{6}}
-\newlabel{code:ls-g-prune-starts}{{16}{6}}
-\newlabel{code:ls-g-prune-ends}{{19}{6}}
-\newlabel{code:ls-l-prune-starts}{{20}{6}}
-\newlabel{code:ls-l-prune-ends}{{22}{6}}
-\newlabel{code:ls-sweep-ends}{{25}{6}}
-\newlabel{code:ls-valid-check}{{26}{6}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Temporal Replication and Parallel Mining\relax }}{6}}
-\newlabel{algo:trm_overview}{{2}{6}}
-\newlabel{code:trm-map-start}{{2}{6}}
-\newlabel{code:trm-map-end}{{7}{6}}
-\newlabel{code:trm-par-start}{{8}{6}}
-\newlabel{code:trm-par-end}{{12}{6}}
-\newlabel{code:trm-red-start}{{13}{6}}
-\newlabel{code:trm-red-end}{{15}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Examples of star partitioning with different vertex ordering.\relax }}{6}}
+\newlabel{fig:star-alt}{{6}{6}}
 \newlabel{THM:SPM_LB}{{2}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Examples of star partitioning with different vertex ordering.\relax }}{7}}
-\newlabel{fig:star-alt}{{6}{7}}
-\newlabel{THM:SPM_LB_INC}{{3}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Enumerator}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Monotonicity}{7}}
+\newlabel{THM:SPM_LB_INC}{{3}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Enumerator}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Monotonicity}{6}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Line Sweep Mining\relax }}{7}}
+\newlabel{algo:line-sweep}{{1}{7}}
+\newlabel{code:ls-can-set}{{1}{7}}
+\newlabel{code:ls-init-start}{{2}{7}}
+\newlabel{code:ls-init-end}{{6}{7}}
+\newlabel{code:ls-sweep-starts}{{7}{7}}
+\newlabel{code:ls-join-start}{{9}{7}}
+\newlabel{code:ls-join}{{10}{7}}
+\newlabel{code:ls-m-prun}{{14}{7}}
+\newlabel{code:ls-join-ends}{{16}{7}}
+\newlabel{code:ls-g-prune-starts}{{18}{7}}
+\newlabel{code:ls-g-prune-ends}{{21}{7}}
+\newlabel{code:ls-l-prune-starts}{{22}{7}}
+\newlabel{code:ls-l-prune-ends}{{24}{7}}
+\newlabel{code:ls-sweep-ends}{{27}{7}}
+\newlabel{code:ls-valid-check}{{28}{7}}
 \newlabel{lemma:union-property}{{4}{7}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Temporal Replication and Parallel Mining\relax }}{7}}
+\newlabel{algo:trm_overview}{{2}{7}}
+\newlabel{code:trm-map-start}{{2}{7}}
+\newlabel{code:trm-map-end}{{7}{7}}
+\newlabel{code:trm-par-start}{{8}{7}}
+\newlabel{code:trm-par-end}{{11}{7}}
+\newlabel{code:trm-red-start}{{12}{7}}
+\newlabel{code:trm-red-end}{{14}{7}}
 \newlabel{lemma:subset-property}{{5}{7}}
 \citation{wang2003closet+}
 \citation{pei2000closet}
@@ -122,8 +122,8 @@
 \newlabel{code:fc-checking-end}{{27}{8}}
 \newlabel{code:level-ends}{{29}{8}}
 \newlabel{code:output2-end}{{30}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Put It Together}{8}}
 \citation{zaharia2012resilient}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Put It Together}{9}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Star Partition and ApRiori Enumerator\relax }}{9}}
 \newlabel{algo:spm_overview}{{4}{9}}
 \newlabel{code:spm-map-start}{{1}{9}}
@@ -142,7 +142,16 @@
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Variables and their default values during experiments.\relax }}{10}}
 \newlabel{tbl:parameters}{{6}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Comparison}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Number of patterns discovered in three datasets on different parameters\relax }}{10}}
+\newlabel{exp:patterns_vary}{{7}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.1}Effects of pattern parameters M,L,K,G}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
+\newlabel{exp:performance_vary}{{8}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}SPARE Analysis}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Power of sequence simplification}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Pruning power of SPARE\relax }}{11}}
+\newlabel{tbl:pruning}{{7}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load Balance}{11}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
 \bibcite{zheng2011urban}{1}
@@ -161,22 +170,20 @@
 \bibcite{douglas1973trajectorysimplification}{14}
 \bibcite{kwon2012skewtune}{15}
 \bibcite{xin2013shark}{16}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3}Scalability}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Scalability of SPARE-LB wrt. different data sizes\relax }}{12}}
+\newlabel{fig:scalability-wl}{{10}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Scalability of SPARE-LB vary. $N$ under different datasets.\relax }}{12}}
+\newlabel{exp:scalability}{{11}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion and Future Work}{12}}
+\newlabel{sec:concl}{{7}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}References}{12}}
 \bibcite{coppa2015data}{17}
 \bibcite{wang2003closet+}{18}
 \bibcite{pei2000closet}{19}
 \bibcite{zaharia2012resilient}{20}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Number of patterns discovered in three datasets on different parameters\relax }}{11}}
-\newlabel{exp:patterns_vary}{{7}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}SPARE Analysis}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Load Balance}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Scalability}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion and Future Work}{11}}
-\newlabel{sec:concl}{{7}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}2\hbox {}}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{12}}
-\newlabel{exp:performance_vary}{{8}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Scalability of SPARE vary. $N$ under different datasets.\relax }}{12}}
-\newlabel{exp:scalability}{{9}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}9\hbox {}}{13}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Load balance of SPARE and SPARE-LB in real datasets\relax }}{13}}
+\newlabel{exp:wl}{{9}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}2\hbox {}}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}9\hbox {}}{14}}
