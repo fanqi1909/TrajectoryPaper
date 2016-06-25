@@ -72,7 +72,8 @@
 %\subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
 
 
-\subsection{Proof of Theorem~\ref{THM:SPM_LB}}
+\subsection{Proof of Theorem~\ref{THM:SPM_LB} and~\ref{THM:SPM_LB_INC}}
+\label{apx:thm2proof}
 \begin{proof}
 We formalize optimization of $\Gamma$ using a linear algebra model as follows:  
 Let $G_A$ be an aggregate graph, with a $n \times n$ adjacent matrix $J$.
@@ -158,6 +159,7 @@ $O(\sqrt{\log n}) $ with the similar reasoning.
 %\end{proof}
 
 \subsection{Proof of Theorem~\ref{THM:SPM_CORRECT}}
+\label{apx:spm_correct}
 \begin{proof}
 For soundness, let $P$ be a pattern enumerated by SPARE. Since the enumerate algorithm only reduces the time sequences, for any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. By the definition of star, $\forall t \in T, C_t(o_1) = C_t(o_2)$. As $T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
 For completeness, let $P$ is a true pattern. Let $s$ be the object with smallest ID in $P.O$. We prove that $P$ must be output by Algorithm~\ref{algo:apriori_mining} with input $Sr_s$. 

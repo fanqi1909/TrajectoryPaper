@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.1)  25 JUN 2016 07:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.4.1)  25 JUN 2016 21:57
 entering extended mode
 **./main.tex
 (main.tex
@@ -430,13 +430,16 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Warning: No \author given.
 
 (sec1_introduction.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Overfull \hbox (8.53656pt too wide) in paragraph at lines 3--10
 []\OT1/cmr/m/n/9 The preva-lence of po-si-tion-ing de-vices has dras-ti-cally b
 oosted
  []
 
 
-Overfull \hbox (16.55008pt too wide) in paragraph at lines 40--55
+Overfull \hbox (16.55008pt too wide) in paragraph at lines 41--56
  [][] 
  []
 
@@ -449,21 +452,21 @@ Package epstopdf Info: Source file: <./charts/related_work.eps>
 (epstopdf)                    size: 52583 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/related_work-eps-c
 onverted-to.pdf ./charts/related_work.eps>
-(epstopdf)             \includegraphics on input line 63.
+(epstopdf)             \includegraphics on input line 64.
 Package epstopdf Info: Output file is already uptodate.
 <./charts/related_work-eps-converted-to.pdf, id=1, 617.30624pt x 494.84875pt>
 File: ./charts/related_work-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/related_work-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/related_work-eps-converted-to.pdf used on inp
-ut line 63.
-(pdftex.def)             Requested size: 226.79846pt x 181.80754pt.
+ut line 64.
+(pdftex.def)             Requested size: 231.84338pt x 185.8472pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 7888) has occurred while \output is active []
 
  [1{C:/Users/fanqi/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
@@ -478,15 +481,15 @@ o.pdf>
 (epstopdf)                    size: 20378 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/platoon_weakpoint-
 eps-converted-to.pdf ./charts/platoon_weakpoint.eps>
-(epstopdf)             \includegraphics on input line 103.
+(epstopdf)             \includegraphics on input line 104.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/platoon_weakpoint-eps-converted-to.pdf, id=21, 323.2075pt x 100.375pt
+<./charts/platoon_weakpoint-eps-converted-to.pdf, id=20, 323.2075pt x 100.375pt
 >
 File: ./charts/platoon_weakpoint-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/platoon_weakpoint-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/platoon_weakpoint-eps-converted-to.pdf used o
-n input line 103.
+n input line 104.
 (pdftex.def)             Requested size: 176.40308pt x 54.78369pt.
 Package epstopdf Info: Source file: <./charts/rw_perf_O.eps>
 (epstopdf)                    date: 2016-06-13 20:13:12
@@ -496,15 +499,15 @@ Package epstopdf Info: Source file: <./charts/rw_perf_O.eps>
 (epstopdf)                    size: 26475 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_O-eps-conv
 erted-to.pdf ./charts/rw_perf_O.eps>
-(epstopdf)             \includegraphics on input line 150.
+(epstopdf)             \includegraphics on input line 151.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/rw_perf_O-eps-converted-to.pdf, id=22, 768.8725pt x 497.86pt>
+<./charts/rw_perf_O-eps-converted-to.pdf, id=21, 768.8725pt x 497.86pt>
 File: ./charts/rw_perf_O-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_O-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_O-eps-converted-to.pdf used on input 
-line 150.
+line 151.
 (pdftex.def)             Requested size: 115.91785pt x 75.0556pt.
 Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
 (epstopdf)                    date: 2016-06-13 20:13:12
@@ -514,46 +517,44 @@ Package epstopdf Info: Source file: <./charts/rw_perf_T.eps>
 (epstopdf)                    size: 25885 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/rw_perf_T-eps-conv
 erted-to.pdf ./charts/rw_perf_T.eps>
-(epstopdf)             \includegraphics on input line 156.
+(epstopdf)             \includegraphics on input line 157.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/rw_perf_T-eps-converted-to.pdf, id=23, 776.9025pt x 492.84125pt>
+<./charts/rw_perf_T-eps-converted-to.pdf, id=22, 776.9025pt x 492.84125pt>
 File: ./charts/rw_perf_T-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/rw_perf_T-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/rw_perf_T-eps-converted-to.pdf used on input 
-line 156.
+line 157.
 (pdftex.def)             Requested size: 115.91785pt x 73.53194pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (3.04529pt too wide) in paragraph at lines 168--172
+Overfull \hbox (3.04529pt too wide) in paragraph at lines 169--173
 \OT1/cmr/m/it/9 movement pat-tern \OT1/cmr/m/n/9 (GCMP) which mod-els var-i-ous
  co-moment
  []
 
 
-Overfull \hbox (15.00423pt too wide) in paragraph at lines 187--192
+Overfull \hbox (15.00423pt too wide) in paragraph at lines 188--193
 \OT1/cmr/m/n/9 de-vise a novel \OT1/cmr/m/it/9 Star Par-ti-tion and ApRi-ori En
 u-mer-a-tor \OT1/cmr/m/n/9 (SPARE)
  []
 
 
-Overfull \hbox (9.47954pt too wide) in paragraph at lines 187--192
+Overfull \hbox (9.47954pt too wide) in paragraph at lines 188--193
 \OT1/cmr/m/n/9 frame-work as a fine-granularity par-ti-tion-ing strat-egy to ac
 hieve
  []
 
-
-Overfull \hbox (5.76848pt too wide) in paragraph at lines 194--203
+[2 <./charts/related_work-eps-converted-to.pdf> <./charts/platoon_weakpoint-eps
+-converted-to.pdf> <./charts/rw_perf_O-eps-converted-to.pdf> <./charts/rw_perf_
+T-eps-converted-to.pdf>]
+Overfull \hbox (5.76848pt too wide) in paragraph at lines 195--204
 \OT1/cmr/m/n/9 scaled real datasets with hun-dreds of mil-lions tem-po-ral poin
 ts.
  []
 
 ) (sec2_relatedworks.tex
-Overfull \hbox (1.80247pt too wide) in paragraph at lines 204--1
+Overfull \hbox (1.80247pt too wide) in paragraph at lines 205--1
 \OT1/cmr/m/n/9 sum-ma-rizes the rel-e-vant lit-er-a-ture on tra-jec-tory pat-te
 rn min-
  []
@@ -564,9 +565,7 @@ Overfull \hbox (3.85289pt too wide) in paragraph at lines 3--11
 t-er-a-ture con-sist of five mem-
  []
 
-[2 <./charts/related_work-eps-converted-to.pdf> <./charts/platoon_weakpoint-eps
--converted-to.pdf> <./charts/rw_perf_O-eps-converted-to.pdf> <./charts/rw_perf_
-T-eps-converted-to.pdf>]) (sec3_definitions.tex
+) (sec3_definitions.tex
 Overfull \hbox (13.7502pt too wide) in paragraph at lines 42--44
 \OT1/cmr/bx/n/9 Definition 1 \OT1/cmr/m/n/9 ($\OML/cmm/m/it/9 G$\OT1/cmr/m/n/9 
 -connected)\OT1/cmr/bx/n/9 . \OT1/cmr/m/it/9 A time se-quence $\OML/cmm/m/it/9 
@@ -597,10 +596,10 @@ Overfull \hbox (1.78679pt too wide) in paragraph at lines 10--10
 []\secfnt BASELINE: TEM-PO-RAL REPLI-CA-TION
  []
 
+[4]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -629,15 +628,12 @@ Overfull \hbox (10.1844pt too wide) in paragraph at lines 10--10
  []
 
 
-Overfull \hbox (1.68285pt too wide) in paragraph at lines 12--22
+Overfull \hbox (1.68285pt too wide) in paragraph at lines 12--20
 \OT1/cmr/m/n/9 tem-po-ral di-men-sion which suf-fers from two draw-backs. First
 ,
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5 <./charts/trm-eps-converted-to.pdf>]
+[5 <./charts/trm-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <./charts/star-alt.eps>
 (epstopdf)                    date: 2016-06-13 20:13:12
 (epstopdf)                    size: 408032 bytes
@@ -646,7 +642,7 @@ Package epstopdf Info: Source file: <./charts/star-alt.eps>
 (epstopdf)                    size: 24240 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/star-alt-eps-conve
 rted-to.pdf ./charts/star-alt.eps>
-(epstopdf)             \includegraphics on input line 77.
+(epstopdf)             \includegraphics on input line 75.
 Package epstopdf Info: Output file is already uptodate.
 
 <./charts/star-alt-eps-converted-to.pdf, id=154, 542.025pt x 244.915pt>
@@ -654,15 +650,15 @@ File: ./charts/star-alt-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/star-alt-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/star-alt-eps-converted-to.pdf used on input l
-ine 77.
+ine 75.
 (pdftex.def)             Requested size: 252.0pt x 113.8656pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 77--78
+Overfull \hbox (12.0pt too wide) in paragraph at lines 75--76
  [][] 
  []
 
 
-Overfull \hbox (2.4199pt too wide) in paragraph at lines 116--118
+Overfull \hbox (2.4199pt too wide) in paragraph at lines 114--116
 $[]$\OT1/cmr/m/it/9 , with high prob-a-bil-ity $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/
 9   \OT1/cmr/m/n/9 1\OML/cmm/m/it/9 =n$\OT1/cmr/m/it/9 , $\OT1/cmr/m/n/9   =  [
 ] + \OML/cmm/m/it/9 O\OT1/cmr/m/n/9 ([])$\OT1/cmr/m/it/9 . 
@@ -670,7 +666,7 @@ $[]$\OT1/cmr/m/it/9 , with high prob-a-bil-ity $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/
 
 [6 <./charts/spm-eps-converted-to.pdf> <./charts/star-alt-eps-converted-to.pdf>
 ]
-Overfull \hbox (2.6854pt too wide) in paragraph at lines 169--171
+Overfull \hbox (2.6854pt too wide) in paragraph at lines 167--169
 \OT1/cmr/m/it/9 has two max-i-mal $\OT1/cmr/m/n/9 2$\OT1/cmr/m/it/9 -connected 
 subsequences:$\OML/cmm/m/it/9 T[] \OT1/cmr/m/n/9 = (1\OML/cmm/m/it/9 ; \OT1/cmr
 /m/n/9 2\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 4\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 5\OM
@@ -678,7 +674,7 @@ L/cmm/m/it/9 ; \OT1/cmr/m/n/9 6)$
  []
 
 
-Overfull \hbox (5.35057pt too wide) in paragraph at lines 178--179
+Overfull \hbox (5.35057pt too wide) in paragraph at lines 176--177
 []\OT1/cmr/m/n/9 We as-sume $\OML/cmm/m/it/9 T[] \OMS/cmsy/m/n/9 \ \OML/cmm/m/i
 t/9 T[] \OMS/cmsy/m/n/9 6\OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 ;$\OT1/cmr/m/n/9 . Le
 t $\OML/cmm/m/it/9 T[] \OT1/cmr/m/n/9 = (\OML/cmm/m/it/9 T[]\OT1/cmr/m/n/9 [1]\
@@ -687,7 +683,7 @@ OML/cmm/m/it/9 ; T[]\OT1/cmr/m/n/9 [2]\OML/cmm/m/it/9 ; [] ; T[]\OT1/cmr/m/n/9
  []
 
 
-Overfull \hbox (10.14098pt too wide) in paragraph at lines 178--179
+Overfull \hbox (10.14098pt too wide) in paragraph at lines 176--177
 \OT1/cmr/m/n/9 tamp oc-cur-ring in both $\OML/cmm/m/it/9 T[]$ \OT1/cmr/m/n/9 an
 d $\OML/cmm/m/it/9 T[]$\OT1/cmr/m/n/9 . Let $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 [\
 OML/cmm/m/it/9 y\OT1/cmr/m/n/9 ] = []\OMS/cmsy/m/n/9 f\OML/cmm/m/it/9 T[]\OT1/c
@@ -695,15 +691,15 @@ mr/m/n/9 [1]\OML/cmm/m/it/9 ; T[]\OT1/cmr/m/n/9 [1]\OMS/cmsy/m/n/9 g$\OT1/cmr/m
 /n/9 ,
  []
 
-
-Overfull \hbox (6.83566pt too wide) in paragraph at lines 220--221
+[7]
+Overfull \hbox (6.83566pt too wide) in paragraph at lines 218--219
 []$\OML/cmm/m/it/9 f$\OT1/cmr/m/it/9 -step: re-move seg-ments of $\OML/cmm/m/it
 /9 T$ \OT1/cmr/m/it/9 that are not $\OML/cmm/m/it/9 L$\OT1/cmr/m/it/9 -consecut
 ive; 
  []
 
 
-Overfull \hbox (26.0752pt too wide) in paragraph at lines 227--232
+Overfull \hbox (26.0752pt too wide) in paragraph at lines 225--230
 $\OML/cmm/m/it/9 G \OT1/cmr/m/n/9 = 2$\OT1/cmr/m/it/9 . In the $\OML/cmm/m/it/9
  f$\OT1/cmr/m/it/9 -step, $\OML/cmm/m/it/9 T$ \OT1/cmr/m/it/9 is re-duced to $\
 OML/cmm/m/it/9 f[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 ) = (1\OML/cm
@@ -714,7 +710,7 @@ T1/cmr/m/it/9 .
  []
 
 
-Overfull \hbox (12.67241pt too wide) in paragraph at lines 227--232
+Overfull \hbox (12.67241pt too wide) in paragraph at lines 225--230
 $\OML/cmm/m/it/9 f[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 )$ \OT1/cmr
 /m/it/9 has two max-i-mal $\OT1/cmr/m/n/9 2$\OT1/cmr/m/it/9 -consecutive sub-se
 -quences: $\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 ;
@@ -722,110 +718,22 @@ $\OML/cmm/m/it/9 f[]\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 )$ \OT1/cmr
 /n/9 6)$
  []
 
-[7] [8]) (sec6_experiment.tex
-Underfull \hbox (badness 10000) in paragraph at lines 7--7
-[][]\OT1/cmr/m/n/9 http://hadoop.apache.org/docs/current/hadoop-
- []
-
-
-Overfull \hbox (2.48297pt too wide) in paragraph at lines 45--48
-\OT1/cmr/m/n/9 col-lected per around 5 sec-onds. Each data point records
- []
-
-
-Overfull \hbox (5.3789pt too wide) in paragraph at lines 72--91
- [] 
- []
-
-[9]
-Package epstopdf Info: Source file: <./charts//exp/effectiveness/patterns_vary_
-M.eps>
-(epstopdf)                    date: 2016-06-24 19:54:13
-(epstopdf)                    size: 322192 bytes
-(epstopdf)             Output file: <./charts/patterns_vary_M-eps-converted-to.
-pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 24212 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/patterns_vary_M-ep
-s-converted-to.pdf ./charts//exp/effectiveness/patterns_vary_M.eps>
-(epstopdf)             \includegraphics on input line 128.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/patterns_vary_M-eps-converted-to.pdf, id=305, 509.905pt x 336.25626pt
->
-File: ./charts/patterns_vary_M-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/patterns_vary_M-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/patterns_vary_M-eps-converted-to.pdf used on 
-input line 128.
-(pdftex.def)             Requested size: 115.91785pt x 76.4394pt.
-Package epstopdf Info: Source file: <./charts//exp/effectiveness/patterns_vary_
-K.eps>
-(epstopdf)                    date: 2016-06-24 19:54:13
-(epstopdf)                    size: 322379 bytes
-(epstopdf)             Output file: <./charts/patterns_vary_K-eps-converted-to.
-pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 24242 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/patterns_vary_K-ep
-s-converted-to.pdf ./charts//exp/effectiveness/patterns_vary_K.eps>
-(epstopdf)             \includegraphics on input line 132.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/patterns_vary_K-eps-converted-to.pdf, id=306, 509.905pt x 336.25626pt
->
-File: ./charts/patterns_vary_K-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/patterns_vary_K-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/patterns_vary_K-eps-converted-to.pdf used on 
-input line 132.
-(pdftex.def)             Requested size: 115.91785pt x 76.4394pt.
-Package epstopdf Info: Source file: <./charts//exp/effectiveness/patterns_vary_
-L.eps>
-(epstopdf)                    date: 2016-06-24 19:54:13
-(epstopdf)                    size: 320820 bytes
-(epstopdf)             Output file: <./charts/patterns_vary_L-eps-converted-to.
-pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 23772 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/patterns_vary_L-ep
-s-converted-to.pdf ./charts//exp/effectiveness/patterns_vary_L.eps>
-(epstopdf)             \includegraphics on input line 136.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/patterns_vary_L-eps-converted-to.pdf, id=307, 510.90875pt x 336.25626
-pt>
-File: ./charts/patterns_vary_L-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/patterns_vary_L-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/patterns_vary_L-eps-converted-to.pdf used on 
-input line 136.
-(pdftex.def)             Requested size: 115.91785pt x 76.29062pt.
-Package epstopdf Info: Source file: <./charts//exp/effectiveness/patterns_vary_
-G.eps>
-(epstopdf)                    date: 2016-06-24 19:54:13
-(epstopdf)                    size: 319297 bytes
-(epstopdf)             Output file: <./charts/patterns_vary_G-eps-converted-to.
-pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 23362 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/patterns_vary_G-ep
-s-converted-to.pdf ./charts//exp/effectiveness/patterns_vary_G.eps>
-(epstopdf)             \includegraphics on input line 140.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/patterns_vary_G-eps-converted-to.pdf, id=308, 509.905pt x 338.26375pt
->
-File: ./charts/patterns_vary_G-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/patterns_vary_G-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/patterns_vary_G-eps-converted-to.pdf used on 
-input line 140.
-(pdftex.def)             Requested size: 115.91785pt x 76.89575pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[8]) (sec6_experiment.tex
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[][]\OT1/cmr/m/n/9 http://hadoop.apache.org/docs/current/hadoop-
+ []
 
-Overfull \hbox (3.04294pt too wide) in paragraph at lines 148--155
-[]\OT1/cmr/bx/n/9 Algorithms\OT1/cmr/m/n/9 : We im-ple-ment TRPM, SPARE and SPA
-RE-
+[9]
+Overfull \hbox (5.3789pt too wide) in paragraph at lines 61--80
+ [] 
+ []
+
+
+Overfull \hbox (13.885pt too wide) in paragraph at lines 88--105
+[][] 
  []
 
 Package epstopdf Info: Source file: <./charts//exp/performance/shopping_vary_M.
@@ -838,15 +746,15 @@ pdf>
 (epstopdf)                    size: 28406 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/shopping_vary_M-ep
 s-converted-to.pdf ./charts//exp/performance/shopping_vary_M.eps>
-(epstopdf)             \includegraphics on input line 224.
+(epstopdf)             \includegraphics on input line 174.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/shopping_vary_M-eps-converted-to.pdf, id=309, 520.94624pt x 339.2675p
+<./charts/shopping_vary_M-eps-converted-to.pdf, id=305, 520.94624pt x 339.2675p
 t>
 File: ./charts/shopping_vary_M-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/shopping_vary_M-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/shopping_vary_M-eps-converted-to.pdf used on 
-input line 224.
+input line 174.
 (pdftex.def)             Requested size: 115.91785pt x 75.48807pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/shopping_vary_K.
 eps>
@@ -858,15 +766,15 @@ pdf>
 (epstopdf)                    size: 28713 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/shopping_vary_K-ep
 s-converted-to.pdf ./charts//exp/performance/shopping_vary_K.eps>
-(epstopdf)             \includegraphics on input line 228.
+(epstopdf)             \includegraphics on input line 178.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/shopping_vary_K-eps-converted-to.pdf, id=310, 522.95375pt x 339.2675p
+<./charts/shopping_vary_K-eps-converted-to.pdf, id=306, 522.95375pt x 339.2675p
 t>
 File: ./charts/shopping_vary_K-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/shopping_vary_K-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/shopping_vary_K-eps-converted-to.pdf used on 
-input line 228.
+input line 178.
 (pdftex.def)             Requested size: 115.91785pt x 75.19817pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/shopping_vary_L.
 eps>
@@ -878,14 +786,14 @@ pdf>
 (epstopdf)                    size: 28841 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/shopping_vary_L-ep
 s-converted-to.pdf ./charts//exp/performance/shopping_vary_L.eps>
-(epstopdf)             \includegraphics on input line 232.
+(epstopdf)             \includegraphics on input line 182.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/shopping_vary_L-eps-converted-to.pdf, id=311, 525.965pt x 339.2675pt>
+<./charts/shopping_vary_L-eps-converted-to.pdf, id=307, 525.965pt x 339.2675pt>
 File: ./charts/shopping_vary_L-eps-converted-to.pdf Graphic file (type pdf)
 <use ./charts/shopping_vary_L-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/shopping_vary_L-eps-converted-to.pdf used on 
-input line 232.
+input line 182.
 (pdftex.def)             Requested size: 115.91785pt x 74.7685pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/shopping_vary_G.
 eps>
@@ -897,15 +805,15 @@ pdf>
 (epstopdf)                    size: 28609 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/shopping_vary_G-ep
 s-converted-to.pdf ./charts//exp/performance/shopping_vary_G.eps>
-(epstopdf)             \includegraphics on input line 236.
+(epstopdf)             \includegraphics on input line 186.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/shopping_vary_G-eps-converted-to.pdf, id=312, 524.96124pt x 339.2675p
+<./charts/shopping_vary_G-eps-converted-to.pdf, id=308, 524.96124pt x 339.2675p
 t>
 File: ./charts/shopping_vary_G-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/shopping_vary_G-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/shopping_vary_G-eps-converted-to.pdf used on 
-input line 236.
+input line 186.
 (pdftex.def)             Requested size: 115.91785pt x 74.91344pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/geolife_vary_M.e
 ps>
@@ -917,15 +825,15 @@ df>
 (epstopdf)                    size: 28430 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/geolife_vary_M-eps
 -converted-to.pdf ./charts//exp/performance/geolife_vary_M.eps>
-(epstopdf)             \includegraphics on input line 241.
+(epstopdf)             \includegraphics on input line 191.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/geolife_vary_M-eps-converted-to.pdf, id=313, 520.94624pt x 347.2975pt
+<./charts/geolife_vary_M-eps-converted-to.pdf, id=309, 520.94624pt x 347.2975pt
 >
 File: ./charts/geolife_vary_M-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/geolife_vary_M-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/geolife_vary_M-eps-converted-to.pdf used on i
-nput line 241.
+nput line 191.
 (pdftex.def)             Requested size: 115.91785pt x 77.27477pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/geolife_vary_K.e
 ps>
@@ -937,15 +845,15 @@ df>
 (epstopdf)                    size: 28079 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/geolife_vary_K-eps
 -converted-to.pdf ./charts//exp/performance/geolife_vary_K.eps>
-(epstopdf)             \includegraphics on input line 245.
+(epstopdf)             \includegraphics on input line 195.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/geolife_vary_K-eps-converted-to.pdf, id=314, 524.96124pt x 347.2975pt
+<./charts/geolife_vary_K-eps-converted-to.pdf, id=310, 524.96124pt x 347.2975pt
 >
 File: ./charts/geolife_vary_K-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/geolife_vary_K-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/geolife_vary_K-eps-converted-to.pdf used on i
-nput line 245.
+nput line 195.
 (pdftex.def)             Requested size: 115.91785pt x 76.68654pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/geolife_vary_L.e
 ps>
@@ -957,15 +865,15 @@ df>
 (epstopdf)                    size: 27856 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/geolife_vary_L-eps
 -converted-to.pdf ./charts//exp/performance/geolife_vary_L.eps>
-(epstopdf)             \includegraphics on input line 249.
+(epstopdf)             \includegraphics on input line 199.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/geolife_vary_L-eps-converted-to.pdf, id=315, 524.96124pt x 347.2975pt
+<./charts/geolife_vary_L-eps-converted-to.pdf, id=311, 524.96124pt x 347.2975pt
 >
 File: ./charts/geolife_vary_L-eps-converted-to.pdf Graphic file (type pdf)
  <use ./charts/geolife_vary_L-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/geolife_vary_L-eps-converted-to.pdf used on i
-nput line 249.
+nput line 199.
 (pdftex.def)             Requested size: 115.91785pt x 76.68654pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/geolife_vary_G.e
 ps>
@@ -977,15 +885,15 @@ df>
 (epstopdf)                    size: 28171 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/geolife_vary_G-eps
 -converted-to.pdf ./charts//exp/performance/geolife_vary_G.eps>
-(epstopdf)             \includegraphics on input line 253.
+(epstopdf)             \includegraphics on input line 203.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/geolife_vary_G-eps-converted-to.pdf, id=316, 525.965pt x 347.2975pt>
+<./charts/geolife_vary_G-eps-converted-to.pdf, id=312, 525.965pt x 347.2975pt>
 File: ./charts/geolife_vary_G-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/geolife_vary_G-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/geolife_vary_G-eps-converted-to.pdf used on i
-nput line 253.
+nput line 203.
 (pdftex.def)             Requested size: 115.91785pt x 76.53816pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_M.eps>
 
@@ -997,15 +905,15 @@ Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_M.eps>
 (epstopdf)                    size: 27894 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/taxi_vary_M-eps-co
 nverted-to.pdf ./charts//exp/performance/taxi_vary_M.eps>
-(epstopdf)             \includegraphics on input line 258.
+(epstopdf)             \includegraphics on input line 208.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/taxi_vary_M-eps-converted-to.pdf, id=317, 525.965pt x 347.2975pt>
+<./charts/taxi_vary_M-eps-converted-to.pdf, id=313, 525.965pt x 347.2975pt>
 File: ./charts/taxi_vary_M-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/taxi_vary_M-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/taxi_vary_M-eps-converted-to.pdf used on inpu
-t line 258.
+t line 208.
 (pdftex.def)             Requested size: 115.91785pt x 76.53816pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_K.eps>
 
@@ -1017,15 +925,15 @@ Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_K.eps>
 (epstopdf)                    size: 28564 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/taxi_vary_K-eps-co
 nverted-to.pdf ./charts//exp/performance/taxi_vary_K.eps>
-(epstopdf)             \includegraphics on input line 262.
+(epstopdf)             \includegraphics on input line 212.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/taxi_vary_K-eps-converted-to.pdf, id=318, 525.965pt x 346.29375pt>
+<./charts/taxi_vary_K-eps-converted-to.pdf, id=314, 525.965pt x 346.29375pt>
 File: ./charts/taxi_vary_K-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/taxi_vary_K-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/taxi_vary_K-eps-converted-to.pdf used on inpu
-t line 262.
+t line 212.
 (pdftex.def)             Requested size: 115.91785pt x 76.31696pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_L.eps>
 
@@ -1037,15 +945,15 @@ Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_L.eps>
 (epstopdf)                    size: 28538 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/taxi_vary_L-eps-co
 nverted-to.pdf ./charts//exp/performance/taxi_vary_L.eps>
-(epstopdf)             \includegraphics on input line 266.
+(epstopdf)             \includegraphics on input line 216.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/taxi_vary_L-eps-converted-to.pdf, id=319, 524.96124pt x 347.2975pt>
+<./charts/taxi_vary_L-eps-converted-to.pdf, id=315, 524.96124pt x 347.2975pt>
 File: ./charts/taxi_vary_L-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/taxi_vary_L-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/taxi_vary_L-eps-converted-to.pdf used on inpu
-t line 266.
+t line 216.
 (pdftex.def)             Requested size: 115.91785pt x 76.68654pt.
 Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_G.eps>
 
@@ -1057,20 +965,21 @@ Package epstopdf Info: Source file: <./charts//exp/performance/taxi_vary_G.eps>
 (epstopdf)                    size: 28756 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/taxi_vary_G-eps-co
 nverted-to.pdf ./charts//exp/performance/taxi_vary_G.eps>
-(epstopdf)             \includegraphics on input line 270.
+(epstopdf)             \includegraphics on input line 220.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/taxi_vary_G-eps-converted-to.pdf, id=320, 524.96124pt x 347.2975pt>
+<./charts/taxi_vary_G-eps-converted-to.pdf, id=316, 524.96124pt x 347.2975pt>
 File: ./charts/taxi_vary_G-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/taxi_vary_G-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/taxi_vary_G-eps-converted-to.pdf used on inpu
-t line 270.
+t line 220.
 (pdftex.def)             Requested size: 115.91785pt x 76.68654pt.
- [10 <./charts/patterns_vary_M-eps-converted-to.pdf> <./charts/patterns_vary_K-
-eps-converted-to.pdf> <./charts/patterns_vary_L-eps-converted-to.pdf> <./charts
-/patterns_vary_G-eps-converted-to.pdf>]
-Underfull \vbox (badness 5862) has occurred while \output is active []
+
+Overfull \hbox (1.65256pt too wide) in paragraph at lines 263--264
+[]\OT1/cmr/m/n/9 In this part, we ex-ten-sively eval-u-ate the ad-van-tage brou
+ght
+ []
 
 Package epstopdf Info: Source file: <./charts//exp/spare/detail.eps>
 (epstopdf)                    date: 2016-06-24 19:54:14
@@ -1080,15 +989,14 @@ Package epstopdf Info: Source file: <./charts//exp/spare/detail.eps>
 (epstopdf)                    size: 34486 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/detail-eps-convert
 ed-to.pdf ./charts//exp/spare/detail.eps>
-(epstopdf)             \includegraphics on input line 371.
+(epstopdf)             \includegraphics on input line 306.
 Package epstopdf Info: Output file is already uptodate.
-
-<./charts/detail-eps-converted-to.pdf, id=409, 734.745pt x 495.8525pt>
+<./charts/detail-eps-converted-to.pdf, id=317, 734.745pt x 495.8525pt>
 File: ./charts/detail-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/detail-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/detail-eps-converted-to.pdf used on input lin
-e 371.
+e 306.
 (pdftex.def)             Requested size: 110.88062pt x 74.82863pt.
 Package epstopdf Info: Source file: <./charts//exp/spare/wl-shopping.eps>
 (epstopdf)                    date: 2016-06-24 19:54:14
@@ -1099,15 +1007,15 @@ Package epstopdf Info: Source file: <./charts//exp/spare/wl-shopping.eps>
 (epstopdf)                    size: 31411 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/wl-shopping-eps-co
 nverted-to.pdf ./charts//exp/spare/wl-shopping.eps>
-(epstopdf)             \includegraphics on input line 375.
+(epstopdf)             \includegraphics on input line 310.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/wl-shopping-eps-converted-to.pdf, id=410, 497.86pt x 337.26pt>
+<./charts/wl-shopping-eps-converted-to.pdf, id=318, 497.86pt x 337.26pt>
 File: ./charts/wl-shopping-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/wl-shopping-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/wl-shopping-eps-converted-to.pdf used on inpu
-t line 375.
+t line 310.
 (pdftex.def)             Requested size: 110.88062pt x 75.11343pt.
 Package epstopdf Info: Source file: <./charts//exp/spare/wl-geolife.eps>
 (epstopdf)                    date: 2016-06-24 19:54:14
@@ -1117,15 +1025,15 @@ Package epstopdf Info: Source file: <./charts//exp/spare/wl-geolife.eps>
 (epstopdf)                    size: 31972 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/wl-geolife-eps-con
 verted-to.pdf ./charts//exp/spare/wl-geolife.eps>
-(epstopdf)             \includegraphics on input line 379.
+(epstopdf)             \includegraphics on input line 314.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/wl-geolife-eps-converted-to.pdf, id=411, 721.69624pt x 489.83pt>
+<./charts/wl-geolife-eps-converted-to.pdf, id=319, 721.69624pt x 489.83pt>
 File: ./charts/wl-geolife-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/wl-geolife-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/wl-geolife-eps-converted-to.pdf used on input
- line 379.
+ line 314.
 (pdftex.def)             Requested size: 110.88062pt x 75.25766pt.
 Package epstopdf Info: Source file: <./charts//exp/spare/wl-taxi.eps>
 (epstopdf)                    date: 2016-06-24 19:54:14
@@ -1135,107 +1043,48 @@ Package epstopdf Info: Source file: <./charts//exp/spare/wl-taxi.eps>
 (epstopdf)                    size: 32297 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/wl-taxi-eps-conver
 ted-to.pdf ./charts//exp/spare/wl-taxi.eps>
-(epstopdf)             \includegraphics on input line 383.
+(epstopdf)             \includegraphics on input line 318.
 Package epstopdf Info: Output file is already uptodate.
 
-<./charts/wl-taxi-eps-converted-to.pdf, id=412, 497.86pt x 337.26pt>
+<./charts/wl-taxi-eps-converted-to.pdf, id=320, 497.86pt x 337.26pt>
 File: ./charts/wl-taxi-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/wl-taxi-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/wl-taxi-eps-converted-to.pdf used on input li
-ne 383.
+ne 318.
 (pdftex.def)             Requested size: 110.88062pt x 75.11343pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11 <./charts/shopping_vary_M-eps-converted-to.pdf> <./charts/shopping_vary_K-e
-ps-converted-to.pdf> <./charts/shopping_vary_L-eps-converted-to.pdf> <./charts/
-shopping_vary_G-eps-converted-to.pdf> <./charts/geolife_vary_M-eps-converted-to
-.pdf> <./charts/geolife_vary_K-eps-converted-to.pdf> <./charts/geolife_vary_L-e
-ps-converted-to.pdf> <./charts/geolife_vary_G-eps-converted-to.pdf> <./charts/t
-axi_vary_M-eps-converted-to.pdf> <./charts/taxi_vary_K-eps-converted-to.pdf> <.
-/charts/taxi_vary_L-eps-converted-to.pdf> <./charts/taxi_vary_G-eps-converted-t
-o.pdf>]
-Package epstopdf Info: Source file: <./charts//exp/spare/scalability-vary-O.eps
->
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 322500 bytes
-(epstopdf)             Output file: <./charts/scalability-vary-O-eps-converted-
-to.pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 24267 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/scalability-vary-O
--eps-converted-to.pdf ./charts//exp/spare/scalability-vary-O.eps>
-(epstopdf)             \includegraphics on input line 415.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/scalability-vary-O-eps-converted-to.pdf, id=704, 504.88625pt x 338.26
-375pt>
-File: ./charts/scalability-vary-O-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/scalability-vary-O-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/scalability-vary-O-eps-converted-to.pdf used 
-on input line 415.
-(pdftex.def)             Requested size: 110.88062pt x 74.28404pt.
-Package epstopdf Info: Source file: <./charts//exp/spare/scalability-vary-T.eps
->
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 322155 bytes
-(epstopdf)             Output file: <./charts/scalability-vary-T-eps-converted-
-to.pdf>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 24143 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/scalability-vary-T
--eps-converted-to.pdf ./charts//exp/spare/scalability-vary-T.eps>
-(epstopdf)             \includegraphics on input line 419.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/scalability-vary-T-eps-converted-to.pdf, id=705, 508.90125pt x 338.26
-375pt>
-File: ./charts/scalability-vary-T-eps-converted-to.pdf Graphic file (type pdf)
- <use ./charts/scalability-vary-T-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/scalability-vary-T-eps-converted-to.pdf used 
-on input line 419.
-(pdftex.def)             Requested size: 110.88062pt x 73.7008pt.
-Package epstopdf Info: Source file: <./charts//exp/spare/scalability.eps>
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 323826 bytes
-(epstopdf)             Output file: <./charts/scalability-eps-converted-to.pdf>
-
-(epstopdf)                    date: 2016-06-24 19:54:14
-(epstopdf)                    size: 24721 bytes
-(epstopdf)             Command: <epstopdf --outfile=./charts/scalability-eps-co
-nverted-to.pdf ./charts//exp/spare/scalability.eps>
-(epstopdf)             \includegraphics on input line 433.
-Package epstopdf Info: Output file is already uptodate.
-
-<./charts/scalability-eps-converted-to.pdf, id=706, 507.8975pt x 329.23pt>
-File: ./charts/scalability-eps-converted-to.pdf Graphic file (type pdf)
-
-<use ./charts/scalability-eps-converted-to.pdf>
-Package pdftex.def Info: ./charts/scalability-eps-converted-to.pdf used on inpu
-t line 433.
-(pdftex.def)             Requested size: 151.20154pt x 98.01118pt.
-) (sec7_conclusion.tex)
-(main.bbl [12 <./charts/detail-eps-converted-to.pdf> <./charts/wl-shopping-eps-
-converted-to.pdf> <./charts/wl-geolife-eps-converted-to.pdf> <./charts/wl-taxi-
-eps-converted-to.pdf> <./charts/scalability-vary-O-eps-converted-to.pdf> <./cha
-rts/scalability-vary-T-eps-converted-to.pdf> <./charts/scalability-eps-converte
-d-to.pdf>]
+[10]) (sec7_conclusion.tex) (main.bbl [11 <./charts/shopping_vary_M-eps-convert
+ed-to.pdf> <./charts/shopping_vary_K-eps-converted-to.pdf> <./charts/shopping_v
+ary_L-eps-converted-to.pdf> <./charts/shopping_vary_G-eps-converted-to.pdf> <./
+charts/geolife_vary_M-eps-converted-to.pdf> <./charts/geolife_vary_K-eps-conver
+ted-to.pdf> <./charts/geolife_vary_L-eps-converted-to.pdf> <./charts/geolife_va
+ry_G-eps-converted-to.pdf> <./charts/taxi_vary_M-eps-converted-to.pdf> <./chart
+s/taxi_vary_K-eps-converted-to.pdf> <./charts/taxi_vary_L-eps-converted-to.pdf>
+ <./charts/taxi_vary_G-eps-converted-to.pdf> <./charts/detail-eps-converted-to.
+pdf> <./charts/wl-shopping-eps-converted-to.pdf> <./charts/wl-geolife-eps-conve
+rted-to.pdf> <./charts/wl-taxi-eps-converted-to.pdf>]
 Missing character: There is no â in font cmr9!
 Missing character: There is no € in font cmr9!
 Missing character: There is no ” in font cmr9!
-) (appendix.tex [13]) [14
+) (appendix.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12])
+[13
 
 ] (main.aux) ) 
 Here is how much of TeX's memory you used:
- 5248 strings out of 493634
- 78928 string characters out of 3146201
- 163207 words of memory out of 3000000
- 8464 multiletter control sequences out of 15000+200000
+ 5210 strings out of 493634
+ 77321 string characters out of 3146201
+ 162200 words of memory out of 3000000
+ 8435 multiletter control sequences out of 15000+200000
  25557 words of font info for 70 fonts, out of 3000000 for 9000
  1028 hyphenation exceptions out of 8191
- 42i,15n,39p,1611b,502s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,15n,39p,1667b,502s stack positions out of 5000i,500n,10000p,200000b,50000s
 {E:/Programs/MikTex2.9/fonts/enc/dvips/fontname/8r.enc}<E:/Progra
 ms/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbx7.pfb><E:/Programs/MikTex2.9/fo
 nts/type1/public/amsfonts/cm/cmbx8.pfb><E:/Programs/MikTex2.9/fonts/type1/publi
@@ -1259,9 +1108,9 @@ x2.9/fonts/type1/public/amsfonts/symbols/msbm5.pfb><E:/Programs/MikTex2.9/fonts
 /type1/public/amsfonts/symbols/msbm7.pfb><E:/Programs/MikTex2.9/fonts/type1/urw
 /helvetic/uhvb8a.pfb><E:/Programs/MikTex2.9/fonts/type1/urw/times/utmb8a.pfb><E
 :/Programs/MikTex2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (14 pages, 1402002 bytes).
+Output written on main.pdf (13 pages, 1245704 bytes).
 PDF statistics:
- 971 PDF objects out of 1000 (max. 8388607)
+ 814 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 151 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 
