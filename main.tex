@@ -57,36 +57,24 @@
 % These 'additional authors' will be output/set for you
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
-
+%
 %\author{
-%	\IEEEauthorblockN{
-%		Qi Fan\IEEEauthorrefmark{1},
-%		Yuchen Li\IEEEauthorrefmark{1},
-%		Dongxiang Zhang\IEEEauthorrefmark{2} and
-%		Kian-Lee Tan\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}
-%		}
-%	\IEEEauthorblockA{
-%		\IEEEauthorrefmark{1}NUS Graduate School for Integrative Sciences and Engineering,
-%		National University of Singapore, Singapore\\
-%		\{fan.qi, liyuchen\}@nus.edu.sg
-%	}
-%	\IEEEauthorblockA{
-%		\IEEEauthorrefmark{2}School of Computing,
-%		National University of Singapore, Singapore \\
-%		\{zhangdo,tankl\}@comp.nus.edu.sg
-%	}
+%	Qi Fan,
+%	Dongxiang Zhang,
+%	Huayu Wu,
+%	Kian-Lee Tan
 %}
 
 \maketitle
 
 \begin{abstract}
-With the advancement of modern positioning technologies, tremendous trajectory data are nowadays become widely available. Discovering insightful information out of such large-scale trajectories is  important. Previous researches 
-have identified several interesting co-movement patterns and showcased their usefulness. However, we observe two challenges in applying them over large-scale trajectories. First, there is lack of a uniform definition of co-movement pattern, which makes it cumbersome to design a tailored solution to feed different needs. Second, existing works are all centralized schemes which are failed to scale to hundreds of millions of trajectory points. 
+With the advances of modern positioning technologies, tremendous trajectory data are nowadays become widely available. Discovering insightful information out of such large-scale trajectories is  important. Previous researches 
+have identified several interesting co-movement patterns and showcased their usefulness. However, we observe two challenges in applying them over large-scale trajectories. First, there is lack of a uniform definition of co-movement pattern, which makes it cumbersome to design a tailored solution to feed different needs. Second, existing works are all centralized schemes which are failed to scale to hundreds of millions of trajectories. 
 
-Motivated by this, in this paper, we present our novel solution on discovering co-movement patterns over large-scale trajectories. First, we model a general co-movement pattern (GCMP) to capture co-moving behaviors of objects. GCMP is versatile in representing all existing patterns by introducing a \emph{gap} constraints. With the gap, GCMP is also free from the so-called \emph{loose-connection} anomaly which appears in existing methods. Second, we resort to MapReduce for a parallel GCMP mining solution.
+Motivated by this, in this paper, we present our novel solution on detecting co-movement patterns over large-scale trajectories. First, we model a general co-movement pattern (GCMP) to capture co-moving behaviors of objects. GCMP is versatile in representing all existing patterns by introducing a \emph{gap} constraints. With the gap, GCMP is also free from the so-called \emph{loose-connection} anomaly which appears in existing methods. Second, we resort to MapReduce for a parallel GCMP mining solution.
 %
 % We design a Temporal Replication and Parallel Mining (TRPM) method by replicating and grouping neighboring snapshots for effective parallelism. 
-We propose a novel Star Partition and ApRiori Enumerator (SPARE) to facilitate efficient parallelism. In SPARE, we model the pair-wised connections between objects as an Aggregate Graph and partition the graph into stars. Such a partition scheme guarantees no duplicate patterns are found from different partitions. For each star, SPARE employs an ApRiori Enumerator to systemically detect all valid GCMPs. As the traditional \emph{monotonicity} property in Apriori no longer holds, we develop the temporal based \emph{monotonicity} property to support efficient enumeration. We experiments both the SPARE detector on three real datasets upto 200 million points using Apache Spark. The results show that SPARE achieves 120 times efficiency than centralized schemes and 10 times efficiency than a parallel baseline. Our experiments also demonstrates an almost linear scalability.
+We propose a novel Star Partition and ApRiori Enumerator (SPARE) to facilitate efficient parallelism. In SPARE, we model the pair-wised connections between objects as an Aggregate Graph and partition the graph into stars. Such a partition scheme guarantees no duplicate patterns are found from different partitions. For each star, SPARE employs an ApRiori Enumerator to systemically detect all valid GCMPs. As the traditional \emph{monotonicity} property in Apriori no longer holds, we develop the temporal based \emph{monotonicity} property to support efficient enumeration. We experiments our SPARE detector on three real datasets upto 200 million points using Apache Spark. The results show that SPARE achieves 90 times efficiency than centralized schemes and 10 times efficiency than a parallel baseline. Our experiments also demonstrates an almost linear scalability.
 \end{abstract}
 
 

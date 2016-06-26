@@ -21,7 +21,7 @@ in the object clustering methods. In \emph{flock}
 objects are clustered based on their distance. Specifically, the
 objects in the same cluster needs to have a pair-wised distance less than \emph{min\_dist}. 
 This essentially requires the objects to be within a disk-region of delimiter less than \emph{min\_dist}.
-In contrast, \emph{convoy} cluster the objects using density-based clustering~\cite{birant2007st}.
+In contrast, \emph{convoy} cluster the objects using density-based clustering~\cite{ester1996density}.
 Technically, \emph{flock} utilizes a $m^{th}$-order Voronoi diagram~\cite{laube2005finding} to detect whether
 a subset of object with size greater than $m$ stays in a disk-region. \emph{Convoy} employs
 a trajectory simplification~\cite{douglas1973trajectorysimplification} technique to boost pairwise distance computations in

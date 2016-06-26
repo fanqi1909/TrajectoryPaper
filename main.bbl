@@ -105,4 +105,10 @@ M.~Zaharia, M.~Chowdhury, T.~Das, A.~Dave, J.~Ma, M.~McCauley, M.~J. Franklin,
   USENIX conference on Networked Systems Design and Implementation}, pp.~2--2,
   USENIX Association, 2012.
 
+\bibitem{ester1996density}
+M.~Ester, H.-P. Kriegel, J.~Sander, X.~Xu, {\em et~al.}, ``A density-based
+  algorithm for discovering clusters in large spatial databases with noise.,''
+  in {\em Proceedings of the ninth ACM SIGKDD international conference on
+  Knowledge discovery and data mining}, pp.~226--231, ACM, 1996.
+
 \end{thebibliography}

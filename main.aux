@@ -38,7 +38,7 @@
 \citation{li2010swarm}
 \citation{li2015platoon}
 \citation{zheng2015survey}
-\citation{birant2007st}
+\citation{ester1996density}
 \citation{laube2005finding}
 \citation{douglas1973trajectorysimplification}
 \citation{li2015platoon}
@@ -57,14 +57,14 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
 \newlabel{THM:RP_ETA}{{1}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Parallel Mining. (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot; (c)(d) correspond to the second map-reduce cycle uses TRPM to detect GCMP in parallel.\relax }}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Parallel Mining (TRPM). (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot; (c)(d) correspond to the second map-reduce cycle, which uses TRPM to detect GCMP in parallel.\relax }}{5}}
 \newlabel{fig:trm}{{4}{5}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}SPARE: Star Partitioning and Apriori Enumerator}{5}}
 \newlabel{sec:spm}{{5}{5}}
 \citation{kwon2012skewtune}
 \citation{xin2013shark}
 \citation{coppa2015data}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and mining. (a) Conceptual connection graph from Figure 1.(b) Five star partitions are generated (c) Apriori Mining with various pruning techniques.\relax }}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and ApRiori Enumerator (SPARE). (a) Aggregate graph from Figure 1. (b) Five stars are generated, star IDs are circled, the vertexes and inverted lists are in the connected tables. (c) Apriori Enumerator with various pruning techniques.\relax }}{6}}
 \newlabel{fig:star_partition}{{5}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Star Partitioning}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Examples of star partitioning with different vertex ordering.\relax }}{6}}
@@ -137,6 +137,7 @@
 \newlabel{THM:SPM_CORRECT}{{9}{9}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Experimental Study}{9}}
 \newlabel{sec:exp}{{6}{9}}
+\citation{ester1996density}
 \@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Statistics of data set\relax }}{10}}
 \newlabel{exp:dataset}{{5}{10}}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Variables and their default values\relax }}{10}}
@@ -144,32 +145,36 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Evaluation}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Analysis of SPARE framework}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Power of sequence simplification}{10}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Pruning power of SPARE\relax }}{10}}
-\newlabel{tbl:pruning}{{7}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load Balance}{10}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
 \bibcite{zheng2011urban}{1}
 \bibcite{li2010miningperiodic}{2}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
+\newlabel{exp:performance_vary}{{7}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Pruning power of SPARE\relax }}{11}}
+\newlabel{tbl:pruning}{{7}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Scalability and Comparison with Existing Solutions}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{11}}
+\newlabel{sec:concl}{{7}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
 \bibcite{bao2013survey}{3}
 \bibcite{li2013managing}{4}
 \bibcite{gudmundsson2006flock}{5}
 \bibcite{wang2006grouppattern}{6}
 \bibcite{jeung2008convoy}{7}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
-\newlabel{exp:performance_vary}{{7}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Load balance of SPARE and SPARE-LB\relax }}{11}}
-\newlabel{exp:wl}{{8}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Compare with Existing Solutions}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{11}}
-\newlabel{sec:concl}{{7}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
 \bibcite{li2010swarm}{8}
 \bibcite{li2015platoon}{9}
 \bibcite{gudmundsson2004flock}{10}
 \bibcite{zheng2015survey}{11}
 \bibcite{birant2007st}{12}
 \bibcite{laube2005finding}{13}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Scalability of SPARE and TRPM wrt. $N$\relax }}{12}}
+\newlabel{exp:scalability}{{10}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Scalability of SPARE and TRPM wrt. $O_r$ and $T_r$\relax }}{12}}
+\newlabel{exp:performance_vary_OT}{{8}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Load balance of SPARE and SPARE-LB\relax }}{12}}
+\newlabel{exp:wl}{{9}{12}}
 \bibcite{douglas1973trajectorysimplification}{14}
 \bibcite{kwon2012skewtune}{15}
 \bibcite{xin2013shark}{16}
@@ -177,8 +182,9 @@
 \bibcite{wang2003closet+}{18}
 \bibcite{pei2000closet}{19}
 \bibcite{zaharia2012resilient}{20}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}2\hbox {} and\nobreakspace  {}3\hbox {}}{12}}
-\newlabel{apx:thm2proof}{{A.1}{12}}
+\bibcite{ester1996density}{21}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}2\hbox {} and\nobreakspace  {}3\hbox {}}{13}}
+\newlabel{apx:thm2proof}{{A.1}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}9\hbox {}}{13}}
 \newlabel{apx:spm_correct}{{A.2}{13}}
