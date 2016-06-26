@@ -1,8 +1,6 @@
-
-
 \begin{figure*} [t]
 \center
-\includegraphics[width=\textwidth]{trm.eps}
+\includegraphics[width=0.9\textwidth]{trm.eps}
 \caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot;  (c)(d) correspond to the second map-reduce cycle, which uses TRPM to detect GCMP in parallel.}
 \label{fig:trm}
 \end{figure*}
@@ -31,29 +29,6 @@ CPU processing costs would be incurred in the map and reduce phases respectively
 In our implementation, we set $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$. Intuitively, $K$ timestamps generates at most $\lceil \frac{K}{L} \rceil - 1$ gaps as the length of each $L$-consecutive segment is at least $L$. Since the gap size is at most $G-1$, $(\lceil \frac{K}{L} \rceil - 1)*(G-1)$ is the upper bound of timestamps allocated to gaps. The remaining part $K+L-1$ is used to capture the upper bound allocated for the $L$-consecutive segments. We formally prove that $\eta$ can guarantee correctness.
 
 
-\eat{
-Before moving on to find the value of $\eta$, 
-we first use $\rho_{G,L,K}(T)$ to define the \emph{min-spanned valid subsequence} 
-of a sequence $T$. In simple words, $\rho_{G,L,K}(T)$ is the 
-subsequence of $T$ with the smallest range and is valid wrt. $K,L,G$. 
-%Let $\eta_T$ denote
-%the range of $\rho_{G,L,K}(T)$.
-To guarantee that no valid patterns are missing, $\eta$ needs
-to be greater than the range of $\rho_{G,L,K}(T)$ for any
-valid sequence $T$. To see this, consider an arbitrary valid sequence $T$.
-Since each partition contains $\eta$ snapshots,
-if $\eta \geq \range(\rho_{G,L,K}(T))$ holds, $\rho_{G,L,K}(T)$ must be completely located in one partition. Therefore, the patterns associated with $T$ would not be missing.
-Formally, $\eta$ can be computed as:
-\begin{equation}
-\eta = \max\{\range(\rho_{G,L,K}(T)) | T \text{ is valid wrt. } G,L,K\}
-\end{equation}
-
-Directly compute such $\eta$ is challenging. However,
-we provide the following theorem which states a bounded estimation on $\eta$: 
-}
-
-
-
 \begin{theorem}
 \label{THM:RP_ETA}
 $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$ guarantees that no valid pattern is missing.
@@ -73,17 +48,8 @@ $\Delta = K- K'$. To ensure $T'$'s validity, $l_n$ must equal to $\min(L, \Delta
 Then, $\Sigma_{i=1}^{i=n}|l_i| = K' + l_n = K - \Delta + \min(L, \Delta) \leq K - 1 + L$. We finish showing $\range(T') \leq \eta$.  Therefore, for any valid sequence $T$, it exists at least one valid subsequence with range no greater than $\eta$ and hence this pattern can be detected in a partition with $\eta$ snapshots.
 \end{proof}
 
-\eat{
-Note that Theorem~\ref{THM:RP_ETA} does not state the optimal value of $\eta$
-for a given $G,L,K$. However, for any $G,L,K$, $\eta$ does not differ from
-the optimal value by at most $L-1$. To see this, for any $G,L,K$, we can
-generate a sequence $T$ by repeating the following pattern, a $L$-segment followed by $G$-gap. 
-The repetition stops when $|T|\geq K$. Apparently $T$ is valid wrt. $G,L,K$.
-It is easy to see that $T$ is minimal valid subsequence of itself, then $\eta^*  \geq \range(T) \geq (\lceil \frac{K}{L}\rceil -1)(G-1) + K$.
-Therefore $\eta-\eta^* \leq L-1$.
-}
-
 \begin{algorithm}[h]
+\small
 \caption{Line Sweep Mining}
 \label{algo:line-sweep}
 \begin{algorithmic}[1]
@@ -128,8 +94,7 @@ form a partition. In other words, each snapshot $S_t$ corresponds to a partition
 
 Details of the algorithm are presented in Algorithm~\ref{algo:line-sweep}. We keep a candidate set $C$ (Line~\ref{code:ls-can-set}) during the sweeping process. It is initialized as the candidate clusters with size no smaller than $M$ in the first snapshot. Then, we sequentially scan each snapshot (Lines~\ref{code:ls-sweep-starts}-\ref{code:ls-sweep-ends}) and generate new candidates by extending the original ones in $C$.
 In particular, we join candidates in $C$ with all the clusters in $S_j$ to form new candidates (Lines~\ref{code:ls-join-start}-\ref{code:ls-join-ends}). 
-%The join of candidate $c$ and cluster $s$ creates a
-%new candidate $c'$ (Line~\ref{code:ls-join}).  
+
 After sweeping all the snapshots, all the valid patterns are stored in $C$(Line~\ref{code:ls-valid-check}). 
 It is worth noting that $C$ continues to grow during the whole sweeping process. We can use three pruning rules to 
 early remove false candidates from $C$. Since there is a partition $\lambda_t$ for each $S_t$, only patterns that start from timestamp $t$ need to be discovered. Therefore, those patterns that does not appear in the $S_t$ are false candidates. Particularly, our
@@ -137,28 +102,6 @@ three pruning rules are as follows:
 First, when sweeping snapshot $S_j$, new candidates with objects set smaller than $M$ are pruned (Line~\ref{code:ls-m-prun}). Second, after joined with all clusters in $S_j$, 
 candidates in $C$ with the maximum timestamp no greater than $j-G$ are pruned (Lines~\ref{code:ls-g-prune-starts}-\ref{code:ls-g-prune-ends}). Third, candidates in $C$ with the size of first segment smaller than $L$
 are pruned (Lines~\ref{code:ls-l-prune-starts}-\ref{code:ls-l-prune-ends}). With the three pruning rules, the size of $C$ could be significantly reduced.  
-
-%ADD EXPLANATIONS TO THE SECOND AND THIRD PRUNING RULES.
-
-%After join, there are two prunings. First, 
-%all new candidates with objects set less than $M$ are pruned (Line~\ref{code:ls-m-prun}). Second,
-%existing candidates with max time sequences no greater 
-%than $j-G$ are pruned (Line~\ref{code:ls-m-prun}). 
-% 
-%
-%During the sweeping, candidates in $\mathbf{C}$ join with $S_j$.
-%
-% Initially, all the clusters 
-%
-%During scanning, a set of pattern candidates is maintained.
-%When all snapshots are scanned, the remaining candidates are the true patterns.
-%The detail of LSM is presented in Algorithm~\ref{algo:line-sweep}.
-%A candidate set $C$ is maintained throughout the algorithm(line~\ref{code:ls-can-set}). $C$
-%is initialized by inserting clusters at $S_t$ (lines~\ref{code:ls-init-start}-\ref{code:ls-init-end}).
-%During scanning snapshot $S_j$, candidates in $C$ are joined with clusters at $S_j$. In
-%the join, a candidate grows its temporal sequence while potentially reduces its object set. After the join,
-%false patterns are deleted (line~\ref{code:ls-remove}). 
-%Note that the size of $C$ is always decreasing, therefore the complexity of LSM $\lambda_t$ is $O(\eta|S_t||\overline{S}|)$,where $|\overline{S}|$ is the average snapshot size in $\lambda_t$.
 
 The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of TRPM method using Figure~\ref{fig:trm} (c)(d) with pattern
 parameters $M=2, K=3, L = 2, G=2$. By Theorem~\ref{THM:RP_ETA}, $\eta$ is calculated
@@ -177,6 +120,7 @@ which violates the $L$-consecutive constraint.
 Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note that in this example, $\eta=5$ is the minimum setting that can guarantee correctness. If $\eta$ is set to $4$, the pattern $\langle o_3,o_4 \rangle$ would be missed. 
 
 \begin{algorithm}[h]
+\small
 \caption{Temporal Replication and Parallel Mining}
 \label{algo:trm_overview}
 \begin{algorithmic}[1]

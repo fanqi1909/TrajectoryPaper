@@ -2,9 +2,11 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{multirow,booktabs}
 %\usepackage{balance} 
 \usepackage{epstopdf}
 \usepackage{pbox}
+\usepackage{url}
 \let\proof\relax
 \let\endproof\relax
 \usepackage{algorithm, algpseudocode, amsmath,amsthm,amssymb}
@@ -68,208 +70,16 @@
 \maketitle
 
 \begin{abstract}
-With the advances of modern positioning technologies, tremendous trajectory data are nowadays become widely available. Discovering insightful information out of such large-scale trajectories is  important. Previous researches 
-have identified several interesting co-movement patterns and showcased their usefulness. However, we observe two challenges in applying them over large-scale trajectories. First, there is lack of a uniform definition of co-movement pattern, which makes it cumbersome to design a tailored solution to feed different needs. Second, existing works are all centralized schemes which are failed to scale to hundreds of millions of trajectories. 
-
-Motivated by this, in this paper, we present our novel solution on detecting co-movement patterns over large-scale trajectories. First, we model a general co-movement pattern (GCMP) to capture co-moving behaviors of objects. GCMP is versatile in representing all existing patterns by introducing a \emph{gap} constraints. With the gap, GCMP is also free from the so-called \emph{loose-connection} anomaly which appears in existing methods. Second, we resort to MapReduce for a parallel GCMP mining solution.
+%With the advances of modern positioning technologies, tremendous trajectory data are nowadays become widely available. Discovering insightful information out of such large-scale trajectories is  important. Previous researches 
+%have identified several interesting co-movement patterns and showcased their usefulness. However, we observe two challenges in applying them over large-scale trajectories. First, there is lack of a uniform definition of co-movement pattern, which makes it cumbersome to design a tailored solution to feed different needs. Second, existing works are all centralized schemes which are failed to scale to hundreds of millions of trajectories. 
 %
-% We design a Temporal Replication and Parallel Mining (TRPM) method by replicating and grouping neighboring snapshots for effective parallelism. 
-We propose a novel Star Partition and ApRiori Enumerator (SPARE) to facilitate efficient parallelism. In SPARE, we model the pair-wised connections between objects as an Aggregate Graph and partition the graph into stars. Such a partition scheme guarantees no duplicate patterns are found from different partitions. For each star, SPARE employs an ApRiori Enumerator to systemically detect all valid GCMPs. As the traditional \emph{monotonicity} property in Apriori no longer holds, we develop the temporal based \emph{monotonicity} property to support efficient enumeration. We experiments our SPARE detector on three real datasets upto 200 million points using Apache Spark. The results show that SPARE achieves 90 times efficiency than centralized schemes and 10 times efficiency than a parallel baseline. Our experiments also demonstrates an almost linear scalability.
+%Motivated by this, in this paper, we present our novel solution on detecting co-movement patterns over large-scale trajectories. First, we model a general co-movement pattern (GCMP) to capture co-moving behaviors of objects. GCMP is versatile in representing all existing patterns by introducing a \emph{gap} constraints. With the gap, GCMP is also free from the so-called \emph{loose-connection} anomaly which appears in existing methods. Second, we resort to MapReduce for a parallel GCMP mining solution.
+%%
+%% We design a Temporal Replication and Parallel Mining (TRPM) method by replicating and grouping neighboring snapshots for effective parallelism. 
+%We propose a novel Star Partition and ApRiori Enumerator (SPARE) to facilitate efficient parallelism. In SPARE, we model the pair-wised connections between objects as an Aggregate Graph and partition the graph into stars. Such a partition scheme guarantees no duplicate patterns are found from different partitions. For each star, SPARE employs an ApRiori Enumerator to systemically detect all valid GCMPs. As the traditional \emph{monotonicity} property in Apriori no longer holds, we develop the temporal based \emph{monotonicity} property to support efficient enumeration. We experiments our SPARE detector on three real datasets upto 200 million points using Apache Spark. The results show that SPARE achieves 90 times efficiency than centralized schemes and 10 times efficiency than a parallel baseline. Our experiments also demonstrates an almost linear scalability.
+
+Discovering co-movement patterns from large-scale trajectory databases is an important mining task and has a wide spectrum of applications. Previous studies have identified several types of interesting co-movement patterns and showcased their usefulness. In this paper, we make two key contributions to this research field. First, we propose a more general co-movement pattern to unify those defined in the past literature. Second, we propose two types of parallel and scalable frameworks and deploy them on Spark. To the best of our knowledge, this is the first work to mine co-movement patterns in a trajectory database with hundreds of millions of points. Experiments on three large-scale trajectory datasets verified the efficiency and scalability of our proposed solutions.
 \end{abstract}
-
-
-%THESE WORKS ARE MOST RELATED TO OUR PROBLEMS, SO I REMOVED OTHER RELATED WORKS FOR NOW. 
-
-%\subsection{Platoon Pattern}
-%Li et. al.~\cite{li2015platoon} design a prefix table based pruning rule for fast compute Platoon Pattern.
-
-%\subsection{Trajectory Clustering}
-%Another related field is trajectory clustering~\cite{he2011mrdbscan,lee2007partitionandgroup,
-%li2004clusteringmovingobjects}. Lee et al. proposed a partition and group algorithm in~\cite{lee2007partitionandgroup}
-%to discover trajectories segments of similar geometric layout.
-%Their clustering method does not consider the temporal constraint so the patterns discovered
-%are not \emph{Co-Movement} patterns.
-%
-%Li et al. proposed a \emph{micro-clustering} technique~\cite{li2004clusteringmovingobjects} to cluster moving objects based on their moving directions. However, its distance measured is defined upon the entire trajectory and cannot be applied in our problem to mine local patterns.
-%
-%In ~\cite{he2011mrdbscan}, He et al. deployed an implementation of DBSCAN on MapReduce. They decouple the dependency of original DBSCAN algorithm into a four-stage parallel process.  However their method only focuses on DBSCAN for one snapshot, where exploiting the relationship between multiple DBSCANs remains unexplored. I DON'T UNDERSTAND WHAT YOU MEAN. ONE DATASET? MULTIPLE DBSCANS?
-%
-%Trajectory pattern mining can be roughly classified into four categories, 
-%namely \emph{Co-Movement Pattern Mining}, \emph{Frequent Sequence Mining},
-%\emph{Trajectory Clustering} and \emph{Periodic Pattern Mining}. The most
-%relevant literature to our work is \emph{Co-Movement Pattern Mining}. In this
-%section, we focus on summarizing existing works on \emph{Co-Movement Pattern Mining}. 
-%Interested readers may refer to~\cite{} for a comprehensive survey on 
-%other types of trajectory mining techniques.
-
-
-%The relevant literature can be classified into three groups, namely \emph{Co-Movement Patterns},
-%\emph{Spatio Patterns} and \emph{Parallel Trajectory Processing Platforms}
-%
-%In this section, we present a comprehensive literature review on the related works. 
-
-%\subsection{Co-movement Pattern}
-%
-%FOR THE CO-MOVEMENT PATTERN, YOU NEED TO EMPHASIZE TWO THINGS: 1) THE DIFFERENCE BETWEEN PATTERNS. NEED TO CLARIFY THE PARAMETERS IN EACH MODEL. 2) CLEARLY STATE THE MINING TECHNIQUES. 
-%\subsection{Co-movement Pattern}
-%The work most related to ours is those on \emph{co-movement} patterns. We summarize the typical patterns as follows:
-%\subsubsection{group}
-%Wang et al. defined \emph{group pattern}~\cite{wang2006grouppattern}, which aims to find the set of objects travelling together at certain time intervals. In \emph{group pattern}, groups at each snapshot is identified by a disc-based clustering method, where each cluster forms a circle within a radius. It is argued in later works~\cite{jeung2008convoy,li2010swarm} that such disc-based clustering is not effective as \emph{density}-based clustering where the later one may find clusters of arbitrary shapes.
-%
-%\subsubsection{flock}
-%Gudmunsson et al. proposed \emph{flock} pattern in 
-%\cite{gudmundsson2004flock,gudmundsson2006flock} and Vieria et al. followed up with an online version in~\cite{
-%vieira2009onlineflock}. A \emph{flock} pattern tries to find the set of objects that stay in a circular ranged cluster for a minimum duration. Such a pattern is useful in detecting the moving companions. However, similar as \emph{group pattern}, it uses disc-based clustering, which suffers the same deficiency in discovering arbitrary shaped clusters. \emph{Flock} pattern has many derivatives. In \cite{benkert2006meet}, Benkert et al. studied \emph{meet} pattern, which require the clusters in the pattern to be geographically stationary. Giannotti et al. studied \emph{leadership} pattern~\cite{andersson2007leadership} which requires a leader object exists for each flock cluster.
-%
-%%In \cite{benkert2006meet}, Benkert et al. studied \emph{meet} pattern. A \emph{meet} pattern aims to find a set of objects stay
-%%stationary with in a circular range for some durations. This pattern does not consider the temporal movement of objects. Giannotti et al. studied \emph{leadership} pattern~\cite{andersson2007leadership} which requires a set of objects stay relatively within a circular range at each snapshots for some durations and there is at least one object is heading (leader). It is shown in~\cite{giannotti2007survey} that both \emph{Meet} and \emph{leadership} patterns are special cases of the \emph{flock} pattern~\cite{gudmundsson2004flock}.
-%
-%
-%
-%\subsubsection{convoy}
-%Jeung et al. proposed \emph{convoy} pattern that extends \emph{flock} pattern by replacing the disc-based clustering with \emph{density}-based clustering. Such an relaxation brings a high complexity of repeatedly running DBSCAN~\cite{birant2007st} at every snapshot. To reduced the complexity, Jeung et al. designed a filter-refine approach which first uses simplification technique~\cite{douglas1973linesimplification} to filter far away objects, and then uses coherent moving method~\cite{kalnis2005movingclusters} to find the exact convoy patterns. Along with \emph{convoy} pattern, Aung et al. proposed \emph{dynamic convoy} and \emph{evolving convoy} patterns. In \emph{dynamic convoy}, the cluster members are allowed to be absent briefly during the convoy lifetime, while \emph{evolving convoy} allows the convoy to grow or shrink in cardinality during the life time. Tang et al. also addresses the online extension in~\cite{tang2012onlineconvoy}.
-%\subsubsection{swarm}
-%The major argument on \emph{convoy} pattern is that \emph{convoy} requires the consecutiveness in the lifetime, which may lose many interesting patterns. To remedy, Li et al. proposed the \emph{swarm} pattern~\cite{li2010swarm} which completely relaxes the consecutiveness in \emph{convoy}. In \emph{swarm}, objects can collectively leave the cluster for a long time and then join back in later time. The only requirement in \emph{swarm} is that each member in the cluster needs to accumulate to a certain duration. In~\cite{li2010swarm}, the authors proposed a depth-first search based pruning algorithm to efficiently discover \emph{swarm} patterns.
-%\subsubsection{platoon}
-%Recently Li et al. argued that \emph{swarm} is to loose in the temporal consecutiveness and proposed \emph{platoon} pattern in~\cite{li2015platoon}. In \emph{platoon} pattern, the clusters should lasts for at least a certain during before dismiss. Meanwhile, \emph{platoon} allow the clusters to form again at future times. Li et al. demonstrated the such extension is more general and can support swarm and convoy patterns by setting appropriate parameters. Li et al. also provide a similar depth-first search approach as in~\cite{li2010swarm}. In addition, they adapted a prefix pruning method to further improve efficiency. It is notable that in both \cite{li2010swarm} and \cite{li2015platoon}, authors consider the input to be the clusters at each snapshot, which ignores the clustering time.
-%
-%\subsection{Other Related Trajectory Patterns}
-%Besides co-movement patterns, there are a number of other types of trajectory patterns proposed in previous works.
-%%General Trajectory pattern mining a hot field in trajectory analysis. Previous works
-%%define various patterns~\cite{
-%%kalnis2005movingclusters,
-%%li2010periodicpattern,zheng2013gathering,jinno2012paralleltpattern,li2013onlinegroup} over trajectory data, which have proven their usefulness under different applications~\cite{giannotti2007survey}. 
-%
-%Kalnis et al. proposed \emph{moving clusters} pattern~\cite{kalnis2005movingclusters}. In such a pattern, objects form clusters at each snapshot. For consecutive snapshots, the clusters in the pattern should have a Jaccard index greater than a threshold. Under such a scheme, the difference between cluster members in snapshots accumulates, therefore the clusters at later snapshot may be very different from those in previous snapshots. The online extension is studied by Li et al.~\cite{li2013onlinegroup}. IT'S DIFFERENCE WITH CO-MOVEMENT PATTERN IS NOT CLEAR. WHAT IS JACCARD INDEX?
-%
-% In~\cite{li2010periodicpattern}, Li et al. studied the \emph{periodic} pattern, which mines objects with periodic behaviors. 
-%It is commented in~\cite{giannotti2007survey} that \emph{periodic} pattern is unsuitable for discovering movements, since it is unreasonable to expect an object to repeat its behavior exactly during each time period considered. AGAIN, WHAT'S YOUR POINT? YOU MEAN SUCH A WORK IS MEANINGLESS? THEN, WHY BOTHER TO MENTION IT HERE?
-%
-%Zhang et al. proposed the \emph{gathering} pattern in \cite{zheng2013gathering}. It is similar to \emph{flock} pattern~\cite{gudmundsson2004flock} but with the relaxation on the members of clusters. Instead of fixing the members in clusters as in~\cite{gudmundsson2004flock}, \emph{gathering} pattern allows members in clusters leave and join during the pattern duration. Since it relaxes the member constraints, it is unable to model co-movement patterns. HOW TO DEFINE CO-MOVEMENT PATTERN? IS THERE A PREVIOUS ``FORMAL'' DEFINITION? OR IS DEFINED BY YOU? THIS ONE LOOKS LIKE OBJECTS CO-MOVE. WHY IT IS NOT A CO-MOVEMENT PATTERN?
-%
-%
-%%\subsection{Pattern Mining Frameworks}
-%Jinno et al. recently studied the problem of processing \emph{T}- pattern~\cite{giannotti2007survey} in parallel platform \cite{jinno2012paralleltpattern}. A \emph{T}-pattern discovers a set of objects visiting the same the place in a close time interval. Such a pattern differs from moving object pattern in that \emph{T}-pattern does not consider the movement of objects. Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm for efficiently support \emph{T}-pattern discovery. However, as the nature of differences between the patterns, their work cannot directly applied on the co-moving object pattern discovery. Li et al. recently proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}. The \emph{evolving group} is similar to \emph{moving cluster} pattern with focus on the member updates in clusters, which is different with \emph{co-movement} pattern. Moreover the framework is developed for centralized system, thus is different with our work.
-%
-%\subsection{Trajectory Clustering}
-%Another related field is trajectory clustering~\cite{he2011mrdbscan,lee2007partitionandgroup,
-%li2004clusteringmovingobjects}. Lee et al. proposed a partition and group algorithm in~\cite{lee2007partitionandgroup} TO SOLVE WHAT PROBLEM?. Their clustering method does not consider the temporal constraint and groups trajectories from different time points together. WHY EMPHAISIS THIS? OUR CLUSTERING IS ALSO CONDUCTED IN EACH SNAPSHOT. 
-%
-%Li et al. proposed a \emph{micro-clustering} technique~\cite{li2004clusteringmovingobjects} to cluster moving objects based on their moving directions. However, its distance measured is defined upon the entire trajectory and cannot be applied in our problem to mine local patterns.
-%
-%In ~\cite{he2011mrdbscan}, He et al. deployed an implementation of DBSCAN on MapReduce. They decouple the dependency of original DBSCAN algorithm into a four-stage parallel process.  However their method only focuses on DBSCAN for one datasets, where exploiting the relationship between multiple DBSCANs remains unexplored. I DON'T UNDERSTAND WHAT YOU MEAN. ONE DATASET? MULTIPLE DBSCANS?
-
-%\section{Overview of Mining GCMP in Parallel}
-%\label{sec:system_overview}
-%We adapt the MapReduce paradigm for designing
-%a parallel solution of mining GCMP. In this section,
-%we briefly describe the preliminaries on MapReduce and then describe
-%the overview of our framework in mining GCMP.
-%
-%\subsection{Preliminary on MapReduce}
-%MapReduce (MR) was formally proposed by Dean et.al.~\cite{dean2008mapreduce}
-%and has subsequently implemented by many open source systems. Those systems
-%provide handy APIs with fault tolerances and are popularly
-%used as large-scale data processing platforms. 
-%% become a ubiquitous parallel platform for large-scaled data processing. 
-%%Current open source MapReduce systems provide handy programming APIs with fault tolerances
-%%in backends. Such systems include Hadoop, Shark and Spark to name a few.
-%In simple words, there are two conceptual types of computing nodes in MR,
-%namely the \emph{mapper}s and the \emph{reducer}s. The execution of a MR 
-%algorithm consists of three major steps: First, input data
-%are partitioned and read by a \emph{map} function on each mapper. Then, mappers
-%emit key-value pairs which are \emph{shuffle}d over the network to reducers. Lastly,
-%reducers process the received data using a \emph{reduce} function. 
-%
-%Despite the simpleness of the paradigm, there are two concerns raised in designing MR algorithms
-%First, since reducers are required to be independent, partitioning  
-%data to fit the independence could be challenging. Second, since the \emph{shuffle}
-%step requires network access, the data been shuffled should be minimized. 
-%We take these concerns in consideration when designing our solutions for mining GCMP.
-%%We would bare this concerns in designing our GCMP mining algorithm.
-%%a natural
-%%problem is how to partition the data in map and shuffle phase so that reducers 
-%%achieve the independence.
-%%
-%%A critical question in designing a MapReduce algorithm is how to make 
-%%data partitions during the shuffle stage. In fact, a MapReduce algorithm 
-%%requires data processed at each reducer to be independent.
-%%
-%%Since the \emph{shuffle} stage needs to transfer data over network, 
-%%an important attention to pay during designing MapReduce an algorithm is 
-%%to minimize the shuffle amounts and shuffle counts. 
-%
-%\subsection{MapReduce Processing for Mining GCMP}
-%Our GCMP mining process consists of two MR jobs as illustrated in Figure~\ref{fig:overview}.
-%The first MR job is to cluster objects at each snapshot (i.e.,
-% $\forall t, o,$ compute $C_t(o)$). As shown in Figures~\ref{fig:overview}(a)-(b),
-%in map phase, trajectories are firstly reorganized by timestamps and object locations
-%at the same timestamps form a snapshot. In reduce phase, clustering of objects at each
-%snapshot is processed independently. The second MR job is to mine GCMPs from 
-%clusters in each snapshot. We design and compare two MR algorithms (i.e., TRM and SPM)for 
-%GCMP mining. Both the two algorithms would partition snapshots in map phase
-%(as in Figure~\ref{fig:overview}(c))
-%and mine GCMPs from each partition in reduce phase(as in Figure~\ref{fig:overview}(d)).
-%
-%% corresponds to Figures~\ref{fig:overview}(a)-(b). The objective
-%%of the first job is to cluster trajectories based on snapshots (i.e.,).
-%%As illustrated in (a), input trajectories are read in by mappers 
-%%and are sprinkled into $\langle t,o \rangle$ pairs. In (b), objects with the same timestamp
-%%form a snapshot. Then, a user defined clustering method is applied on the objects
-%%in each snapshot in reducers. Between step (a) and (b), a shuffle is necessary. 
-%%The second
-%%MapReduce job corresponds to Figures~\ref{fig:overview} (c)-(d). The objective 
-%%of the second job is to mine the GCMP from the snapshots computed in the first job. We design
-%%two approaches (to be described shortly)for mining GCMP in parallel. In overview, as shown in (c), snapshots
-%%are first fed to mappers and different partition strategies may be selected to create
-%%partitions among snapshots. In (d), the partitions are then send to reducers to mine GCMP.
-%%The final computed results are then outputted to the end users. 
-%
-%Although we need two MR jobs to complete the GCMP mining task, 
-%it is easy to pipeline the two jobs to exploit data locality.
-%Specifically, the reducer output at step (b) can be directly reused 
-%as the input to the mappers at step (c). Therefore we do not need to 
-%transfer data between the two jobs. Modern MR platforms, especially Spark, have
-%already supported such a kind of pipeline.
-%
-%\begin{figure} [t]
-%\center
-%\includegraphics[width=0.5\textwidth]{system_layout.eps}
-%\caption{System flow of mining GCMP. (a)(b) correspond to the first MR job which compute the clusters at each snapshot; 
-%(c)(d) correspond to the second MR jobs which mines GCMP in parrallel.}
-%\label{fig:overview}
-%\end{figure}
-%
-%We note that the first MR job is easy to design since each reducer only
-%needs one snapshot for clustering.
-%In contrast, it is challenging to design the second job. 
-%This is because valid patterns may spray across multiple snapshots 
-%or contain different object sets, where inappropriate partitioning
-%of snapshots may fail to discover certain valid patterns.
-%Formally, a valid partition strategy 
-%needs to meet the following requirements: (a) the resulted partitions need
-%to preserve enough information so that real patterns can be discovered in the reduce phase. 
-%(b) the resulted partitions need to ensure that
-%the patterns discovered in the reduce phase are valid patterns so that
-%no further verification is required. We formalize these two 
-%properties as \emph{completeness} and \emph{soundness} as follows:
-%
-%\begin{definition}[Completeness and Soundness]
-%Let a partition method $\mathbb{P}$ partitions original trajectories $Tr$ into multiple parts, $Par_1,...,Par_m$. $\mathbb{P}$ is complete if for every pattern $P$ that is valid in $Tr$, $\exists Par_i$ s.t. $P$ is valid in $Par_i$. $\mathbb{P}$ is sound if for all patterns that are valid in any $Par_i$, they are also valid in $TR$.
-%\end{definition}
-%The completeness ensures that no true patterns are missed out. 
-%The soundness ensures that no false patterns are reported. 
-%If a partition method is both sound and complete, then it can be used
-%in the second MR job to facilitate GCMP mining.
-%
-%Apparently, replicating the entire trajectories to each 
-%partition meets the \emph{soundness} and \emph{completeness} requirements. 
-%However, it burdens the network shuffle and limits the parallelism. 
-%Our objective is thus to design a complete and sound partition method that minimize the network shuffles.
-%In the following sections, we describe a naive \emph{temporal-based} partition-and-mining method called \emph{Temporal Replication and Mining}(TRM) towards a parallel solution of GCMP mining. Then,
-%we present a novel \emph{object-based} partition-and-mining method
-%called \emph{Star Partition and Mining} (SPM) which resolves
-%the deficiencies of TRM method.
 
 
 \input{sec1_introduction}
@@ -284,6 +94,7 @@ We propose a novel Star Partition and ApRiori Enumerator (SPARE) to facilitate e
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
 \bibliographystyle{IEEEtr}
+\small
 \bibliography{citations}
 \input{appendix}
 \end{document}

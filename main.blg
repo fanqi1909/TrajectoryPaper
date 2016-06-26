@@ -1,5 +1,24 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
 The style file: IEEEtr.bst
 Database file #1: citations.bib
-Warning--can't use both volume and number fields in pei2000closet
-(There was 1 warning)
+Warning--I didn't find a database entry for "xin2013shark"
+Warning--empty year in zheng2011urban
+Warning--empty year in li2010miningperiodic
+Warning--empty year in gudmundsson2006flock
+Warning--empty year in jeung2008convoy
+Warning--empty year in li2010swarm
+Warning--empty year in gudmundsson2004flock
+Warning--empty year in zheng2015survey
+Warning--empty year in ester1996density
+Warning--empty publisher in laube2005finding
+Warning--empty year in douglas1973linesimplification
+Warning--empty publisher in kalnis2005movingclusters
+Warning--empty year in aung2010discovery
+Warning--empty year in zheng2013gathering
+Warning--empty year in jinno2012paralleltpattern
+Warning--empty year in li2013onlinegroup
+Warning--empty year in coppa2015data
+Warning--empty year in wang2003closet+
+Warning--empty year in pei2000closet
+Warning--empty year in zaharia2012resilient
+(There were 20 warnings)
