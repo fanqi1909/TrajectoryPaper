@@ -1,20 +1,19 @@
 \begin{figure*} [t]
 \center
 \includegraphics[width=0.9\textwidth]{trm.eps}
-\caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot;  (c)(d) correspond to the second map-reduce cycle, which uses TRPM to detect GCMP in parallel.}
+\caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot;  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
 \label{fig:trm}
 \end{figure*}
 
 \section{Baseline: Temporal Replication and Parallel Mining}
 \label{sec:trm}
-In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two cycles of map-reduce jobs connected in a pipeline manner. The first cycle deals with spatial clustering in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining. In particular, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
+In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
 
-Our focus in this paper is the second map-reduce cycle of parallel mining, which essentially consists of two key questions to solve. The first is how to employ effective data partitioning such that the mining can be conducted independently; and the second is how to efficiently mine the valid patterns within each partition. 
-
+Our focus in this paper is on the second map-reduce stage of parallel mining, which essentially addresses two key challenges. The first is to ensure effective data partitioning such that the mining can be conducted independently; and the second is to efficiently mine the valid patterns within each partition. 
 
 It is obvious that we cannot simply split the trajectory database 
 into disjoint partitions because a GCMP pattern requires $L$-consecutiveness 
-and the corresponding segments may cross multiple partitions. 
+and the corresponding segments may span multiple partitions. 
 Our strategy is to use data replication to enable parallel mining. 
 Each snapshot will replicate its clusters to $\eta-1$ preceding snapshots.
 In other words, the partition for the snapshot $S_t$ contains clusters 
@@ -22,11 +21,10 @@ in $S_t$, $S_{t+1}\ldots,S_{t+\eta-1}$.
 Determining a proper $\eta$ is critical in ensuring the
 correctness and efficiency of TRPM. If $\eta$ is too small, 
 certain cross-partition patterns may be missed. 
-If $\eta$ is set too large, expensive network communication and 
+If $\eta$ is too large, expensive network communication and 
 CPU processing costs would be incurred in the map and reduce phases respectively. Our objective is to find an $\eta$ that is not large but can guarantee correctness.
 
-
-In our implementation, we set $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$. Intuitively, $K$ timestamps generates at most $\lceil \frac{K}{L} \rceil - 1$ gaps as the length of each $L$-consecutive segment is at least $L$. Since the gap size is at most $G-1$, $(\lceil \frac{K}{L} \rceil - 1)*(G-1)$ is the upper bound of timestamps allocated to gaps. The remaining part $K+L-1$ is used to capture the upper bound allocated for the $L$-consecutive segments. We formally prove that $\eta$ can guarantee correctness.
+In our implementation, we set $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$. Intuitively, with $K$ timestamps, at most $\lceil \frac{K}{L} \rceil - 1$ gaps may be generated as the length of each $L$-consecutive segment is at least $L$. Since the gap size is at most $G-1$, $(\lceil \frac{K}{L} \rceil - 1)*(G-1)$ is the upper bound of timestamps allocated to gaps. The remaining part of the expression, $K+L-1$, is used to capture the upper bound allocated for the $L$-consecutive segments. We formally prove that $\eta$ can guarantee correctness.
 
 
 \begin{theorem}
@@ -89,27 +87,25 @@ Then, $\Sigma_{i=1}^{i=n}|l_i| = K' + l_n = K - \Delta + \min(L, \Delta) \leq K 
 
 
 
-Based on the above theorem, during TRPM, every consecutive $\eta$ snapshots
-form a partition. In other words, each snapshot $S_t$ corresponds to a partition $\lambda_t=\{S_t,...,S_{t+\eta-1}\}$. Our next task is to design an efficient pattern mining strategy within each partition. We propose a line sweep algorithm to sequentially scan the $\eta$ replicated snapshots in a partition and employ effective candidate pattern enumeration.  
+Based on the above theorem, under TRPM, every consecutive $\eta$ snapshots
+form a partition. In other words, each snapshot $S_t$ corresponds to a partition $\lambda_t=\{S_t,...,S_{t+\eta-1}\}$. Our next task is to design an efficient pattern mining strategy within each partition. Our solution includes a line sweeping algorithm to sequentially scan the $\eta$ replicated snapshots in a partition and an effective candidate pattern enumeration mechanism.  
 
 Details of the algorithm are presented in Algorithm~\ref{algo:line-sweep}. We keep a candidate set $C$ (Line~\ref{code:ls-can-set}) during the sweeping process. It is initialized as the candidate clusters with size no smaller than $M$ in the first snapshot. Then, we sequentially scan each snapshot (Lines~\ref{code:ls-sweep-starts}-\ref{code:ls-sweep-ends}) and generate new candidates by extending the original ones in $C$.
 In particular, we join candidates in $C$ with all the clusters in $S_j$ to form new candidates (Lines~\ref{code:ls-join-start}-\ref{code:ls-join-ends}). 
 
-After sweeping all the snapshots, all the valid patterns are stored in $C$(Line~\ref{code:ls-valid-check}). 
-It is worth noting that $C$ continues to grow during the whole sweeping process. We can use three pruning rules to 
-early remove false candidates from $C$. Since there is a partition $\lambda_t$ for each $S_t$, only patterns that start from timestamp $t$ need to be discovered. Therefore, those patterns that does not appear in the $S_t$ are false candidates. Particularly, our
+After sweeping all the snapshots, all the valid patterns are stored in $C$ (Line~\ref{code:ls-valid-check}). 
+It is worth noting that $C$ continues to grow during the whole sweeping process. We can use three pruning rules to remove false candidates from $C$ early. Since there is a partition $\lambda_t$ for each $S_t$, only patterns that start from timestamp $t$ need to be discovered. Therefore, those patterns that do not appear in the $S_t$ are false candidates. In particular, our
 three pruning rules are as follows:
-First, when sweeping snapshot $S_j$, new candidates with objects set smaller than $M$ are pruned (Line~\ref{code:ls-m-prun}). Second, after joined with all clusters in $S_j$, 
+First, when sweeping snapshot $S_j$, new candidates with objects set smaller than $M$ are pruned (Line~\ref{code:ls-m-prun}). Second, after joining with all clusters in $S_j$, 
 candidates in $C$ with the maximum timestamp no greater than $j-G$ are pruned (Lines~\ref{code:ls-g-prune-starts}-\ref{code:ls-g-prune-ends}). Third, candidates in $C$ with the size of first segment smaller than $L$
-are pruned (Lines~\ref{code:ls-l-prune-starts}-\ref{code:ls-l-prune-ends}). With the three pruning rules, the size of $C$ could be significantly reduced.  
+are pruned (Lines~\ref{code:ls-l-prune-starts}-\ref{code:ls-l-prune-ends}). With the three pruning rules, the size of $C$ can be significantly reduced.  
 
-The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of TRPM method using Figure~\ref{fig:trm} (c)(d) with pattern
+The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of the TRPM method using Figure~\ref{fig:trm} (c) and (d) with pattern
 parameters $M=2, K=3, L = 2, G=2$. By Theorem~\ref{THM:RP_ETA}, $\eta$ is calculated
 as $(\lceil \frac{K}{L} \rceil-1) *(G-1)+2K - 2 = 5$. Therefore, 
-in Figure~\ref{fig:trm} (c), every $5$ consecutive snapshots are combined 
-into a partition in the map phase. In Figure~\ref{fig:trm} (d), a line sweep
-method is illustrated for partition $\lambda_1$. Let $C_i$ be the candidate set
-during sweeping snapshot $S_i$.
+in Figure~\ref{fig:trm}(c), every $5$ consecutive snapshots are combined 
+into a partition in the map phase. In Figure~\ref{fig:trm}(d), a line sweep
+method is illustrated for partition $\lambda_1$. Let $C_i$ be the candidate set when sweeping snapshot $S_i$.
 Initially, $C_1$ contains patterns with object sets in snapshot $S_1$.
 As we sweep the snapshots, the patterns in $C_i$ grow. At snapshot $S_4$, the candidate
 $\langle o_5,o_6 \rangle$ is removed. This is because the gap between its latest timestamp (i.e., $2$)
@@ -126,7 +122,7 @@ Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note th
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
 \State $\eta \gets (\lceil \frac{K}{L} \rceil -1)*(G-1)+K+L-1$
-\State {---Map Phase---}
+\State {\textit{---Map Phase---}}
 \label{code:trm-map-start}
 \ForAll{snapshots $S_t$}
 	\ForAll{$i \in 1...{\eta-1}$}
@@ -134,13 +130,13 @@ Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note th
 	\EndFor  
 \EndFor
 \label{code:trm-map-end}
-\State {---Partition and Shuffle Phase---}
+\State {\textit{---Partition and Shuffle Phase---}}
 \label{code:trm-par-start}
 \ForAll{key-value pairs $\langle t, S \rangle$ pair} 
 \State group-by $t$ and emit a key-value pair $\langle t, \lambda_t\rangle$, where $\lambda_t = \{S_t, S_{t+1}, .. S_{t+\eta-1}\} $
 \EndFor
 \label{code:trm-par-end}
-\State {---Reduce Phase---}
+\State {\textit{---Reduce Phase---}}
 \label{code:trm-red-start}
 \ForAll{key-value pairs $\langle t,\lambda_t \rangle$}
 \State call line sweep algorithm for partition $\lambda_t$
@@ -148,3 +144,5 @@ Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note th
 \EndFor
 \end{algorithmic}
 \end{algorithm}
+
+
