@@ -50,12 +50,12 @@ Before we introduce the Apriori enumerator, we are interested to
 examine the issue of global ordering on the moving objects.
 This is because assigning different IDs to the objects will result in 
 different star partitioning results, which will eventually affect the workload 
-balance among the map-reduce jobs. The job incurring performance bottleneck is often known as \emph{straggler}~\cite{kwon2012skewtune,xin2013shark,coppa2015data}. In the context of star partitioning, a straggler refers to the job assigned with the maximum star partition. We use $\Gamma$ to denote the size of a partition and $\Gamma$ is set to the number of edges in a directed star\footnote{A star is essentially a tree structure and the number of nodes equals the number of edges minus one.}. It is straightforward that a star partitioning with small $\Gamma$ is preferred. For example, Figure~\ref{fig:star-alt} gives two star partitioning results under 
+balance among the map-reduce jobs. The job incurring performance bottleneck is often known as \emph{straggler}~\cite{kwon2012skewtune,coppa2015data}. In the context of star partitioning, a straggler refers to the job assigned with the maximum star partition. We use $\Gamma$ to denote the size of a partition and $\Gamma$ is set to the number of edges in a directed star\footnote{A star is essentially a tree structure and the number of nodes equals the number of edges minus one.}. It is straightforward that a star partitioning with small $\Gamma$ is preferred. For example, Figure~\ref{fig:star-alt} gives two star partitioning results under 
 different vertex ordering on the same graph. The top one has $\Gamma = 5$ while the bottom one has $\Gamma = 3$. Obviously, the bottom one with smaller $\Gamma$ is much more balanced.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{star-alt.eps}
+\includegraphics[width=0.45\textwidth]{star-alt.eps}
 \caption{Examples of star partitioning with different vertex ordering.}
 \label{fig:star-alt}
 \end{figure}
@@ -219,8 +219,7 @@ To further improve the performance, we adopt the idea of \textit{forward closure
 	\State $O_u \gets $ union of $c.O$ in $C$	\label{code:fc-checking-start}
 	\State $T_u \gets $ intersection of $c.T$ in $C$	
 	\If {$\langle O_u, T_u\rangle$ is a valid pattern}
-		\State{output $\langle O_u, T_u\rangle$} \label{code:fc-checking}
-		\State break;
+		\State{output $\langle O_u, T_u\rangle$, \textbf{break}} \label{code:fc-checking}
 	\EndIf \label{code:fc-checking-end}
 	\State {$C\leftarrow C';C'\leftarrow \emptyset; \mathrm{level} \gets \mathrm{level}+1$}	
 \EndWhile\label{code:level-ends}
@@ -245,7 +244,7 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 \label{algo:spm_overview}
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
-\State {---Map phase---}
+\State {\textit{---Map phase---}}
 \label{code:spm-map-start}
 \ForAll{$C \in S_t$}
 	\ForAll {$o_1 \in C,  o_2 \in C, o_1 < o_2$}
@@ -254,14 +253,14 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 \EndFor
 \label{code:spm-map-end}
 
-\State {---Partition and Shuffle phase---}
+\State {\textit{---Partition and Shuffle phase---}}
 \label{code:spm-shuffle-start}
 \ForAll{$\langle o_1, o_2, \{t\}\rangle$ triplets} 
 	\State group-by $o_1$, emit $\langle o_1, Sr_{o_1} \rangle$ 
 \EndFor
 \label{code:spm-shuffle-end}
 
-\State {---Reduce phase---}
+\State {\textit{---Reduce phase---}}
 \label{code:spm-reduce-start}
 \ForAll{$\langle o, Sr_{o} \rangle$}
 \State AprioriEnumerator($Sr_o$)

@@ -75,78 +75,77 @@
 \subsection{Proof of Theorem~\ref{THM:SPM_LB} and~\ref{THM:SPM_LB_INC}}
 \label{apx:thm2proof}
 \begin{proof}
-We formalize optimization of $\Gamma$ using a linear algebra model as follows:  
+$\Gamma$ can be formalized in a linear algebra way:
 Let $G_A$ be an aggregate graph, with a $n \times n$ adjacent matrix $J$.
-A vertex order is in fact a permutation of $J$. Therefore,
-the adjacent matrices of any reordered graphs can be represented as $PJP^T$
-where $P \in \mathbb{P}$ is a 
-\emph{permutation matrix}~\footnote{an identity matrix with rows shuffled} with dimension $n$.
-Since in star partition, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
+Since a vertex order is a permutation of $J$, the adjacent matrices 
+of any reordered graphs can be represented as $PJP^T$
+where $P \in \mathbb{P}$ is a $n\times n$ \emph{permutation matrix}~\footnote{an identity matrix with rows shuffled}.
+In star partition, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
 then the matrix $B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix}
 represents the assignment matrix wrt. $P$ (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$).
 Let vector $\vec{b}$ be the \textit{one}\footnote{every element in $\vec{b}$ is $1$} 
-vector of size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
+vector with size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
 denotes the number of edges in star $Sr_i$. Thus, $\Gamma$ can be represented
-as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orders. 
-$\Gamma^*$ can then be formulated as follows:
+as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orders, that is
+
 \begin{equation}
 \Gamma^* = \min_{P \in \mathbb{P}}{||B\vec{b}||_\infty} \text{ ,where } ||B\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
 \end{equation}
 
-Let $B*$ be the assignment matrix wrt the optimal vertex order.
+Let $B^*$ be the assignment matrix wrt. the optimal vertex order.
 Since we have a star for each object, by the degree-sum formula and pigeon-hole theorem, 
 $\Gamma^*=||B^*\vec{b}||_\infty \geq d/2$.
-Next, given a numbering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 
-edges in graph $G$ are independent, then $e_{i,j}$s are independent. Moreover,
-let $d_i$ denote the degree of vertex $i$, 
-then $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$. This is because renumbering the
-vertexes does not affect the average degree.
-Since $B=\text{triu}(PAP^T)$, entries in $B$ can be written as :
+Next, for a ordering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 
+edges in graph $G$ are independent, then $e_{i,j}$s are independent. 
+Let $d_i$ denote the degree of vertex $i$, since ordering of vertex does not
+affect the average degree,
+then $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$. Therefore, 
+entries in $B$ can be written as :
+
 \begin{equation*}
 b_{i,j} = \begin{cases}
 			e_{i,j}, i>j \\
 			0, otherwise
 		  \end{cases}  
 \end{equation*}
-There are two observations made. First, since $e_{i,j}$s are independent,
+
+There are two observations. First, since $e_{i,j}$s are independent,
 $b_{i,j}$s are independent. Second, since $i>j$ and $e_{i,j}$s are independent. 
 $E[b_{i,j}] = E[e_{i,j}]E[i>j]= E[e_{i,j}]/2$.
-
-By definition, $c_i = \Sigma_{1\leq j \leq n} b_{i,j}$, 
-is a sum of $n$ independent 0-1 variables. Taking expectation on both sides, 
+As $c_i$ is a sum of $n$ independent 0-1 variables ($b_{i.j}$s). By linearity 
+of expectations,
 we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} b_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$.
  Let $\mu =E[c_i] = d/2$, 
 $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
+
 \begin{equation*}
 \begin{split}
-	Pr(c_i \geq \mu + t) 
-						&\leq \exp(\frac{-2t^2}{n}) \\
-						&= \exp(-2\log n) = n^{-2}
+	Pr(c_i \geq \mu + t) &\leq \exp(\frac{-2t^2}{n}) \\
+	 & = \exp(-2\log n) = n^{-2}
 \end{split}
 \end{equation*}
 
-The first step is due to the fact that all $b_{i,j}$ are bounded in the range of [0,1]. 
-Next, since the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
-$\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, we achieve the following:
+The first step holds since all $b_{i,j}$ are 0-1 variables. 
+Next, the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
+$\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, the following holds:
 \begin{equation*}
 \begin{split}
 	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
 		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
-		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\
-		& = n^{-1} = 1/n
+		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\ 
+		&= n^{-1} = 1/n
 \end{split}
 \end{equation*}
 Substitute back $t$ and $\mu$, we achieve the following concise form:
 \begin{equation*}
 	Pr(\Gamma \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
-This indicates that, the probability of $(\Gamma-d/2)$ being less than or equal to $ O(\sqrt{n\log n})$ is $(1-1/n)$. 
-With the fact that $\Gamma^* \geq d/2$, we conclude that
-with probability greater than $(1-1/n)$, 
-the difference between $\Gamma$ and $\Gamma^*$ is less than $O(\sqrt{n\log n})$.
-When the aggregated graph is \emph{dense} (i.e., $d\geq \sqrt{12 \log n}$), we may use
-the Chernoff Bound instead of Hoeffding's Inequality to derive a tighter bound of 
-$O(\sqrt{\log n}) $ with the similar reasoning.
+This indicates the probability of $(\Gamma-d/2)$ being no greater than $ O(\sqrt{n\log n})$ is $(1-1/n)$. 
+Since $\Gamma^* \geq d/2$, it follows with probability greater than $(1-1/n)$, 
+the $\Gamma - \Gamma^*$ is no greater than $O(\sqrt{n\log n})$.
+When the aggregated graph is \emph{dense} (i.e., $d\geq \sqrt{12 \log n}$),
+the Chernoff Bound can be used to derive a tighter bound of 
+$O(\sqrt{\log n}) $ following the similar reasoning.
 \end{proof}
 
 %\subsection{Proof of Theorem~\ref{THM:SPM_TM}}

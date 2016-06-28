@@ -64,45 +64,44 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
 \newlabel{THM:RP_ETA}{{1}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Parallel Mining (TRPM). (a)(b) correspond to the first map-reduce cycle which clusters objects in each snapshot; (c)(d) correspond to the second map-reduce cycle, which uses TRPM to detect GCMP in parallel.\relax }}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Work flow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot; (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.\relax }}{5}}
 \newlabel{fig:trm}{{4}{5}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Line Sweep Mining\relax }}{5}}
 \newlabel{algo:line-sweep}{{1}{5}}
 \newlabel{code:ls-can-set}{{1}{5}}
 \newlabel{code:ls-init-start}{{2}{5}}
-\newlabel{code:ls-init-end}{{6}{5}}
-\newlabel{code:ls-sweep-starts}{{7}{5}}
-\newlabel{code:ls-join-start}{{9}{5}}
-\newlabel{code:ls-join}{{10}{5}}
-\newlabel{code:ls-m-prun}{{14}{5}}
-\newlabel{code:ls-join-ends}{{16}{5}}
-\newlabel{code:ls-g-prune-starts}{{18}{5}}
-\newlabel{code:ls-g-prune-ends}{{21}{5}}
-\newlabel{code:ls-l-prune-starts}{{22}{5}}
-\newlabel{code:ls-l-prune-ends}{{24}{5}}
-\newlabel{code:ls-sweep-ends}{{27}{5}}
-\newlabel{code:ls-valid-check}{{28}{5}}
+\newlabel{code:ls-init-end}{{4}{5}}
+\newlabel{code:ls-sweep-starts}{{5}{5}}
+\newlabel{code:ls-join-start}{{7}{5}}
+\newlabel{code:ls-join}{{8}{5}}
+\newlabel{code:ls-m-prun}{{12}{5}}
+\newlabel{code:ls-join-ends}{{12}{5}}
+\newlabel{code:ls-g-prune-starts}{{14}{5}}
+\newlabel{code:ls-g-prune-ends}{{16}{5}}
+\newlabel{code:ls-l-prune-starts}{{17}{5}}
+\newlabel{code:ls-l-prune-ends}{{18}{5}}
+\newlabel{code:ls-sweep-ends}{{19}{5}}
+\newlabel{code:ls-valid-check}{{20}{5}}
 \citation{kwon2012skewtune}
-\citation{xin2013shark}
 \citation{coppa2015data}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and ApRiori Enumerator (SPARE). (a) Aggregate graph from Figure 1. (b) Five stars are generated, star IDs are circled, the vertexes and inverted lists are in the connected tables. (c) Apriori Enumerator with various pruning techniques.\relax }}{6}}
+\newlabel{fig:star_partition}{{5}{6}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Temporal Replication and Parallel Mining\relax }}{6}}
 \newlabel{algo:trm_overview}{{2}{6}}
 \newlabel{code:trm-map-start}{{2}{6}}
-\newlabel{code:trm-map-end}{{7}{6}}
-\newlabel{code:trm-par-start}{{8}{6}}
-\newlabel{code:trm-par-end}{{11}{6}}
-\newlabel{code:trm-red-start}{{12}{6}}
-\newlabel{code:trm-red-end}{{14}{6}}
+\newlabel{code:trm-map-end}{{5}{6}}
+\newlabel{code:trm-par-start}{{6}{6}}
+\newlabel{code:trm-par-end}{{8}{6}}
+\newlabel{code:trm-red-start}{{9}{6}}
+\newlabel{code:trm-red-end}{{11}{6}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}SPARE: Star Partitioning and Apriori Enumerator}{6}}
 \newlabel{sec:spm}{{5}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Star Partitioning}{6}}
-\newlabel{THM:SPM_LB}{{2}{6}}
-\newlabel{THM:SPM_LB_INC}{{3}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Enumerator}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Star partition and ApRiori Enumerator (SPARE). (a) Aggregate graph from Figure 1. (b) Five stars are generated, star IDs are circled, the vertexes and inverted lists are in the connected tables. (c) Apriori Enumerator with various pruning techniques.\relax }}{7}}
-\newlabel{fig:star_partition}{{5}{7}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Examples of star partitioning with different vertex ordering.\relax }}{7}}
 \newlabel{fig:star-alt}{{6}{7}}
+\newlabel{THM:SPM_LB}{{2}{7}}
+\newlabel{THM:SPM_LB_INC}{{3}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Apriori Enumerator}{7}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Monotonicity}{7}}
 \newlabel{lemma:union-property}{{4}{7}}
 \newlabel{lemma:subset-property}{{5}{7}}
@@ -111,42 +110,42 @@
 \newlabel{lemma:decom-sim}{{6}{8}}
 \newlabel{THM:SPARE_MONO}{{7}{8}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Apriori Enumeration}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Put It Together}{8}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Apriori Enumerator\relax }}{8}}
+\newlabel{algo:apriori_mining}{{3}{8}}
+\newlabel{code:init-start}{{2}{8}}
+\newlabel{code:simp1}{{4}{8}}
+\newlabel{code:init-end}{{4}{8}}
+\newlabel{code:level}{{5}{8}}
+\newlabel{code:level-start}{{6}{8}}
+\newlabel{code:join-start}{{8}{8}}
+\newlabel{code:join}{{9}{8}}
+\newlabel{code:simp2}{{10}{8}}
+\newlabel{code:join-end}{{11}{8}}
+\newlabel{code:output1-start}{{12}{8}}
+\newlabel{code:output1-end}{{14}{8}}
+\newlabel{code:fc-checking-start}{{15}{8}}
+\newlabel{code:fc-checking}{{18}{8}}
+\newlabel{code:fc-checking-end}{{18}{8}}
+\newlabel{code:level-ends}{{19}{8}}
+\newlabel{code:output2-end}{{20}{8}}
 \citation{zaharia2012resilient}
 \citation{ester1996density}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Apriori Enumerator\relax }}{9}}
-\newlabel{algo:apriori_mining}{{3}{9}}
-\newlabel{code:init-start}{{2}{9}}
-\newlabel{code:simp1}{{4}{9}}
-\newlabel{code:init-end}{{6}{9}}
-\newlabel{code:level}{{7}{9}}
-\newlabel{code:level-start}{{8}{9}}
-\newlabel{code:join-start}{{10}{9}}
-\newlabel{code:join}{{11}{9}}
-\newlabel{code:simp2}{{12}{9}}
-\newlabel{code:join-end}{{15}{9}}
-\newlabel{code:output1-start}{{16}{9}}
-\newlabel{code:output1-end}{{20}{9}}
-\newlabel{code:fc-checking-start}{{22}{9}}
-\newlabel{code:fc-checking}{{25}{9}}
-\newlabel{code:fc-checking-end}{{27}{9}}
-\newlabel{code:level-ends}{{29}{9}}
-\newlabel{code:output2-end}{{30}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Put It Together}{9}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Star Partition and ApRiori Enumerator\relax }}{9}}
 \newlabel{algo:spm_overview}{{4}{9}}
 \newlabel{code:spm-map-start}{{1}{9}}
 \newlabel{code:spm-edge-direct}{{4}{9}}
-\newlabel{code:spm-map-end}{{6}{9}}
-\newlabel{code:spm-shuffle-start}{{7}{9}}
-\newlabel{code:spm-shuffle-end}{{10}{9}}
-\newlabel{code:spm-reduce-start}{{11}{9}}
-\newlabel{code:spm-reduce-end}{{14}{9}}
+\newlabel{code:spm-map-end}{{4}{9}}
+\newlabel{code:spm-shuffle-start}{{5}{9}}
+\newlabel{code:spm-shuffle-end}{{7}{9}}
+\newlabel{code:spm-reduce-start}{{8}{9}}
+\newlabel{code:spm-reduce-end}{{10}{9}}
 \newlabel{LEM:SPM_CORRECT}{{8}{9}}
 \newlabel{THM:SPM_CORRECT}{{9}{9}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Experimental Study}{9}}
 \newlabel{sec:exp}{{6}{9}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Statistics of data set\relax }}{10}}
-\newlabel{exp:dataset}{{5}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Statistics of data set\relax }}{9}}
+\newlabel{exp:dataset}{{5}{9}}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Variables and their default values\relax }}{10}}
 \newlabel{tbl:parameters}{{6}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Evaluation}{10}}
@@ -154,9 +153,12 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Power of sequence simplification}{10}}
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Pruning power of SPARE\relax }}{10}}
 \newlabel{tbl:pruning}{{7}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Break-down cost of SPARE and SPARE-RD\relax }}{10}}
+\newlabel{exp:wl}{{8}{10}}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Statistics of execution time among executors,units are in seconds.\relax }}{10}}
 \newlabel{tbl:strags}{{8}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load Balance}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Parallelism}{10}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
 \bibcite{zheng2011urban}{1}
@@ -173,30 +175,25 @@
 \bibcite{ester1996density}{12}
 \bibcite{laube2005finding}{13}
 \bibcite{douglas1973linesimplification}{14}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
-\newlabel{exp:performance_vary}{{7}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Parallelism}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusions and Future Work}{11}}
-\newlabel{sec:concl}{{7}{11}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
 \bibcite{kalnis2005movingclusters}{15}
 \bibcite{aung2010discovery}{16}
 \bibcite{zheng2013gathering}{17}
 \bibcite{jinno2012paralleltpattern}{18}
 \bibcite{li2013onlinegroup}{19}
 \bibcite{kwon2012skewtune}{20}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
+\newlabel{exp:performance_vary}{{7}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusions and Future Work}{11}}
+\newlabel{sec:concl}{{7}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
 \bibcite{coppa2015data}{21}
 \bibcite{wang2003closet+}{22}
 \bibcite{pei2000closet}{23}
 \bibcite{zaharia2012resilient}{24}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Scalability of SPARE and TRPM wrt. $O_r$ and $T_r$\relax }}{12}}
-\newlabel{exp:performance_vary_OT}{{8}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Break-down cost of SPARE and SPARE-RD\relax }}{12}}
-\newlabel{exp:wl}{{9}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparisons among TRMP, SPARE and Platoon\relax }}{12}}
+\newlabel{exp:scalability}{{9}{12}}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{12}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proof of Theorem\nobreakspace  {}2\hbox {} and\nobreakspace  {}3\hbox {}}{12}}
 \newlabel{apx:thm2proof}{{A.1}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Comparisons among TRMP, SPARE and Platoon\relax }}{13}}
-\newlabel{exp:scalability}{{10}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}9\hbox {}}{13}}
-\newlabel{apx:spm_correct}{{A.2}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}9\hbox {}}{12}}
+\newlabel{apx:spm_correct}{{A.2}{12}}
