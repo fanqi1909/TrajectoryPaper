@@ -42,7 +42,7 @@ Furthermore, their pruning rules heavily rely on the depth-first search nature, 
 in the parallel scenario.
 
 \subsection{Other Related Trajectory Patterns}
-An closely related literature to co-moving patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join and leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works can not model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
+An closely related literature to co-moving patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works can not model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
 \subsection{Trajectory Mining Frameworks}
 Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm for efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place in a close time interval. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient update of arriving objects. 
-As the natures of these work differs from co-movement pattern, there techniques cannot be directly applied to discover co-movement patterns.
+As the natures of these work differs from co-movement pattern, there techniques cannot be directly applied to discover GCMPs.
