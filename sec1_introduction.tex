@@ -12,11 +12,11 @@ A crucial task of data analysis on top of trajectories is
 to discover co-moving patterns. A \emph{co-movement} pattern~\cite{li2013managing} 
 refers to a group of objects traveling together for a certain period of time 
 and the group is normally determined by spatial proximity. 
-A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such basic definition 
+A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such a basic definition 
 and driven by different mining applications, there are a bunch of variants 
 of co-movement patterns that have been developed with more advanced constraints.
 
-Table~\ref{tbl:existing_co_patterns} summarizes several popular co-moving pattern s 
+Table~\ref{tbl:existing_co_patterns} summarizes several popular co-moving patterns 
 with different constraints in the attributes of clustering in spatial proximity,
 consecutiveness in temporal duration and computational complexity. 
 In particular,  the \emph{flock}~\cite{gudmundsson2006flock} 
@@ -40,7 +40,7 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \label{fig:related_work}
 \end{figure}
 
-Figure~\ref{fig:related_work} is an example to demonstrate the concepts of various co-movement patterns. The trajectory database consists of six moving objects and the temporal dimension is discretized into six snapshots. In each snapshot, we treat the clustering methods as a black-box and assume that they generate the same clusters. Objects in proximity are grouped in the dotted circles. As aforementioned, there are three parameters to determine the co-movement patterns and the default settings in this example are $M=2$, $K=3$ and $L=2$. Both the \emph{flock} and the \emph{convoy} require the spatial clusters to last for at least $K$ consecutive  timestamps. Hence,$\langle o_3,o_4:1,2,3 \rangle$ and $\langle o_5,o_6:3,4,5 \rangle$  remains the only two candidates matching the patterns. The \textit{swarm} relaxes the pattern matching by discarding the temporal consecutiveness constraint. Thus, it generates many more candidates than the \textit{flock} and the \textit{convoy}. The \textit{group} and the \textit{platoon} add another constraint on local consecutiveness to retain meaningful patterns. For instance, $\langle o_1,o_2:1,2,4,5 \rangle$ is a pattern matching local consecutiveness because timestamps $(1,2)$ and $(4,5)$ are two segments with length no smaller than $L=2$. The difference between the \textit{group} and the \textit{platoon} is that the \textit{platoon} has an additional parameter $K$ to specify the minimum number of snapshots for the spatial clusters. This explains why $\langle o_3,o_4,o_5:2,3 \rangle$ is a  \textit{group} pattern but not a \textit{platoon} pattern.
+Figure~\ref{fig:related_work} is an example to demonstrate the concepts of various co-movement patterns. The trajectory database consists of six moving objects and the temporal dimension is discretized into six snapshots. In each snapshot, we treat the clustering method as a black-box and assume that they generate the same clusters. Objects in proximity are grouped in the dotted circles. As aforementioned, there are three parameters to determine the co-movement patterns and the default settings in this example are $M=2$, $K=3$ and $L=2$. Both the \emph{flock} and the \emph{convoy} require the spatial clusters to last for at least $K$ consecutive  timestamps. Hence,$\langle o_3,o_4:1,2,3 \rangle$ and $\langle o_5,o_6:3,4,5 \rangle$  remains the only two candidates matching the patterns. The \textit{swarm} relaxes the pattern matching by discarding the temporal consecutiveness constraint. Thus, it generates many more candidates than the \textit{flock} and the \textit{convoy}. The \textit{group} and the \textit{platoon} add another constraint on local consecutiveness to retain meaningful patterns. For instance, $\langle o_1,o_2:1,2,4,5 \rangle$ is a pattern matching local consecutiveness because timestamps $(1,2)$ and $(4,5)$ are two segments with length no smaller than $L=2$. The difference between the \textit{group} and the \textit{platoon} is that the \textit{platoon} has an additional parameter $K$ to specify the minimum number of snapshots for the spatial clusters. This explains why $\langle o_3,o_4,o_5:2,3 \rangle$ is a  \textit{group} pattern but not a \textit{platoon} pattern.
 
 As can be seen, there are various co-movement patterns requested by different applications and it is cumbersome to design a tailored solution for each type. In addition, despite the generality of the \emph{platoon} (i.e., it can be reduced to other types of patterns via proper parameter settings), it suffers from the so-called \emph{loose-connection} anomaly. We use two objects $o_1$ and $o_2$ in Figure~\ref{fig:platoon_weakpoint} as an example to illustrate the scenario. These two objects form a \emph{platoon} pattern in timestamps $(1,2,3,102,103,104)$. However, the two consecutive segments are $98$ timestamps apart, resulting in a false positive co-movement pattern. In reality, such an anomaly may be caused  by the periodic movements of unrelated objects, such as vehicles stopping at the same petrol station or animals pausing at the same water source. 
 Unfortunately, none of the existing patterns have directly addressed this anomaly.
@@ -70,7 +70,7 @@ group~\cite{wang2006grouppattern} & disk-based &  local & $O(|\mathbb{O}|^2|\mat
 platoon~\cite{li2015platoon} & density-based &  local & $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$\\ 
 \hline 
 \end{tabular} 
-\caption{Constraints and complexity of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects and $|\mathbb{T}|$ is the number of descritized timestamps.}
+\caption{Constraints and complexity of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects, $|\mathbb{T}|$ is the number of descritized timestamps and $M$ is the minimum cluster cardinality. }
 \label{tbl:existing_co_patterns}
 \end{table}
 The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance, the detection time of \emph{group} drops twenty times as the number of objects grows from \emph{1k} to \emph{4k}. Similarly,
@@ -82,22 +82,19 @@ These observations imply that existing methods are not scalable to support large
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_O.eps}
-		\subcaption{$1k$ timestamps}
+		\subcaption{$1k$ timestamps vary $O$} 
     \label{fig:fig1}
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_T.eps}
-         \subcaption{$1k$ objects}
+         \subcaption{$1k$ objects vary $T$}
     \label{fig:fig2}
     \end{subfigure}
     \caption{Performance measures on existing co-movement patterns. A sampled Geolife data set
     is used with up two 2.4 million data points. Default parameters are $M=15$ $K=180$ $L=30$.}
     \label{fig:related_work_scalability}
 \end{figure}
-
-
-
 
 Therefore, our primary contributions in this paper are to close these two gaps. 
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
