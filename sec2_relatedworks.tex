@@ -1,12 +1,15 @@
 \section{Related Works}
 \label{sec:related_works}
-The \emph{co-movement patterns} in literature consist 
-of five members, namely \emph{group}~\cite{wang2006grouppattern}, \emph{flock}~\cite{gudmundsson2004flock},
-\emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} and \emph{platoon}~\cite{li2015platoon}.
-We have demonstrated the semantics of these patterns in Table~\ref{tbl:existing_co_patterns} and Figure~\ref{fig:related_work}.
-In this section, we focus on comparing the techniques used in these works. 
-For more trajectory patterns other than \emph{co-movement patterns}, 
-interested readers may move to~\cite{zheng2015survey} for a comprehensive survey.
+Related works can be grouped into three categories: \emph{co-movement patterns},
+\emph{dynamic moving patterns} and \emph{trajectory mining frameworks}.
+%The \emph{co-movement patterns} in literature consist 
+%of five members, namely \emph{group}~\cite{wang2006grouppattern}, \emph{flock}~\cite{gudmundsson2004flock},
+%\emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} and \emph{platoon}~\cite{li2015platoon}.
+%We have demonstrated the semantics of these patterns in Table~\ref{tbl:existing_co_patterns} and Figure~\ref{fig:related_work}. 
+In this section, we distinguish the parallel GCMP mining from these concepts.
+%In this section, we focus on comparing the techniques used in these works.
+%For more trajectory patterns other than \emph{co-movement patterns}, 
+%interested readers may move to~\cite{zheng2015survey} for a comprehensive survey.
 
 
 \subsection{Flock and Convoy}
@@ -42,7 +45,8 @@ Furthermore, their pruning rules heavily rely on the depth-first search nature, 
 in the parallel scenario.
 
 \subsection{Other Related Trajectory Patterns}
-An closely related literature to co-moving patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works can not model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
+A closely related literature to co-movement patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works can not model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
+
 \subsection{Trajectory Mining Frameworks}
 Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm for efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place in a close time interval. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient update of arriving objects. 
-As the natures of these work differs from co-movement pattern, there techniques cannot be directly applied to discover GCMPs.
+As these works essentially differ from co-movement pattern, their techniques cannot be directly applied to discover GCMPs.

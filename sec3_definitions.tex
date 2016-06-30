@@ -47,7 +47,7 @@ We take $T=(1,2,3,5,6)$ as an example, which can be decomposed into two segments
 
 Given a trajectory database discretized into snapshots, we can conduct a clustering method, either disk-based or density-based, to identify groups with spatial proximity. Let $T$ be the set of timestamps in which a group of objects $O$ are clustered. We are ready to define a more general co-movement pattern:
 \begin{definition}[General Co-Movement Pattern]
-A general co-movement pattern finds a set of objects $O$ satisfying the following five constraints: (1) \textit{closeness:} the objects in $O$ belong to the same cluster in the timestamps of $T$; (2) \textit{significance:} $|O| \geq M$; (3) \textit{duration:} $|T| \geq K$; (4) \textit{consecutiveness:} $T$ is $L$-consecutive; and (5) \textit{connection:} $T$ is $G$-connected.
+A general co-movement pattern finds a set of objects $O$ satisfying the following five constraints: (1) \textbf{closeness:} the objects in $O$ belong to the same cluster in the timestamps of $T$; (2) \textbf{significance:} $|O| \geq M$; (3) \textbf{duration:} $|T| \geq K$; (4) \textbf{consecutiveness:} $T$ is $L$-consecutive; and (5) \textbf{connection:} $T$ is $G$-connected.
 \end{definition}
 There are four parameters in our general co-movement pattern, including object constraint $M$ and temporal constraints $K,L,G$.  By customizing these parameters, our pattern can 
 express other patterns proposed in the previous literature, as illustrated in Table~\ref{tbl:patterns}. 
@@ -123,5 +123,5 @@ $Sr_i $ &  star partition for object $i$ \\
 $\Gamma$ & size of the largest star in star partition \\
 \hline
 \end{tabular} 
-\caption{Symbols and notions used}
+\caption{Summary of the use of notations.}
 \end{table}

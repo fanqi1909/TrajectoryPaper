@@ -151,7 +151,7 @@ Given a sequence $T$, the simplification procedure $\mathtt{sim}(T) =  g_{G,K} \
 
 \begin{example}
 Take $T=(1,2,4,5,6,9,10,11,13)$ as an example for sequence simplification. 
-Let $L = 2, K = 4$ and $G = 2$. In the $f$-step, $T$ is reduced to $f_2(T)=(1,2,4,5,6,9,10,11)$. 
+Let $L = 2, K = 4$ and $G = 2$. In the $f$-step, $T$ is reduced to $f_2(T)=(1,2,4,5,6,9$, $10,11)$. 
 The segment $(13)$ is removed due to the constraint of $L=2$. 
 $f_2(T)$ has two maximal $2$-consecutive subsequences: $(1,2,4,5,6)$ and $(9,10,11)$. 
 Since $K=4$, we will remove $(9,10,11)$ in the $g$-step. Finally, the output is $\mathtt{sim}(T)=(1,2,4,5,6)$.
@@ -234,7 +234,7 @@ As shown in Figure~\ref{fig:star_partition}(c), in the bottom level of the latti
 \end{example}
 
 
-\subsection{Put It Together}
+\subsection{Put Everything Together}
 We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, for ease of presentation, we used an aggregated graph $G_A$ to capture the clustering relationship. However, in the implementation of the map phase, there is no need to create $G_A$ in advance. Instead, we simply need to emit the edges within a star to the same reducer. Before sending stars to reducers, we use a simple best-fit strategy to calculate the star allocation. Under the best-fit strategy, the most costly unallocated star is assigned to the most lightly loaded reducers, where we use the edges in the star as a cost estimation.
  Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\langle o,i: e(o,i) \rangle$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. 
 

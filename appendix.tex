@@ -76,7 +76,7 @@
 \label{apx:thm2proof}
 \begin{proof}
 $\Gamma$ can be formalized in a linear algebra way:
-Let $G_A$ be an aggregate graph, with a $n \times n$ adjacent matrix $J$.
+Let $G_A$ be an aggregated graph, with a $n \times n$ adjacent matrix $J$.
 Since a vertex order is a permutation of $J$, the adjacent matrices 
 of any reordered graphs can be represented as $PJP^T$
 where $P \in \mathbb{P}$ is a $n\times n$ \emph{permutation matrix}~\footnote{an identity matrix with rows shuffled}.
@@ -160,7 +160,7 @@ $O(\sqrt{\log n}) $ following the similar reasoning.
 \subsection{Proof of Theorem~\ref{THM:SPM_CORRECT}}
 \label{apx:spm_correct}
 \begin{proof}
-For soundness, let $P$ be a pattern enumerated by SPARE. Since the enumerate algorithm only reduces the time sequences, for any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. By the definition of star, $\forall t \in T, C_t(o_1) = C_t(o_2)$. As $T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
-For completeness, let $P$ is a true pattern. Let $s$ be the object with smallest ID in $P.O$. We prove that $P$ must be output by Algorithm~\ref{algo:apriori_mining} with input $Sr_s$. 
-First, based on the definition of star, every object in $P.O$ appears in $Sr_s$. Since $P.T$ is decomposable, then $\forall O' \subseteq O$, the time sequence of $O'$ is a super set of a decomposable sequence. This indicates that $O'$ would not be eliminated by any $\mathtt{sim}$ operations in Algorithm~\ref{algo:apriori_mining}.  Next, we prove at every iteration \emph{level} $\leq |P.O|$, $P.O \subset O_u$, where $O_u$ is the forward closure. We prove by induction. When $level$ = 2, it obviously holds. If $P.O \subset O_u$ at \emph{level=$i$}, then any subset of $P.O$ with size $i$ are in the candidate set. In \emph{level} $i+1$, these subsets are able to grow to a bigger subset (in last iteration, they grow to $P.O$). This suggests that no subsets are removed by Lines~\ref{code:output1-start}-\ref{code:output2-end}. Then, $P.O \subset U_{i+1}$ holds. In summary, $P.O$ does not pruned by simplification, monotonicity and forward closure, therefore $P$ must be returned by SPARE.
+For soundness, let $P$ be a pattern enumerated by SPARE. For any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. By the definition of star, $\forall t \in P.T, C_t(o_1) = C_t(o_2)$. As $P.T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
+For completeness, let $P$ be a true pattern. Let $s$ be the object with smallest ID in $P.O$. We prove that $P$ must be output by Algorithm~\ref{algo:apriori_mining} form $Sr_s$. 
+First, based on the definition of star, every object in $P.O$ appears in $Sr_s$. Since $P.T$ is decomposable, then by Lemma 3 $\forall O' \subseteq O$, the time sequence of $O'$ would not be eliminated by any $\mathtt{sim}$ operations.  Next, we prove at every iteration \emph{level} $\leq |P.O|$, $P.O \subset O_u$, where $O_u$ is the forward closure. We prove by induction. When $level$ = 2, it obviously holds. If $P.O \subset O_u$ at \emph{level $i$}, then any subsets of $P.O$ with size $i$ are in the candidate set. In \emph{level} $i+1$, these subsets are able to grow to a bigger subset (in last iteration, they grow to $P.O$). This suggests that no subsets are removed by Lines~\ref{code:output1-start}-\ref{code:output2-end}. Then, $P.O \subset U_{i+1}$ holds. In summary, $P.O$ does not pruned by simplification, monotonicity and forward closure, therefore $P$ must be returned by SPARE.
 \end{proof}

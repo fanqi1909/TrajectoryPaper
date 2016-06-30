@@ -49,7 +49,7 @@ After preprocessing, the statistics of the three datasets are listed in Table~\r
 avg. cluster size  & 171 & 223 & 484\\
 \hline
 \end{tabular}
-\caption{Statistics of data set}
+\caption{Statistics of datasets.}
 \label{exp:dataset}
 \end{table}
 
@@ -74,7 +74,7 @@ $T_r$ & ratio of snapshots & 20\%,40\%, 60\%, 80\%, \textbf{100\%} \\ \hline
 N & number of machines & 1, 3, 5, 7, 9, \textbf{11}\\ 
 \hline 
 \end{tabular} 
-\caption{Variables and their default values}
+\caption{Variables and their default values.}
 \label{tbl:parameters}
 \end{table}
 
@@ -225,7 +225,7 @@ The results in Table~\ref{tbl:pruning} show that the \emph{sequence simplificati
 \centering
 \begin{tabular}{|l|c|c|c|}
 \hline 
-\textbf{Data Set} & \textbf{Shopping} & \textbf{GeoLife} & \textbf{Taxi} \\ 
+\textbf{Dataset} & \textbf{Shopping} & \textbf{GeoLife} & \textbf{Taxi} \\ 
 \hline 
 Before pruning & 878,309 &  1,134,228 & 2,210,101 \\ 
 \hline 
@@ -235,33 +235,15 @@ Prune ratio & 91.2\% & 89.1\% & 87.7\% \\
 \hline 
 \end{tabular} 
 
-\caption{Pruning power of SPARE}
+\caption{Pruning power of SPARE.}
 \label{tbl:pruning}
 \end{table}
 
 \begin{figure}[h]
 \centering
-	  \includegraphics[width=0.3\textwidth]{/exp/spare/detail.eps}
+	  \includegraphics[width=0.4\textwidth]{/exp/spare/detail.eps}
     \caption{Breakdown of cost of SPARE and SPARE-RD}
     \label{exp:wl}
-%	\begin{subfigure}[b]{0.3\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/spare/detail.eps}
-%        \caption{Decomposed running time}
-%    \end{subfigure}
-%    
-% 	\begin{subfigure}[b]{0.22\textwidth}
-%       \includegraphics[width=\textwidth]{/exp/spare/wl-shopping.eps}
-%       \caption{Workload in Shopping}
-%   \end{subfigure}
-%    \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/spare/wl-geolife.eps}
-%        \caption{Workload in Geolife}
-%    \end{subfigure}  
-%    \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/spare/wl-taxi.eps}
-%        \caption{Workload in Taxi}
-%    \end{subfigure}
-%\caption{Load balance of SPARE and SPARE-LB}
 \end{figure}
 
 \begin{table}[h]
@@ -274,7 +256,7 @@ Shopping                 & 295              & 41         & 237             & 21 
 GeoLife                  & 484              & 108        & 341             & 56       \\ \hline
 Taxi                     & 681              & 147        & 580             & 96       \\ \hline
 \end{tabular}
-  \caption{Statistics of execution time among executors (in seconds)}
+  \caption{Statistics of execution time among executors (in seconds).}
   \label{tbl:strags}
 \end{table}
 
@@ -283,7 +265,24 @@ To study the effect of load balance in the SPARE framework, we use random task a
 Figure~\ref{exp:wl}(a) shows the breakdown of the costs in the map-reduce stages for SPARE and SPARE-RD. We observe that the map and shuffle time of SPARE and SPARE-RD are identical. The difference is that SPARE incurs an additional overhead to generate an allocation plan for load balance (around $4\%$ of the total cost), resulting in significant savings in the reduce stage (around $20\%$ of the total cost). We also report the cost of \emph{straggler}, i.e., the longest job, and the standard deviation (Std. Dev.) for all jobs in Table~\ref{tbl:strags}, whose results clearly verify the effectiveness of our allocation strategy for load balance.
 
 \subsection{Scalability}
-Finally, we examine the scalability of our proposed frameworks in two contexts. First, we use single-node mode and examine the performance with multi-cores. We also compare it with the  state-of-the-art solutions for swarm and platoon patterns since they were designed  to run in a centralized server. Second, we examine the pattern detection time with increasing computing resources (number of machines). The results are reported in Figure~\ref{exp:scalability}. First, the centralized schemes are not suitable to discover patterns in large-scale trajectory databases. It takes nearly $16$ hours to detect \emph{platoon}s in the Taxi dataset in a single machine. In contrast, when utilizing the multi-core environment, our TRPM and SPARE achieves 2.4 times and 7.1 times speedup respectively. Second, we see that both TRPM and SPARE demonstrate promising scalability in terms of the number of machines available. The running time almost decreases linearly as more machines are used. When there are $11$ nodes in the cluster, the performance of SPARE is $94$ times better than the state-of-the-art \emph{platoon} detector in a centralized server.
+Finally, we examine the scalability of our proposed frameworks in two contexts. 
+First, we use the single-node mode and examine the performance with multi-cores. 
+We also compare it with the state-of-the-art solutions for swarm and platoon patterns 
+since they were designed to run in a centralized server. 
+Second, we examine the pattern detection time with increasing computing resources (number of machines). 
+To support swarm and platoon, we sample 60\% of each dataset for this experiments. 
+The results are reported in Figure~\ref{exp:scalability}. 
+First, the centralized schemes are not suitable to discover patterns in 
+large-scale trajectory databases. It takes nearly $30$ hours to 
+detect \emph{swarm}s and $11$ hours to detect \emph{platoon}s in the Taxi dataset in a single machine. 
+In contrast, when utilizing the multi-core environment, 
+SPARE achieves $8$ times speed up compared to \emph{platoon} and $22$ times speed up compared to \emph{swarm}. 
+%our TRPM and SPARE achieves 2.4 times and 7.1 times speedup respectively. 
+Second, we see that both TRPM and SPARE demonstrate promising scalability in terms of the number of machines available. The running time almost decreases inversely as more machines are used. 
+When there are $11$ nodes in the cluster, 
+the performance of SPARE is $73$ times faster 
+than \emph{platoon} and $170$ times better than \emph{swarm}.
+%state-of-the-art \emph{platoon} detector in a centralized server.
 
 \begin{figure*}[t]
 \centering
@@ -299,6 +298,6 @@ Finally, we examine the scalability of our proposed frameworks in two contexts. 
         \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
         \caption{Taxi vary $N$}
     \end{subfigure}
- \caption{Comparisons among TRMP, SPARE and Platoon}
+ \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM}
  \label{exp:scalability}
 \end{figure*}

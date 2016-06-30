@@ -16,8 +16,11 @@
 \epstopdfsetup{outdir=./charts/}
 \newcommand{\reminder}[1]{ {\mbox{$<==$}} [[[ { \bf #1 } ]]] {\mbox{$==>$}}}
 \newtheorem{definition}{Definition}
+\setcounter{definition}{0}
 \newtheorem{theorem}{Theorem}
+\setcounter{theorem}{0}
 \newtheorem{example}{Example}
+\setcounter{example}{0}
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\triu}{triu}
@@ -25,7 +28,8 @@
 \newcommand*{\argminl}{\argmin\limits}
 \newcommand*{\argmaxl}{\argmax\limits}
 \newcommand{\eat}[1]{}
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lemma}{Lemma}
+\setcounter{lemma}{0}
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 
@@ -61,12 +65,12 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 %
-%\author{
-%	Qi Fan,
-%	Dongxiang Zhang,
-%	Huayu Wu,
-%	Kian-Lee Tan
-%}
+\author{
+	Qi Fan,
+	Dongxiang Zhang,
+	Huayu Wu,
+	Kian-Lee Tan
+}
 
 \maketitle
 
