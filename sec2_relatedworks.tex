@@ -14,20 +14,20 @@ In this section, we distinguish the parallel GCMP mining from these concepts.
 
 \subsection{Flock and Convoy}
 The difference between \emph{flock} and \emph{convoy} lies 
-in the object clustering methods. In \emph{flock}
-objects are clustered based on their distance. Specifically, the
-objects in the same cluster needs to have a pair-wised distance less than \emph{min\_dist}. 
+in the object clustering methods. In \emph{flock},
+objects are clustered based on their distances. Specifically, the
+objects in the same cluster need to have a pair-wised distance less than \emph{min\_dist}. 
 This essentially requires the objects to be within a disk-region of delimiter less than \emph{min\_dist}.
-In contrast, \emph{convoy} cluster the objects using density-based clustering~\cite{ester1996density}.
+In contrast, \emph{convoy} clusters objects using density-based spatial clustering~\cite{ester1996density}.
 Technically, \emph{flock} utilizes a $m^{th}$-order Voronoi diagram~\cite{laube2005finding} to detect whether
 a subset of object with size greater than $m$ stays in a disk-region. \emph{Convoy} employs
 a trajectory simplification~\cite{douglas1973linesimplification} technique to boost pairwise distance computations in
 the density-based clustering.
-After clustering, both \emph{flock} and \emph{convoy} use a line-sweep 
-method to scan each snapshots. During the scan, the object
-group appears in consecutive timestamps is detected. Meanwhile, the object groups that do not
+After clustering, both \emph{flock} and \emph{convoy} use a sequential scanning
+method to examine each snapshots. During the scan, object
+groups that appear in consecutive timestamps are detected. Meanwhile, the object groups that do not
 match the consecutive constraint are pruned. 
-However, such a method faces high complexity issues when supporting other patterns.
+However, such a method faces high complexity when supporting other patterns.
 For instance, in \emph{swarm}, the candidate set during the line-sweep grows
 exponentially, and many candidates can only be pruned after the entire snapshots are scanned.
 
@@ -36,12 +36,12 @@ Different from \emph{flock} and \emph{convoy}, all the \emph{group},\emph{swarm}
 patterns have more constraints on the pattern duration. Therefore, their techniques of mining are of
 the same skeleton. The main idea of mining is to grow object set from an empty set
 in a depth-first manner. During the growth, various pruning techniques are provided to prune 
-unnecessary branches. \emph{Group} pattern uses the Apriori property among patterns to facilitate the pruning.
-\emph{Swarm} adapts two more pruning rules called backward pruning and forward pruning. \emph{Platoon}
+unnecessary branches. \emph{Group} pattern uses a VG-graph to guide prune false candidates~\cite{wang2006grouppattern}.
+\emph{Swarm} adapts two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}
 further adapts a prefix table structure to guide the depth-first search. As shown by Li et.al.~\cite{li2015platoon},
 \emph{platoon} outperforms other two methods in efficiency. 
-However, the three patterns are not able to directly discover the general co-movement pattern.
-Furthermore, their pruning rules heavily rely on the depth-first search nature, which lost its efficiency
+However, the three patterns are not able to directly discover GCMPs.
+Furthermore, their pruning rules heavily rely on the depth-first search nature, which lost their efficiency
 in the parallel scenario.
 
 \subsection{Other Related Trajectory Patterns}

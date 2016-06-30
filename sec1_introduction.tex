@@ -70,7 +70,7 @@ group~\cite{wang2006grouppattern} & disk-based &  local & {\tiny $O(|\mathbb{O}|
 platoon~\cite{li2015platoon} & density-based &  local & {\tiny $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
 \end{tabular} 
-\caption{Constraints and complexity of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects, $|\mathbb{T}|$ is the number of descritized timestamps and $M$ is the minimum cluster cardinality. }
+\caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects, $|\mathbb{T}|$ is the number of descritized timestamps and $M$ is the minimum cluster cardinality. }
 \label{tbl:existing_co_patterns}
 \end{table}
 The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance, the detection time of \emph{group} drops twenty times as the number of objects grows from \emph{1k} to \emph{4k}. Similarly,

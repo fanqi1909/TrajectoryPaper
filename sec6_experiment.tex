@@ -1,6 +1,6 @@
 \section{Experimental Study}
 \label{sec:exp}
-In this section, we evaluate the efficiency and scalability of our proposed distributed GCMP detectors on real trajectory datasets. All the experiments are carried out in a cluster with $12$ nodes, each equipped with four quad-core $2.2$GHz Intel processors, $32$GB memory and gigabit Ethernet. 
+In this section, we evaluate the efficiency and scalability of our proposed parallel GCMP detectors on real trajectory datasets. All the experiments are carried out in a cluster with $12$ nodes, each equipped with four quad-core $2.2$GHz Intel processors, $32$GB memory and gigabit Ethernet. 
 
 \textbf{Environment Setup}: We use Yarn\footnote{\url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html}} to manage our cluster. We pick one machine as Yarn's master node, and for each of the remaining machines, we reserve one core and $2$GB memory for Yarn processes. We deploy our GCMP detector on Apache Spark 1.5.5~\cite{zaharia2012resilient} with the remaining $11$ nodes as the computing nodes.
 To fully utilize the computing resources, we configure each node to run five executors, each taking three cores and $5$GB memory. In Spark, one of the $55$ executors is taken as the Application Master for coordination, therefore our setting results in $54$ executors.
@@ -166,7 +166,7 @@ $7$ times in Taxi. As $M$ increases, the running time of both frameworks slightl
 
 \textbf{Varying $K$}: The performance with increasing $K$ is shown in Figure~\ref{exp:performance_vary} (b),(h),(n).  SPARE tends to run faster, whereas the performance of TRPM degrades dramatically. This is caused by the \emph{sequence simplification} procedure in SPARE, which can prune many candidates with large $K$. However, the line sweeping algorithm in TRPM does not utilize such property for pruning. It takes longer time because more replicated data has to be handled in each partition.
 
-\textbf{Varying $L$}: Figures~\ref{exp:performance_vary} (c),(i),(o) present the performances with varying $L$. When $L=10$, SPARE can outperform TRPM by around $10$ times. We also observe that there is a significant performance improvement for TPRM when $L$ increases from $10$ to $20$ and later the running time drops smoothly. 
+\textbf{Varying $L$}: Figures~\ref{exp:performance_vary} (c),(i),(o) present the performances with increasing $L$. When $L=10$, SPARE can outperform TRPM by around $10$ times. We also observe that there is a significant performance improvement for TPRM when $L$ increases from $10$ to $20$ and later the running time drops smoothly. 
 This is because $\eta$ is proportional to $O(K*G/L+L)$. When $L$ is small (i.e., from $10$ to $20$),
 $\eta$ decreases drastically. As $L$ increases, $\eta$ varies less significantly.
 
@@ -218,7 +218,7 @@ sequence simplification and load balancing techniques.
 To study the power of sequence simplification,
 we collect two types of statistics: (1) the number of pairs that
 are shuffled to the reducers and (2) the number of pairs that
-are fed to the Apirori enumeration. The difference between these two values is the number of size-$2$ candidates pruned by the sequence simplification.
+are fed to the Apirori Enumerator. The difference between these two values is the number of size-$2$ candidates pruned by the sequence simplification.
 The results in Table~\ref{tbl:pruning} show that the \emph{sequence simplification} is very powerful and eliminates nearly 90 percent of the object pairs, which significantly reduces the overhead of subsequent Apriori enumerator.
 
 \begin{table}[h]
@@ -242,7 +242,7 @@ Prune ratio & 91.2\% & 89.1\% & 87.7\% \\
 \begin{figure}[h]
 \centering
 	  \includegraphics[width=0.4\textwidth]{/exp/spare/detail.eps}
-    \caption{Breakdown of cost of SPARE and SPARE-RD}
+    \caption{Breakdown of cost of SPARE and SPARE-RD.}
     \label{exp:wl}
 \end{figure}
 
@@ -280,8 +280,8 @@ SPARE achieves $8$ times speed up compared to \emph{platoon} and $22$ times spee
 %our TRPM and SPARE achieves 2.4 times and 7.1 times speedup respectively. 
 Second, we see that both TRPM and SPARE demonstrate promising scalability in terms of the number of machines available. The running time almost decreases inversely as more machines are used. 
 When there are $11$ nodes in the cluster, 
-the performance of SPARE is $73$ times faster 
-than \emph{platoon} and $170$ times better than \emph{swarm}.
+SPARE achieves at most $73$ times faster 
+than \emph{platoon} and at most $170$ times better than \emph{swarm}.
 %state-of-the-art \emph{platoon} detector in a centralized server.
 
 \begin{figure*}[t]
@@ -298,6 +298,6 @@ than \emph{platoon} and $170$ times better than \emph{swarm}.
         \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
         \caption{Taxi vary $N$}
     \end{subfigure}
- \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM}
+ \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM.}
  \label{exp:scalability}
 \end{figure*}
