@@ -84,13 +84,13 @@ These observations imply that existing methods are not scalable to support large
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_O.eps}
-		\subcaption{$1k$ timestamps vary $O$} 
+		\subcaption{\small Varying No. of objects} 
     \label{fig:fig1}
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_T.eps}
-         \subcaption{$1k$ objects vary $T$}
+         \subcaption{\small Varying No. of timestamps}
     \label{fig:fig2}
     \end{subfigure}
     \vspace{-2mm}
@@ -104,16 +104,15 @@ First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
 the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing its parameters.
 
-Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP 
-to design several optimization techniques including \emph{sequence simplification}, \emph{monotonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated.
+Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we design a baseline solution by replicating the snapshots in multiple data chunks to support effective parallel mining. Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework to resolve limitations of the baseline. SPARE achieves workload balance by partitioning objects into fine granular stars.  For each star partition, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP 
+to design several optimization techniques including \emph{sequence simplification}, \emph{monotonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated in SPARE.
 
 We conduct a set of extensive experiments on three large-scaled real datasets with hundreds of millions of
 temporal points. 
-The results show that both our parallel scheme efficiently supports GCMP mining in large datasets.
-In particular, with near 200 million trajectory points, 
-SPARE runs in 12 minutes using 162 cores, whereas
-centralized solutions take from 10 to 30 hours.
-Moreover, our optimized SPARE methods achieves upto 14 times efficiency
+The results show that both our parallel schemes efficiently support GCMP mining in large datasets.
+In particular, with over 170 million trajectory points,
+SPARE achieves upto 112 times speedup using 162 cores as compared to the state-of-the-art centralized schemes.
+Moreover, SPARE further achieves upto 14 times efficiency
 as compared to the baseline algorithm with almost linear scalability.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 

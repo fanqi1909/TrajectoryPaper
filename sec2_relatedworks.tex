@@ -37,8 +37,8 @@ patterns have more relaxed constraints on the pattern duration. Therefore, their
 the same skeleton. The main idea of mining is to grow object set from an empty set
 in a depth-first manner. During the growth, various pruning techniques are provided to prune 
 unnecessary branches. \emph{Group} pattern uses a VG-graph to guide the pruning of false candidates~\cite{wang2006grouppattern}.
-\emph{Swarm} adapts two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}
-further adapts a prefix table structure to steer the depth-first search. As shown by Li et.al.~\cite{li2015platoon},
+\emph{Swarm} designs two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}
+further leverages a prefix table structure to steer the depth-first search. As shown by Li et.al.~\cite{li2015platoon},
 \emph{platoon} outperforms other two methods in efficiency. 
 However, the three patterns are not able to directly discover GCMPs.
 Furthermore, their pruning rules heavily rely on the depth-first search nature, which lose their efficiencies
@@ -48,5 +48,5 @@ in the parallel scenario.
 A closely related literature to co-movement patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
 
 \subsection{Trajectory Mining Frameworks}
-Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm for efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place in a close time interval. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient update of arriving objects. 
+Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm to efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place at simliar time. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient updates of arriving objects. 
 As these works essentially differ from co-movement pattern, their techniques cannot be directly applied to discover GCMPs.
