@@ -1,18 +1,18 @@
 \begin{figure*} [t]
 \center
-\includegraphics[width=0.9\textwidth]{trm.eps}
-\caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot;  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
+\includegraphics[width=\textwidth]{trm.eps}
+\caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot.  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
 \label{fig:trm}
 \end{figure*}
 
 \section{Baseline: Temporal Replication and Parallel Mining}
 \label{sec:trm}
-In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP pattern mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
+In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
 
 Our focus in this paper is on the second map-reduce stage of parallel mining, which essentially addresses two key challenges. The first is to ensure effective data partitioning such that the mining on each partition can be conducted independently; and the second is to efficiently mine the valid patterns within each partition. 
 
 It is obvious that we cannot simply split the trajectory database 
-into disjoint partitions because a GCMP pattern requires $L$-consecutiveness 
+into disjoint partitions because a GCMP requires $L$-consecutiveness 
 and the corresponding segments may span multiple partitions. 
 Our strategy is to use data replication to enable parallel mining. 
 Each snapshot will replicate its clusters to $\eta-1$ preceding snapshots.
@@ -104,13 +104,13 @@ are pruned (Lines~\ref{code:ls-l-prune-starts}-\ref{code:ls-l-prune-ends}). With
 The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of the TRPM method using Figure~\ref{fig:trm} (c) and (d) with pattern
 parameters $M=2, K=3, L = 2, G=2$. By Theorem~\ref{THM:RP_ETA}, $\eta$ is calculated
 as $(\lceil \frac{K}{L} \rceil-1) *(G-1)+ K + L - 1 = 5$. Therefore, 
-in Figure~\ref{fig:trm}(c), every $5$ consecutive snapshots are combined 
-into a partition in the map phase. In Figure~\ref{fig:trm}(d), a line sweep
+in Figure~\ref{fig:trm} (c), every $5$ consecutive snapshots are combined 
+into a partition in the map phase. In Figure~\ref{fig:trm} (d), a line sweep
 method is illustrated for partition $\lambda_1$. Let $C_i$ be the candidate set when sweeping snapshot $S_i$.
 Initially, $C_1$ contains patterns with object sets in snapshot $S_1$.
 As we sweep the snapshots, the patterns in $C_i$ grow. At snapshot $S_4$, the candidate
 $\langle o_5,o_6 \rangle$ is removed. This is because the gap between its latest timestamp (i.e., $2$)
-and the next scanning timestamp (i.e., $5$) is $3$, which violates the $G$-connected constraint.
+and the next sweeping timestamp (i.e., $5$) is $3$, which violates the $G$-connected constraint.
 Next, at snapshot $S_5$, the candidate $\langle o_1,o_2 \rangle$ is removed. This is
 because its local consecutive segment $(4)$ has only $1$ element,
 which violates the $L$-consecutive constraint.
@@ -133,14 +133,14 @@ Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note th
 \label{code:trm-map-end}
 \State {\textit{---Partition and Shuffle Phase---}}
 \label{code:trm-par-start}
-\ForAll{key-value pairs $\langle t, S \rangle$ pair} 
+\ForAll{key-value pairs $\langle t, S \rangle$} 
 \State group-by $t$ and emit a key-value pair $\langle t, \lambda_t\rangle$, where $\lambda_t = \{S_t, S_{t+1}, .. S_{t+\eta-1}\} $
 \EndFor
 \label{code:trm-par-end}
 \State {\textit{---Reduce Phase---}}
 \label{code:trm-red-start}
 \ForAll{key-value pairs $\langle t,\lambda_t \rangle$}
-\State call line sweep algorithm for partition $\lambda_t$
+\State call line sweep mining for partition $\lambda_t$
 \label{code:trm-red-end}
 \EndFor
 \end{algorithmic}

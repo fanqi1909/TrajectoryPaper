@@ -16,6 +16,9 @@ J.~Bao, Y.~Zheng, D.~Wilkie, and M.~F. Mokbel, ``A survey on recommendations in
 X.~Li, {\em Managing moving objects and their trajectories}.
 \newblock PhD thesis, National University of Singapore, 2013.
 
+\bibitem{zheng2015survey}
+Y.~Zheng, ``Trajectory data mining: an overview,'' {\em TIST'15}.
+
 \bibitem{gudmundsson2006flock}
 J.~Gudmundsson and M.~van Kreveld, ``Computing longest duration flocks in
   trajectory data,'' in {\em GIS'06}.
@@ -39,9 +42,6 @@ Y.~Li, J.~Bailey, and L.~Kulik, ``Efficient mining of platoon patterns in
 \bibitem{gudmundsson2004flock}
 J.~Gudmundsson, M.~van Kreveld, and B.~Speckmann, ``Efficient detection of
   motion patterns in spatio-temporal data sets,'' in {\em GIS'04}.
-
-\bibitem{zheng2015survey}
-Y.~Zheng, ``Trajectory data mining: an overview,'' {\em TIST'15}.
 
 \bibitem{ester1996density}
 M.~Ester, H.-P. Kriegel, J.~Sander, X.~Xu, {\em et~al.}, ``A density-based

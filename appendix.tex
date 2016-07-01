@@ -68,36 +68,34 @@
 %%captured by at least one of the partition. Thus, the pattern $P$ would 
 %%be valid in that partition. This proves the completeness.
 %\end{proof}
-
 %\subsection{Proof of Theorem~\ref{THM:SPM_CORRECT} and Lemma~\ref{LEM:SPM_CORRECT}}
-
-
-\subsection{Proof of Theorem~\ref{THM:SPM_LB} and~\ref{THM:SPM_LB_INC}}
+\subsection{Proofs of Theorem~\ref{THM:SPM_LB} and~\ref{THM:SPM_LB_INC}}
 \label{apx:thm2proof}
+
 \begin{proof}
-$\Gamma$ can be formalized in a linear algebra way:
+$\Gamma$ can be formalized using linear algebra:
 Let $G_A$ be an aggregated graph, with a $n \times n$ adjacent matrix $J$.
 Since a vertex order is a permutation of $J$, the adjacent matrices 
 of any reordered graphs can be represented as $PJP^T$
 where $P \in \mathbb{P}$ is a $n\times n$ \emph{permutation matrix}~\footnote{an identity matrix with rows shuffled}.
-In star partition, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
+In star partitioning, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
 then the matrix $B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix}
 represents the assignment matrix wrt. $P$ (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$).
 Let vector $\vec{b}$ be the \textit{one}\footnote{every element in $\vec{b}$ is $1$} 
 vector with size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
 denotes the number of edges in star $Sr_i$. Thus, $\Gamma$ can be represented
-as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orders, that is
+as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orderings, that is
 
 \begin{equation}
 \Gamma^* = \min_{P \in \mathbb{P}}{||B\vec{b}||_\infty} \text{ ,where } ||B\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
 \end{equation}
 
-Let $B^*$ be the assignment matrix wrt. the optimal vertex order.
+Let $B^*$ be the assignment matrix wrt. the optimal vertex ordering.
 Since we have a star for each object, by the degree-sum formula and pigeon-hole theorem, 
 $\Gamma^*=||B^*\vec{b}||_\infty \geq d/2$.
-Next, for a ordering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 
+Next, for a vertex ordering $P$, let $e_{i,j}$ be an entry in $PAP^T$. Since 
 edges in graph $G$ are independent, then $e_{i,j}$s are independent. 
-Let $d_i$ denote the degree of vertex $i$, since ordering of vertex does not
+Let $d_i$ denote the degree of vertex $i$, since a vertex ordering does not
 affect the average degree,
 then $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$. Therefore, 
 entries in $B$ can be written as :
@@ -120,8 +118,7 @@ $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 
 \begin{equation*}
 \begin{split}
-	Pr(c_i \geq \mu + t) &\leq \exp(\frac{-2t^2}{n}) \\
-	 & = \exp(-2\log n) = n^{-2}
+	Pr(c_i \geq \mu + t) &\leq \exp(\frac{-2t^2}{n}) = \exp(-2\log n) = n^{-2}
 \end{split}
 \end{equation*}
 
@@ -132,8 +129,7 @@ $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, the following holds:
 \begin{split}
 	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
 		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
-		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) \\ 
-		&= n^{-1} = 1/n
+		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) = n^{-1} = 1/n
 \end{split}
 \end{equation*}
 Substitute back $t$ and $\mu$, we achieve the following concise form:
@@ -160,7 +156,7 @@ $O(\sqrt{\log n}) $ following the similar reasoning.
 \subsection{Proof of Theorem~\ref{THM:SPM_CORRECT}}
 \label{apx:spm_correct}
 \begin{proof}
-For soundness, let $P$ be a pattern enumerated by SPARE. For any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. By the definition of star, $\forall t \in P.T, C_t(o_1) = C_t(o_2)$. As $P.T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
+For soundness, let $P$ be a pattern enumerated by SPARE. For any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. By the definition of star, $o_1$ $o_2$ belong to the same cluster at every timestamps in $P.T$. As $P.T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
 For completeness, let $P$ be a true pattern. Let $s$ be the object with smallest ID in $P.O$. We prove that $P$ must be output by Algorithm~\ref{algo:apriori_mining} form $Sr_s$. 
 First, based on the definition of star, every object in $P.O$ appears in $Sr_s$. Since $P.T$ is decomposable, then by Lemma 3 $\forall O' \subseteq O$, the time sequence of $O'$ would not be eliminated by any $\mathtt{sim}$ operations.  Next, we prove at every iteration \emph{level} $\leq |P.O|$, $P.O \subset O_u$, where $O_u$ is the forward closure. We prove by induction. When $level$ = 2, it obviously holds. If $P.O \subset O_u$ at \emph{level $i$}, then any subsets of $P.O$ with size $i$ are in the candidate set. In \emph{level} $i+1$, these subsets are able to grow to a bigger subset (in last iteration, they grow to $P.O$). This suggests that no subsets are removed by Lines~\ref{code:output1-start}-\ref{code:output2-end}. Then, $P.O \subset U_{i+1}$ holds. In summary, $P.O$ does not pruned by simplification, monotonicity and forward closure, therefore $P$ must be returned by SPARE.
 \end{proof}

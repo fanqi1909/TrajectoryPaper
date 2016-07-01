@@ -1,6 +1,6 @@
 \section{Definitions}
 \label{sec:definition}
-Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as a ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define a bunch of commonly-used operators in this paper in Table~\ref{tbl:operators}.
+Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define a bunch of commonly-used operators in this paper in Table~\ref{tbl:operators}.
 
 \begin{table}[h] \scriptsize
 \centering
@@ -39,8 +39,8 @@ To avoid such an anomaly without losing pattern generality, we introduce a param
 timestamps in a pattern. Formally, a $G$-connected time sequence is defined as follows:
 
 \begin{definition}[$G$-connected]
-A time sequence $T$ is $G$-connected if the gap between any of its neighboring timestamps is no greater than $G$. That is
- $\forall i \in (1,...,|T|-1), T[i+1]-T[i] \leq G$.
+A time sequence $T$ is $G$-connected if the gap between any of its neighboring timestamps is no greater than $G$, i.e.,
+ $\forall i \in (1,\ldots,|T|-1), T[i+1]-T[i] \leq G$.
 \end{definition}
 
 We take $T=(1,2,3,5,6)$ as an example, which can be decomposed into two segments $(1,2,3)$ and $(5,6)$. $T$ is not $3$-consecutive since the length of $(5,6)$ is $2$. Thus, it is safe to say either $T$ is $1$-consecutive or $2$-consecutive. On the other hand, $T$ is $2$-connected since the maximum gap between its neighboring timestamps is $2$. It is worth noting that $T$ is not $1$-connected because the gap between $T[3]$ and $T[4]$ is $2$ (i.e., $5-3=2$).
@@ -72,26 +72,12 @@ Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & Density-based\\
 \hline 
 \end{tabular} 
 \caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value. $M$ represents the 
-object \emph{size} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.}
+\emph{significance} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.}
 \label{tbl:patterns}
 \end{table}
-\eat{ 
-It is also observable that the number of patterns in GCMP could be exponential under some parameter settings (i.e., 
-when expressing \emph{swarm}). In particular, given a parameter $M$, if a pattern $P$ is valid, then any subset of $P$ with 
-size $M$ is also a valid pattern. This results in additional $\Sigma_{M\geq i \geq |P.O|} {|P.O| \choose i}$ patterns,
-which is clearly overwhelming and redundant. For all these patterns, output $P$ is sufficient. Therefore, we define the \emph{Closed General Co-Movement Pattern} as follows:
-
-
-\begin{definition}[Closed General Co-Movement Pattern]
-A general co-moving pattern $P=\langle O:T \rangle$ is closed if and only if there does not exist another general co-moving pattern $P'$ s.t. $P.O \subseteq P'.O$.
-\end{definition}
-
-For example, let $M=2,K=2,,L=1,G=1$. In Figure~\ref{fig:related_work},
-the pattern $P_1 = \{o_3,o_4:1,2,3\}$ is not a closed pattern. This is because $P_2=\{o_3,o_4,o_5:2,3\}$ is a closed pattern since $P_2.O \supset P_1.O$. The closed pattern avoids outputting duplicate information, thus making the result patterns more compact. 
-}
 
 Our definition of GCMP is independent of the clustering method. Users can apply different clustering methods to facilitate different application needs. 
-We currently expose both disc-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMPs from large-scale trajectory databases. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
+We currently expose both disk-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMPs from large-scale trajectory databases. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
 \begin{table}[h]\scriptsize
 \centering
@@ -111,16 +97,19 @@ $G$ & connection constraint \\
 \hline
 $P=\langle O:T \rangle$ & pattern with object set $O$, time sequence $T$\\
 \hline
-$C_t(o)$ & cluster of object $o$ at time $t$ \\
-\hline 
-$S_t$ & set of clusters at time $t$\\
-\hline 
-$\lambda_t$ & partition with snapshots $S_t,..,S_{t+\eta-1}$ \\\hline
-$\eta$ & replication factor in the TRPM framework\\
+%$C_t(o)$ & cluster of object $o$ at time $t$ \\
+%\hline 
+$S_t$ & set of clusters at snapshot $t$\\
 \hline
-$Sr_i $ &  star partition for object $i$ \\
+$\eta$ & replication factor in the TRPM framework\\
 \hline 
-$\Gamma$ & size of the largest star in star partition \\
+$\lambda_t$ & partition with snapshots $S_t,..,S_{t+\eta-1}$ \\
+\hline
+$G_A$ & aggregated graph in SPARE framework\\
+\hline
+$Sr_i $ &  star partition for object (vertex) $i$ \\
+\hline 
+$\Gamma$ & size of the largest star partition\\
 \hline
 \end{tabular} 
 \caption{Summary of the use of notations.}

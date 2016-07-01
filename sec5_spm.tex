@@ -1,20 +1,20 @@
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.9\textwidth]{spm.eps}
-\caption{Star partition and ApRiori Enumerator (SPARE). (a) Aggregated graph from Figure 1. (b) Five stars are generated, star IDs are circled, the vertexes and inverted lists are in the connected tables.
+\caption{Star Partitioning and ApRiori Enumerator (SPARE). (a) Aggregated graph $G_A$ generated from Figure 1. (b) Five star partitions are generated from $G_A$. Star IDs are circled, vertexes and inverted lists are in the connected tables.
 (c) Apriori Enumerator with various pruning techniques.}
 \label{fig:star_partition}
 \end{figure*}
 
 \section{SPARE: Star Partitioning and Apriori Enumerator}
 \label{sec:spm}
-The aforementioned TRPM scheme replicates snapshots based on the temporal dimension which suffers from two drawbacks. First, the replication factor is $\eta$ which can be large. Second, the same valid pattern may be discovered from different partitions which results in redundant works.
+The aforementioned TRPM scheme replicates snapshots based on the temporal dimension which suffers from two drawbacks. First, the replication factor $\eta$ can be large. Second, the same valid pattern may be discovered from different partitions which results in redundant works.
 To resolve these limitations,
 we propose a new Star Partitioning and ApRiori Enumerator, named SPARE, 
-to replace the second stage of map-reduce jobs in Figure~\ref{fig:trm}. 
+to replace the second stage of the map-reduce jobs in Figure~\ref{fig:trm}. 
 Our new parallel mining framework is shown in Figure~\ref{fig:star_partition}. 
 Its input is the set of clusters generated in each snapshot and the output 
-contains all the valid GCMP patterns. In the following, we explain the two major components: 
+contains all the valid GCMPs. In the following, we explain the two major components: 
 star partitioning and apriori enumerator.
 
 
@@ -28,7 +28,7 @@ form an edge if they are connected in any $G_t$s. Furthermore,
 we attach an inverted list for each edge, 
 storing the associated timestamps in which the two objects are connected. 
 An example of $G_A$, built on the trajectory database in Figure~\ref{fig:related_work}, 
-is shown in Figure~\ref{fig:star_partition}(a). 
+is shown in Figure~\ref{fig:star_partition} (a). 
 As long as two objects are clustered in any timestamps, they are connected in $G_A$. 
 The object pair $\langle o_1,o_2 \rangle$ appears in two clusters at timestamps 
 $2$ and $3$ and is thus associated with an inverted list $(2,3)$.
@@ -36,18 +36,18 @@ $2$ and $3$ and is thus associated with an inverted list $(2,3)$.
 
 We use \emph{star} as the data structure to capture the pair relationships. 
 To avoid duplication, as $G_t$ is an undirected graph and an edge may appear in multiple stars, 
-we enforce a global ordering among the objects and propose a concept named \textit{directed star}.
+we enforce a global vertex ordering among the objects and propose a concept named \textit{directed star}.
 
 \begin{definition}[Directed Star]
-Given a vertex with global id $s$, its directed star $Sr_s$ is defined as the set of neighboring vertices with global id $t>s$. We call $s$ the star ID.
+Given a vertex with global ID $s$, its directed star $Sr_s$ is defined as the set of neighboring vertexes with global ID $t>s$. We call $s$ the star ID.
 \end{definition}
 
-With the global ordering, we can guarantee that each edge is contained in a unique star partition. Given the aggregated graph $G_A$  in Figure~\ref{fig:star_partition}(a), we enumerate all the possible directed stars in Figure~\ref{fig:star_partition}(b). These stars are emitted from mappers to different reducers. The key is the star ID and the value is the neighbors in the star as well as the associated inverted lists. 
-The reducer will then call the Apriori-based algorithm to enumerate all the valid GCMP patterns.
+With the global vertex ordering, we can guarantee that each edge is contained in a unique star partition. Given the aggregated graph $G_A$  in Figure~\ref{fig:star_partition} (a), we enumerate all the possible directed stars in Figure~\ref{fig:star_partition} (b). These stars are emitted from mappers to different reducers. The key is the star ID and the value is the neighbors in the star as well as the associated inverted lists. 
+The reducer will then call the Apriori-based algorithm to enumerate all the valid GCMPs.
 
 
 Before we introduce the Apriori Enumerator, we are interested to 
-examine the issue of global ordering on the moving objects.
+examine the issue of global vertex ordering on the moving objects.
 This is because assigning different IDs to the objects will result in 
 different star partitioning results, which will eventually affect the workload 
 balance among reducers. The job with the performance bottleneck is often known as a  \emph{straggler}~\cite{kwon2012skewtune,coppa2015data}. In the context of star partitioning, a straggler refers to the job assigned with the maximum star partition. We use $\Gamma$ to denote the size of such straggler partition and $\Gamma$ is set to the number of edges in a directed star\footnote{A star is essentially a tree structure and the number of nodes equals the number of edges minus one.}. Clearly, a star partitioning with small $\Gamma$ is preferred. For example, Figure~\ref{fig:star-alt} gives two star partitioning results under 
@@ -56,11 +56,11 @@ different vertex ordering on the same graph. The top one has $\Gamma = 5$ while 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.40\textwidth]{star-alt.eps}
-\caption{Examples of star partitioning with different vertex ordering.}
+\caption{Examples of star partitioning with different vertex orderings.}
 \label{fig:star-alt}
 \end{figure}
 
-Although it is very challenging to find the optimal vertex ID ordering from the $n!$ possibilities, we observe that a random order can actually achieve satisfactory performance based on the following theorem.
+Although it is very challenging to find the optimal vertex ordering from the $n!$ possibilities, we observe that a random order can actually achieve satisfactory performance based on the following theorem.
 
 
 \begin{theorem}
@@ -68,7 +68,7 @@ Although it is very challenging to find the optimal vertex ID ordering from the 
 Let $\Gamma^*$ be the value derived from the optimal vertex ordering and  $\Gamma$ be the value derived from a random vertex ordering. With probability $1-1/n$, we have $\Gamma = \Gamma^* + O(\sqrt{n \log n})$.
 \end{theorem}
 \begin{proof}
-In Appendix~\ref{apx:thm2proof}.
+See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 If $G_A$ is a dense graph, we can get a tighter bound for $(\Gamma - \Gamma^*)$.
 \begin{theorem}
@@ -77,15 +77,15 @@ Let $d$ be the average degree in $G_A$. If $d\geq \sqrt{12\log n}$, with
 high probability $1-1/n$, $\Gamma = \Gamma^* + O(\sqrt{d\log n})$.
 \end{theorem}
 \begin{proof}
-In Appendix~\ref{apx:thm2proof}.
+See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 Hence, we can simply use object ID to determine the vertex ordering in our implementation.
 
 
 \subsection{Apriori Enumerator}
-Intuitively, given a GCMP pattern with an object set $\{o_1,o_2,\ldots,o_m\}$, 
+Intuitively, given a GCMP with an object set $\{o_1,o_2,\ldots,o_m\}$, 
 all the pairs of $\langle o_i,o_j \rangle$ with $1\leq i<j\leq m$ must 
-be connected in the associated temporal graphs $\{G_t\}$. This inspires us to leverage the classic Apriori algorithm to enumerate all the valid GCMP patterns starting from pairs of objects. However, we observe that the monotonicity property does not hold between an object set and its supersets.
+be connected in the associated temporal graphs $\{G_t\}$. This inspires us to leverage the classic Apriori algorithm to enumerate all the valid GCMPs starting from pairs of objects. However, we observe that the monotonicity property does not hold between an object set and its supersets.
 
 \begin{example}
 In this example, we show that if an object set is not a valid pattern, we cannot prune all its super sets.
@@ -117,7 +117,7 @@ We assume $T_i\cap T_j\neq \emptyset$. Let $T_i=(T_i[1], T_i[2],\ldots,T_i[p])$ 
 
 
 
-To prove (2), we assume $\cup_i T_i$ does not cover all the timestamps in $T$. Then, we can find a subsequence $T'=T[x:x+t]$ such that $T[x-1]\in T_a$ $(1\leq a\leq m)$, $T[x+t+1]\in T_b$ $(1\leq b\leq m)$ and all the timestamps in $T'$ is not included in any $T_i$. Let $g'=\min\{T[x]-T[x-1], T[x+t+1]-T[x+t]\}$. If $g'\leq G$, then it is easy to infer that $T_a$ or $T_b$ is not a maximal $G$-connected subsequence because we can combine it with $T[x]$ or $T[x+t]$  to a form superset which is also $G$-connected. If $g'>G$, $T'$ itself is a maximal $G$-connected subsequence which is missed in $\cup T_i$. Both cases lead to a contradiction.
+To prove (2), we assume $\cup_{i=1}^{i=m} T_i$ does not cover all the timestamps in $T$. Then, we can find a subsequence $T'=T[x:x+t]$ such that $T[x-1]\in T_a$ $(1\leq a\leq m)$, $T[x+t+1]\in T_b$ $(1\leq b\leq m)$ and all the timestamps in $T'$ is not included in any $T_i$. Let $g'=\min\{T[x]-T[x-1], T[x+t+1]-T[x+t]\}$. If $g'\leq G$, then it is easy to infer that $T_a$ or $T_b$ is not a maximal $G$-connected subsequence because we can combine it with $T[x]$ or $T[x+t]$  to a form superset which is also $G$-connected. If $g'>G$, $T'$ itself is a maximal $G$-connected subsequence which is missed in$\cup_{i=1}^{i=m} T_i$. Both cases lead to contradictions.
 \end{proof}
 
 
@@ -161,7 +161,8 @@ It is possible that the simplified sequence $\mathtt{sim}(T)=\emptyset$. For exa
 and $L=3$. All the segments will be removed in the $f$-step and the output is $\emptyset$.
 We define $\emptyset$ to be not decomposable. 
 %Based on the above definitions, we can define our monotonicity to facilitate the pruning in the Apriori algorithm.
-We provide an important property of the sequence simplification process as follows:
+We then link \emph{sequence simplification} and \emph{decomposable sequence} in the following lemma:
+%We provide an important property of the sequence simplification process as follows:
 \begin{lemma}\label{lemma:decom-sim}
 If sequence $T$ is a superset of any decomposable sequence, then $\mathtt{sim}(T) \neq \emptyset$.
 \end{lemma}
@@ -184,10 +185,10 @@ We prove by contradiction. Suppose there exists a valid pattern $P_2$ such that 
 \end{proof}
 
 \subsubsection{Apriori Enumerator}
-We design an Apriori enumeration method to efficiently discover all the valid patterns in a star partition. The principle of the Apriori algorithm is to construct a lattice structure and enumerate all the possible candidate sets in a bottom-up manner. Its merit lies in the monotonic property such that if a candidate set is not valid, then all its supersets can be pruned. Thus, it works well in practice in spite of the exponential search space.
+We design an Apriori based enumeration algorithm to efficiently discover all the valid patterns in a star partition. The principle of the Apriori algorithm is to construct a lattice structure and enumerate all the possible candidate sets in a bottom-up manner. Its merit lies in the monotonic property such that if a candidate set is not valid, then all its supersets can be pruned. Thus, it works well in practice in spite of the exponential search space.
 
-Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and invalid candidates are excluded (Line~\ref{code:simp1}). An indicator \emph{level} is used to control the object size for candidate set join. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidate sets $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Lines~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that
-then all the candidates with $P.O\supseteq c'.O$ are pruned. If a candidate cannot generate any new candidate, then it is directly reported as a valid closed pattern (Lines~\ref{code:output1-start}-\ref{code:output1-end}).
+Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and invalid candidates are excluded (Line~\ref{code:simp1}). An indicator \emph{level} is used to control the result size for candidate joins. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidates $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Lines~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that all the candidates with $P.O\supseteq c'.O$ are pruned. If a candidate cannot generate any new candidate, the
+it is directly reported (Lines~\ref{code:output1-start}-\ref{code:output1-end}).
 To further improve the performance, we adopt the idea of \textit{forward closure}~\cite{wang2003closet+,pei2000closet} and  aggressively check if the union of all the current candidates form a valid pattern (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-end}). If yes, we can early terminate the algorithm and output the results.
 
 \begin{algorithm}[h]
@@ -230,7 +231,7 @@ To further improve the performance, we adopt the idea of \textit{forward closure
 
 
 \begin{example}
-As shown in Figure~\ref{fig:star_partition}(c), in the bottom level of the lattice structure, candidate $\langle 3,6:3 \rangle $ is pruned because its simplified sequence is empty. Thus, all the object sets containing $\langle 3,6 \rangle $ can be pruned. The remaining two candidates (i.e., $\langle 3,4:1,2,3 \rangle$ and $\langle 3,5:2,3 \rangle$)  derive a new  $\langle 3,4,5:2,3 \rangle$ which is valid. By the forward closure checking, the algorithm can terminate and output $\langle 3,4,5:2,3 \rangle$ as the final pattern.
+As shown in Figure~\ref{fig:star_partition} (c), in the bottom level of the lattice structure, candidate $\langle 3,6:3 \rangle $ is pruned because its simplified sequence is empty. Thus, all the object sets containing $\langle 3,6 \rangle $ can be pruned. The remaining two candidates (i.e., $\langle 3,4:1,2,3 \rangle$ and $\langle 3,5:2,3 \rangle$)  derive a new  $\langle 3,4,5:2,3 \rangle$ which is valid. By the forward closure checking, the algorithm can terminate and output $\langle 3,4,5:2,3 \rangle$ as the final pattern.
 \end{example}
 
 
@@ -240,7 +241,7 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 
 \begin{algorithm}
 \small
-\caption{Star Partition and ApRiori Enumerator}
+\caption{Star Partitioning and ApRiori Enumerator}
 \label{algo:spm_overview}
 \begin{algorithmic}[1]
 \Require list of $\langle t, S_t \rangle$ pairs
@@ -263,7 +264,7 @@ We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows
 \State {\textit{---Reduce phase---}}
 \label{code:spm-reduce-start}
 \ForAll{$\langle o, Sr_{o} \rangle$}
-\State AprioriEnumerator($Sr_o$)
+\State call Apriori Enumerator for star $Sr_o$
 \EndFor
 \label{code:spm-reduce-end}
 
@@ -278,7 +279,7 @@ the patterns discovered from $Sr_i$ (resp. $Sr_j$).
 Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \neq p_j.O$.
 \end{theorem}
 \begin{proof}
-We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertices of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are different stars, meaning their center vertices are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
+We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertexes of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are different stars, meaning their center vertexes are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
 \end{proof}
 
 Theorem~\ref{LEM:SPM_CORRECT} implies that no mining efforts are wasted in discovering redundant patterns  

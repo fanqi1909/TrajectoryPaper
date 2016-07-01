@@ -9,7 +9,7 @@ trajectories benefits a wide range of applications and services,
 including traffic planning~\cite{zheng2011urban}, animal analysis~\cite{li2010miningperiodic}, and social recommendations~\cite{bao2013survey}, to name just a few.
 
 A crucial task of data analysis on top of trajectories is 
-to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013managing} 
+to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013managing,zheng2015survey} 
 refers to a group of objects traveling together for a certain period of time 
 and the group is normally determined by their spatial proximity. 
 A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such a basic definition 
@@ -35,8 +35,8 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.4\textwidth]{related_work.eps}
-\caption{Trajectories and co-movement patterns; The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.}
+\includegraphics[width=0.45\textwidth]{related_work.eps}
+\caption{Trajectories and co-movement patterns. The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.}
 \label{fig:related_work}
 \end{figure}
 
@@ -55,11 +55,11 @@ Unfortunately, none of the existing patterns have directly addressed this anomal
 
 \begin{table} \scriptsize
 \centering
-\begin{tabular}{|c|l|c|l|}
+\begin{tabular}{|l|l|c|l|}
 \hline 
 \textbf{Pattern} & {\tiny \textbf{Proximity}} & {\tiny \textbf{Consecutiveness}} & {\tiny \textbf{Time Complexity}}\\ 
 \hline 
-flock~\cite{gudmundsson2004flock} & disk-based &  global & {\tiny $O(|\mathbb{O}||\mathbb{T}|(M + \log(|\mathbb{O}|)))$} \\ 
+flock~\cite{gudmundsson2004flock} & disk-based &  global & {\tiny $O(|\mathbb{O}||\mathbb{T}|\log(|\mathbb{O}|))$} \\ 
 \hline 
 convoy~\cite{jeung2008convoy} & density-based &   global & {\tiny $O(|\mathbb{O}|^2+|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
@@ -70,7 +70,8 @@ group~\cite{wang2006grouppattern} & disk-based &  local & {\tiny $O(|\mathbb{O}|
 platoon~\cite{li2015platoon} & density-based &  local & {\tiny $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
 \end{tabular} 
-\caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance in the worst case, where $|\mathbb{O}|$ is the total number of objects, $|\mathbb{T}|$ is the number of descritized timestamps and $M$ is the minimum cluster cardinality. }
+\caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance wrt.
+$|\mathbb{O}|$, $|\mathbb{T}|$ in the worst case, where $|\mathbb{O}|$ is the number of objects, and $|\mathbb{T}|$ is the number of discretized timestamps.}
 \label{tbl:existing_co_patterns}
 \end{table}
 The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance, the detection time of \emph{group} drops twenty times as the number of objects grows from \emph{1k} to \emph{4k}. Similarly,
@@ -93,28 +94,28 @@ These observations imply that existing methods are not scalable to support large
     \label{fig:fig2}
     \end{subfigure}
     \vspace{-2mm}
-    \caption{Performance measures on existing co-movement patterns. A sampled Geolife dataset
-    is used with up two 2.4 million data points. Default parameters are $M=15$ $K=180$ $L=30$.}
+    \caption{Performance measures on existing co-movement patterns. A sampled GeoLife dataset
+    is used with up two 2.4 million data points. Default parameters are $M=15$, $K=180$, $L=30$.}
     \label{fig:related_work_scalability}
 \end{figure}
 
 Therefore, our primary contributions in this paper are to close these two gaps. 
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
-the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. By setting a feasible $G$, the loose-connection anomaly can be avoided. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing its parameters.
+the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing its parameters.
 
-Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partition and ApRiori Enumerator} (SPARE) framework as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of of GCMP 
-to design several optimization techniques including \emph{sequence simplification}, \emph{monontonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated.
+Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we replicate the snapshots in multiple data chunks to support efficient parallel processing. Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework as a fine-granularity partitioning strategy to achieve workload balance. For each star, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP 
+to design several optimization techniques including \emph{sequence simplification}, \emph{monotonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated.
 
-We conduct a set of extensive experiments on three large-scaled real datasets with hundreds of millions 
+We conduct a set of extensive experiments on three large-scaled real datasets with hundreds of millions of
 temporal points. 
 The results show that both our parallel scheme efficiently supports GCMP mining in large datasets.
 In particular, with near 200 million trajectory points, 
 SPARE runs in 12 minutes using 162 cores, whereas
 centralized solutions take from 10 to 30 hours.
-Moreover, our optimized SPARE methods achieves upto 10 times efficiency
+Moreover, our optimized SPARE methods achieves upto 14 times efficiency
 as compared to the baseline algorithm with almost linear scalability.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining. Section~\ref{sec:definition} states the problem definition of our general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline solution. An advanced solution named
-\emph{Star Partition and ApRiori Enumerator} (SPARE) is presented in Section~\ref{sec:spm}. Section~\ref{sec:exp} conducts extensive experiments to verify the efficiency of our system. Finally Section~\ref{sec:concl} concludes the paper.
+trajectory pattern mining. Section~\ref{sec:definition} defines the problem of general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline solution. An advanced solution named
+\emph{Star Partitioning and ApRiori Enumerator} (SPARE) is presented in Section~\ref{sec:spm}. Section~\ref{sec:exp} conducts extensive experiments to verify the efficiency of our solutions. Finally, Section~\ref{sec:concl} concludes the paper.
