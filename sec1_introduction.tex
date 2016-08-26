@@ -13,7 +13,7 @@ to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013managing
 refers to a group of objects traveling together for a certain period of time 
 and the group is normally determined by their spatial proximity. 
 A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such a basic definition 
-and driven by different mining applications, there are a bunch of variants 
+and driven by different mining applications, there are \revised{many} variants 
 of co-movement patterns that have been developed with more advanced constraints.
 
 Table~\ref{tbl:existing_co_patterns} summarizes several popular co-moving patterns 
@@ -102,7 +102,10 @@ These observations imply that existing methods are not scalable to support large
 Therefore, our primary contributions in this paper are to close these two gaps. 
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
-the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing its parameters.
+the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. 
+%\revised{In GCMP, we adopt the concept of \emph{gap parameter $G$}
+%in sequential pattern mining field~\cite{srikant1996mining} to constrain the temporal distance between two consecutive %segments.} 
+By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is both general and expressive. It can be reduced to any of the previous patterns by customizing its parameters.
 
 Second, we investigate deploying our GCMP detector on MapReduce platforms (such as Hadoop and Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we design a baseline solution by replicating the snapshots in multiple data chunks to support effective parallel mining. Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework to resolve limitations of the baseline. SPARE achieves workload balance by partitioning objects into fine granular stars.  For each star partition, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP 
 to design several optimization techniques including \emph{sequence simplification}, \emph{monotonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated in SPARE.

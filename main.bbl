@@ -70,6 +70,14 @@ H.~H. Aung and K.-L. Tan, ``Discovery of evolving convoys,'' in {\em SSDM'10}.
 K.~Zheng, Y.~Zheng, N.~J. Yuan, and S.~Shang, ``On discovery of gathering
   patterns from trajectories,'' in {\em ICDE'13}.
 
+\bibitem{li2007traffic}
+X.~Li, J.~Han, J.-G. Lee, and H.~Gonzalez, ``Traffic density-based discovery of
+  hot routes in road networks,'' in {\em ISSTD'07}.
+
+\bibitem{lee2011mining}
+J.-G. Lee, J.~Han, X.~Li, and H.~Cheng, ``Mining discriminative patterns for
+  classifying trajectories on road networks,'' {\em TKDE'11}.
+
 \bibitem{jinno2012paralleltpattern}
 R.~Jinno, K.~Seki, and K.~Uehara, ``Parallel distributed trajectory pattern
   mining using mapreduce,'' in {\em CloudCom'12}.
@@ -78,6 +86,18 @@ R.~Jinno, K.~Seki, and K.~Uehara, ``Parallel distributed trajectory pattern
 X.~Li, V.~Ceikute, C.~S. Jensen, and K.-L. Tan, ``Effective online group
   discovery in trajectory databases,'' {\em TKDE 2013}.
 
+\bibitem{srikant1996mining}
+R.~Srikant and R.~Agrawal, ``Mining sequential patterns: Generalizations and
+  performance improvements,'' in {\em EDBT'96}.
+
+\bibitem{miliaraki2013mind}
+I.~Miliaraki, K.~Berberich, R.~Gemulla, and S.~Zoupanos, ``Mind the gap:
+  Large-scale frequent sequence mining,'' in {\em SIGMOD'13}.
+
+\bibitem{yoo2006joinless}
+J.~S. Yoo and S.~Shekhar, ``A joinless approach for mining spatial colocation
+  patterns,'' {\em TKDE'06}.
+
 \bibitem{kwon2012skewtune}
 Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia, ``Skewtune: mitigating skew in
   mapreduce applications,'' in {\em SIGMOD'12}, ACM, 2012.
@@ -85,6 +105,10 @@ Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia, ``Skewtune: mitigating skew in
 \bibitem{coppa2015data}
 E.~Coppa and I.~Finocchi, ``On data skewness, stragglers, and mapreduce
   progress indicators,'' in {\em ASCC'15}.
+
+\bibitem{agrawal1994fast}
+R.~Agrawal, R.~Srikant, {\em et~al.}, ``Fast algorithms for mining association
+  rules,''
 
 \bibitem{wang2003closet+}
 J.~Wang, J.~Han, and J.~Pei, ``Closet+: Searching for the best strategies for

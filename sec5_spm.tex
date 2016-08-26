@@ -33,8 +33,7 @@ As long as two objects are clustered in any timestamps, they are connected in $G
 The object pair $\langle o_1,o_2 \rangle$ appears in two clusters at timestamps 
 $2$ and $3$ and is thus associated with an inverted list $(2,3)$.
 
-
-We use \emph{star} as the data structure to capture the pair relationships. 
+We use \emph{star}~\cite{yoo2006joinless} as the data structure to capture the pair relationships. 
 To avoid duplication, as $G_t$ is an undirected graph and an edge may appear in multiple stars, 
 we enforce a global vertex ordering among the objects and propose a concept named \textit{directed star}.
 
@@ -85,7 +84,7 @@ Hence, we can simply use object ID to determine the vertex ordering in our imple
 \subsection{Apriori Enumerator}
 Intuitively, given a GCMP with an object set $\{o_1,o_2,\ldots,o_m\}$, 
 all the pairs of $\langle o_i,o_j \rangle$ with $1\leq i<j\leq m$ must 
-be connected in the associated temporal graphs $\{G_t\}$. This inspires us to leverage the classic Apriori algorithm to enumerate all the valid GCMPs starting from pairs of objects. However, we observe that the monotonicity property does not hold between an object set and its supersets.
+be connected in the associated temporal graphs $\{G_t\}$. This inspires us to leverage the classic Apriori algorithm~\cite{agrawal1994fast} to enumerate all the valid GCMPs starting from pairs of objects. However, we observe that the monotonicity property does not hold between an object set and its supersets.
 
 \begin{example}
 In this example, we show that if an object set is not a valid pattern, we cannot prune all its super sets.
@@ -289,6 +288,7 @@ in the SPARE framework, which is superior to the TRPM baseline. Finally, we show
 \label{THM:SPM_CORRECT}
 The SPARE framework guarantees completeness and soundness.
 \end{theorem}
+\vspace{-5 mm}
 \begin{proof}
 See Appendix~\ref{apx:spm_correct}.
 \end{proof}

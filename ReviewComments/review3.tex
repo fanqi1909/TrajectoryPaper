@@ -1,0 +1,94 @@
+\section{Responses to Reviewer 3}
+\emph{Though the implementation references Spark as the implementation
+platform (as it also reflects in github repo provided), the algorithm design is
+mostly limited to MapReduce, aka only Hadoop, which is a very small subset of
+Spark. This may have a negative impact on the baseline implementation.
+Particularly, recent releases of Spark have introduced window functions that can
+be applied directly in the sliding window scenario here. Certainly, the algorithm
+has to be redesigned to use DataFrame (and/or Spark SQL) interface, it has
+been noted that this is a very efficient way to execute window functions in
+Spark}
+
+\response{
+We agree that leveraging more advanced Spark features
+could further improve the performance of our solutions. 
+We do not heavily leverage these features because 
+we wish to focus on solving how to design parallel GCMP mining algorithms.
+%to provide a general parallel framework which does not tie to Spark.
+Nevertheless, we are in progress to develop and open-source 
+a better SPARE version with Spark-tailored optimization. 
+
+In the revision, we try to add a DataFrame based TRPM solution 
+which aims to leverage the window functions in Spark-SQL.
+However, to the best of our efforts, we could not achieve this goal in a short time. 
+The major challenge is that current Spark do not support User Defined Aggregate Function (UDAF)
+in window functions~\footnote{JIRA Spakr-8641: Native Spark Window Functions \url{https://issues.apache.org/jira/browse/SPARK-8641}}. Without UDAF, implementing
+our Line sweep algorithm (Algorithm 1) using Spark primitives (e.g., sum, avg, rank and nth-tile)
+is nontrivial. Nevertheless, we expect less performance
+boost from TRPM even with UDAF support. This is because the Line sweep algorithm is not
+properly reducible, where Spark system would fail to leverage the partial aggregates
+across multiple windows. Then, it would be equivalent to our current TRPM
+implementation.
+%TRPM although can be modeled using window functions over data frame, the aggregates
+%it uses (i.e., the Line Sweeping method in Algorithm 1) cannot be simply represented
+%by Spark primitives (e.g., sum, avg, rank, nth-tile). We then resort to
+%the Spark User Defined Aggregate Function (UDAF). However, in Spark 1.5.2, the UDAF
+%does not support window function syntax. Even in the latest Spark 1.6.0 (released 
+%last month), UDAF does not fit with window function. We confirm these information
+%with Spark development team~\footnote{In Spark JIRA tickets, fully supporting UDAF is still under development}.
+%
+%Nevertheless, since our Algorithm 1 is not reducible, even with UDAF, TRPM could
+%not boost too much 
+%
+%we expect
+%even with UDAF support TRPM would not boost too much.  Spark system is 
+%%hard to leverage the partial aggregates acrocess
+%
+%we can analytically expect even using UDAF, TRPM would
+%not boost too much. This is because our Algorithm 1 is not reducible. That
+%is we cannot merge or share partial aggregates across different windows. In summary,
+%We wish to convince the reviewer that current TRPM implementation is reasonable. 
+}
+
+\emph{In particular, it would be great to provide the
+difference in the number of partitions/splits, the amount of processing and
+memory usage (i.e., vcore and memory seconds) between TRPM and SPARE}
+
+\response{We add Table 7 to include vcore-seconds 
+and RDD memory usage for both TRPM and SPARE. We also add a clear description on partitions in Section 6.
+}
+
+
+\emph{A plot that breaks down the performance gain by each method would
+be greatly appreciated by the readers.}
+
+\response{We complement Figure 8 with the breakdown cost of TRPM. This
+comparison showcases the benefits of both Star Partition (in mapshufle phase)
+and Apriori Enumeration (in reduce phase) of SPARE.
+}
+
+\emph{Some choices of words may need to be reconsidered: for example, "a bunch
+of" might not be appropriate in a technical paper.}
+
+\response{We thank the reviewer for the correction. We have changed many unprofessional terms.
+}
+
+
+\emph{References to star partitioning and apriori pruning are missing. Though these
+are well known, they need to clearly cited. At least the following reference is
+missing:}
+
+\response{We add the corresponding references in Section 5.1 and Section 5.2.}
+
+\emph{In "In contrast, when utilizing the multicore
+environment, SPAREP achieves 7 times speedup and SPARES achieves 10 times speedup.", was "multicore"
+referring to the use of all 16 cores in one of your node? The specification of the machine was not clear.}
+
+\response{ We use all 16 cores in a single node in our settings. We revise the description in Section 6.2.3.
+} 
+
+
+\emph{The computation of "eta" was slightly different than that in the paper}
+
+\response{
+We have updated the GitHub repository to rectify the typo in the equation.}

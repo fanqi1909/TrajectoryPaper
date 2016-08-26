@@ -45,8 +45,25 @@ Furthermore, their pruning rules heavily rely on the depth-first search nature, 
 in the parallel scenario.
 
 \subsection{Other Related Trajectory Patterns}
-A closely related literature to co-movement patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
+A closely related literature to co-movement patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. \revised{Mining trajectory related patterns on road networks has also been studied~\cite{li2007traffic,lee2011mining}. Due to the bonding with road networks,
+these models cannot be easily extended to broader scenarios such as visitor trajectories in shopping malls, people movements in cities and user check-in histories in social networks. 
+%Nevertheless, GCMP is capable to capture the co-movement patterns in all these applications.
+} 
 
+%Another related literature on movement patterns is the pattern detection in road networks~\cite{}. However, these patterns require meta-information of road networks which  
+%restricts the application scenarios such as visitors' trajectories in shopping mall and passengers' movements tracked by mobile devices. Nevertheless, GCMP is general enough for a broader application scenario which not only includes road networks, but also visitor trajectory, passenger movements and eye movements etc. }
+ 
 \subsection{Trajectory Mining Frameworks}
 Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm to efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place at simliar time. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient updates of arriving objects. 
 As these works essentially differ from co-movement pattern, their techniques cannot be directly applied to discover GCMPs.
+
+
+\revised{
+\subsection{Frequent Sequential Pattern  Mining}
+Mining Gap-restricted Sequential Patterns (GSP)~\cite{srikant1996mining,miliaraki2013mind}
+aims to find sequences which
+satisfy a gap constraint $G$ and occur more than $M$ times. 
+However, traditional GSP cannot support GCMP since they do not
+consider the closeness of objects, which is essential for trajectory patterns.
+%Thus, wemismatches motivates us to design the native GCMP for trajectory data.
+}

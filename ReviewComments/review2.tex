@@ -1,0 +1,59 @@
+\section{Response to Review 2}
+
+\emph{The GCMP generalization is not particularly novel. Putting a maximum gap size
+on consecutive segments is well-known
+in sequence mining published more than
+10 years ago.}
+
+\response{
+We agree the fact that the gap parameter is an old concept. Nevertheless, our major contribution in
+modeling lies in unifying existing movement patterns in the trajectory domain. 
+The gap parameter is naturally introduced to 
+solve the loose-connection anomaly (as in Figure 2).
+%which is suffered by the state-of-the-art generalization (i.e., Platoon pattern). 
+In the revision, we add Section 2.5 to accredit the origin of \emph{gap} concept
+and distinguish the sequential mining problem with our problem. 
+}
+
+\emph{In fact, I have doubts about formulating the GCMP patterns as proposed. Are
+we really interested in all sets of movements beyond a cardinality of size $M$? 
+Take the Taxi dataset as an example. Let say that there are lots of taxis going
+from the airport to downtown. Let say that there are 1000 such taxis. For a
+given $M$, are we interested in ${1000 \choose M}$ answers? 
+So this speaks to the problem of picking $M$. If $M$ is 500, what is ${1000 \choose M}$? In fact, even if the
+system gives the single answer of ${1000\choose 1000}$,
+I am not sure I am
+interested in this pattern as I already know that there are many taxis going from
+the airport to downtown. What I think I am really interested in are GCMP that
+are ``anomalous'', which is much harder to define.}
+
+\response{
+We agree that if no other parameters are given, the maximum number
+of patterns discovered could be as large as ${ \mathbb{O} \choose M}$, which may
+be less interesting to users.
+However, such a case rarely occurs due to two reasons. First,
+in real trajectory mining, parameter $M$
+is associated with temporal parameters $K,L,G$ and they jointly prune many false
+patterns. Second, the nature of our solutions prefer 
+a larger pattern when possible~\footnote{TRPM shrinks an invalid larger pattern until it is valid. SPARE grows a valid smaller pattern until it is about to be invalid. Therefore both algorithms tend to find larger patterns.}.
+For example, if $(o_1,o_2,o_3)$ is 
+a pattern and $M = 2$, 
+then both TRPM and SPARE only output $(o_1,o_2,o_3)$ but not
+any of its subsets. This effectively compresses smaller patterns.
+
+In addition, when the temporal parameters $K,L,G$ are given,
+a larger $M$ actually decreases the number of resulted patterns. 
+This is because there are less patterns having more than $M$ objects. 
+As shown in Figures 7 (a)(g)(m), a larger $M$ actually reduces the running time of both TRPM and SPARE.
+}
+
+\emph{Regarding the second weak point, one line of related work is the superimposition
+of constraints on spatiotemporal mining. An example is a road network. In other words, given a road network, the network imposes constraints on GCMP.}
+
+\response{We agree that domain-specific constraints
+on spatiotemporal mining could be similar to GCMP.
+However, these domain-specific constraints 
+are nontrivial to be generalized. Since our GCMP model as well as solutions
+do not leverage domain knowledge, we can support
+pattern discovery in a broader context. We add the discussion in Section 2.3.
+}

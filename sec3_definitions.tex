@@ -1,6 +1,6 @@
 \section{Definitions}
 \label{sec:definition}
-Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define a bunch of commonly-used operators in this paper in Table~\ref{tbl:operators}.
+Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define \revised{several} commonly-used operators in this paper in Table~\ref{tbl:operators}.
 
 \begin{table}[h] \scriptsize
 \centering
@@ -49,7 +49,12 @@ Given a trajectory database that is discretized into snapshots, we can conduct a
 \begin{definition}[General Co-Movement Pattern]
 A general co-movement pattern finds a set of objects $O$ satisfying the following five constraints: (1) \textbf{closeness:} the objects in $O$ belong to the same cluster in the timestamps of $T$; (2) \textbf{significance:} $|O| \geq M$; (3) \textbf{duration:} $|T| \geq K$; (4) \textbf{consecutiveness:} $T$ is $L$-consecutive; and (5) \textbf{connection:} $T$ is $G$-connected.
 \end{definition}
-There are four parameters in our general co-movement pattern, including object constraint $M$ and temporal constraints $K,L,G$.  By customizing these parameters, our pattern can 
+There are four parameters in our general co-movement pattern, including object constraint $M$ and temporal constraints $K,L,G$. 
+%\revised{These parameters have different effects on the number of patterns discovered. Larger $K$, $L$, $M$ 
+%put more stringent constraints on patterns such that less patterns could satisfy the requirements. Larger $G$
+%relaxes the temporal constraints therefore more patterns could be discovered. Currently, we leave tuning of
+%parameters to users to accommodate various application needs.}  
+By customizing these parameters, our pattern can 
 express other patterns proposed in the previous literature, as illustrated in Table~\ref{tbl:patterns}. 
 In particular, by setting $G=|\mathbb{T}|$, we achieve the \emph{platoon} pattern. By setting $G=|\mathbb{T}|,L=1$, we reach the \emph{swarm} pattern. By setting $G=|\mathbb{T}|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we result in the \emph{convoy} and \emph{flock} patterns. 
 In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose connection} anomaly by tuning the parameter $G$. 
@@ -68,7 +73,7 @@ Convoy & $\cdot$ & $\cdot$ & $K$ & $1$ & Density-based\\
 \hline 
 Swarm & $\cdot$ & $\cdot$ & $1$ & $|\mathbb{T}|$ & Density-based \\ 
 \hline 
-Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & Density-based\\ 
+Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & Density-based\\  
 \hline 
 \end{tabular} 
 \caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value. $M$ represents the 
