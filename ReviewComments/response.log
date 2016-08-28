@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.27)  27 AUG 2016 20:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.8.27)  28 AUG 2016 22:13
 entering extended mode
 **./response.tex
 (response.tex
@@ -327,7 +327,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Warning: No \author given.
 
 (review1.tex
-Underfull \hbox (badness 10000) in paragraph at lines 14--15
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
@@ -417,7 +417,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--21
  []
 
 )
-Underfull \hbox (badness 10000) in paragraph at lines 25--22
+Underfull \hbox (badness 10000) in paragraph at lines 25--20
 
  []
 
@@ -425,7 +425,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--22
 Here is how much of TeX's memory you used:
  3076 strings out of 493334
  40173 string characters out of 3139252
- 116757 words of memory out of 3000000
+ 117757 words of memory out of 3000000
  6537 multiletter control sequences out of 15000+200000
  20897 words of font info for 53 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -441,7 +441,7 @@ msfonts/cm/cmti9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmtt9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/ms
 bm7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb>
-Output written on response.pdf (2 pages, 131777 bytes).
+Output written on response.pdf (2 pages, 132887 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

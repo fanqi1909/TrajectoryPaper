@@ -4,12 +4,21 @@
 more nicely framed also within the Spark environment by taking advantage of
 the various possibilities offered by it (e.g. caching of RDDs)}
 
-\response{We agree that utilizing advanced Spark features would 
-improve our solutions. In this work, we do not include 
-these optimization in-depth because we set out focus 
-on solving the challenges in parallelizing the 
-GCMP mining algorithms.
-We are also in progress of open-sourcing a Spark-tailored
-version of SPARE.
+\response{
+We agree with the reviewer that utilizing advanced Spark features
+would benefit our solutions. In fact, our SPARE algorithm has already taken advantages of the Spark-only features (i.e., caching of RDDs and DAG execution engine). As described in Section 5.3, our SPARE algorithm uses a run-time best-fit strategy to achieve load balance. Using the DAG execution engine, we are able to adopt a Map-Planning-Reduce work flow. With the support of in-memory caching of RDDs,
+the Map results need not to be recomputed after the planning phase. As the result shown in Figure 8,  SPARE with best-fit strategy saves 15\% total time as compared to the randomly partition strategy (i.e., SPARE-RD).  If without Spark's features, such an optimization would be hardly possible.
+
+We do not consider utilizing other Spark extensions such as Spark-GraphX, Spark-Streaming and Spark-MLlib because these extensions, as their name suggest, are for different application scenarios.
+%
+%We are unsure about whether adapting other features in Spark (e.g., Spark streaming, Spark SQL, Spark Graph) would help to improve our solutions. Since they are solutions 
+%%
+%
+%In this work, we do not include 
+%these optimization in-depth because we set out focus 
+%on solving the challenges in parallelizing the 
+%GCMP mining algorithms.
+%We are also in progress of open-sourcing a Spark-tailored
+%version of SPARE.
 } 
 
