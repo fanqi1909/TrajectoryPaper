@@ -10,25 +10,41 @@ been noted that this is a very efficient way to execute window functions in
 Spark}
 
 \response{
-We agree that leveraging more advanced Spark features
-could further improve the performance of our solutions. 
-We do not heavily leverage these features because 
-we wish to focus on designing parallel GCMP mining algorithms.
-%to provide a general parallel framework which does not tie to Spark.
-Nevertheless, we are in progress in developing
-a better open-sourced version with Spark-tailored optimization. 
+We thank the reviewer for suggesting a better way of implementing 
+the baseline algorithm (i.e., TRPM). However, this could
+hardly be done after our investigations. The major reason is
+that current version of Spark SQL (i.e., 1.6.2 released in June)
+does not support the User Defined Aggregate Function (UDAF) on window
+function~\footnote{JIRA Spakr-8641: Native Spark Window Functions \url{https://issues.apache.org/jira/browse/SPARK-8641}}. Without UDAF, implementing
+our Line sweep algorithm (Algorithm 1) using Spark SQL 
+primitive aggregates (e.g., sum, avg, rank and nth-tile)
+is beyond our abilities.
 
-In the revision, we try to add a DataFrame based TRPM solution 
-which aims to leverage the window functions from Spark-SQL.
-However, to the best of our efforts, we could not achieve this goal in a short time. 
-The major challenge is that current Spark do not support User Defined Aggregate Function (UDAF)
-in window functions~\footnote{JIRA Spakr-8641: Native Spark Window Functions \url{https://issues.apache.org/jira/browse/SPARK-8641}}. Without UDAF, implementing
-our Line sweep algorithm (Algorithm 1) using Spark primitives (e.g., sum, avg, rank and nth-tile)
-is nontrivial. Nonetheless, we expect less performance
-boost from TRPM even with the UDAF support. This is because the Line sweep algorithm is not
-properly reducible, where Spark system would fail to leverage the partial aggregates
-across multiple windows. As a result, it would be equivalent to our current TRPM
-solution where windows are processed independently in parallel.
+Further, we believe the performance boost on TRPM from Spark SQL
+is very limited. The reason is that our 
+Line Sweeping Mining algorithm (Algorithm 1) is not a 
+properly reducible function. That is, the result of a 
+smaller window could not be used to compute the result of a larger
+window. In such a case, Spark SQL has to process each
+window independently in parallel, which is equivalent to our TRPM implementation.
+%We agree that leveraging more advanced Spark features
+%could further improve the performance of our solutions. 
+%We do not heavily leverage these features because 
+%we wish to focus on designing parallel GCMP mining algorithms.
+%%to provide a general parallel framework which does not tie to Spark.
+%Nevertheless, we are in progress in developing
+%a better open-sourced version with Spark-tailored optimization. 
+%In the revision, we try to add a DataFrame based TRPM solution 
+%which aims to leverage the window functions from Spark-SQL.
+%However, to the best of our efforts, we could not achieve this goal in a short time. 
+%The major challenge is that current Spark do not support User Defined Aggregate Function (UDAF)
+%in window functions~\footnote{JIRA Spakr-8641: Native Spark Window Functions \url{https://issues.apache.org/jira/browse/SPARK-8641}}. Without UDAF, implementing
+%our Line sweep algorithm (Algorithm 1) using Spark primitives (e.g., sum, avg, rank and nth-tile)
+%is nontrivial. Nonetheless, we expect less performance
+%boost from TRPM even with the UDAF support. This is because the Line sweep algorithm is not
+%properly reducible, where Spark system would fail to leverage the partial aggregates
+%across multiple windows. As a result, it would be equivalent to our current TRPM
+%solution where windows are processed independently in parallel.
 %TRPM although can be modeled using window functions over data frame, the aggregates
 %it uses (i.e., the Line Sweeping method in Algorithm 1) cannot be simply represented
 %by Spark primitives (e.g., sum, avg, rank, nth-tile). We then resort to
