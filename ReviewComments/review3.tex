@@ -13,19 +13,19 @@ Spark}
 We thank the reviewer for suggesting a better way of implementing 
 the baseline algorithm (i.e., TRPM). However, this could
 hardly be done after our investigations. The major reason is
-that current version of Spark SQL (i.e., 1.6.2 released in June)
+that the current version of Spark-SQL (i.e., 1.6.2 just released in June)
 does not support the User Defined Aggregate Function (UDAF) on window
 function~\footnote{JIRA Spakr-8641: Native Spark Window Functions \url{https://issues.apache.org/jira/browse/SPARK-8641}}. Without UDAF, implementing
-our Line sweep algorithm (Algorithm 1) using Spark SQL 
+our Line Sweep algorithm (Algorithm 1) using Spark-SQL 
 primitive aggregates (e.g., sum, avg, rank and nth-tile)
 is beyond our abilities.
 
-Further, we believe the performance boost on TRPM from Spark SQL
+Further, we believe the performance boost on TRPM from Spark-SQL
 is very limited. The reason is that our 
-Line Sweeping Mining algorithm (Algorithm 1) is not a 
+Line Sweep Mining algorithm (Algorithm 1) is not a 
 properly reducible function. That is, the result of a 
 smaller window could not be used to compute the result of a larger
-window. In such a case, Spark SQL has to process each
+window. In such a case, Spark-SQL has to process each
 window independently in parallel, which is equivalent to our TRPM implementation.
 %We agree that leveraging more advanced Spark features
 %could further improve the performance of our solutions. 
@@ -70,23 +70,51 @@ window independently in parallel, which is equivalent to our TRPM implementation
 difference in the number of partitions/splits, the amount of processing and
 memory usage (i.e., vcore and memory seconds) between TRPM and SPARE}
 
-\response{We add Table 7 to include vcore-seconds 
-and RDD memory usage for both TRPM and SPARE. We also add a clear description on partitions in Section 6.
+\response{In our implementation, we take a fixed 486 partitions (Section 6)
+for each RDD. The partition number is determined based on 
+the parallel tuning guide by Cloudera~\footnote{Spark Performance Tuning \url{http://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-1/}}.
+To study the load balance, we revise Section 6.2.2 by comparing TRPM, SPARE with random 
+task allocation and SPARE with best-fit task allocation (Section 5.3). We present
+the summary of the execution time for each method on longest job, shortest job and standard
+deviation of all jobs in Table 9. As the table show, SPARE has a better load balance (low deviation)
+than SPARE-RD which indicates the effectiveness of the best-fit strategy. Further, TRPM
+generally keeps a low deviation. This is because that TRPM always adopts the equal-size (i.e. $\eta$) partition.
+Nevertheless, both the longest and shortest jobs in TRPM are higher than SPARE based solutions.
+
+Next, we add Table 7 (Section 6.1) to compare
+the resource usage (e.g., Vcore-seconds, Memory and Running Time) between SPARE and TRPM.
+The table tells that both SPARE and TRPM are resource efficient.
+In particular, the RDDs for both SPARE and TRPM only take less than 20\% of 
+the available memory. This infers the potential of SPARE and TRPM in handling 
+even larger trajectories with current system resources.
+%
+%include vcore-seconds 
+%and RDD memory usage for both TRPM and SPARE. 
+%As the table show, both TRPM and SPARE are resource efficient. 
+%The maintained RDDs only takes less than 20\% of the entire memory. 
+%We also add a clear description on partitions in Section 6.
 }
 
 
 \emph{A plot that breaks down the performance gain by each method would
 be greatly appreciated by the readers.}
 
-\response{We complement Figure 8 with the breakdown cost of TRPM. This
-comparison showcases the benefits of both Star Partition (in mapshufle phase)
-and Apriori Enumeration (in reduce phase) of SPARE.
+\response{We complement Figure 8 (Section 6.1) by including the breakdown cost of TRPM. 
+In SPARE, star partition takes place in the Map-Shuffle phase while
+Apriori enumeration takes place in the Reduce phase. As shown in the
+new Figure 8, both star partition and apriori enumeration contribute to 
+the final performance gain of SPARE. In particular, in the Map-Shuffle phase,
+SPARE saves 56\%-73\% in time as compared to TRPM. This indicates that 
+less data are transformed and shuffled in the star partition.
+In the Reduce phase, SPARE saves 46\%-81\% time as compared to TRPM. This confirms 
+the efficiency of our Apriori enumerator with various optimization (e.g., sequence simplification,
+anti-monotonicity and forward closure checking).
 }
 
 \emph{Some choices of words may need to be reconsidered: for example, "a bunch
 of" might not be appropriate in a technical paper.}
 
-\response{We thank the reviewer for the correction. We have changed many unprofessional terms.
+\response{We thank the reviewer for the correction. We have changed these unprofessional terms.
 }
 
 
@@ -100,7 +128,7 @@ missing:}
 environment, SPAREP achieves 7 times speedup and SPARES achieves 10 times speedup.", was "multicore"
 referring to the use of all 16 cores in one of your node? The specification of the machine was not clear.}
 
-\response{ We use all cores in a single node to conduct the experiments. We revise the description in Section 6.2.3.
+\response{ We use all cores in the single node to conduct the experiment. We revise the description in Section 6.2.3.
 } 
 
 

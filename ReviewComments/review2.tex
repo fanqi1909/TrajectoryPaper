@@ -8,22 +8,22 @@ in sequence mining published more than
 \response{
 We admit that the gap parameter is also used in
 mining Gap-restricted Sequential Patterns (GSP). However, the novelty
-of this paper is not merely on introducing the gap-constraint to the
+of this paper is not merely on introducing the gap-constraint to the generalized
 co-movement pattern. Instead, we provide a one-stop solution (both in modeling and in technical)
 for mining various co-movement patterns with flexible constraints. With
 these constraints, users are able to define a more accurate pattern
-which are free from the anomalies (e.g., loss-connection anomaly as in Figure 2).
+which are free from the anomalies (e.g., loss-connection anomaly in Figure 2).
 
-Besides, the nature of GSP and GCMP are different. The goal of GSP 
+Besides, the essence of GSP and GCMP are different. The goal of GSP 
 is to find the sequences which conform to the gap constraint and occur frequently.
 When counting the occurrence of a sequence in GSP, the object
-which a sequence belongs to does not matter. Therefore, for
-a pattern result in GSP, it cannot guarantee either the 
-distinction of involved objects or the closeness of those objects.
-In contrast, GCMP has requirements on both the spatial closeness 
+which a sequence belongs to does not matter. Therefore, 
+in a GSP result, the involved objects may be neither
+ distinct nor close.
+In contrast, GCMP imposes requirements on both the spatial closeness 
 of objects and the number of distinct objects.
 Due to the unawareness of objects, techniques that are used in GSP 
-cannot be directly applied on GCMP. We also summarize the difference
+cannot be directly applied on GCMP. We summarize this difference
 in Section 2.5.
 %
 %When counting the occurrence of a sequence, 
@@ -83,16 +83,16 @@ the patterns with larger object set.
 Particularly,  in the Line Sweeping Mining (Algorithm 1) of TRPM, whenever
 a pattern $c$ becomes valid, it is directly outputted (Lines 14-16). This
 prohibits outputting $c$'s subset. Similarly, in the Apriori Enumerator (Algorithm 3)
-of SPARE, a pattern $c$ is outputted if non of its superset would become a valid pattern (Line 12-14).
-This prohibits the output $c$ to be a subset of any patterns.
-These mechanisms effectively condense the output size by subsuming smaller
+of SPARE, a pattern $c$ is outputted if none of its supersets could become a valid pattern (Line 12-14).
+This ensures the output $c$ is not a subset of some pattern.
+These mechanisms effectively condense the output by subsuming smaller
 patterns using their supersets.
 % Nevertheless, these mechanisms are able to preserve ALL valid patterns.
 Linking to the Taxi example, if the ground truth contains 1000 taxis travel
 together, then both TRPM and SPARE tend to output the single pattern.
 In addition, real detection of ``anomalous'' co-moment pattern needs to 
 impose stringent constraints via $M,K,L,G$. This would further reduces 
-the number of potential patterns.
+the size of the output.
 %On the other hand, in reality, if users wish to detect ``anomalous'' patterns,
 %the parameters $M,K,L,G$ will be set to be very stringent. This reduces
 %the size of potential outputs. For example, when detecting the Taxi's movements
@@ -155,11 +155,12 @@ the number of potential patterns.
 \emph{Regarding the second weak point, one line of related work is the superimposition
 of constraints on spatiotemporal mining. An example is a road network. In other words, given a road network, the network imposes constraints on GCMP.}
 
-\response{We agree that domain-specific constraints
-on spatiotemporal mining could be similar to GCMP.
-However, the domain-specific constraints (such as directions in road networks)
-are nontrivial to be generalized. Since our GCMP model and technical solutions
+\response{We understand that spatiotemporal mining with domain-constraints
+looks similar to GCMP.
+However, those techniques often heavily utilize the domain knowledge (such as
+directions in road networks) which are nontrivial to be generalized.
+Differently, since our GCMP model and technical solutions
 do not leverage the domain knowledge, we can support
-pattern discovery in broader scenarios such as user check-in history in social networks, visitor movements in a building and 
+pattern discovery in broader scenarios such as user check-in histories in social networks, visitor movements in a building and 
 passenger flows in a city. We also add the discussion in Section 2.3.
 }
