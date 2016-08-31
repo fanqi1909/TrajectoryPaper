@@ -13,6 +13,33 @@ We are deeply grateful to all the reviewers for the generous and insightful
 suggestions which help us to improve this work to a better level.
 In the following, we provide explicit response to each raised concern and address our corresponding revisions in the new submission.
 
+\section{Response to Reviewer 1}
+
+\textbf{1.1} \emph{The main con that I've spotted is the fact that the algorithm might have been
+more nicely framed also within the Spark environment by taking advantage of
+the various possibilities offered by it (e.g. caching of RDDs)}
+
+
+\textbf{Response:} We agree with the reviewer that utilizing advanced Spark features
+would benefit our solutions. Indeed, our SPARE algorithm has already taken advantages of the Spark-only features: (1) caching of RDDs and (2) DAG execution engine. 
+
+As described in Section 5.3, our SPARE algorithm uses a run-time best-fit strategy to achieve load balance. The best-fit strategy allocates the largest unassigned star to the most empty reducer, which balances the workload for each reducer. Since the strategy needs to know the sizes of all stars, it takes place after the map-phase and before the reduce the phase.
+Utilizing Spark's DAG execution engine, we can easily augment traditional map-reduce workflow to the map-planning-reduce workflow. Furthermore, we can utilize the RDD caching feature of Spark to store the map result (i.e., RDDs of stars)
+during the planning phase and reuse them in the reduce phase.
+
+In Section 6.2.2 Figure 8, we validate the benefits of adopting these Spark features. In Figure 8, we compare SPARE with
+SPARE-RD. SPARE-RD is identical to SPARE except without best-fit strategy. Benefit from the two Spark features, planning
+phase only takes around 4\% of SPARE's total execution time. With the planning phase, SPARE is 15\% faster compared to SPARE-RD.
+
+%As described in Section 5.3, our SPARE algorithm uses a run-time best-fit strategy to achieve load balance. Using the DAG execution engine, we are able to augment traditional Map-Reduce workflow to the Map-Planning-Reduce workflow. With the support of in-memory caching of RDDs,
+%the Map results need not to be recomputed after the planning phase. As the result shown in Figure 8,  SPARE with best-fit strategy saves 15\% total time as compared to the randomly partition strategy (i.e., SPARE-RD).  If without Spark's features, such an optimization would be hardly possible, but SPARE-RD is still more efficient than the baseline TRPM.
+
+We do not consider utilizing other Spark extensions such as Spark-GraphX, Spark-Streaming and Spark-MLlib because these extensions, as their name suggest, are for different application scenarios.
+
+
+
+
+
 \input{review1}
 \input{review2}
 \input{review3}

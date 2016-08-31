@@ -1,16 +1,32 @@
 \section{Response to Review 2}
 
-\emph{The GCMP generalization is not particularly novel. Putting a maximum gap size
+\textbf{2.1} \emph{The GCMP generalization is not particularly novel. Putting a maximum gap size
 on consecutive segments is well-known
 in sequence mining published more than
 10 years ago.}
 
-\response{
+\textbf{Response:}
 We admit that the gap parameter is also used in
-mining Gap-restricted Sequential Patterns (GSP). However, the novelty
+mining Gap-restricted Sequential Patterns (GSP). 
+However, the novelty of this paper lies
+on the one-stop solution of mining co-movement patterns.
+In modeling, we provide the generalize co-movement pattern to
+alleviate the troubles
+is not merely on introducing the gap-constraint.
+Instead, we provide a one-stop solution for mining co-movement patterns. With
+our 
+
+However, the novelty
 of this paper is not merely on introducing the gap-constraint to the generalized
-co-movement pattern. Instead, we provide a one-stop solution (both in modeling and in technical)
-for mining various co-movement patterns with flexible constraints. With
+co-movement pattern. 
+Instead, we provide a one-stop solution (both in modeling and in technical)
+for mining various co-movement patterns with flexible constraints.
+ 
+
+This solution not only alleviate the cumbersome for designing each
+individual patterns, but also 
+
+ With
 these constraints, users are able to define a more accurate pattern
 which are free from the anomalies (e.g., loss-connection anomaly in Figure 2).
 
@@ -25,43 +41,7 @@ of objects and the number of distinct objects.
 Due to the unawareness of objects, techniques that are used in GSP 
 cannot be directly applied on GCMP. We summarize this difference
 in Section 2.5.
-%
-%When counting the occurrence of a sequence, 
-%the object the sequence belongs does not matter. 
-%Therefore, a pattern in FS may corresponds to any objects where
-%the closeness or distinction of objects are not statisfied. Due
-%to this difference, FS solutions cannot be directly applied on GCMP.
-%
-%
-%We agree with the reviewer that gap parameter is 
-%also used in the Sequence Mining problem. However, 
-%Sequence mining problem is different from the GCMP mining problem. 
-%The major difference is that in sequence mining problem, the object
-%itself is not considered. In particular, the frequency of a sequence is 
-%counted as the occurrence of a sequence. Thus, an object may
-%contribute multiple occurrence of a sequence. Conversely, GCMP
-%in addition to impose the gap parameter in the temporal constraint, also 
-%require the objects in the pattern to be close. Due to this difference,
-%Sequence mining solutions cannot support GCMP mining.
-%
-%that the gap parameter is an old concept. 
-%However, the novelty of GCMP lies in the unification and generalization of existing patterns which provide
-%a one-stop solution for co-movement pattern detection. And the
-%gap parameter merely is used for solving the loose-connection anomaly (as in Figure 2). 
-%
-%Moreover, the problem of Sequence mining is also different from Trajectory mining.
-%The major difference is that sequence mining do not consider the distinction between
-%objects and the closeness among objects. This makes the solutions in Sequence mining
-%unable to be applied in GCMP. We summarize these points in Section 2.5 of the revised paper.
-%
-%We agree the fact that the gap parameter is an old concept. Nevertheless, our major contribution in
-%modeling lies in unifying existing movement patterns in the trajectory domain. 
-%The gap parameter is naturally introduced to 
-%solve the loose-connection anomaly (as in Figure 2).
-%%which is suffered by the state-of-the-art generalization (i.e., Platoon pattern). 
-%In the revision, we add Section 2.5 to accredit the origin of the \emph{gap} concept
-%and distinguish the sequential mining problem with our problem. 
-}
+
 
 \emph{In fact, I have doubts about formulating the GCMP patterns as proposed. Are
 we really interested in all sets of movements beyond a cardinality of size $M$? 
@@ -152,7 +132,7 @@ the size of the output.
 %As shown in Figures 7 (a)(g)(m), a larger $M$ actually reduces the running time of both TRPM and SPARE.
 }
 
-\emph{Regarding the second weak point, one line of related work is the superimposition
+\emph{Regarding the second weak points, one line of related work is the superimposition
 of constraints on spatiotemporal mining. An example is a road network. In other words, given a road network, the network imposes constraints on GCMP.}
 
 \response{We understand that spatiotemporal mining with domain-constraints
