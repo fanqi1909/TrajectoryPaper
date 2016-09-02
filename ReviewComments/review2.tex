@@ -7,10 +7,10 @@ in sequence mining published more than
 
 \textbf{Response:} We admit that the gap parameter
 is also used in mining Gap-restricted Sequential Patterns (GSP). 
-However, our work is the first to introduce the gap concept 
-in co-movement mining to resolve the
+However, our work is the first to introduce the gap constraint 
+in co-movement mining in trajectory domain, and we are the first to resolve the
 loose-connection anomaly (as shown in Figure 2).  
-Moreover, we also provide
+Moreover, we provide
 a unified model to capture existing pattern models which 
 is also not proposed before.
 %
@@ -53,7 +53,7 @@ As a consequence, the mined GSP results cannot guarantee the spatial closeness o
 objects, which contradicts with \emph{closeness} requirement of GCMP (Section 3 Definition 2). 
 For example, in the sample trajectory database in Figure 1, 
 the most frequent temporal sequence for GSP is
-$(1,2,3,4,5,6)$ because it appears in all trajectories. 
+$(1,2,3,4,5,6)$ because it appears in every trajectory. 
 However, the involved objects $\{o_1,o_2,o_3,o_4,o_5,o_6\}$ are NOT all
 spatially close at any of the timestamps thus these objects do not form a proper GCMP.
 We summarize this difference in Section 2.5.

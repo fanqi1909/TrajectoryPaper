@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  30 AUG 2016 16:28
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  2 SEP 2016 09:38
 entering extended mode
 **main.tex
 (F:\GitHubRepos\TrajectoryPaper\main.tex
@@ -1141,7 +1141,7 @@ d-to.pdf>
 (epstopdf)                    size: 18454 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/scalability-shoppi
 ng-eps-converted-to.pdf ./charts//exp/spare/scalability-shopping.eps>
-(epstopdf)             \includegraphics on input line 338.
+(epstopdf)             \includegraphics on input line 340.
 Package epstopdf Info: Output file is already uptodate.
 
 <./charts/scalability-shopping-eps-converted-to.pdf, id=307, 722.7pt x 433.62pt
@@ -1150,7 +1150,7 @@ File: ./charts/scalability-shopping-eps-converted-to.pdf Graphic file (type pdf
 )
  <use ./charts/scalability-shopping-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/scalability-shopping-eps-converted-to.pdf use
-d on input line 338.
+d on input line 340.
 (pdftex.def)             Requested size: 156.23877pt x 93.74257pt.
 Package epstopdf Info: Source file: <./charts//exp/spare/scalability-geolife.ep
 s>
@@ -1162,7 +1162,7 @@ s>
 (epstopdf)                    size: 19999 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/scalability-geolif
 e-eps-converted-to.pdf ./charts//exp/spare/scalability-geolife.eps>
-(epstopdf)             \includegraphics on input line 342.
+(epstopdf)             \includegraphics on input line 344.
 Package epstopdf Info: Output file is already uptodate.
 
 <./charts/scalability-geolife-eps-converted-to.pdf, id=308, 722.7pt x 433.62pt>
@@ -1170,7 +1170,7 @@ File: ./charts/scalability-geolife-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/scalability-geolife-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/scalability-geolife-eps-converted-to.pdf used
- on input line 342.
+ on input line 344.
 (pdftex.def)             Requested size: 156.23877pt x 93.74257pt.
 Package epstopdf Info: Source file: <./charts//exp/spare/scalability-taxi.eps>
 (epstopdf)                    date: 2016-07-04 08:58:43
@@ -1181,7 +1181,7 @@ Package epstopdf Info: Source file: <./charts//exp/spare/scalability-taxi.eps>
 (epstopdf)                    size: 19895 bytes
 (epstopdf)             Command: <epstopdf --outfile=./charts/scalability-taxi-e
 ps-converted-to.pdf ./charts//exp/spare/scalability-taxi.eps>
-(epstopdf)             \includegraphics on input line 346.
+(epstopdf)             \includegraphics on input line 348.
 Package epstopdf Info: Output file is already uptodate.
 
 <./charts/scalability-taxi-eps-converted-to.pdf, id=309, 722.7pt x 433.62pt>
@@ -1189,37 +1189,34 @@ File: ./charts/scalability-taxi-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ./charts/scalability-taxi-eps-converted-to.pdf>
 Package pdftex.def Info: ./charts/scalability-taxi-eps-converted-to.pdf used on
- input line 346.
+ input line 348.
 (pdftex.def)             Requested size: 156.23877pt x 93.74257pt.
 )
-(F:\GitHubRepos\TrajectoryPaper\sec7_conclusion.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11 <F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_M-eps-converted-to.pd
-f> <F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_K-eps-converted-to.pdf>
- <F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_L-eps-converted-to.pdf> <
-F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_G-eps-converted-to.pdf> <F:
-/GitHubRepos/TrajectoryPaper/charts/shopping_vary_o-eps-converted-to.pdf> <F:/G
-itHubRepos/TrajectoryPaper/charts/shopping_vary_t-eps-converted-to.pdf> <F:/Git
-HubRepos/TrajectoryPaper/charts/geolife_vary_M-eps-converted-to.pdf> <F:/GitHub
-Repos/TrajectoryPaper/charts/geolife_vary_K-eps-converted-to.pdf> <F:/GitHubRep
-os/TrajectoryPaper/charts/geolife_vary_L-eps-converted-to.pdf> <F:/GitHubRepos/
-TrajectoryPaper/charts/geolife_vary_G-eps-converted-to.pdf> <F:/GitHubRepos/Tra
-jectoryPaper/charts/geolife_vary_o-eps-converted-to.pdf> <F:/GitHubRepos/Trajec
-toryPaper/charts/geolife_vary_t-eps-converted-to.pdf> <F:/GitHubRepos/Trajector
-yPaper/charts/taxi_vary_M-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper
-/charts/taxi_vary_K-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/chart
-s/taxi_vary_L-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi
-_vary_G-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi_vary_
-o-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi_vary_t-eps-
-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/detail1-eps-converted-
-to.pdf>])
+(F:\GitHubRepos\TrajectoryPaper\sec7_conclusion.tex)
 Overfull \hbox (2.60667pt too wide) in paragraph at lines 3--147
 \OT1/cmr/m/n/9 can scale to sup-port pat-tern de-tec-tion in tra-jec-tory datab
 ases
  []
 
-(F:\GitHubRepos\TrajectoryPaper\main.bbl
+[11 <F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_M-eps-converted-to.pdf
+> <F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_K-eps-converted-to.pdf> 
+<F:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_L-eps-converted-to.pdf> <F
+:/GitHubRepos/TrajectoryPaper/charts/shopping_vary_G-eps-converted-to.pdf> <F:/
+GitHubRepos/TrajectoryPaper/charts/shopping_vary_o-eps-converted-to.pdf> <F:/Gi
+tHubRepos/TrajectoryPaper/charts/shopping_vary_t-eps-converted-to.pdf> <F:/GitH
+ubRepos/TrajectoryPaper/charts/geolife_vary_M-eps-converted-to.pdf> <F:/GitHubR
+epos/TrajectoryPaper/charts/geolife_vary_K-eps-converted-to.pdf> <F:/GitHubRepo
+s/TrajectoryPaper/charts/geolife_vary_L-eps-converted-to.pdf> <F:/GitHubRepos/T
+rajectoryPaper/charts/geolife_vary_G-eps-converted-to.pdf> <F:/GitHubRepos/Traj
+ectoryPaper/charts/geolife_vary_o-eps-converted-to.pdf> <F:/GitHubRepos/Traject
+oryPaper/charts/geolife_vary_t-eps-converted-to.pdf> <F:/GitHubRepos/Trajectory
+Paper/charts/taxi_vary_M-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/
+charts/taxi_vary_K-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts
+/taxi_vary_L-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi_
+vary_G-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi_vary_o
+-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/taxi_vary_t-eps-c
+onverted-to.pdf> <F:/GitHubRepos/TrajectoryPaper/charts/detail1-eps-converted-t
+o.pdf>] (F:\GitHubRepos\TrajectoryPaper\main.bbl
 Missing character: There is no â in font cmr8!
 Missing character: There is no € in font cmr8!
 Missing character: There is no ” in font cmr8!
@@ -1227,7 +1224,9 @@ Missing character: There is no ” in font cmr8!
 (F:\GitHubRepos\TrajectoryPaper\appendix.tex [12 <F:/GitHubRepos/TrajectoryPape
 r/charts/scalability-shopping-eps-converted-to.pdf> <F:/GitHubRepos/TrajectoryP
 aper/charts/scalability-geolife-eps-converted-to.pdf> <F:/GitHubRepos/Trajector
-yPaper/charts/scalability-taxi-eps-converted-to.pdf>]) [13]
+yPaper/charts/scalability-taxi-eps-converted-to.pdf>]) [13
+
+]
 (F:\GitHubRepos\TrajectoryPaper\main.aux) ) 
 Here is how much of TeX's memory you used:
  5811 strings out of 493921
@@ -1260,7 +1259,7 @@ fonts/cm/cmtt9.pfb><D:/MikTex/fonts/type1/public/amsfonts/symbols/msbm10.pfb><D
 ublic/amsfonts/symbols/msbm7.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb
 ><D:/MikTex/fonts/type1/urw/helvetic/uhvr8a.pfb><D:/MikTex/fonts/type1/urw/time
 s/utmb8a.pfb><D:/MikTex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (13 pages, 977613 bytes).
+Output written on main.pdf (13 pages, 977273 bytes).
 PDF statistics:
  490 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

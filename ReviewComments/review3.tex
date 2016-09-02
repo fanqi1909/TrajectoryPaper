@@ -10,13 +10,13 @@ been noted that this is a very efficient way to execute window functions in
 Spark.}
 
 \textbf{Response:}
-We thank the reviewer for suggesting a better way of implementing 
-the baseline algorithm (i.e., TRPM). By utilizing window functions,
-TRPM could be rewritten as in the following pseudo-code:
+We thank the reviewer for suggesting a better way to implement
+the baseline algorithm (i.e., TRPM). With window functions,
+TRPM could be rewritten as in the following pseudocode:
 \begin{equation*}
 \begin{aligned}
  \mathtt{WindowSpec}\ ws := \mathtt{Window}&.\mathtt{orderBy}('time') \\
- 				&.\mathtt{rangeBetween}(0, \eta); \\
+ 				&.\mathtt{rowBetween}(0, \eta); \\
  \mathtt{Pattern}\ pt :=  LineSweep&('clusters').\mathtt{over}(ws); 
 \end{aligned}
 \end{equation*}
@@ -38,11 +38,11 @@ is beyond our abilities.
 
 On the other hand, we believe the performance boost on TRPM from Spark-SQL
 would be very limited. The reason is that our 
-Line Sweep algorithm (Algorithm 1) is not a 
-distributive function. 
+Line Sweep algorithm (Algorithm 1) is
+distributive.
 That is the result over an input cannot be constructed from
 the result over a subset of the input. This indicates 
-that no partial results can be shared among all windows.
+that no partial results could be shared among all windows.
 In such a case, Spark-SQL has to process each
 window independently in parallel, which is equivalent to our TRPM implementation.
 %We agree that leveraging more advanced Spark features
@@ -93,7 +93,7 @@ to have a discussion on this topic.}
 
 \textbf{Response:}  We study the skewness by examining the load balance of each algorithm.
 We revise Section 6.2.2 by comparing SPARE with different data partition strategies.
-In particular, we compare SPARE which adopts a best-fit strategy (Section 5.3) and SPARE-RD
+In particular, we compare SPARE which contains a best-fit strategy (Section 5.3) and SPARE-RD
 which adopts the default random partition strategy.
 We present the summary of the execution time for each method on the longest job, the shortest job and standard
 deviation of all jobs in Table 9. As the table shows, SPARE has a better load balance (low deviation)
