@@ -3,7 +3,7 @@
 In this section, we evaluate the efficiency and scalability of our proposed parallel GCMP detectors on real trajectory datasets. All the experiments are carried out in a cluster with $12$ nodes, each equipped with four quad-core $2.2$GHz Intel processors, $32$GB memory and gigabit Ethernet. 
 
 \textbf{Environment Setup}: We use Yarn\footnote{\url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html}} to manage our cluster. We pick one machine as Yarn's master node, and for each of the remaining machines, we reserve one core and $2$GB memory for Yarn processes. We deploy our GCMP detector on Apache Spark 1.5.2~\cite{zaharia2012resilient} with the remaining $11$ nodes as the computing nodes.
-To fully utilize the computing resources, we configure each node to run five executors, each taking three cores and $5$GB memory. In Spark, one of the $55$ executors is taken as the Application Master for coordination, therefore our setting results in $54$ executors. \revised{We set the number of partitions to be $486$ to fully utilize the parallelism provided by the multi-threading of every core.}
+To fully utilize the computing resources, we configure each node to run five executors, each taking three cores and $5$GB memory. In Spark, one of the $55$ executors is taken as the Application Master for coordination, therefore our setting results in $54$ executors. \revised{We set the number of partitions to be $486$ to fully utilize the multi-threading feature of every core.}
 All our implementations as well as cluster setups are open-sourced in Github\footnote{\url{https://github.com/fanqi1909/TrajectoryMining/}}.
 
 \textbf{Datasets}: We use three real trajectory datasets in different application scenarios:
@@ -169,7 +169,7 @@ $7$ times in Taxi. As $M$ increases, the running time of both frameworks slightl
 This is because $\eta$ is proportional to $O(K*G/L+L)$. When $L$ is small (i.e., from $10$ to $20$),
 $\eta$ decreases drastically. As $L$ increases, $\eta$ varies less significantly.
 
-\textbf{Varying $G$}: Figures~\ref{exp:performance_vary} (d),(j),(p) present the performances with increasing $G$.  TRPM is rather sensitive to $G$. When $G$ is relaxed to larger values, more valid patterns would be generated. TPRM has to set a higher replication factor and its running time degrades drastically when $G$ increases from $20$ to $30$. In contrast, with much more effective pruning strategy, our SPARE scales well with $G$. Particularly, SPARE is 14 times faster than TRPM when $G=20$ in GeoLife dataset.
+\textbf{Varying $G$}: Figures~\ref{exp:performance_vary} (d),(j),(p) present the performances with increasing $G$.  TRPM is rather sensitive to $G$. When $G$ is relaxed to larger values, more valid patterns would be generated. TPRM has to set a higher replication factor and its running time degrades drastically when $G$ increases from $20$ to $30$. In contrast, with much more effective pruning strategy, SPARE scales well with $G$. Particularly, SPARE is 14 times faster than TRPM when $G=20$ in GeoLife dataset.
 
 \textbf{Varying $O_r$}: Figures~\ref{exp:performance_vary} (e),(k),(q) present the performances with increasing number of moving objects. Both TRPM and SPARE take longer time to find patterns in a larger database. We can see that the performance gap between SPARE and TRPM is widened as more objects are involved, which shows SPARE is more scalable.
 
@@ -186,17 +186,25 @@ of the available memory (i.e., 270GB) . Again, SPARE outperforms TRPM in both th
 
 \begin{table}[h]
 \small
+\centering
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} & \textbf{Time} & \textbf{Vcore-seconds} & \textbf{Memory} \\ \hline
-\multirow{2}{*}{Shopping}              & TRPM            & 597                               & 90,859                 & 10,019               \\ %\cline{2-5} 
-                                       & SPARE           & 237                               & 33,638                 & 8,613                \\ \hline
-\multirow{2}{*}{Geolife}               & TRPM            & 747                               & 106,428                & 18,454               \\ %\cline{2-5} 
-                                       & SPARE           & 341                               & 35,343                 & 14,369               \\ \hline
-\multirow{2}{*}{Taxi}                  & TRPM            & 3,648                             & 503,460                & 51,691               \\ %\cline{2-5} 
-                                       & SPARE           & 580                               & 68,580                & 35,912               \\ \hline
+\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} % & \textbf{Time} 
+& \textbf{Vcore-seconds} & \textbf{Memory} \\ \hline
+\multirow{2}{*}{Shopping}              & TRPM           % & 597
+                               & 90,859                 & 10,019               \\ %\cline{2-5} 
+                                       & SPARE           %& 237
+                                                                      & 33,638                 & 8,613                \\ \hline
+\multirow{2}{*}{Geolife}               & TRPM            %& 747 
+                              & 106,428                & 18,454               \\ %\cline{2-5} 
+                                       & SPARE           %& 341 
+                                                                     & 35,343                 & 14,369               \\ \hline
+\multirow{2}{*}{Taxi}                  & TRPM            %& 3,648  
+                           & 503,460                & 51,691               \\ %\cline{2-5} 
+                                       & SPARE           %& 580  
+                                                                    & 68,580                & 35,912               \\ \hline
 \end{tabular}
-\caption{Resources taken for TRPM and SPARE. Time is in seconds representing observed performance. Vcore-seconds is the aggregate of time spent in each core. Memory is in MB representing the actual size of RDDs.}
+\caption{Resources taken for TRPM and SPARE. Vcore-seconds is the aggregate of time spent in each core. Memory is the actual size of RDDs.}
 \label{tbl:resource}
 \end{table}
 }
@@ -231,7 +239,7 @@ of the available memory (i.e., 270GB) . Again, SPARE outperforms TRPM in both th
 %\end{figure}
 
 
-
+\vspace{-3mm}
 \subsection{Analysis of SPARE framework}
 In this part, we extensively evaluate SPARE from three aspects:
 (1) the advantages brought by the sequence simplification, (2) the effectiveness of load balance, and (3) the scalability with increasing computing resources.
@@ -263,47 +271,50 @@ Prune ratio & 91.2\% & 89.1\% & 87.7\% \\
 \label{tbl:pruning}
 \end{table}
 
+\vspace{-3mm}
 \begin{figure}[h]
 \centering
-	  \includegraphics[width=0.35\textwidth]{/exp/spare/detail1.eps}
-    \caption{Breakdown of cost of TRPM, SPARE and SPARE-RD.}
+	  \includegraphics[width=0.4\textwidth]{/exp/spare/detail1.eps}
+    \caption{Cost breakdown of TRPM, SPARE and SPARE-RD.}
     \label{exp:wl}
 \end{figure}
 
+\vspace{-4mm}
 \begin{table}[h]
 \centering \small
-%\begin{tabular}{|c|c|c|c|c|}
-%\hline
-%\multirow{2}{*}{\textbf{Dataset}} & \multicolumn{2}{c|}{\textbf{SPARE-RD}} & \multicolumn{2}{c|}{\textbf{SPARE}} \\ \cline{2-5} 
-%                         & Straggler        & Std. Dev.     & Straggler       & Std. Dev.      \\ \hline
-%Shopping                 & 295              & 41         & 237             & 21       \\ \hline
-%GeoLife                  & 484              & 108        & 341             & 56       \\ \hline
-%Taxi                     & 681              & 147        & 580             & 96       \\ \hline
-%\end{tabular}
-\begin{tabular}{|l|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} & \textbf{Min} & \textbf{Max} & \textbf{Std. Dev.} 
-\\ \hline%\specialrule{1pt}{-0.5pt}{-0.5pt} 
-\multirow{3}{*}{Shopping}             % & TRPM            &     426                          & 597                 & 35 \\ %\cline{2-5} 
-                                       & SPARE-RD          & 122                               &  295             & 41
-\\% \cline{2-5}                                        
-									   & SPARE           &  134                              &   237               & 21
-\\ \hline                                
-\multirow{3}{*}{GeoLife}             % & TRPM            &    493                            & 747                & 78               \\ %\cline{2-5} 
-                                       & SPARE-RD          &  38                               &   484               & 148
-\\ %\cline{2-5}                                        
-									   & SPARE           &   107                             &     341             & 96
-\\ \hline
-\multirow{3}{*}{Taxi}             % & TRPM            &   3,460                            &    3,648              & 51 \\ %\cline{2-5} 
-                                       & SPARE-RD          & 122                               & 681                 & 109
-\\ %\cline{2-5}                                        
-									   & SPARE           &   134                             &  580                & 56               
-\\ \hline
+\multirow{2}{*}{\textbf{Dataset}} & \multicolumn{2}{c|}{\textbf{SPARE-RD}} & \multicolumn{2}{c|}{\textbf{SPARE}} \\ \cline{2-5} 
+                         & Max        & Std. Dev.     & Max       & Std. Dev.      \\ \hline
+Shopping                 & 295              & 41         & 237             & 21       \\ \hline
+GeoLife                  & 484              & 108        & 341             & 56       \\ \hline
+Taxi                     & 681              & 147        & 580             & 96       \\ \hline
 \end{tabular}
-  \caption{Statistics of execution time (in seconds) among all executors.}
+%\begin{tabular}{|l|c|c|c|c|}
+%\hline
+%\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} & \textbf{Min} & \textbf{Max} & \textbf{Std. Dev.} 
+%\\ \hline%\specialrule{1pt}{-0.5pt}{-0.5pt} 
+%\multirow{3}{*}{Shopping}             % & TRPM            &     426                          & 597                 & 35 \\ %\cline{2-5} 
+%                                       & SPARE-RD          & 122                               &  295             & 41
+%\\% \cline{2-5}                                        
+%									   & SPARE           &  134                              &   237               & 21
+%\\ \hline                                
+%\multirow{3}{*}{GeoLife}             % & TRPM            &    493                            & 747                & 78               \\ %\cline{2-5} 
+%                                       & SPARE-RD          &  38                               &   484               & 148
+%\\ %\cline{2-5}                                        
+%									   & SPARE           &   107                             &     341             & 96
+%\\ \hline
+%\multirow{3}{*}{Taxi}             % & TRPM            &   3,460                            &    3,648              & 51 \\ %\cline{2-5} 
+%                                       & SPARE-RD          & 122                               & 681                 & 109
+%\\ %\cline{2-5}                                        
+%									   & SPARE           &   134                             &  580                & 56               
+%\\ \hline
+%\end{tabular}
+  \caption{Statistics of execution time (in seconds) among all jobs.}
   \label{tbl:strags}
 \end{table}
 
+\vspace{-2mm}
 \subsubsection{Load balance}
 To study the effect of load balance in the SPARE framework, we use random task allocation (the default setting of Spark) as a baseline, denoted by SPARE-RD, and compare it with our best-fit method. In best-fit, the largest unassigned star is allocated to the currently most lightly loaded reducer.
 Figure~\ref{exp:wl} shows the breakdown of the costs in the map-reduce stages 
@@ -316,7 +327,7 @@ efficiency of the star partition and apriori enumeration.}
 %maintains a low deviation because it uses equal size (i.e., $\eta$) partitioning. 
 %However, TRPM still takes much longer time than SPARE algorithms.}
 We also report the cost  for all jobs in Table~\ref{tbl:strags}, whose results clearly verify the effectiveness of our allocation strategy for load balance.
-We also report the cost of \revised{the longest job (Max), the shortest job (Min) and the standard deviation (Std. Dev.)}
+We also report the cost of \revised{the longest job (Max) and the standard deviation (Std. Dev.)}
 %\emph{straggler}, i.e., the longest job, and the standard deviation (Std. Dev.) 
 for all jobs in Table~\ref{tbl:strags}, whose results clearly verify the effectiveness of our allocation strategy for load balance.
 
@@ -336,15 +347,15 @@ SPARE-P is upto $65$ times and SPARE-S is upto $112$ times better than the state
 
 \begin{figure*}[t]
 \centering
-\begin{subfigure}[b]{0.31\textwidth}
+\begin{subfigure}[b]{0.3\textwidth}
     \includegraphics[width=\textwidth]{/exp/spare/scalability-shopping.eps}
         \caption{Shopping vary $N$}
     \end{subfigure}
- 	 \begin{subfigure}[b]{0.31\textwidth}
+ 	 \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{/exp/spare/scalability-geolife.eps}
         \caption{GeoLife vary $N$}
     \end{subfigure}
-    	 \begin{subfigure}[b]{0.31\textwidth}
+    	 \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
         \caption{Taxi vary $N$}
     \end{subfigure}

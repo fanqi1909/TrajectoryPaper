@@ -84,9 +84,10 @@ represents the assignment matrix wrt. $P$ (i.e., $b_{i,j} = 1$ if vertex $j$ is 
 Let vector $\vec{b}$ be the \textit{one}\footnote{every element in $\vec{b}$ is $1$} 
 vector with size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
 denotes the number of edges in star $Sr_i$. Thus, $\Gamma$ can be represented
-as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orderings, that is
-
+as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orderings, that is:
+\vspace{-2mm}
 \begin{equation}
+\vspace{-2mm}
 \Gamma^* = \min_{P \in \mathbb{P}}{||B\vec{b}||_\infty} \text{ ,where } ||B\vec{b}||_\infty = \max_{1\leq j \leq n}(c_j)
 \end{equation}
 
@@ -99,8 +100,9 @@ Let $d_i$ denote the degree of vertex $i$, since a vertex ordering does not
 affect the average degree,
 then $E[d_i]=E[\Sigma_{1\leq j \leq n}e_{i,j}]=d$. Therefore, 
 entries in $B$ can be written as :
-
+\vspace{-2mm}
 \begin{equation*}
+\vspace{-1mm}
 b_{i,j} = \begin{cases}
 			e_{i,j}, i>j \\
 			0, otherwise
@@ -115,8 +117,9 @@ of expectations,
 we get: $E[c_i] = E[\Sigma_{1\leq j \leq n} b_{i,j}]=E[\Sigma_{1\leq j \leq n} e_{i,j}]/2 = d/2$.
  Let $\mu =E[c_i] = d/2$, 
 $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
-
+\vspace{-2mm}
 \begin{equation*}
+\vspace{-2mm}
 \begin{split}
 	Pr(c_i \geq \mu + t) &\leq \exp(\frac{-2t^2}{n}) = \exp(-2\log n) = n^{-2}
 \end{split}
@@ -125,7 +128,9 @@ $t = \sqrt{n\log n}$, by Hoeffding's Inequality, the following holds:
 The first step holds since all $b_{i,j}$ are 0-1 variables. 
 Next, the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
 $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, the following holds:
+\vspace{-2mm}
 \begin{equation*}
+\vspace{-2mm}
 \begin{split}
 	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t)  \\
 		& = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
@@ -133,6 +138,7 @@ $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, the following holds:
 \end{split}
 \end{equation*}
 Substitute back $t$ and $\mu$, we achieve the following concise form:
+\vspace{-2mm}
 \begin{equation*}
 	Pr(\Gamma \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
