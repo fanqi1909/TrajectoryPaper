@@ -276,30 +276,43 @@ Spark.}
 
 \textbf{Response:} We thank the reviewer for the constructive comment.
 % and carefully considered if applying the window-based function in the baseline algorithm is feasible.  
-We do not implement TRPM using Spark-SQL in the original submission because the latest Spark at that time (i.e., version 1.6.2 released in June)
+We do not implement TRPM using Spark-SQL in the original submission 
+because the latest Spark at that time (i.e., version 1.6.2 released in June)
 did not support \textit{user defined aggregate function} (UDAF) on the window operator\footnote{Window function improvements: \url{https://issues.apache.org/jira/browse/SPARK-7712}}. 
-Without UDAF, we cannot integrate the Line Sweep Mining (Algorithm 1) with the window functions. During our revision period, Spark 2.0.0 is released with the support of UDAF. Thus, we make the exploration of implementing TRPM using Spark-SQL window functions.
+Without UDAF, we cannot integrate the Line Sweep Mining (Algorithm 1) with the window functions. 
+During our revision period, Spark 2.0.0 is released with the support of UDAF. Thus, we make the exploration of implementing TRPM using Spark-SQL window functions.
 
-Our Spark-SQL based TRPM (named TRPM-SQL) works as follows:
-First, we reorganize the input to form a Dataset with two columns: ``Time'' and ``Clusters''. 
-Second, we extend the UDAF class to implement the Line Sweep Mining algorithm on the ``Clusters'' column. Third, we 
-create a WindowSpec to represent a sliding window with size $\eta$ on the ``Time'' column. We compare the performance
-of original Map-Reduce based TRPM (named TRPM-MR) with the TRMP-SQL in the following figure.
+Our Spark-SQL query for TRPM (referred to as TRPM-SQL) is constructed in three steps:
+First, we reorganize the input to form a Dataset\footnote{In Spark 2.0.0, Dataset is used to replace DataFrame.} with two columns: ``Time'' and ``Clusters''. 
+Second, we create a WindowSpec to represent the sliding window with size $\eta$ on the ``Time'' column.
+Last, we apply the WindowSpec and our Line Sweep Mining Algorithm (as UDAF) on the input Dataset to
+form the query.
+%we call the window function in Spark-SQL with a UDAF representing our Line Sweep Algorithm. 
+We compare the performance of TRPM-SQL with our original solutions in the following figure.
+%
+%Second, we extend the UDAF class to implement the Line Sweep Mining algorithm on the ``Clusters'' column. Third, we 
+%create a WindowSpec to represent a sliding window with size $\eta$ on the ``Time'' column. We compare the performance
+%of original Map-Reduce based TRPM (named TRPM-MR) with the TRMP-SQL in the following figure.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.4\textwidth]{spark-sql-comp.eps}
-\caption{Performance comparison with SPARE, TRPM-MR and TRPM-SQL}
+\caption{Performance comparison with SPARE, TRPM and TRPM-SQL}
 \end{figure}
 
-The figure shows that TRPM-SQL is more than 120 times slower than TRPM-MR and 
-takes more than 1 day in the Taxi dataset. With further investigations on the query execution
-plan, 
-we found that as the TRPM-SQL window query does not have a ``partition by'' clause, the Catalyst
-optimizer treats the entire dataset as a SINGLE partition. This 
-large partition is sent to only ONE executor to process. Such a plan
-surrenders all the parallel benefits of the Spark system. Therefore, in our revised paper, we
+The figure clearly shows that TRPM-SQL is inefficient with over
+120 times slower than TRPM. After investigations on its query execution
+plan, we find the slow performance of TRPM-SQL dues to the Spark-SQL Catalyst optimizer.
+Since our TRPM-SQL query does not have a ``partition by'' clause, the Catalyst optimizer
+treats the entire dataset as a SINGLE partition. Then it assigns the SINGLE partition to ONE executor,
+which surrenders the parallel benefits of Spark system.
+Due to the inefficiency of TRPM-SQL, in our revised version, we
 still use the original Map-Reduce based TRPM for the performance comparisons.
+
+%we found that Spark-SQL Catalyst optimizer assign the window query using only one
+%executor. It is because that our TRPM-SQL query does not have a ``partition by'' clause, and
+%the Catalyst optimizer treats the entire dataset as a SINGLE partition. Such a plan
+%surrenders all the parallel benefits of the Spark system. 
 % 
 %
 %

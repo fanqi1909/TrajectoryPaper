@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  7 SEP 2016 15:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.1.28)  8 SEP 2016 11:58
 entering extended mode
 **response.tex
 (F:\GitHubRepos\TrajectoryPaper\ReviewComments\response.tex
@@ -347,35 +347,35 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 280--280
+Underfull \hbox (badness 10000) in paragraph at lines 281--281
 [][]\OT1/cmr/m/n/9 Window func-tion im-prove-ments: $\OT1/cmtt/m/n/9 https : / 
 / issues .$
  []
 
 Package epstopdf Info: Source file: <spark-sql-comp.eps>
-(epstopdf)                    date: 2016-09-07 12:28:49
-(epstopdf)                    size: 423591 bytes
+(epstopdf)                    date: 2016-09-08 11:25:12
+(epstopdf)                    size: 420204 bytes
 (epstopdf)             Output file: <spark-sql-comp-eps-converted-to.pdf>
-(epstopdf)                    date: 2016-09-07 12:29:05
-(epstopdf)                    size: 34156 bytes
+(epstopdf)                    date: 2016-09-08 11:25:17
+(epstopdf)                    size: 33889 bytes
 (epstopdf)             Command: <epstopdf --outfile=spark-sql-comp-eps-converte
 d-to.pdf spark-sql-comp.eps>
-(epstopdf)             \includegraphics on input line 291.
+(epstopdf)             \includegraphics on input line 299.
 Package epstopdf Info: Output file is already uptodate.
-<spark-sql-comp-eps-converted-to.pdf, id=14, 755.82375pt x 370.38374pt>
+<spark-sql-comp-eps-converted-to.pdf, id=14, 755.82375pt x 369.38pt>
 File: spark-sql-comp-eps-converted-to.pdf Graphic file (type pdf)
 
 <use spark-sql-comp-eps-converted-to.pdf>
 Package pdftex.def Info: spark-sql-comp-eps-converted-to.pdf used on input line
- 291.
-(pdftex.def)             Requested size: 201.59692pt x 98.78984pt.
+ 299.
+(pdftex.def)             Requested size: 201.59692pt x 98.52213pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 391--391
+Underfull \hbox (badness 10000) in paragraph at lines 404--404
 [][]\OT1/cmr/m/n/9 Spark Per-for-mance Tun-ing $\OT1/cmtt/m/n/9 http :$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 391--391
+Underfull \hbox (badness 10000) in paragraph at lines 404--404
 $\OT1/cmtt/m/n/9 / / blog . cloudera . com / blog / 2015 / 03 /$
  []
 
@@ -404,7 +404,7 @@ lic/amsfonts/cm/cmr9.pfb><D:/MikTex/fonts/type1/public/amsfonts/cm/cmsy9.pfb><D
 :/MikTex/fonts/type1/public/amsfonts/cm/cmti9.pfb><D:/MikTex/fonts/type1/public
 /amsfonts/cm/cmtt9.pfb><D:/MikTex/fonts/type1/urw/helvetic/uhvb8a.pfb><D:/MikTe
 x/fonts/type1/urw/times/utmb8a.pfb>
-Output written on response.pdf (3 pages, 178365 bytes).
+Output written on response.pdf (3 pages, 178330 bytes).
 PDF statistics:
  89 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
