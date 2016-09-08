@@ -2,7 +2,8 @@
 \label{sec:definition}
 Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define \revised{several} commonly-used operators in this paper in Table~\ref{tbl:operators}.
 
-\begin{table}[h] \scriptsize
+\begin{table}[h]
+\vspace{-2mm}
 \centering
 \begin{tabular}{|c|l|}
 \hline 
@@ -29,13 +30,13 @@ $T_3=T_1\cap T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ and $T_3[x]
 \caption{Operators on time sequence.} \label{tbl:operators}
 \end{table} 
  
-
+\vspace{-3mm}
 We say a sequence $T$ is consecutive 
-if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer each consecutive subsequence of $T$ as a \emph{segment}.
+if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer to each consecutive subsequence of $T$ as a \emph{segment}.
 It is obvious that any time sequence $T$ can be decomposed into
 segments and we say $T$ is \textit{L-consecutive}~\cite{li2015platoon} 
-if the length of every segment is no smaller than $L$. As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose connection} problem. 
-To avoid such an anomaly without losing pattern generality, we introduce a parameter $G$ to control the gaps between
+if the length of every segment is no smaller than $L$. As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose connection} anomaly. 
+To avoid such an anomaly without losing generality, we introduce a parameter $G$ to control the gaps between
 timestamps in a pattern. Formally, a $G$-connected time sequence is defined as follows:
 
 \begin{definition}[$G$-connected]
@@ -55,36 +56,38 @@ There are four parameters in our general co-movement pattern, including object c
 %relaxes the temporal constraints therefore more patterns could be discovered. Currently, we leave tuning of
 %parameters to users to accommodate various application needs.}  
 By customizing these parameters, our pattern can 
-express other patterns proposed in the previous literature, as illustrated in Table~\ref{tbl:patterns}. 
+express other patterns proposed in the literature, as illustrated in Table~\ref{tbl:patterns}. 
 In particular, by setting $G=|\mathbb{T}|$, we achieve the \emph{platoon} pattern. By setting $G=|\mathbb{T}|,L=1$, we reach the \emph{swarm} pattern. By setting $G=|\mathbb{T}|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we result in the \emph{convoy} and \emph{flock} patterns. 
 In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose connection} anomaly by tuning the parameter $G$. 
-It is notable that GCMP cannot be modeled by existing patterns. 
+%It is notable that GCMP cannot be modeled by existing patterns. 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline 
 \textbf{Pattern} & $M$ & $K$ & $L$ & $G$ & \textbf{Clustering} \\ 
 \hline
-Group & $2$ & $1$ & $2$ & $|\mathbb{T}|$ & Disk-based\\
+Group & $2$ & $1$ & $2$ & $|\mathbb{T}|$ & disk\\
 \hline
-Flock & $\cdot$ & $\cdot$ & $K$ & $1$ & Disk-based \\
+Flock & $\cdot$ & $\cdot$ & $K$ & $1$ & disk \\
 \hline 
-Convoy & $\cdot$ & $\cdot$ & $K$ & $1$ & Density-based\\ 
+Convoy & $\cdot$ & $\cdot$ & $K$ & $1$ & density\\ 
 \hline 
-Swarm & $\cdot$ & $\cdot$ & $1$ & $|\mathbb{T}|$ & Density-based \\ 
+Swarm & $\cdot$ & $\cdot$ & $1$ & $|\mathbb{T}|$ & density\\ 
 \hline 
-Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & Density-based\\  
+Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & density\\  
 \hline 
 \end{tabular} 
-\caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value. $M$ represents the 
-\emph{significance} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.}
+\caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value.
+% $M$ represents the  \emph{significance} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.
+}
 \label{tbl:patterns}
 \end{table}
 
+\vspace{-2mm}
 Our definition of GCMP is independent of the clustering method. Users can apply different clustering methods to facilitate different application needs. 
 We currently expose both disk-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMPs from large-scale trajectory databases. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
-\begin{table}[h]\scriptsize
+\begin{table}[h]
 \centering
 \begin{tabular}{|c|l|} 
 \hline

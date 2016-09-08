@@ -240,11 +240,15 @@ As shown in Figure~\ref{fig:star_partition} (c), in the bottom level of the latt
 
 
 \subsection{Put Everything Together}
-We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, for ease of presentation, we used an aggregated graph $G_A$ to capture the clustering relationship. However, in the implementation of the map phase, there is no need to create $G_A$ in advance. Instead, we simply need to emit the edges within a star to the same reducer. Before sending stars to reducers, we use a simple best-fit strategy to calculate the star allocation. Under the best-fit strategy, the most costly unallocated star is assigned to the most lightly loaded reducers, where we use the edges in the star as a cost estimation.
- Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\langle o,i: e(o,i) \rangle$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. 
+We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, for ease of presentation, we used an aggregated graph $G_A$ to capture the clustering relationship. However, in the implementation of the map phase, there is no need to create $G_A$ in advance. Instead, we simply need to emit the edges within a star to the same reducer. 
+%Before sending stars to reducers, we use a simple best-fit strategy to calculate the star allocation. Under the best-fit strategy, the most costly unallocated star is assigned to the most lightly loaded reducers, where we use the edges in the star as a cost estimation.
+Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\langle o,i: e(o,i) \rangle$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}.  
+In Apache Spark, further optimization can be made by balancing the loads among reducers at runtime. 
+Leveraging
+Spark's DAG execution engine~\cite{zaharia2012resilient}, a planning phase can be inserted in between map and reduce phases.
+With knowing all map results (i.e., star sizes), a simple best-fit planning strategy can be adopted by assigning the most costly unallocated star to the most lightly loaded reducer, where the edges in a star can be used as a cost estimation.
 
 \begin{algorithm}
-\small
 \caption{Star Partitioning and ApRiori Enumerator}
 \label{algo:spm_overview}
 \begin{algorithmic}[1]

@@ -1,12 +1,12 @@
 \section{Related Works}
 \label{sec:related_works}
 Related works can be grouped into three categories: \emph{co-movement patterns},
-\emph{dynamic moving patterns} and \emph{trajectory mining frameworks}.
+\emph{dynamic movement patterns} and \emph{trajectory mining frameworks}.
 %The \emph{co-movement patterns} in literature consist 
 %of five members, namely \emph{group}~\cite{wang2006grouppattern}, \emph{flock}~\cite{gudmundsson2004flock},
 %\emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} and \emph{platoon}~\cite{li2015platoon}.
 %We have demonstrated the semantics of these patterns in Table~\ref{tbl:existing_co_patterns} and Figure~\ref{fig:related_work}. 
-In this section, we distinguish the parallel GCMP mining from these concepts.
+%In this section, we distinguish the parallel GCMP mining from these concepts.
 %In this section, we focus on comparing the techniques used in these works.
 %For more trajectory patterns other than \emph{co-movement patterns}, 
 %interested readers may move to~\cite{zheng2015survey} for a comprehensive survey.
@@ -16,20 +16,25 @@ In this section, we distinguish the parallel GCMP mining from these concepts.
 The difference between \emph{flock} and \emph{convoy} lies 
 in the object clustering methods. In \emph{flock},
 objects are clustered based on their distances. Specifically, the
-objects in the same cluster need to have a pair-wised distance less than \emph{min\_dist}. 
+objects in the same cluster need to have a pairwise distance less than \emph{min\_dist}. 
 This essentially requires the objects to be within a disk-region of delimiter less than \emph{min\_dist}.
 In contrast, \emph{convoy} clusters objects using density-based spatial clustering~\cite{ester1996density}.
 Technically, \emph{flock} utilizes a $m^{th}$-order Voronoi diagram~\cite{laube2005finding} to detect whether
-a subset of object with size greater than $m$ stays in a disk-region. \emph{Convoy} employs
+a subset of $n$ ($n \geq m$) objects stay in a disk region.
+%a subset of object with size greater than $m$ stays in a disk-region.
+\emph{Convoy} employs
 a trajectory simplification~\cite{douglas1973linesimplification} technique to boost pairwise distance computations in
 the density-based clustering.
 After clustering, both \emph{flock} and \emph{convoy} use a sequential scanning
-method to examine each snapshots. During the scan, object
-groups that appear in consecutive timestamps are detected. Meanwhile, the object groups that do not
-match the consecutive constraint are pruned. 
+method to examine each snapshot. 
+During the scan, the object groups that do 
+not appear in consecutive snapshots are pruned.
+%During the scan, object
+%groups that appear in consecutive timestamps are detected. Meanwhile, the object groups that do not
+%match the consecutive constraint are pruned. 
 However, such a method faces high complexity when supporting other patterns.
 For instance, in \emph{swarm}, the candidate set during the sequential scanning grows
-exponentially, and many candidates can only be pruned after the entire snapshots are scanned.
+exponentially, and many candidates can only be pruned after the entire dataset are scanned.
 
 \subsection{Group, Swarm and Platoon}
 Different from \emph{flock} and \emph{convoy}, all the \emph{group},\emph{swarm} and \emph{platoon}
@@ -38,14 +43,19 @@ the same skeleton. The main idea of mining is to grow object set from an empty s
 in a depth-first manner. During the growth, various pruning techniques are provided to prune 
 unnecessary branches. \emph{Group} pattern uses a VG-graph to guide the pruning of false candidates~\cite{wang2006grouppattern}.
 \emph{Swarm} designs two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}
-further leverages a prefix table structure to steer the depth-first search. As shown by Li et.al.~\cite{li2015platoon},
-\emph{platoon} outperforms other two methods in efficiency. 
-However, the three patterns are not able to directly discover GCMPs.
-Furthermore, their pruning rules heavily rely on the depth-first search nature, which lose their efficiencies
-in the parallel scenario.
+further leverages a prefix table structure to steer the depth-first search, which shows efficiency 
+as compared to the other two methods.
+%As shown by Li et.al.~\cite{li2015platoon},
+%\emph{platoon} outperforms other two methods in efficiency. 
+%However, the three patterns are not able to directly discover GCMPs.
+However, the pruning rules adopted by the three patterns heavily rely on depth-first search which lose efficiency in parallel scenario.
+%Furthermore, their pruning rules heavily rely on the depth-first search nature, which lose their efficiencies
+%in the parallel scenario.
 
 \subsection{Other Related Trajectory Patterns}
-A closely related literature to co-movement patterns is the \emph{dynamic moving} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic moving} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model our GCMP since they enforce the global consecutiveness on the timestamps of a pattern. 
+A closely related literature to co-movement patterns is the \emph{dynamic movement} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic movement} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model GCMP since they enforce global consecutiveness on the 
+temporal domain.
+%timestamps of a pattern. 
 
 %\revised{Mining trajectory patterns on road networks has also been studied~\cite{li2007traffic,lee2011mining}. Since they leverage the domain knowledge of road networks,
 %these models cannot be easily extended to broader scenarios such as visitor trajectories in shopping malls, people movements in cities and user check-in histories in social networks. 

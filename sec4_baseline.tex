@@ -5,6 +5,7 @@
 \label{fig:trm}
 \end{figure*}
 
+\vspace{-3mm}
 \section{Baseline: Temporal Replication and Parallel Mining}
 \label{sec:trm}
 In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
@@ -46,9 +47,7 @@ $\Delta = K- K'$. To ensure $T'$'s validity, $l_n$ must equal to $\min(L, \Delta
 Then, $\Sigma_{i=1}^{i=n}|l_i| = K' + l_n = K - \Delta + \min(L, \Delta) \leq K - 1 + L$. We finish showing $\range(T') \leq \eta$.  Therefore, for any valid sequence $T$, it exists at least one valid subsequence with range no greater than $\eta$ and hence this pattern can be detected in a partition with $\eta$ snapshots.
 \end{proof}
 
-\vspace{-5mm}
 \begin{algorithm}[h]
-\small
 \caption{Line Sweep Mining}
 \label{algo:line-sweep}
 \begin{algorithmic}[1]
@@ -104,7 +103,7 @@ First, when sweeping snapshot $S_j$, new candidates with objects set smaller tha
 candidates in $C$ with the maximum timestamp no smaller than $j-G$ are pruned (Lines~\ref{code:ls-g-prune-starts}-\ref{code:ls-g-prune-ends}). Third, candidates in $C$ with the size of the first segment smaller than $L$
 are pruned (Lines~\ref{code:ls-l-prune-starts}-\ref{code:ls-l-prune-ends}). With the three pruning rules, the size of $C$ can be significantly reduced.  
 
-The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of the TRPM method using Figure~\ref{fig:trm} (c) and (d) with pattern
+The complete picture of temporal replication and parallel mining is summarized in Algorithm~\ref{algo:trm_overview}. We illustrate the workflow of TRPM using Figure~\ref{fig:trm} (c) and (d) with pattern
 parameters $M=2, K=3, L = 2, G=2$. By Theorem~\ref{THM:RP_ETA}, $\eta$ is calculated
 as $(\lceil \frac{K}{L} \rceil-1) *(G-1)+ K + L - 1 = 5$. Therefore, 
 in Figure~\ref{fig:trm} (c), every $5$ consecutive snapshots are combined 
@@ -120,7 +119,6 @@ which violates the $L$-consecutive constraint.
 Finally, $\langle o_3,o_4 \rangle$ is the valid pattern and is returned. Note that in this example, $\eta=5$ is the minimum setting that can guarantee correctness. If $\eta$ is set to $4$, the pattern $\langle o_3,o_4 \rangle$ would be missed. 
 
 \begin{algorithm}[h]
-\small
 \caption{Temporal Replication and Parallel Mining}
 \label{algo:trm_overview}
 \begin{algorithmic}[1]
