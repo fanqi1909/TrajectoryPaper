@@ -13,7 +13,7 @@ to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013managing
 refers to a group of objects traveling together for a certain period of time 
 and the group is normally determined by their spatial proximity. 
 A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such a basic definition 
-and driven by different mining applications, there are \revised{many} variants 
+and driven by different mining applications, there are many variants 
 of co-movement patterns that have been developed with additional constraints.
 
 Table~\ref{tbl:existing_co_patterns} summarizes several popular co-movement patterns 
@@ -36,6 +36,7 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.45\textwidth]{related_work.eps}
+\vspace{-0.5em}
 \caption{Trajectories and co-movement patterns. The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.}
 \label{fig:related_work}
 \end{figure}
@@ -49,6 +50,7 @@ Unfortunately, none of the existing patterns have directly addressed this anomal
 \begin{figure}[h]
 \center
 \includegraphics[width=0.3\textwidth]{platoon_weakpoint.eps}
+   \vspace{-0.5em}
 \caption{\emph{Loose-connection} anomaly. Even though $\langle o_1, o_2: 1,2,3,102,103,104 \rangle$ is considered as a valid \emph{platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments  are 98 timestamps apart. 
 }
 \label{fig:platoon_weakpoint}
@@ -71,6 +73,7 @@ group~\cite{wang2006grouppattern} & disk &  local & {$O(|\mathbb{O}|^2|\mathbb{T
 platoon~\cite{li2015platoon} & density &  local & {$O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
 \end{tabular} 
+\vspace{-0.5em}
 \caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance wrt.
 $|\mathbb{O}|$, $|\mathbb{T}|$ in the worst case, where $|\mathbb{O}|$ is the number of objects, and $|\mathbb{T}|$ is the number of discretized timestamps.}
 \label{tbl:existing_co_patterns}
@@ -86,34 +89,37 @@ These observations imply that existing methods are not scalable to support large
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_O.eps}
-		\subcaption{\small Varying No. of objects} 
+            \vspace{-1.5em}
+		\subcaption{ Varying No. of objects} 
     \label{fig:fig1}
     \end{subfigure}
     \begin{subfigure}[b]{0.23\textwidth}
             \centering
             \includegraphics[width=\textwidth]{rw_perf_T.eps}
-         \subcaption{\small Varying No. of timestamps}
+            \vspace{-1.5em}
+         \subcaption{ Varying No. of timestamps}
     \label{fig:fig2}
     \end{subfigure}
-    \vspace{-2mm}
+    \vspace{-0.5em}
     \caption{Performance measures on existing co-movement patterns. A sampled GeoLife dataset
     is used with upto 2.4 million data points. Default parameters are $M=15$, $K=180$, $L=30$.}
     \label{fig:related_work_scalability}
 \end{figure}
 
-Therefore, we aim to close these two gaps in this paper. 
+Therefore, in this paper, our contributions are to closing these two gaps.
+%In this paper, our contribution is towards closing these two gaps.
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
 the \emph{loose-connection} anomaly. In GCMP, we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. 
 %\revised{In GCMP, we adopt the concept of \emph{gap parameter $G$}
 %in sequential pattern mining field~\cite{srikant1996mining} to constrain the temporal distance between two consecutive %segments.} 
 By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is also general. %and expressive. 
-It can be reduced to any of the previous patterns by customizing its parameters.
+It can be reduced to any of the previous pattern by customizing its parameters.
 
 Second, we investigate deploying our GCMP detector on the model MapReduce platform (i.e., Apache Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we design a baseline solution by replicating the snapshots in multiple data chunks to support effective parallel mining. Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework to resolve limitations of the baseline. SPARE achieves workload balance by partitioning objects into fine granular stars.  For each star partition, an Apriori Enumerator is adopted to mine the co-movement patterns. Third, we leverage the \emph{temporal monotonicity} property of GCMP 
 to design several optimization techniques including \emph{sequence simplification}, \emph{monotonicity pruning} and \emph{forward closure check} to further reduce the number of candidates enumerated in SPARE.
 
-We conduct a set of extensive experiments on three large-scaled real datasets with hundreds of millions of
+We conduct a set of extensive experiments on three large-scale real datasets with hundreds of millions of
 temporal points. 
 The results show that both our parallel schemes efficiently support GCMP mining in large datasets.
 In particular, with over 170 million trajectory points,
@@ -122,5 +128,5 @@ Moreover, SPARE further achieves almost linear scalability with upto 14 times ef
 as compared to the baseline algorithm.
 
 The rest of our paper is organized as follows: Section~\ref{sec:related_works} summarizes the relevant literature on 
-trajectory pattern mining. Section~\ref{sec:definition} defines the problem of general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline solution. An advanced solution named
+trajectory pattern mining. Section~\ref{sec:definition} states the problem of general co-movement pattern mining. Section~\ref{sec:trm} provides a baseline solution named \emph{Temporal Replication and Parallel Mining} (TRPM). An advanced solution named
 \emph{Star Partitioning and ApRiori Enumerator} (SPARE) is presented in Section~\ref{sec:spm}. Section~\ref{sec:exp} conducts extensive experiments to verify the efficiency of our solutions. Finally, Section~\ref{sec:concl} concludes the paper.

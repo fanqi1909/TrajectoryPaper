@@ -1,14 +1,15 @@
 \begin{figure*} [t]
 \center
 \includegraphics[width=0.85\textwidth]{trm.eps}
-\caption{Work flow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot.  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
+    \vspace{-0.5em}
+\caption{Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot.  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
 \label{fig:trm}
 \end{figure*}
 
 \vspace{-3mm}
 \section{Baseline: Temporal Replication and Parallel Mining}
 \label{sec:trm}
-In this section, we propose a baseline solution that resorts to MapReduce (MR) as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
+In this section, we propose a baseline solution that resorts to Map-Reduce as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
 
 Our focus in this paper is on the second map-reduce stage of parallel mining, which essentially addresses two key challenges. The first is to ensure effective data partitioning such that the mining on each partition can be conducted independently; and the second is to efficiently mine the valid patterns within each partition. 
 
@@ -32,6 +33,7 @@ In our implementation, we set $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-
 \label{THM:RP_ETA}
 $\eta = (\lceil \frac{K}{L} \rceil - 1)*(G-1)+K+L-1$ guarantees that no valid pattern is missing.
 \end{theorem}
+\vspace{-2em}
 \begin{proof}
 Given a valid pattern $P$, we can always find at least one valid subsequence of $P.T$ that is also valid. Let $T'$ denote the valid subsequence of $P.T$ with the minimum length. In the worst case, $T'=P.T$. We define $\range(T)=\max(T) - \min(T) +1$ and prove the theorem by showing that $\range(T') \leq \eta$.
 Since $T'$ can be written as a sequence of L-consecutive segments interleaved by gaps: $l_1,g_1,\ldots,l_{n-1}$, $g_{n-1},l_n$ ($n \geq 1$),

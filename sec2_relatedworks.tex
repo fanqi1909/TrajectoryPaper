@@ -11,8 +11,9 @@ Related works can be grouped into three categories: \emph{co-movement patterns},
 %For more trajectory patterns other than \emph{co-movement patterns}, 
 %interested readers may move to~\cite{zheng2015survey} for a comprehensive survey.
 
-
-\subsection{Flock and Convoy}
+\subsection{Co-Movement Patterns}
+\vspace{-2mm}
+\subsubsection{Flock and Convoy}
 The difference between \emph{flock} and \emph{convoy} lies 
 in the object clustering methods. In \emph{flock},
 objects are clustered based on their distances. Specifically, the
@@ -36,10 +37,10 @@ However, such a method faces high complexity when supporting other patterns.
 For instance, in \emph{swarm}, the candidate set during the sequential scanning grows
 exponentially, and many candidates can only be pruned after the entire dataset are scanned.
 
-\subsection{Group, Swarm and Platoon}
+\subsubsection{Group, Swarm and Platoon}
 Different from \emph{flock} and \emph{convoy}, all the \emph{group},\emph{swarm} and \emph{platoon}
 patterns have more relaxed constraints on the pattern duration. Therefore, their techniques of mining are of
-the same skeleton. The main idea of mining is to grow object set from an empty set
+the same skeleton. The main idea of mining is to grow an object set from an empty set
 in a depth-first manner. During the growth, various pruning techniques are provided to prune 
 unnecessary branches. \emph{Group} pattern uses a VG-graph to guide the pruning of false candidates~\cite{wang2006grouppattern}.
 \emph{Swarm} designs two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}
@@ -48,7 +49,7 @@ as compared to the other two methods.
 %As shown by Li et.al.~\cite{li2015platoon},
 %\emph{platoon} outperforms other two methods in efficiency. 
 %However, the three patterns are not able to directly discover GCMPs.
-However, the pruning rules adopted by the three patterns heavily rely on depth-first search which lose efficiency in parallel scenario.
+However, the pruning rules adopted by the three patterns heavily rely on depth-first search which lose efficiency in a parallel scenario.
 %Furthermore, their pruning rules heavily rely on the depth-first search nature, which lose their efficiencies
 %in the parallel scenario.
 

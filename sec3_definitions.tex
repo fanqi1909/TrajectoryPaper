@@ -1,11 +1,11 @@
-\section{Definitions}
+\section{Problem Statement}
 \label{sec:definition}
-Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define \revised{several} commonly-used operators in this paper in Table~\ref{tbl:operators}.
+Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(1,2,...,N)$ be the discretized temporal dimension. A time sequence $T$ is defined as an ordered subset of $\mathbb{T}$. Given two time sequences $T_1$ and $T_2$, we define commonly-used operators in this paper in Table~\ref{tbl:operators}.
 
 \begin{table}[h]
 \vspace{-2mm}
 \centering
-\begin{tabular}{|c|l|}
+\begin{tabular}{|c|p{6.5cm}|}
 \hline 
 \textbf{Operator} & \textbf{Definition} \\ 
 \hline
@@ -27,10 +27,10 @@ $T_3=T_1\cup T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ or $T_3[x] 
 $T_3=T_1\cap T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ and $T_3[x] \in T_2$\\ 
 \hline
 \end{tabular}
+\vspace{-0.5em}
 \caption{Operators on time sequence.} \label{tbl:operators}
 \end{table} 
- 
-\vspace{-3mm}
+
 We say a sequence $T$ is consecutive 
 if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer to each consecutive subsequence of $T$ as a \emph{segment}.
 It is obvious that any time sequence $T$ can be decomposed into
@@ -44,7 +44,7 @@ A time sequence $T$ is $G$-connected if the gap between any of its neighboring t
  $\forall i \in (1,\ldots,|T|-1), T[i+1]-T[i] \leq G$.
 \end{definition}
 
-We take $T=(1,2,3,5,6)$ as an example, which can be decomposed into two segments $(1,2,3)$ and $(5,6)$. $T$ is not $3$-consecutive since the length of $(5,6)$ is $2$. Thus, it is safe to say either $T$ is $1$-consecutive or $2$-consecutive. On the other hand, $T$ is $2$-connected since the maximum gap between its neighboring timestamps is $2$. It is worth noting that $T$ is not $1$-connected because the gap between $T[3]$ and $T[4]$ is $2$ (i.e., $5-3=2$).
+We take $T=(1,2,3,5,6)$ as an example. $T$ can be decomposed into two segments $(1,2,3)$ and $(5,6)$. $T$ is not $3$-consecutive since the length of $(5,6)$ is $2$. But it is safe to say either $T$ is $1$-consecutive or $2$-consecutive. On the other hand, $T$ is $2$-connected since the maximum gap between its neighboring timestamps is $2$. It is worth noting that $T$ is not $1$-connected because the gap between $T[3]$ and $T[4]$ is $2$ (i.e., $5-3=2$).
 
 Given a trajectory database that is discretized into snapshots, we can conduct a clustering method, either disk-based or density-based, to identify groups with spatial proximity. Let $T$ be the set of timestamps in which a group of objects $O$ are clustered. We are ready to define a more general co-movement pattern:
 \begin{definition}[General Co-Movement Pattern]
@@ -77,13 +77,14 @@ Swarm & $\cdot$ & $\cdot$ & $1$ & $|\mathbb{T}|$ & density\\
 Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & density\\  
 \hline 
 \end{tabular} 
+    \vspace{-0.5em}
 \caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value.
 % $M$ represents the  \emph{significance} constraint. $K$ represents the \emph{duration} constraint. $L$ represents the \emph{consecutiveness} constraint. $G$ represents the \emph{connection} constraint.
 }
+    \vspace{-0.5em}
 \label{tbl:patterns}
 \end{table}
 
-\vspace{-2mm}
 Our definition of GCMP is independent of the clustering method. Users can apply different clustering methods to facilitate different application needs. 
 We currently expose both disk-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMPs from large-scale trajectory databases. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
@@ -120,5 +121,6 @@ $Sr_i $ &  star partition for object (vertex) $i$ \\
 $\Gamma$ & size of the largest star partition\\
 \hline
 \end{tabular} 
-\caption{Summary of the use of notations.}
+\vspace{-0.5em}
+\caption{Summary of notations.}
 \end{table}

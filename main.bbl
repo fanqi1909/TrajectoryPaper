@@ -60,8 +60,7 @@ D.~H. Douglas and T.~K. Peucker, ``Algorithms for the reduction of the number
 
 \bibitem{kalnis2005movingclusters}
 P.~Kalnis, N.~Mamoulis, and S.~Bakiras, ``On discovering moving clusters in
-  spatio-temporal data,'' in {\em Advances in spatial and temporal databases},
-  2005.
+  spatio-temporal data,'' in {\em SSTD'05}.
 
 \bibitem{aung2010discovery}
 H.~H. Aung and K.-L. Tan, ``Discovery of evolving convoys,'' in {\em SSDM'10}.
@@ -70,14 +69,6 @@ H.~H. Aung and K.-L. Tan, ``Discovery of evolving convoys,'' in {\em SSDM'10}.
 K.~Zheng, Y.~Zheng, N.~J. Yuan, and S.~Shang, ``On discovery of gathering
   patterns from trajectories,'' in {\em ICDE'13}.
 
-\bibitem{li2007traffic}
-X.~Li, J.~Han, J.-G. Lee, and H.~Gonzalez, ``Traffic density-based discovery of
-  hot routes in road networks,'' in {\em ISSTD'07}.
-
-\bibitem{lee2011mining}
-J.-G. Lee, J.~Han, X.~Li, and H.~Cheng, ``Mining discriminative patterns for
-  classifying trajectories on road networks,'' {\em TKDE'11}.
-
 \bibitem{jinno2012paralleltpattern}
 R.~Jinno, K.~Seki, and K.~Uehara, ``Parallel distributed trajectory pattern
   mining using mapreduce,'' in {\em CloudCom'12}.
@@ -85,14 +76,6 @@ R.~Jinno, K.~Seki, and K.~Uehara, ``Parallel distributed trajectory pattern
 \bibitem{li2013onlinegroup}
 X.~Li, V.~Ceikute, C.~S. Jensen, and K.-L. Tan, ``Effective online group
   discovery in trajectory databases,'' {\em TKDE 2013}.
-
-\bibitem{srikant1996mining}
-R.~Srikant and R.~Agrawal, ``Mining sequential patterns: Generalizations and
-  performance improvements,'' in {\em EDBT'96}.
-
-\bibitem{miliaraki2013mind}
-I.~Miliaraki, K.~Berberich, R.~Gemulla, and S.~Zoupanos, ``Mind the gap:
-  Large-scale frequent sequence mining,'' in {\em SIGMOD'13}.
 
 \bibitem{yoo2006joinless}
 J.~S. Yoo and S.~Shekhar, ``A joinless approach for mining spatial colocation
@@ -116,7 +99,7 @@ J.~Wang, J.~Han, and J.~Pei, ``Closet+: Searching for the best strategies for
 
 \bibitem{pei2000closet}
 J.~Pei, J.~Han, R.~Mao, {\em et~al.}, ``Closet: An efficient algorithm for
-  mining frequent closed itemsets.,'' in {\em SIGMOD DMKD'00}.
+  mining frequent closed itemsets.,'' in {\em DMKD'00}.
 
 \bibitem{zaharia2012resilient}
 M.~Zaharia, M.~Chowdhury, T.~Das, A.~Dave, J.~Ma, M.~McCauley, M.~J. Franklin,

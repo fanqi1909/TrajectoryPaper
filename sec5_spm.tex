@@ -1,6 +1,7 @@
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.85\textwidth]{spm.eps}
+\vspace{-0.5em}
 \caption{Star Partitioning and ApRiori Enumerator (SPARE). (a) Aggregated graph $G_A$ generated from Figure 1. (b) Five star partitions are generated from $G_A$. Star IDs are circled, vertexes and inverted lists are in the connected tables.
 (c) Apriori Enumerator with various pruning techniques.}
 \label{fig:star_partition}
@@ -57,6 +58,7 @@ different vertex ordering on the same graph. The top one has $\Gamma = 5$ while 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.35\textwidth]{star-alt.eps}
+\vspace{-0.5em}
 \caption{Star partitioning with different vertex orderings.}
 \label{fig:star-alt}
 \end{figure}
@@ -69,6 +71,7 @@ Although it is very challenging to find the optimal vertex ordering from the $n!
 Let $\Gamma^*$ be the value derived from the optimal vertex ordering and  $\Gamma$ be the value derived from a random vertex ordering. With probability $1-1/n$, we have $\Gamma = \Gamma^* + O(\sqrt{n \log n})$.
 \end{theorem}
 \begin{proof}
+    \vspace{-0.5em}
 See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 If $G_A$ is dense, we can get a tighter bound for $(\Gamma - \Gamma^*)$.
@@ -78,6 +81,7 @@ Let $d$ be the average degree in $G_A$. If $d\geq \sqrt{12\log n}$, with
 high probability $1-1/n$, $\Gamma = \Gamma^* + O(\sqrt{d\log n})$.
 \end{theorem}
 \begin{proof}
+ \vspace{-0.5em}
 See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 Hence, we can simply use object ID to determine the vertex ordering in our implementation.
@@ -113,6 +117,7 @@ The maximal $G$-connected subsequence has the following two properties:
 Suppose $\{T_1,T_2,\ldots,T_m\}$ is the set of all maximal $G$-connected subsequences of $T$, we have (1) $T_i\cap T_j=\emptyset$ for $i\neq j$ and (2) $T_1\cup T_2\cup\ldots\cup T_m=T$.
 \end{lemma}
 \begin{proof}
+ \vspace{-0.5em}
 We assume $T_i\cap T_j\neq \emptyset$. Let $T_i=(T_i[1], T_i[2],\ldots,T_i[p])$ and $T_j= (T_j[1], T_j[2],\ldots,T_j[n])$. Suppose $T[x]$ is a timestamp occurring in both $T_i$ and $T_j$. Let $T[y]=\min\{T_i[1],T_j[1]\}$, i.e., the minimum timestamp of $T_i[1]$ and $T_j[1]$ occurs at the $y$-th position of sequence $T$. Similarly, we assume $T[z]=\max\{T_i[p], T_j[n]\}$. Apparently, the two subsequences $T[y:x]$ and $T[x:z]$ are $G$-connected because $T_i$ and $T_j$ are both $G$-connected. Then, sequence $(T_y,\ldots,T_x,\ldots,T_z)$, the superset of $T_i$ and $T_j$, is also $G$-connected. This contradicts with the assumptions that $T_i$ and $T_j$ are maximal $G$-connected subsequences. 
 
 
@@ -130,6 +135,7 @@ If $T_1 \subseteq T_2$, then for any maximal $G$-connected subsequence $T_1'$ of
 $T_1' \subseteq T_2'$.
 \end{lemma}
 \begin{proof}
+ \vspace{-0.5em}
 Since $T_1' \subseteq T_1 \subseteq T_2 $, we know $T_1'$ is a $G$-connected subsequence of $T_2$. Based on Lemma~\ref{lemma:union-property}, we can find a maximal $G$-connected subsequence of $T_2$, denoted by $T_2'$, such that $T_1'\cap T_2'\neq \emptyset$. If there exists a timestamp $T_1'[x]$ such that $T_1'[x]\notin T_2'$, similar to the proof of case (1) in Lemma~\ref{lemma:union-property}, we can obtain a contradiction. Thus, all the timestamps in $T_1'$ must occur in $T_2'$.
 \end{proof}
 
@@ -145,7 +151,7 @@ In contrast, $T_2$ is a decomposable sequence because the sequence itself is the
 
 \begin{definition}[Sequence Simplification]
 Given a sequence $T$, the simplification procedure $\mathtt{sim}(T) =  g_{G,K} \cdot f_L(T) $ can be seen as a composite function with two steps: 
-\begin{enumerate}
+\begin{enumerate}[nosep]
 \item $f$-step: remove segments of $T$ that are not $L$-consecutive;
 \item $g$-step: among the maximal $G$-connected subsequences of $f_L(T)$, remove those with size smaller than $K$.
 \end{enumerate}
@@ -171,6 +177,7 @@ If sequence $T$ is a superset of any decomposable sequence, then $\mathtt{sim}(T
 \end{lemma}
 
 \begin{proof}
+ \vspace{-0.5em}
 It is obvious that $\mathtt{sim}(T)$ is a one-to-one function. Given an input sequence T, there is a unique  $\mathtt{sim}(T)$. Let $T_p$ be a decomposable subset of $T$ and we prove the lemma by showing that $\mathtt{sim}(T)$ is a superset of $T_p$.
 
 Suppose $T_p$ can be decomposed into a set of maximal $G$-connected
@@ -185,6 +192,7 @@ Given a candidate pattern $P=\{O:T\}$, if $\mathtt{sim}(P.T)=\emptyset$, then an
 \end{theorem}
 
 \begin{proof}
+ \vspace{-0.5em}
 We prove by contradiction. Suppose there exists a valid pattern $P_2$ such that $P_2.O \supseteq P.O$. It is obvious that $P_2.T \subseteq P.T$. Based on Definition 2, the following conditions hold: (1) $P_2.T$ is $G$-connected. (2) $|P_2.T| \geq K$ and (3) $P_2.T$ is $L$-consecutive. Note that the entire $P_2.T$ is $G$-connected. Thus, $P_2.T$ itself is the only maximal $G$-connected subsequence. Based on conditions (1),(2),(3) and Definition 6, $P_2.T$ is decomposable. Then, based on Lemma~\ref{lemma:decom-sim}, we know $\mathtt{sim}(T)\neq \emptyset$ because $P_2.T \subseteq P.T$ and $P_2.T$ is decomposable. This leads to a contradiction with $\mathtt{sim}(P.T)=\emptyset$.
 \end{proof}
 
@@ -286,7 +294,7 @@ Let $Sr_i$ and $Sr_j$ ($i\neq j$) be two star partitions. Let $P_i$ (resp. $P_j$
 the patterns discovered from $Sr_i$ (resp. $Sr_j$). 
 Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \neq p_j.O$.
 \end{theorem}
-\begin{proof}
+\begin{proof} \vspace{-0.5em}
 We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertexes of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are different stars, meaning their center vertexes are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
 \end{proof}
 
@@ -297,7 +305,6 @@ in the SPARE framework, which is superior to the TRPM baseline. Finally, we show
 \label{THM:SPM_CORRECT}
 The SPARE framework guarantees completeness and soundness.
 \end{theorem}
-\vspace{-5 mm}
-\begin{proof}
+\begin{proof}  \vspace{-0.5em}
 See Appendix~\ref{apx:spm_correct}.
 \end{proof}

@@ -142,12 +142,12 @@ Substitute back $t$ and $\mu$, we achieve the following concise form:
 \begin{equation*}
 	Pr(\Gamma \geq (d/2 + \sqrt{n\log n})) \leq 1/n
 \end{equation*}
-This indicates the probability of $(\Gamma-d/2)$ being no greater than $ O(\sqrt{n\log n})$ is $(1-1/n)$. 
+This indicates the probability of $(\Gamma-d/2) \leq O(\sqrt{n\log n})$ is $(1-1/n)$. 
 Since $\Gamma^* \geq d/2$, it follows with probability greater than $(1-1/n)$, 
-the $\Gamma - \Gamma^*$ is no greater than $O(\sqrt{n\log n})$.
+$\Gamma - \Gamma^* \leq O(\sqrt{n\log n})$.
 When the aggregated graph is \emph{dense} (i.e., $d\geq \sqrt{12 \log n}$),
 the Chernoff Bound can be used to derive a tighter bound of 
-$O(\sqrt{\log n}) $ following the similar reasoning.
+$O(\sqrt{\log n}) $ following similar reasoning.
 \end{proof}
 
 %\subsection{Proof of Theorem~\ref{THM:SPM_TM}}
