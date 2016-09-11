@@ -36,7 +36,6 @@ They introduce a parameter $L$ to control the minimum length of each local conse
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.45\textwidth]{related_work.eps}
-\vspace{-0.5em}
 \caption{Trajectories and co-movement patterns. The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.}
 \label{fig:related_work}
 \end{figure}
@@ -50,9 +49,10 @@ Unfortunately, none of the existing patterns have directly addressed this anomal
 \begin{figure}[h]
 \center
 \includegraphics[width=0.3\textwidth]{platoon_weakpoint.eps}
-   \vspace{-0.5em}
+\vspace{-0.5em}
 \caption{\emph{Loose-connection} anomaly. Even though $\langle o_1, o_2: 1,2,3,102,103,104 \rangle$ is considered as a valid \emph{platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments  are 98 timestamps apart. 
 }
+\vspace{-0.5em}
 \label{fig:platoon_weakpoint}
 \end{figure}
 
@@ -76,6 +76,7 @@ platoon~\cite{li2015platoon} & density &  local & {$O(2^{|\mathbb{O}|}|\mathbb{O
 \vspace{-0.5em}
 \caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance wrt.
 $|\mathbb{O}|$, $|\mathbb{T}|$ in the worst case, where $|\mathbb{O}|$ is the number of objects, and $|\mathbb{T}|$ is the number of discretized timestamps.}
+\vspace{-0.5em}
 \label{tbl:existing_co_patterns}
 \end{table}
 
@@ -100,10 +101,11 @@ These observations imply that existing methods are not scalable to support large
          \subcaption{ Varying No. of timestamps}
     \label{fig:fig2}
     \end{subfigure}
-    \vspace{-0.5em}
+   \vspace{-0.5em}
     \caption{Performance measures on existing co-movement patterns. A sampled GeoLife dataset
     is used with upto 2.4 million data points. Default parameters are $M=15$, $K=180$, $L=30$.}
     \label{fig:related_work_scalability}
+    \vspace{-0.5em}
 \end{figure}
 
 Therefore, in this paper, our contributions are to closing these two gaps.
