@@ -201,7 +201,7 @@ We prove by contradiction. Suppose there exists a valid pattern $P_2$ such that 
 \subsubsection{Apriori Enumerator}
 We design an Apriori based enumeration algorithm to efficiently discover all the valid patterns in a star partition. The principle of the Apriori algorithm is to construct a lattice structure and enumerate all the possible candidate sets in a bottom-up manner. Its merit lies in the monotonic property such that if a candidate set is not valid, then all its supersets can be pruned. Thus, it works well in practice in spite of the exponential search space.
 
-Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and invalid candidates are excluded (Line~\ref{code:simp1}). An indicator \emph{level} is used to control the result size for candidate joins. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidates $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Lines~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that all the candidates with $P.O\supseteq c'.O$ are pruned. If a candidate cannot generate any new candidate, then
+Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and invalid candidates are excluded (Line~\ref{code:simp1}). An indicator \emph{level} is used to control the result size for candidate joins. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidates $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Line~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that all the candidates with $P.O\supseteq c'.O$ are pruned. If a candidate cannot generate any new candidate, then
 it is directly reported (Lines~\ref{code:output1-start}-\ref{code:output1-end}).
 To further improve the performance, we adopt the idea of \textit{forward closure}~\cite{wang2003closet+,pei2000closet} and  aggressively check if the union of all the current candidates form a valid pattern (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-end}). If yes, we can  terminate the algorithm early and output the results.
 
@@ -252,11 +252,14 @@ As shown in Figure~\ref{fig:star_partition} (c), in the bottom level of the latt
 \subsection{Put Everything Together}
 We summarize the workflow of SPARE in Figure~\ref{fig:star_partition} as follows. After the parallel clustering in each snapshot, for ease of presentation, we use an aggregated graph $G_A$ to capture the clustering relationship. However, in the implementation of the map phase, there is no need to create $G_A$ in advance. Instead, we simply need to emit the edges within a star to the same reducer. 
 %Before sending stars to reducers, we use a simple best-fit strategy to calculate the star allocation. Under the best-fit strategy, the most costly unallocated star is assigned to the most lightly loaded reducers, where we use the edges in the star as a cost estimation.
-Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\langle o,i: e(o,i) \rangle$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}.  
-In Apache Spark, further optimization can be made by balancing the loads among reducers at runtime. 
-Leveraging
-Spark's DAG execution engine~\cite{zaharia2012resilient}, a planning phase can be inserted in between map and reduce phases.
-With knowing all map results (i.e., star sizes), a simple best-fit planning strategy can be adopted by assigning the most costly unallocated star to the most lightly loaded reducer, where the edges in a star can be used as a cost estimation.
+Each reducer is an Apriori Enumerator. When receiving a star $Sr_i$, the reducer creates initial candidate patterns. Specifically, for each $o \in Sr_i$, a candidate pattern $\langle o,i: e(o,i) \rangle$ is created. Then it enumerates all the valid patterns from the candidate patterns. The pseudocode of SPARE is presented in Algorithm~\ref{algo:spm_overview}. 
+In our implementation of SPARE on Spark~\cite{zaharia2012resilient}, we take advantage of Spark features to achieve better workload balance. In particular,
+we utilize Spark DAG execution engine to inject a planning phase between map and reduce phases. By knowing all map results (i.e., star sizes), a simple best-fit strategy is adopted which assigns the most costly unallocated star to the most lightly loaded reducer, where the edges in a star are used as cost estimations. We also leverage Spark in-memory cache to avoid recomputing all stars after the planning phase.
+% 
+%In Apache Spark, further optimization can be made by balancing the loads among reducers at runtime. 
+%Leveraging
+%Spark's DAG execution engine~\cite{zaharia2012resilient}, a planning phase can be inserted in between map and reduce phases.
+%With knowing all map results (i.e., star sizes), a simple best-fit planning strategy can be adopted by assigning the most costly unallocated star to the most lightly loaded reducer, where the edges in a star can be used as a cost estimation.
 
 \begin{algorithm}
 \caption{Star Partitioning and ApRiori Enumerator}
@@ -298,7 +301,7 @@ Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \neq p_j.O$.
 \end{theorem}
 \begin{proof} 
 \vspace{-0.5em}
-We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertexes of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are different stars, meaning their center vertexes are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
+We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertexes of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are from different stars, meaning their center vertexes are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
 \vspace{-0.5em}
 \end{proof}
 

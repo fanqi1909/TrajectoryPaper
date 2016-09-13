@@ -2,7 +2,7 @@
 \center
 \includegraphics[width=0.85\textwidth]{trm.eps}
     \vspace{-0.5em}
-\caption{Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot.  (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.}
+\caption{Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first mapreduce stage which clusters objects in each snapshot.  (c) and (d) correspond to the second mapreduce stage, which uses TRPM to detect GCMPs in parallel.}
 \vspace{-0.5em}
 \label{fig:trm}
 \end{figure*}
@@ -10,9 +10,9 @@
 %\vspace{-3mm}
 \section{Baseline: Temporal Replication and Parallel Mining}
 \label{sec:trm}
-In this section, we propose a baseline solution that resorts to Map-Reduce as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of map-reduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
+In this section, we propose a baseline solution that resorts to MapReduce as a general, parallel and scalable paradigm for GCMP mining. The framework, named \textit{temporal replication and parallel mining} (TRPM), is illustrated in   Figure~\ref{fig:trm}. There are two stages of mapreduce jobs connected in a pipeline manner. The first stage deals with spatial clustering of objects in each snapshot, which can be seen as a preprocessing step for the subsequent pattern mining phase. In particular, for the first stage, the timestamp is treated as the key in the map phase and objects within the same snapshot are clustered (DBSCAN or disk-based clustering) in the reduce phase. Finally, the reducers output clusters of objects in each snapshot, represented by a list of key-value pairs $\langle t, S_t  \rangle$, where $t$ is the timestamp and $S_t$ is a set of clustered objects at snapshot $t$. 
 
-Our focus in this paper is on the second map-reduce stage of parallel mining, which essentially addresses two key challenges. The first is to ensure effective data partitioning such that the mining on each partition can be conducted independently; and the second is to efficiently mine the valid patterns within each partition. 
+Our focus in this paper is on the second mapreduce stage of parallel mining, which essentially addresses two key challenges. The first is to ensure effective data partitioning such that the mining on each partition can be conducted independently; and the second is to efficiently mine the valid patterns within each partition. 
 
 It is obvious that we cannot simply split the trajectory database 
 into disjoint partitions because a GCMP requires $L$-consecutiveness 

@@ -37,7 +37,7 @@ We say a sequence $T$ is consecutive
 if $\forall i \in (1,...,|T|-1), T[i+1] = T[i] + 1$.  We refer to each consecutive subsequence of $T$ as a \emph{segment}.
 It is obvious that any time sequence $T$ can be decomposed into
 segments and we say $T$ is \textit{L-consecutive}~\cite{li2015platoon} 
-if the length of every segment is no smaller than $L$. As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose connection} anomaly. 
+if the length of every segment is no smaller than $L$. As illustrated in Figure~\ref{fig:platoon_weakpoint}, patterns adopting the notion of $L$-consecutiveness (e.g., \emph{platoon} and \emph{group}) still suffer from the \emph{loose-connection} anomaly. 
 To avoid such an anomaly without losing generality, we introduce a parameter $G$ to control the gaps between
 timestamps in a pattern. Formally, a $G$-connected time sequence is defined as follows:
 
@@ -60,7 +60,7 @@ There are four parameters in our general co-movement pattern, including object c
 By customizing these parameters, our pattern can 
 express other patterns proposed in the literature, as illustrated in Table~\ref{tbl:patterns}. 
 In particular, by setting $G=|\mathbb{T}|$, we achieve the \emph{platoon} pattern. By setting $G=|\mathbb{T}|,L=1$, we reach the \emph{swarm} pattern. By setting $G=|\mathbb{T}|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we result in the \emph{convoy} and \emph{flock} patterns. 
-In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose connection} anomaly by tuning the parameter $G$. 
+In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose-connection} anomaly by tuning the parameter $G$. 
 %It is notable that GCMP cannot be modeled by existing patterns. 
 \begin{table}[h]
 \centering

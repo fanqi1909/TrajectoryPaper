@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{yu2016spatial}
+W.~Yu, ``Spatial co-location pattern mining for location-based services in road
+  networks,'' {\em Expert Systems with Applications}, vol.~46, pp.~324--335,
+  2016.
+
+\bibitem{liu2013uncovering}
+X.~Liu and Y.~Ban, ``Uncovering spatio-temporal cluster patterns using massive
+  floating car data,'' {\em ISPRS International Journal of Geo-Information},
+  vol.~2, no.~2, pp.~371--384, 2013.
+
+\bibitem{liu2015exploring}
+C.~Liu, K.~Qin, and C.~Kang, ``Exploring time-dependent traffic congestion
+  patterns from taxi trajectory data,'' in {\em Spatial Data Mining and
+  Geographical Knowledge Services (ICSDM), 2015 2nd IEEE International
+  Conference on}, pp.~39--44, IEEE, 2015.
+
+\bibitem{xuTaxi2016}
+T.~Xu, H.~Zhu, X.~Zhao, Q.~Liu, H.~Zhong, E.~Chen, and H.~Xiong, ``Taxi driving
+  behavior analysis in latent vehicle-to-vehicle networks: A social influence
+  perspective,'' in {\em Proceedings of the 22Nd ACM SIGKDD International
+  Conference on Knowledge Discovery and Data Mining}, KDD '16, (New York, NY,
+  USA), pp.~1285--1294, ACM, 2016.
+
+\end{thebibliography}

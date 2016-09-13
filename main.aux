@@ -61,7 +61,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
 \newlabel{THM:RP_ETA}{{1}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first map-reduce stage which clusters objects in each snapshot. (c) and (d) correspond to the second map-reduce stage, which uses TRPM to detect GCMP in parallel.\relax }}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first mapreduce stage which clusters objects in each snapshot. (c) and (d) correspond to the second mapreduce stage, which uses TRPM to detect GCMPs in parallel.\relax }}{5}}
 \newlabel{fig:trm}{{4}{5}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Line Sweep Mining\relax }}{5}}
 \newlabel{algo:line-sweep}{{1}{5}}
@@ -130,7 +130,6 @@
 \newlabel{code:output2-end}{{20}{8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Put Everything Together}{8}}
 \newlabel{LEM:SPM_CORRECT}{{5}{8}}
-\citation{zaharia2012resilient}
 \citation{ester1996density}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Star Partitioning and ApRiori Enumerator\relax }}{9}}
 \newlabel{algo:spm_overview}{{4}{9}}
@@ -151,12 +150,11 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Evaluation}{9}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{10}}
 \newlabel{exp:performance_vary}{{7}{10}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Resources taken for TRPM and SPARE. Vcore-seconds is the aggregate of time spent in each core. Memory is the actual size of RDDs.\relax }}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Resources taken for TRPM and SPARE. Vcore-seconds is the aggregate of time spent in each core. Memory is the actual size (in MB) of RDDs.\relax }}{10}}
 \newlabel{tbl:resource}{{7}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Analysis of SPARE framework}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Power of sequence simplification}{10}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Pruning power of SPARE.\relax }}{10}}
-\newlabel{tbl:pruning}{{8}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load balance}{10}}
 \bibstyle{IEEEtr}
 \bibdata{citations}
 \bibcite{zheng2011urban}{1}
@@ -175,9 +173,10 @@
 \bibcite{douglas1973linesimplification}{14}
 \bibcite{kalnis2005movingclusters}{15}
 \bibcite{aung2010discovery}{16}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Pruning power of SPARE.\relax }}{11}}
+\newlabel{tbl:pruning}{{8}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Cost breakdown of TRPM, SPARE, SPARE-RD.\relax }}{11}}
 \newlabel{exp:wl}{{8}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load balance}{11}}
 \@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Statistics of execution time (seconds) on all jobs.\relax }}{11}}
 \newlabel{tbl:strags}{{9}{11}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3}Scalability}{11}}
