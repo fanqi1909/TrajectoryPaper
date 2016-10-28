@@ -85,10 +85,6 @@ J.~S. Yoo and S.~Shekhar, ``A joinless approach for mining spatial colocation
 Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia, ``Skewtune: mitigating skew in
   mapreduce applications,'' in {\em SIGMOD'12}, ACM, 2012.
 
-\bibitem{coppa2015data}
-E.~Coppa and I.~Finocchi, ``On data skewness, stragglers, and mapreduce
-  progress indicators,'' in {\em ASCC'15}.
-
 \bibitem{agrawal1994fast}
 R.~Agrawal, R.~Srikant, {\em et~al.}, ``Fast algorithms for mining association
   rules,''

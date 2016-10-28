@@ -1,0 +1,134 @@
+\begin{thebibliography}{10}
+
+\bibitem{agrawal1994fast}
+R.~Agrawal, R.~Srikant, et~al.
+\newblock Fast algorithms for mining association rules.
+\newblock In {\em VLDB}, pages 487--499, 1994.
+
+\bibitem{aung2010discovery}
+H.~H. Aung and K.-L. Tan.
+\newblock Discovery of evolving convoys.
+\newblock In {\em SSDM}, pages 196--213, 2010.
+
+\bibitem{bao2013survey}
+J.~Bao, Y.~Zheng, D.~Wilkie, and M.~F. Mokbel.
+\newblock A survey on recommendations in location based social networks.
+\newblock In {\em Geoinformatica}, pages 525--543, 2015.
+
+\bibitem{douglas1973linesimplification}
+D.~H. Douglas and T.~K. Peucker.
+\newblock Algorithms for the reduction of the number of points required to
+  represent a digitized line or its caricature.
+\newblock In {\em Cartographica}, pages 112--122, 1973.
+
+\bibitem{ester1996density}
+M.~Ester, H.-P. Kriegel, J.~Sander, X.~Xu, et~al.
+\newblock A density-based algorithm for discovering clusters in large spatial
+  databases with noise.
+\newblock In {\em SIGKDD}, pages 226--231, 1996.
+
+\bibitem{gudmundsson2006flock}
+J.~Gudmundsson and M.~van Kreveld.
+\newblock Computing longest duration flocks in trajectory data.
+\newblock In {\em GIS}, pages 35--42, 2006.
+
+\bibitem{gudmundsson2004flock}
+J.~Gudmundsson, M.~van Kreveld, and B.~Speckmann.
+\newblock Efficient detection of motion patterns in spatio-temporal data sets.
+\newblock In {\em GIS}, pages 250--257, 2004.
+
+\bibitem{jeung2008convoy}
+H.~Jeung, M.~L. Yiu, X.~Zhou, C.~S. Jensen, and H.~T. Shen.
+\newblock Discovery of convoys in trajectory databases.
+\newblock In {\em VLDB}, pages 1068--1080, 2008.
+
+\bibitem{jinno2012paralleltpattern}
+R.~Jinno, K.~Seki, and K.~Uehara.
+\newblock Parallel distributed trajectory pattern mining using mapreduce.
+\newblock In {\em CloudCom}, pages 269--273, 2012.
+
+\bibitem{kalnis2005movingclusters}
+P.~Kalnis, N.~Mamoulis, and S.~Bakiras.
+\newblock On discovering moving clusters in spatio-temporal data.
+\newblock In {\em SSTD}, pages 364--381, 2005.
+
+\bibitem{kwon2012skewtune}
+Y.~Kwon, M.~Balazinska, B.~Howe, and J.~Rolia.
+\newblock Skewtune: mitigating skew in mapreduce applications.
+\newblock In {\em SIGMOD}, pages 25--36, 2012.
+
+\bibitem{laube2005finding}
+P.~Laube, M.~van Kreveld, and S.~Imfeld.
+\newblock Finding remo—detecting relative motion patterns in geospatial
+  lifelines.
+\newblock In {\em DSDH}, pages 201--215. 2005.
+
+\bibitem{li2013managing}
+X.~Li.
+\newblock Managing moving objects and their trajectories.
+\newblock In {\em Ph.D. Thesis, NUS}, 2013.
+
+\bibitem{li2013onlinegroup}
+X.~Li, V.~Ceikute, C.~S. Jensen, and K.-L. Tan.
+\newblock Effective online group discovery in trajectory databases.
+\newblock In {\em TKDE}, pages 2752--2766, 2013.
+
+\bibitem{li2015platoon}
+Y.~Li, J.~Bailey, and L.~Kulik.
+\newblock Efficient mining of platoon patterns in trajectory databases.
+\newblock In {\em DKE}, pages 167--187, 2015.
+
+\bibitem{li2010swarm}
+Z.~Li, B.~Ding, J.~Han, and R.~Kays.
+\newblock Swarm: Mining relaxed temporal moving object clusters.
+\newblock In {\em VLDB}, pages 723--734, 2010.
+
+\bibitem{li2010miningperiodic}
+Z.~Li, B.~Ding, J.~Han, R.~Kays, and P.~Nye.
+\newblock Mining periodic behaviors for moving objects.
+\newblock In {\em SIGKDD}, pages 1099--1108, 2010.
+
+\bibitem{pei2000closet}
+J.~Pei, J.~Han, R.~Mao, et~al.
+\newblock Closet: An efficient algorithm for mining frequent closed itemsets.
+\newblock In {\em DMKD}, pages 21--30, 2000.
+
+\bibitem{wang2003closet+}
+J.~Wang, J.~Han, and J.~Pei.
+\newblock Closet+: Searching for the best strategies for mining frequent closed
+  itemsets.
+\newblock In {\em SIGKDD}, pages 236--245, 2003.
+
+\bibitem{wang2006grouppattern}
+Y.~Wang, E.-P. Lim, and S.-Y. Hwang.
+\newblock Efficient mining of group patterns from user movement data.
+\newblock In {\em DKE}, pages 240--282, 2006.
+
+\bibitem{yoo2006joinless}
+J.~S. Yoo and S.~Shekhar.
+\newblock A joinless approach for mining spatial colocation patterns.
+\newblock pages 1323--1337, 2006.
+
+\bibitem{zaharia2012resilient}
+M.~Zaharia, M.~Chowdhury, T.~Das, A.~Dave, J.~Ma, M.~McCauley, M.~J. Franklin,
+  S.~Shenker, and I.~Stoica.
+\newblock Resilient distributed datasets: A fault-tolerant abstraction for
+  in-memory cluster computing.
+\newblock In {\em USENIX}, pages 2--2, 2012.
+
+\bibitem{zheng2013gathering}
+K.~Zheng, Y.~Zheng, N.~J. Yuan, and S.~Shang.
+\newblock On discovery of gathering patterns from trajectories.
+\newblock In {\em ICDE}, pages 242--253, 2013.
+
+\bibitem{zheng2015survey}
+Y.~Zheng.
+\newblock Trajectory data mining: an overview.
+\newblock In {\em TIST}, pages 1--41, 2015.
+
+\bibitem{zheng2011urban}
+Y.~Zheng, Y.~Liu, J.~Yuan, and X.~Xie.
+\newblock Urban computing with taxicabs.
+\newblock In {\em UbiComp}, pages 89--98, 2011.
+
+\end{thebibliography}

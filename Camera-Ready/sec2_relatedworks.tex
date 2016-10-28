@@ -1,0 +1,56 @@
+\section{Related Work}
+\label{sec:related_works}
+Related work can be grouped into three categories: \emph{co-movement patterns},
+\emph{dynamic movement patterns} and \emph{trajectory mining frameworks}.
+%The \emph{co-movement patterns} in literature consist 
+%of five members, namely \emph{group}~\cite{wang2006grouppattern}, \emph{flock}~\cite{gudmundsson2004flock},
+%\emph{convoy}~\cite{jeung2008convoy}, \emph{swarm}~\cite{li2010swarm} and \emph{platoon}~\cite{li2015platoon}.
+%We have demonstrated the semantics of these patterns in Table~\ref{tbl:existing_co_patterns} and Figure~\ref{fig:related_work}. 
+%In this section, we distinguish the parallel GCMP mining from these concepts.
+%In this section, we focus on comparing the techniques used in these works.
+%For more trajectory patterns other than \emph{co-movement patterns}, 
+%interested readers may move to~\cite{zheng2015survey} for a comprehensive survey.
+\subsection{Co-Movement Patterns}
+\subsubsection{Flock and Convoy}
+The difference between \emph{flock} and \emph{convoy} lies 
+in the object clustering methods. In \emph{flock},
+objects are clustered based on their distances. Specifically, the
+objects in the same cluster need to have a pairwise distance less than \emph{min\_dist}. 
+This essentially requires the objects to be within a disk-region of delimiter less than \emph{min\_dist}.
+In contrast, \emph{convoy} clusters objects using density-based spatial clustering~\cite{ester1996density}.
+Technically, \emph{flock} utilizes a $m^{th}$-order Voronoi diagram~\cite{laube2005finding} to detect whether
+a subset of $n$ ($n \geq m$) objects stay in a disk region.
+%a subset of object with size greater than $m$ stays in a disk-region.
+\emph{Convoy} employs
+a trajectory simplification~\cite{douglas1973linesimplification} technique to boost pairwise distance computations in
+the density-based clustering.
+After clustering, both \emph{flock} and \emph{convoy} use a sequential scanning
+method to examine each snapshot. 
+During the scan, the object groups that do 
+not appear in consecutive snapshots are pruned.
+%During the scan, object
+%groups that appear in consecutive timestamps are detected. Meanwhile, the object groups that do not
+%match the consecutive constraint are pruned. 
+However, such a method faces high complexity when supporting other patterns.
+For instance, in \emph{swarm}, the candidate set during the sequential scanning grows
+exponentially, and many candidates can only be pruned after the entire dataset are scanned.
+
+\subsubsection{Group, Swarm and Platoon}
+Different from \emph{flock} and \emph{convoy}, all the \emph{group},\emph{swarm} and \emph{platoon}
+patterns have more relaxed constraints on the pattern duration. Therefore, their techniques of mining are of
+the same skeleton. The main idea of mining is to grow an object set from an empty set
+in a depth-first manner. During the growth, various pruning techniques are provided to prune 
+unnecessary branches. \emph{Group} pattern uses a VG-graph to guide the pruning of false candidates~\cite{wang2006grouppattern}.
+\emph{Swarm} designs two more pruning rules called backward pruning and forward pruning~\cite{li2010swarm}. \emph{Platoon}~\cite{li2015platoon}
+leverages a prefix table structure to steer the depth-first search, which shows efficiency 
+as compared to the other two methods.
+However, the pruning rules adopted by the three patterns heavily rely on depth-first search which loses efficiency in a parallel scenario.
+
+
+\subsection{Other Related Trajectory Patterns}
+A closely related literature to co-movement patterns is the \emph{dynamic movement} patterns. Instead of requiring the same set of object traveling together, \emph{dynamic movement} patterns allow objects to temporally join or leave a group. Typical works include \emph{moving clusters}~\cite{kalnis2005movingclusters}, \emph{evolving convoy}~\cite{aung2010discovery}, \emph{gathering}~\cite{zheng2013gathering} etc. These works cannot model GCMP since they enforce global consecutiveness on the 
+temporal domain.
+ 
+\subsection{Trajectory Mining Frameworks}
+Jinno et al. in~\cite{jinno2012paralleltpattern} designed a MapReduce based algorithm to efficiently support \emph{T}-pattern discovery, where a \emph{T}-pattern is a set of objects visiting the same place at simliar time. Li et al. proposed a framework of processing online \emph{evolving group} pattern~\cite{li2013onlinegroup}, which focuses on supporting efficient updates of arriving objects. 
+As these works essentially differ from co-movement pattern, their techniques cannot be directly applied to discover GCMPs.

@@ -1,6 +1,6 @@
 \section{Experimental Study}
 \label{sec:exp}
-In this section, we evaluate the efficiency and scalability of our proposed parallel GCMP detectors on real trajectory datasets. All the experiments are carried out in a cluster with $12$ nodes, each equipped with four quad-core $2.2$GHz Intel processors, $32$GB memory and gigabit Ethernet. 
+In this section, we evaluate the efficiency and scalability of our proposed parallel GCMP detectors on real trajectory datasets. All the experiments are carried out in a cluster with $12$ nodes, each equipped with four quad-core $2.2$GHz Intel processors, $32$GB memory and Gigabit Ethernet. 
 
 \textbf{Environment Setup}: We use Yarn\footnote{\url{http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html}} to manage our cluster. We pick one machine as Yarn's master node, and for each of the remaining machines, we reserve one core and $2$GB memory for Yarn processes. We deploy our GCMP detector on Apache Spark 1.5.2\footnote{We have experimented with a query-based TRPM using Spark-SQL 2.0.0 window function. 
 We find that Spark-SQL fails to execute the query-based TRPM in parallel, which results in a 120x performance slowdown compared to mapreduce-based TRPM.
@@ -27,7 +27,8 @@ and use linear interpolation to fill missing values.
 %For each dataset, we set a fixed sampling rate (CLEARLY STATE THE SAMPLING RATE FOR EACH DATASET) and use linear interpolation to fill missing values. 
 %Finally, we obtain a set of trajectories with equal length. 
 %Finally, we obtain a set of dense trajectories with equal length. 
-For the clustering method, we use DBSCAN~\cite{ester1996density} and customize its two parameters $\epsilon$ (proximity threshold) and $minPt$ (the minimum number of points required to form a dense region). We set $\epsilon=5$, $minPt=10$ for GeoLife and Shopping datasets; and $\epsilon=20$, $minPt=10$ for Taxi dataset. Note that other clustering methods or settings can also be applied. 
+For the clustering method, we use DBSCAN~\cite{ester1996density} and customize its two parameters $\epsilon$ (proximity threshold) and $minPt$ (the minimum number of points required to form a dense region). We set $\epsilon=5$, $minPt=10$ for GeoLife and Shopping datasets; and $\epsilon=20$, $minPt=10$ for Taxi dataset. 
+%Note that other clustering methods or settings can also be applied. 
 %The clustered snapshots are stored in HDFS as $\langle t, S_t \rangle$ pair, where $t$ is the timestamp, $S_t$ contains the clusters at snapshot $t$. 
 After preprocessing, the statistics of the three datasets are listed in Table~\ref{exp:dataset}. 
 
@@ -51,18 +52,16 @@ After preprocessing, the statistics of the three datasets are listed in Table~\r
 avg. cluster size  & 171 & 223 & 484\\
 \hline
 \end{tabular}
- \vspace{-0.5em}
+%\vspace{-0.5em}
 \caption{Statistics of datasets.}
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \label{exp:dataset}
 \end{table}
 
-\vspace{-2mm}
 \begin{table}[h]
-\small
-\begin{tabular}{c|l|p{3cm}}
+\begin{tabular}{c|l|p{3.3cm}}
 \hline 
-\textbf{Parameter} & \textbf{Meaning} & \textbf{Values} \\ 
+\textbf{Param.} & \textbf{Meaning} & \textbf{Values} \\ 
 \hline 
 M & min  objects &  5, 10,  \textbf{15}, 20, 25 \\ 
 \hline 
@@ -72,21 +71,23 @@ L & min local duration & 10, 20, \textbf{30}, 40,50 \\
 \hline 
 G & max gap & 10, 15, \textbf{20}, 25, 30 \\ 
 \hline
-$O_r$ & ratio of objects & 20\%,40\%, 60\%, 80\%, \textbf{100\%} \\ \hline
-$T_r$ & ratio of snapshots & 20\%,40\%, 60\%, 80\%, \textbf{100\%} \\ \hline
+$O_r$ & ratio of objects & 20\%,40\%,60\%,80\%,\textbf{100\%} \\ \hline
+%$O_r$ & ratio of objects & 0.2, 0.4, 0.6, 0.8, 1 \\ \hline
+$T_r$ & ratio of snapshots & 20\%,40\%,60\%,80\%,\textbf{100\%} \\ \hline
+%$T_r$ & ratio of snapshots & 0.2, 0.4, 0.6, 0.8, 1 \\ \hline
 N & number of machines & 1, 3, 5, 7, 9, \textbf{11}\\ 
 \hline 
 \end{tabular} 
- \vspace{-0.5em}
+%\vspace{-0.5em}
 \caption{Parameters and their default values.}
- \vspace{-0.5em}
+ %\vspace{-0.5em}
 \label{tbl:parameters}
 \end{table}
 
-%\vspace{-3mm}
+
+
 \textbf{Parameters}: To systematically study the performance of
 our algorithms, we conduct experiments on various parameter settings. The parameters to be evaluated are listed in Table~\ref{tbl:parameters}, with default settings in bold. 
-
 
 \subsection{Performance Evaluation}
 \begin{figure*}[t]
@@ -165,9 +166,9 @@ our algorithms, we conduct experiments on various parameter settings. The parame
         \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_t.eps}
         \caption{Taxi vary $T_r$}
     \end{subfigure}      
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \caption{Performance of SPARE and TRPM on real datasets under different pattern parameters.}
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \label{exp:performance_vary}
 \end{figure*}
 
@@ -198,66 +199,32 @@ by TRPM and SPARE under the default setting. Both TRPM and SPARE are
 resource efficient as they only occupy less than 20\% 
 of the available memory (i.e., 270GB) . Again, SPARE outperforms TRPM in both the execution time and the memory usage.
 
-%The result also reveals the potential of the two solutions to handle larger trajectories. Again, SPARE outperforms TRPM in both execution time and memory usage which dues to the set of effective pruning procedures.
 
-\vspace{-1.5mm}
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|c|c|}
 \hline
-\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} % & \textbf{Time} 
+\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} 
 & \textbf{Vcore-seconds} & \textbf{Memory} \\ \hline
-\multirow{2}{*}{Shopping}              & TRPM           % & 597
-                               & 90,859                 & 10,019               \\ %\cline{2-5} 
-                                       & SPARE           %& 237
+\multirow{2}{*}{Shopping}              & TRPM           
+                               & 90,859                 & 10,019               \\ 
+                                       & SPARE           
                                                                       & 33,638                 & 8,613                \\ \hline
-\multirow{2}{*}{Geolife}               & TRPM            %& 747 
-                              & 106,428                & 18,454               \\ %\cline{2-5} 
-                                       & SPARE           %& 341 
+\multirow{2}{*}{Geolife}               & TRPM            
+                              & 106,428                & 18,454               \\
+                                       & SPARE            
                                                                      & 35,343                 & 14,369               \\ \hline
-\multirow{2}{*}{Taxi}                  & TRPM            %& 3,648  
-                           & 503,460                & 51,691               \\ %\cline{2-5} 
-                                       & SPARE           %& 580  
+\multirow{2}{*}{Taxi}                  & TRPM            
+                           & 503,460                & 51,691               \\ 
+                                       & SPARE           
                                                                     & 68,580                & 35,912               \\ \hline
 \end{tabular}
- \vspace{-0.5em}
+%\vspace{-0.5em}
 \caption{Resources taken for TRPM and SPARE. Vcore-seconds is the aggregate of time spent in each core. Memory is the actual size (in MB) of RDDs.}
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \label{tbl:resource}
 \end{table}
 
-%\begin{figure}[h]
-%\centering
-%	\begin{subfigure}[b]{0.22\textwidth}
-%	 \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_o.eps}
-%        \caption{Shopping vary $O_r$}
-%    \end{subfigure}
-% 	 \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_o.eps}
-%        \caption{Geolife vary $O_r$}
-%    \end{subfigure}
-%    	 \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_o.eps}
-%        \caption{Taxi vary $O_r$}
-%    \end{subfigure}
-%    \begin{subfigure}[b]{0.22\textwidth}
-%	 \includegraphics[width=\textwidth]{/exp/performance/shopping_vary_t.eps}
-%        \caption{Shopping vary $T_r$}
-%    \end{subfigure}
-% 	 \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/performance/geolife_vary_t.eps}
-%        \caption{Geolife vary $T_r$}
-%    \end{subfigure}
-%    	 \begin{subfigure}[b]{0.22\textwidth}
-%        \includegraphics[width=\textwidth]{/exp/performance/taxi_vary_t.eps}
-%        \caption{Taxi vary $T_r$}
-%    \end{subfigure}
-% \caption{Scalability of SPARE and TRPM wrt. $O_r$ and $T_r$}
-% \label{exp:performance_vary_OT}
-%\end{figure}
-
-
-%\vspace{-3mm}
 \subsection{Analysis of SPARE framework}
 In this part, we extensively evaluate SPARE from three aspects:
 (1) the advantages brought by the sequence simplification, (2) the effectiveness of load balance, and (3) the scalability with increasing computing resources.
@@ -296,22 +263,13 @@ After pruning & 76,672 & 123,410 & 270,921 \\
 Prune ratio & 91.2\% & 89.1\% & 87.7\% \\ 
 \hline 
 \end{tabular} 
-\vspace{-0,5em}
+%\vspace{-0.5em}
 \caption{Pruning power of SPARE.}
-\vspace{-0,5em}
-%\vspace{-4mm}
+%\vspace{-0.5em}
 \label{tbl:pruning}
 \end{table}
 
-\begin{figure}[h]
-\centering
-	  \includegraphics[width=0.4\textwidth]{/exp/spare/detail1.eps}
-	 \vspace{-0.5em}
-    \caption{Cost breakdown of TRPM, SPARE, SPARE-RD.}
-   \vspace{-5mm}
-    \label{exp:wl}
-\end{figure}
-
+%\vspace{1em}
 \subsubsection{Load balance}
 To study the effect of load balance in the SPARE framework, we use random task allocation (the default setting of Spark) as a baseline, denoted by SPARE-RD, and compare it with our best-fit method. In best-fit, the largest unassigned star is allocated to the currently most lightly loaded reducer.
 Figure~\ref{exp:wl} shows the breakdown of the costs in the mapreduce stages 
@@ -327,7 +285,68 @@ efficiency of the star partition and apriori enumeration.
 We also report the cost of the longest job (Max) and the standard deviation (Std. Dev.)
 %\emph{straggler}, i.e., the longest job, and the standard deviation (Std. Dev.) 
 for all jobs in Table~\ref{tbl:strags}, whose results clearly verify the effectiveness of our allocation strategy for load balance.
+%
+%\begin{figure}[h]
+%\centering
+%	  \includegraphics[width=0.4\textwidth]{/exp/spare/detail1.eps}
+%	 %\vspace{-0.5em}
+%    \caption{Cost breakdown of TRPM, SPARE, SPARE-RD.}
+%    \label{exp:wl}
+%    %\vspace{-0.5em}
+%\end{figure}
 
+%\begin{table*}
+%\centering
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%
+%\includegraphics[width=0.4\textwidth]{/exp/spare/detail1.eps}
+% &      &       &      \\ \hline
+%  & 1     & 2     & 3    \\ \hline
+%  & \multicolumn{3}{l|}{}
+%\\\hline
+%\end{tabular}
+%\end{table*}
+
+%\begin{figure*}
+%\centering
+%\begin{tabular}{cccc}
+%\begin{subfigure}[b]{0.22\textwidth}
+% \includegraphics[width=\textwidth]{/exp/spare/detail1.eps}
+% \caption{Cost breakdown of TRPM, SPARE, SPARE-RD.}   
+%\end{subfigure}
+% &  \begin{subfigure}[b]{0.22\textwidth}
+%        \includegraphics[width=\textwidth]{/exp/spare/scalability-shopping.eps}
+%        \caption{Shopping vary $N$}
+%    \end{subfigure}    &  \begin{subfigure}[b]{0.22\textwidth}  \includegraphics[width=\textwidth]{/exp/spare/scalability-geolife.eps}\caption{GeoLife vary $N$} \end{subfigure}    &   \begin{subfigure}[b]{0.22\textwidth}       \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}\caption{Taxi vary $N$}\end{subfigure}    \\
+%       & \multicolumn{3}{c}{}
+%\end{tabular}
+%\end{figure*}
+
+\begin{figure*}
+\begin{minipage}{0.3\textwidth}
+\includegraphics[width=\textwidth]{/exp/spare/detail1.eps}
+ \caption{Cost breakdown of TRPM, SPARE-RD and SPARE.}
+    \label{exp:wl}
+\end{minipage}
+\begin{minipage}{0.74\textwidth}
+\centering
+	 \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/scalability-shopping.eps}
+        \caption{Shopping vary $N$}
+    \end{subfigure} 
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/scalability-geolife.eps}
+        \caption{GeoLife vary $N$}
+    \end{subfigure} 
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
+        \caption{Taxi vary $N$}
+    \end{subfigure} 
+ \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM.}
+ \label{exp:scalability}
+\end{minipage}
+\end{figure*}
 
 
 \begin{table}[h]
@@ -340,29 +359,9 @@ Shopping                 & 295              & 41         & 237             & 21 
 GeoLife                  & 484              & 108        & 341             & 56       \\ \hline
 Taxi                     & 681              & 147        & 580             & 96       \\ \hline
 \end{tabular}
-%\begin{tabular}{|l|c|c|c|c|}
-%\hline
-%\multicolumn{1}{|c|}{\textbf{Dataset}} & \textbf{Method} & \textbf{Min} & \textbf{Max} & \textbf{Std. Dev.} 
-%\\ \hline%\specialrule{1pt}{-0.5pt}{-0.5pt} 
-%\multirow{3}{*}{Shopping}             % & TRPM            &     426                          & 597                 & 35 \\ %\cline{2-5} 
-%                                       & SPARE-RD          & 122                               &  295             & 41
-%\\% \cline{2-5}                                        
-%									   & SPARE           &  134                              &   237               & 21
-%\\ \hline                                
-%\multirow{3}{*}{GeoLife}             % & TRPM            &    493                            & 747                & 78               \\ %\cline{2-5} 
-%                                       & SPARE-RD          &  38                               &   484               & 148
-%\\ %\cline{2-5}                                        
-%									   & SPARE           &   107                             &     341             & 96
-%\\ \hline
-%\multirow{3}{*}{Taxi}             % & TRPM            &   3,460                            &    3,648              & 51 \\ %\cline{2-5} 
-%                                       & SPARE-RD          & 122                               & 681                 & 109
-%\\ %\cline{2-5}                                        
-%									   & SPARE           &   134                             &  580                & 56               
-%\\ \hline
-%\end{tabular}
-\vspace{-0.5em}
+%\vspace{-0.5em}
   \caption{Statistics of execution time (seconds) on all jobs.}
-  \vspace{-0.5em}
+%\vspace{-0.5em}
   \label{tbl:strags}
 \end{table}
 
@@ -381,21 +380,22 @@ SPARE-P is upto $65$ times and SPARE-S is upto $112$ times better than the state
 %than \emph{platoon} and SPARE-S is upto $112$ times better than \emph{swarm}.
 %state-of-the-art \emph{platoon} detector in a centralized server.
 %
-\begin{figure*}[t]
-\centering
-\begin{subfigure}[b]{0.3\textwidth}
-    \includegraphics[width=\textwidth]{/exp/spare/scalability-shopping.eps}
-        \caption{Shopping vary $N$}
-    \end{subfigure}
- 	 \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{/exp/spare/scalability-geolife.eps}
-        \caption{GeoLife vary $N$}
-    \end{subfigure}
-    	 \begin{subfigure}[b]{0.3\textwidth}
-        \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
-        \caption{Taxi vary $N$}
-    \end{subfigure}
-%\vspace{-0.5em}
- \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM.}
- \label{exp:scalability}
-\end{figure*}
+%\begin{figure}[t]
+%\centering
+%\begin{subfigure}[b]{0.15\textwidth}
+%    \includegraphics[width=\textwidth]{/exp/spare/scalability-shopping.eps}
+%        \caption{Shopping vary $N$}
+%    \end{subfigure}
+% 	 \begin{subfigure}[b]{0.15\textwidth}
+%        \includegraphics[width=\textwidth]{/exp/spare/scalability-geolife.eps}
+%        \caption{GeoLife vary $N$}
+%    \end{subfigure}
+%    	 \begin{subfigure}[b]{0.15\textwidth}
+%        \includegraphics[width=\textwidth]{/exp/spare/scalability-taxi.eps}
+%        \caption{Taxi vary $N$}
+%    \end{subfigure}
+%%\vspace{-0.5em}
+% \caption{Comparisons among TRMP, SPARE, PLATOON and SWARM.}
+% %\vspace{-0.5em}
+% \label{exp:scalability}
+%\end{figure}

@@ -1,11 +1,11 @@
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.85\textwidth]{spm.eps}
-\vspace{-0.5em}
+\includegraphics[width=0.8\textwidth]{spm.eps}
+%\vspace{-0.5em}
 \caption{Star Partitioning and ApRiori Enumerator (SPARE). (a) Aggregated graph $G_A$ generated from Figure 1. (b) Five star partitions are generated from $G_A$. Star IDs are circled, vertexes and inverted lists are in the connected tables.
 (c) Apriori Enumerator with various pruning techniques.}
 \label{fig:star_partition}
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \end{figure*}
 
 \section{SPARE: Star Partitioning and Apriori Enumerator}
@@ -59,9 +59,7 @@ different vertex ordering on the same graph. The top one has $\Gamma = 5$ while 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.35\textwidth]{star-alt.eps}
-\vspace{-0.5em}
 \caption{Star partitioning with different vertex orderings.}
-\vspace{-0.5em}
 \label{fig:star-alt}
 \end{figure}
 
@@ -73,7 +71,7 @@ Although it is very challenging to find the optimal vertex ordering from the $n!
 Let $\Gamma^*$ be the value derived from the optimal vertex ordering and  $\Gamma$ be the value derived from a random vertex ordering. With probability $1-1/n$, we have $\Gamma = \Gamma^* + O(\sqrt{n \log n})$.
 \end{theorem}
 \begin{proof}
-   \vspace{-0.5em}
+%\vspace{-0.5em}
 See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 If $G_A$ is dense, we can get a tighter bound for $(\Gamma - \Gamma^*)$.
@@ -83,7 +81,7 @@ Let $d$ be the average degree in $G_A$. If $d\geq \sqrt{12\log n}$, with
 high probability $1-1/n$, $\Gamma = \Gamma^* + O(\sqrt{d\log n})$.
 \end{theorem}
 \begin{proof}
- \vspace{-0.5em}
+%\vspace{-0.5em}
 See Appendix~\ref{apx:thm2proof}.
 \end{proof}
 Hence, we can simply use object ID to determine the vertex ordering in our implementation.
@@ -119,11 +117,8 @@ The maximal $G$-connected subsequence has the following two properties:
 Suppose $\{T_1,T_2,\ldots,T_m\}$ is the set of all maximal $G$-connected subsequences of $T$, we have (1) $T_i\cap T_j=\emptyset$ for $i\neq j$ and (2) $T_1\cup T_2\cup\ldots\cup T_m=T$.
 \end{lemma}
 \begin{proof}
- %\vspace{-0.5em}
+%\vspace{-0.5em}
 We assume $T_i\cap T_j\neq \emptyset$. Let $T_i=(T_i[1], T_i[2],\ldots,T_i[p])$ and $T_j= (T_j[1], T_j[2],\ldots,T_j[n])$. Suppose $T[x]$ is a timestamp occurring in both $T_i$ and $T_j$. Let $T[y]=\min\{T_i[1],T_j[1]\}$, i.e., the minimum timestamp of $T_i[1]$ and $T_j[1]$ occurs at the $y$-th position of sequence $T$. Similarly, we assume $T[z]=\max\{T_i[p], T_j[n]\}$. Apparently, the two subsequences $T[y:x]$ and $T[x:z]$ are $G$-connected because $T_i$ and $T_j$ are both $G$-connected. Then, sequence $(T_y,\ldots,T_x,\ldots,T_z)$, the superset of $T_i$ and $T_j$, is also $G$-connected. This contradicts with the assumptions that $T_i$ and $T_j$ are maximal $G$-connected subsequences. 
-
-
-
 
 To prove (2), we assume $\cup_{i=1}^{i=m} T_i$ does not cover all the timestamps in $T$. Then, we can find a subsequence $T'=T[x:x+t]$ such that $T[x-1]\in T_a$ $(1\leq a\leq m)$, $T[x+t+1]\in T_b$ $(1\leq b\leq m)$ and all the timestamps in $T'$ is not included in any $T_i$. Let $g'=\min\{T[x]-T[x-1], T[x+t+1]-T[x+t]\}$. If $g'\leq G$, then it is easy to infer that $T_a$ or $T_b$ is not a maximal $G$-connected subsequence because we can combine it with $T[x]$ or $T[x+t]$  to form a superset which is also $G$-connected. If $g'>G$, $T'$ itself is a maximal $G$-connected subsequence which is missed in $\cup_{i=1}^{i=m} T_i$. Both cases lead to contradictions.
 \end{proof}
@@ -137,7 +132,7 @@ If $T_1 \subseteq T_2$, then for any maximal $G$-connected subsequence $T_1'$ of
 $T_1' \subseteq T_2'$.
 \end{lemma}
 \begin{proof}
- %\vspace{-0.5em}
+%\vspace{-0.5em}
 Since $T_1' \subseteq T_1 \subseteq T_2 $, we know $T_1'$ is a $G$-connected subsequence of $T_2$. Based on Lemma~\ref{lemma:union-property}, we can find a maximal $G$-connected subsequence of $T_2$, denoted by $T_2'$, such that $T_1'\cap T_2'\neq \emptyset$. If there exists a timestamp $T_1'[x]$ such that $T_1'[x]\notin T_2'$, similar to the proof of case (1) in Lemma~\ref{lemma:union-property}, we can obtain a contradiction. Thus, all the timestamps in $T_1'$ must occur in $T_2'$.
 \end{proof}
 
@@ -148,7 +143,7 @@ $T$ is decomposable if for any of its maximal $G$-connected subsequence $T'$, we
 \begin{example}
 Let $L = 2, K = 4$ and we follow the above example. $T_1$ is not a decomposable sequence
 because one of its maximal $2$-connected subsequence (i.e., $T_1^B$) is not $2$-consecutive.
-In contrast, $T_2$ is a decomposable sequence because the sequence itself is the maximal $2$-connected subsequence, which is also $2$-consecutive and with size no smaller than $4$.
+In contrast, $T_2$ is a decomposable sequence because the sequence itself is the maximal $2$-connected subsequence, which is also $2$-consecutive and with size  $\geq 4$.
 \end{example}
 
 \begin{definition}[Sequence Simplification]
@@ -179,7 +174,7 @@ If sequence $T$ is a superset of any decomposable sequence, then $\mathtt{sim}(T
 \end{lemma}
 
 \begin{proof}
- %\vspace{-0.5em}
+%\vspace{-0.5em}
 It is obvious that $\mathtt{sim}(T)$ is a one-to-one function. Given an input sequence T, there is a unique  $\mathtt{sim}(T)$. Let $T_p$ be a decomposable subset of $T$ and we prove the lemma by showing that $\mathtt{sim}(T)$ is a superset of $T_p$.
 
 Suppose $T_p$ can be decomposed into a set of maximal $G$-connected
@@ -203,7 +198,7 @@ We design an Apriori based enumeration algorithm to efficiently discover all the
 
 Our customized Apriori Enumerator is presented in Algorithm~\ref{algo:apriori_mining}. Initially, the edges (pairs of objects) in the star constitute the bottom level (Lines~\ref{code:init-start}-\ref{code:init-end}) and invalid candidates are excluded (Line~\ref{code:simp1}). An indicator \emph{level} is used to control the result size for candidate joins. During each iteration (Lines~\ref{code:level-start}-\ref{code:level-ends}), only candidates with object size equals to \emph{level} are generated (Line~\ref{code:join-start}). When two candidates $c_1$ and $c_2$ are joined, the new candidate becomes $c'=\langle c_1.O \cup c_2.O, c_1.T\cap c_2.T\rangle$ (Line~\ref{code:join}). To check the validity of the candidate, we calculate $\mathtt{sim}(c'.T)$. If its simplified sequence is empty, $c'$ is excluded from the next level (Line~\ref{code:simp2}). This ensures that all the candidates with $P.O\supseteq c'.O$ are pruned. If a candidate cannot generate any new candidate, then
 it is directly reported (Lines~\ref{code:output1-start}-\ref{code:output1-end}).
-To further improve the performance, we adopt the idea of \textit{forward closure}~\cite{wang2003closet+,pei2000closet} and  aggressively check if the union of all the current candidates form a valid pattern (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-end}). If yes, we can  terminate the algorithm early and output the results.
+To further improve the performance, we adopt the idea of \textit{forward closure}~\cite{wang2003closet+} and  aggressively check if the union of all the current candidates form a valid pattern (Lines~\ref{code:fc-checking-start}-\ref{code:fc-checking-end}). If yes, we can  terminate the algorithm early and output the results.
 
 \begin{algorithm}[h]
 \caption{Apriori Enumerator}
@@ -300,9 +295,9 @@ the patterns discovered from $Sr_i$ (resp. $Sr_j$).
 Then, $\forall p_i \in P_i, \forall p_j \in P_j$, we have $p_i.O \neq p_j.O$.
 \end{theorem}
 \begin{proof} 
-\vspace{-0.5em}
+%\vspace{-0.5em}
 We prove by contradiction. Suppose there exist $p_i \in P_i$ and $p_j \in P_j$ with the same object set. Note that the center vertex of the star is associated with the minimum id. Let $o_i$ and $o_j$ be the center vertexes of the two partitions and we have $o_i=o_j$. However, $P_i$ and $P_j$ are from different stars, meaning their center vertexes are different (i.e., $o_i\neq o_j$), leading to a contradiction. 
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \end{proof}
 
 Theorem~\ref{LEM:SPM_CORRECT} implies that no mining efforts are wasted in discovering redundant patterns  
@@ -313,7 +308,7 @@ in the SPARE framework, which is superior to the TRPM baseline. Finally, we show
 The SPARE framework guarantees completeness and soundness.
 \end{theorem}
 \begin{proof}  
-\vspace{-0.5em}
+%\vspace{-0.5em}
 See Appendix~\ref{apx:spm_correct}.
-\vspace{-0.5em}
+%\vspace{-0.5em}
 \end{proof}

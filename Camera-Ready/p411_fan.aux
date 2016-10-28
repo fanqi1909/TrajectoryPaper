@@ -1,6 +1,7 @@
 \relax 
 \citation{zheng2011urban}
 \citation{li2010miningperiodic}
+\citation{guo2016influence}
 \citation{bao2013survey}
 \citation{li2013managing}
 \citation{zheng2015survey}
@@ -9,23 +10,18 @@
 \citation{jeung2008convoy}
 \citation{li2010swarm}
 \citation{li2015platoon}
-\citation{gudmundsson2006flock}
-\citation{jeung2008convoy}
-\citation{li2010swarm}
-\citation{wang2006grouppattern}
-\citation{li2015platoon}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Trajectories and co-movement patterns. The example consists of six trajectories across six snapshots. Objects in spatial clusters are enclosed by dotted circles. $M$ is the minimum cluster cardinality; $K$ denotes the minimum number of snapshots for the occurrence of a spatial cluster; and $L$ denotes the minimum length for local consecutiveness.\relax }}{1}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:related_work}{{1}{1}}
-\citation{gudmundsson2004flock}
+\citation{gudmundsson2006flock}
 \citation{jeung2008convoy}
 \citation{li2010swarm}
 \citation{wang2006grouppattern}
 \citation{li2015platoon}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Constraints and complexities of co-movement patterns. The time complexity indicates the performance wrt. $|\mathbb  {O}|$, $|\mathbb  {T}|$ in the worst case, where $|\mathbb  {O}|$ is the number of objects, and $|\mathbb  {T}|$ is the number of discretized timestamps.\relax }}{2}}
 \newlabel{tbl:existing_co_patterns}{{1}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \emph  {Loose-connection} anomaly. Even though $\delimiter "426830A o_1, o_2: 1,2,3,102,103,104 \delimiter "526930B $ is considered as a valid \emph  {platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments are 98 timestamps apart. \relax }}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \emph  {Loose-connection} anomaly. Even though $\delimiter "426830A o_1, o_2\delimiter "526930B $ is considered as a valid \emph  {platoon} pattern, it is highly probable that these two objects are not related as the two consecutive segments are 98 timestamps apart. \relax }}{2}}
 \newlabel{fig:platoon_weakpoint}{{2}{2}}
 \newlabel{fig:fig1}{{3a}{2}}
 \newlabel{sub@fig:fig1}{{a}{2}}
@@ -38,13 +34,14 @@
 \citation{douglas1973linesimplification}
 \citation{wang2006grouppattern}
 \citation{li2010swarm}
+\citation{li2015platoon}
 \citation{kalnis2005movingclusters}
 \citation{aung2010discovery}
 \citation{zheng2013gathering}
 \citation{jinno2012paralleltpattern}
 \citation{li2013onlinegroup}
 \citation{li2015platoon}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Works}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}}
 \newlabel{sec:related_works}{{2}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Co-Movement Patterns}{3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Flock and Convoy}{3}}
@@ -55,13 +52,13 @@
 \newlabel{sec:definition}{{3}{3}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Operators on time sequence.\relax }}{3}}
 \newlabel{tbl:operators}{{2}{3}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicates a user specified value. \relax }}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Expressing other patterns using GCMP. $\cdot $ indicates a user specified value.\relax }}{4}}
 \newlabel{tbl:patterns}{{3}{4}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Summary of notations.\relax }}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Baseline: Temporal Replication and Parallel Mining}{4}}
 \newlabel{sec:trm}{{4}{4}}
 \newlabel{THM:RP_ETA}{{1}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first mapreduce stage which clusters objects in each snapshot. (c) and (d) correspond to the second mapreduce stage, which uses TRPM to detect GCMPs in parallel.\relax }}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Workflow of Temporal Replication and Parallel Mining (TRPM). (a) and (b) correspond to the first mapreduce stage which clusters objects in each snapshot. (c) and (d) is the second mapreduce stage which uses TRPM to detect GCMPs.\relax }}{5}}
 \newlabel{fig:trm}{{4}{5}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Line Sweep Mining\relax }}{5}}
 \newlabel{algo:line-sweep}{{1}{5}}
@@ -103,10 +100,9 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Monotonicity}{7}}
 \newlabel{lemma:union-property}{{1}{7}}
 \newlabel{lemma:subset-property}{{2}{7}}
-\newlabel{lemma:decom-sim}{{3}{7}}
 \citation{wang2003closet+}
-\citation{pei2000closet}
 \citation{zaharia2012resilient}
+\newlabel{lemma:decom-sim}{{3}{8}}
 \newlabel{THM:SPARE_MONO}{{4}{8}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Apriori Enumerator}{8}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Apriori Enumerator\relax }}{8}}
@@ -146,55 +142,53 @@
 \newlabel{exp:dataset}{{5}{9}}
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Parameters and their default values.\relax }}{9}}
 \newlabel{tbl:parameters}{{6}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Evaluation}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{10}}
-\newlabel{exp:performance_vary}{{7}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Performance Evaluation}{10}}
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Resources taken for TRPM and SPARE. Vcore-seconds is the aggregate of time spent in each core. Memory is the actual size (in MB) of RDDs.\relax }}{10}}
 \newlabel{tbl:resource}{{7}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Analysis of SPARE framework}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Power of sequence simplification}{10}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Pruning power of SPARE.\relax }}{10}}
+\newlabel{tbl:pruning}{{8}{10}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Load balance}{10}}
-\bibstyle{IEEEtr}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Statistics of execution time (seconds) on all jobs.\relax }}{10}}
+\newlabel{tbl:strags}{{9}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3}Scalability}{10}}
+\bibstyle{abbrv}
 \bibdata{citations}
-\bibcite{zheng2011urban}{1}
-\bibcite{li2010miningperiodic}{2}
+\bibcite{agrawal1994fast}{1}
+\bibcite{aung2010discovery}{2}
 \bibcite{bao2013survey}{3}
-\bibcite{li2013managing}{4}
-\bibcite{zheng2015survey}{5}
+\bibcite{douglas1973linesimplification}{4}
+\bibcite{ester1996density}{5}
 \bibcite{gudmundsson2006flock}{6}
-\bibcite{wang2006grouppattern}{7}
-\bibcite{jeung2008convoy}{8}
-\bibcite{li2010swarm}{9}
-\bibcite{li2015platoon}{10}
-\bibcite{gudmundsson2004flock}{11}
-\bibcite{ester1996density}{12}
-\bibcite{laube2005finding}{13}
-\bibcite{douglas1973linesimplification}{14}
-\bibcite{kalnis2005movingclusters}{15}
-\bibcite{aung2010discovery}{16}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Pruning power of SPARE.\relax }}{11}}
-\newlabel{tbl:pruning}{{8}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Cost breakdown of TRPM, SPARE, SPARE-RD.\relax }}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance of SPARE and TRPM on real datasets under different pattern parameters.\relax }}{11}}
+\newlabel{exp:performance_vary}{{7}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Cost breakdown of TRPM, SPARE-RD and SPARE.\relax }}{11}}
 \newlabel{exp:wl}{{8}{11}}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Statistics of execution time (seconds) on all jobs.\relax }}{11}}
-\newlabel{tbl:strags}{{9}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3}Scalability}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparisons among TRMP, SPARE, PLATOON and SWARM.\relax }}{11}}
+\newlabel{exp:scalability}{{9}{11}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Conclusions and Future Work}{11}}
 \newlabel{sec:concl}{{7}{11}}
 \@writefile{toc}{\contentsline {section}{\numberline {8}References}{11}}
-\bibcite{zheng2013gathering}{17}
-\bibcite{jinno2012paralleltpattern}{18}
-\bibcite{li2013onlinegroup}{19}
+\bibcite{guo2016influence}{7}
+\bibcite{jeung2008convoy}{8}
+\bibcite{jinno2012paralleltpattern}{9}
+\bibcite{kalnis2005movingclusters}{10}
+\bibcite{kwon2012skewtune}{11}
+\bibcite{laube2005finding}{12}
+\bibcite{li2013managing}{13}
+\bibcite{li2013onlinegroup}{14}
+\bibcite{li2015platoon}{15}
+\bibcite{li2010swarm}{16}
+\bibcite{li2010miningperiodic}{17}
+\bibcite{wang2003closet+}{18}
+\bibcite{wang2006grouppattern}{19}
 \bibcite{yoo2006joinless}{20}
-\bibcite{kwon2012skewtune}{21}
-\bibcite{agrawal1994fast}{22}
-\bibcite{wang2003closet+}{23}
-\bibcite{pei2000closet}{24}
-\bibcite{zaharia2012resilient}{25}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparisons among TRMP, SPARE, PLATOON and SWARM.\relax }}{12}}
-\newlabel{exp:scalability}{{9}{12}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorems}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Proofs of Theorem\nobreakspace  {}2\hbox {} and\nobreakspace  {}3\hbox {}}{12}}
-\newlabel{apx:thm2proof}{{A.1}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Proof of Theorem\nobreakspace  {}6\hbox {}}{12}}
-\newlabel{apx:spm_correct}{{A.2}{12}}
+\bibcite{zaharia2012resilient}{21}
+\bibcite{zheng2013gathering}{22}
+\bibcite{zheng2015survey}{23}
+\bibcite{zheng2011urban}{24}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Proofs of Theorem\nobreakspace  {}2\hbox {} and\nobreakspace  {}3\hbox {}}{12}}
+\newlabel{apx:thm2proof}{{A}{12}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Proof of Theorem\nobreakspace  {}6\hbox {}}{12}}
+\newlabel{apx:spm_correct}{{B}{12}}

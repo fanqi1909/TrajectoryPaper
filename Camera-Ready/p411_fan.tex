@@ -1,0 +1,116 @@
+\documentclass{vldb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow,booktabs}
+\usepackage{balance} 
+\usepackage{epstopdf}
+\usepackage[normalem]{ulem}
+\usepackage{enumitem}
+%\usepackage{pbox}
+\usepackage{url}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{algorithm,amsmath,amsthm,amssymb}
+\usepackage[noend]{algpseudocode} %for saving spaces
+
+\graphicspath{ {../charts/}, {../exp/} }
+\epstopdfsetup{outdir=../charts/}
+\newtheorem{definition}{Definition}
+\setcounter{definition}{0}
+\newtheorem{theorem}{Theorem}
+\setcounter{theorem}{0}
+\newtheorem{example}{Example}
+\setcounter{example}{0}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\triu}{triu}
+\DeclareMathOperator*{\range}{range}
+\newcommand*{\argminl}{\argmin\limits}
+\newcommand*{\argmaxl}{\argmax\limits}
+\newcommand{\eat}[1]{}
+\usepackage{xcolor}
+\newcommand{\revised}[1]{{\color{red}{#1}}}
+\newcommand{\original}[1]{\sout{#1}}
+\newtheorem{lemma}{Lemma}
+\setcounter{lemma}{0}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+
+% ****************** TITLE ****************************************
+
+\title{A General and Parallel Platform for Mining Co-Movement Patterns over Large-scale Trajectories}
+
+% ****************** AUTHORS **************************************
+
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+%
+
+\author{
+	\vspace{1mm}
+	Qi Fan~$^\#$,
+	Dongxiang Zhang~$^\natural$,
+	Huayu Wu~$^\nabla$,
+	Kian-Lee Tan$^{\#*}$ \\
+	{\fontsize{10}{10}\selectfont $\#$ NUS Graduate School for Integrative Science and Technology, Singapore}\\
+	{\fontsize{10}{10}\selectfont $^\natural$ University of Electronic Science and Technology of China, China}\\
+	{\fontsize{10}{10}\selectfont $^\nabla$  Institute for Infocomm Research (I$^2$R), Singapore}\\
+	{\fontsize{10}{10}\selectfont $^*$ School of Computing, NUS, Singapore}\\
+	{\fontsize{10}{10}\selectfont%\ttfamily
+	 fan.qi@u.nus.edu, zhangdo@uestc.edu.cn, huwu@i2r.a-star.edu.sg, tankl@comp.nus.edu.sg}
+}
+
+\maketitle
+
+\begin{abstract}
+Discovering co-movement patterns from large-scale trajectory databases is an important mining task and has a wide spectrum of applications. Previous studies have identified several types of interesting co-movement patterns and showcased their usefulness. In this paper, we make two key contributions to this research field. First, we propose a more general co-movement pattern to unify those defined in the past literature. Second, we propose two types of parallel and scalable frameworks and deploy them on Apache Spark. To the best of our knowledge, this is the first work to mine co-movement patterns in real life trajectory databases with hundreds of millions of points. Experiments on three real life large-scale trajectory datasets have verified the efficiency and scalability of our proposed solutions.
+\end{abstract}
+
+\input{sec1_introduction}
+\input{sec2_relatedworks}
+\input{sec3_definitions}
+\input{sec4_baseline}
+\input{sec5_spm}
+\input{sec6_experiment}
+\input{sec7_conclusion}
+
+\noindent\textbf{Acknowledgment:}
+The authors would like to thank the anonymous reviewers for their responsible feedback. 
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+
+
+\bibliographystyle{abbrv}
+\bibliography{citations}
+%\balance
+\input{appendix}
+
+\end{document}
