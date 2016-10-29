@@ -63,15 +63,15 @@ P.~Laube, M.~van Kreveld, and S.~Imfeld.
   lifelines.
 \newblock In {\em DSDH}, pages 201--215. 2005.
 
-\bibitem{li2013managing}
-X.~Li.
-\newblock Managing moving objects and their trajectories.
-\newblock In {\em Ph.D. Thesis, NUS}, 2013.
-
 \bibitem{li2013onlinegroup}
 X.~Li, V.~Ceikute, C.~S. Jensen, and K.-L. Tan.
 \newblock Effective online group discovery in trajectory databases.
 \newblock In {\em TKDE}, pages 2752--2766, 2013.
+
+\bibitem{li2013effective}
+X.~Li, V.~Ceikute, S.~Jensen, Christian, and K.-L. Tan.
+\newblock Effective online group discovery in trajectory databases.
+\newblock 2013.
 
 \bibitem{li2015platoon}
 Y.~Li, J.~Bailey, and L.~Kulik.
@@ -87,6 +87,11 @@ Z.~Li, B.~Ding, J.~Han, and R.~Kays.
 Z.~Li, B.~Ding, J.~Han, R.~Kays, and P.~Nye.
 \newblock Mining periodic behaviors for moving objects.
 \newblock In {\em SIGKDD}, pages 1099--1108, 2010.
+
+\bibitem{pei2000closet}
+J.~Pei, J.~Han, R.~Mao, et~al.
+\newblock Closet: An efficient algorithm for mining frequent closed itemsets.
+\newblock In {\em DMKD}, pages 21--30, 2000.
 
 \bibitem{wang2003closet+}
 J.~Wang, J.~Han, and J.~Pei.
@@ -109,7 +114,7 @@ M.~Zaharia, M.~Chowdhury, T.~Das, A.~Dave, J.~Ma, M.~McCauley, M.~J. Franklin,
   S.~Shenker, and I.~Stoica.
 \newblock Resilient distributed datasets: A fault-tolerant abstraction for
   in-memory cluster computing.
-\newblock In {\em USENIX}, pages 2--2, 2012.
+\newblock In {\em USENIX}, pages 15--28, 2012.
 
 \bibitem{zheng2013gathering}
 K.~Zheng, Y.~Zheng, N.~J. Yuan, and S.~Shang.

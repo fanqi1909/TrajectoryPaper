@@ -2,13 +2,13 @@
 The prevalence of positioning devices has drastically boosted 
 the scale and spectrum of trajectory collection to an unprecedented level. 
 Tremendous amounts of trajectories, in the form of sequenced spatial-temporal 
-records, are continually generated from animal telemetry chips, 
+records, are continually being generated from animal telemetry chips, 
 vehicle GPSs and wearable devices. Data analysis on large-scale 
 trajectories benefits a wide range of applications and services, 
 including traffic planning~\cite{zheng2011urban}, animal analysis~\cite{li2010miningperiodic}, location-aware advertising~\cite{guo2016influence},  and social recommendations~\cite{bao2013survey}, to name just a few.
 
 A crucial task of data analysis on top of trajectories is 
-to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013managing,zheng2015survey} 
+to discover co-moving objects. A \emph{co-movement} pattern~\cite{li2013effective,zheng2015survey} 
 refers to a group of objects traveling together for a certain period of time 
 and the group is normally determined by their spatial proximity. 
 A pattern is prominent if the size of the group exceeds $M$ and the length of the duration exceeds $K$, where $M$ and $K$ are parameters specified by users. Rooted from such a basic definition 
@@ -108,19 +108,23 @@ These observations imply that existing methods are not scalable to support large
     %\vspace{-0.5em}
     \label{fig:related_work_scalability}
 \end{figure}
-
-Therefore, in this paper, our contributions are to close these two gaps.
-%In this paper, our contribution is towards closing these two gaps.
+%
+%Therefore, in this paper, our contributions are closing
+%these two gaps.
+%
+%to close these two gaps.
+%
+%Therefore, in this paper, our aim is to close these two gaps 
+%via the following contributions.
+%we aim to close these two gaps by making two contributions. 
+In this paper, we resolve these two gaps by making the following contributions.
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
 the \emph{loose-connection} anomaly. In GCMP,
 we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. 
-%\revised{In GCMP, we adopt the concept of \emph{gap parameter $G$}
-%in sequential pattern mining field~\cite{srikant1996mining} to constrain the temporal distance between two consecutive %segments.} 
-By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is also general. %and expressive. 
-It can be reduced to any of the previous pattern by customizing its parameters.
+By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is also general. It can be reduced to any of the previous pattern by customizing its parameters.
 
-Second, we investigate deploying our GCMP detector on the model MapReduce platform (i.e., Apache Spark) to tackle the scalability issue. Our technical contributions are three-fold. First, we design a baseline solution by replicating the snapshots 
+Second, we investigate deploying our GCMP detector on the model MapReduce platform (i.e., Apache Spark) to tackle the scalability issue. Our technical contributions are threefold. First, we design a baseline solution by replicating the snapshots 
 %in multiple data chunks 
 to support effective parallel mining. 
 Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework to resolve limitations of the baseline. 

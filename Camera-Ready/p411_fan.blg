@@ -1,10 +1,15 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: p411_fan.aux
 The style file: abbrv.bst
 Database file #1: citations.bib
-You're missing a field name---line 274 of file citations.bib
+You're missing a field name---line 170 of file citations.bib
  : 
- : %  title={CLOSET: An Efficient Algorithm for Mining Frequent Closed Itemsets.},
+ : %  title={Managing moving objects and their trajectories},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+"{" immediately follows a field name---line 180 of file citations.bib
+ :  booktitle
+ :           {TKDE}
+I'm skipping whatever remains of this entry
 Warning--empty publisher in laube2005finding
-(There was 1 error message)
+Warning--empty booktitle in li2013effective
+(There were 2 error messages)
