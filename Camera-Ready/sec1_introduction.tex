@@ -1,5 +1,5 @@
 \section{Introduction}
-The prevalence of positioning devices has drastically boosted 
+The prevalence of positioning devices has drastically expanded 
 the scale and spectrum of trajectory collection to an unprecedented level. 
 Tremendous amounts of trajectories, in the form of sequenced spatial-temporal 
 records, are continually being generated from animal telemetry chips, 
@@ -24,14 +24,14 @@ all the objects in a group to be enclosed by a disk with radius $r$;
 whereas the \emph{convoy}~\cite{jeung2008convoy}, the \emph{swarm}~\cite{li2010swarm} 
 and the \emph{platoon}~\cite{li2015platoon} patterns resort to density-based 
 spatial clustering. 
-In the temporal dimension, the \emph{flock}%~\cite{gudmundsson2006flock} 
-and the \emph{convoy}%~\cite{jeung2008convoy} 
+In the temporal dimension, the \emph{flock} %~\cite{gudmundsson2006flock} 
+and the \emph{convoy} %~\cite{jeung2008convoy} 
 require all the timestamps 
 of each detected spatial group to be consecutive, which is referred to as \emph{global consecutiveness}; 
-whereas the \emph{swarm}%~\cite{li2010swarm}
+whereas the \emph{swarm} %~\cite{li2010swarm}
 does not impose any restriction. 
-The \emph{group}%~\cite{wang2006grouppattern} 
-and the \emph{platoon}%~\cite{li2015platoon} 
+The \emph{group} %~\cite{wang2006grouppattern} 
+and the \emph{platoon} %~\cite{li2015platoon} 
 adopt a compromised approach by allowing
 arbitrary gaps between consecutive segments, which is called \emph{local consecutiveness}. 
 They introduce a parameter $L$ to control the minimum length of each local consecutive segment.
@@ -62,26 +62,23 @@ Unfortunately, none of the existing patterns have directly addressed this anomal
 
 \begin{table}[t]
 \centering
-\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.7cm}|p{2.3cm}|}
+\caption{Constraints and complexities of co-movement patterns. The complexity indicates the worst case performance, where $|\mathbb{O}|$ is the number of objects, and $|\mathbb{T}|$ is the number of discretized timestamps.}
+\label{tbl:existing_co_patterns}
+\begin{tabular}{|p{1.5cm}|p{1.4cm}|p{1.7cm}|p{2.2cm}|}
 \hline 
-\textbf{Pattern} & {\textbf{Proximity}} & { \textbf{Conse-cutiveness}} & { \textbf{Time Complexity}}\\ 
+{\small \textbf{Pattern}} & {\small \textbf{Proximity}} & {\small \textbf{Consecutive}} & {\small \textbf{Complexity}}\\ 
 \hline 
-flock~\cite{gudmundsson2006flock} & disk &  global & {$O(|\mathbb{O}||\mathbb{T}|\log(|\mathbb{O}|))$} \\ 
+flock~\cite{gudmundsson2006flock} & disk &  global & {\small $O(|\mathbb{O}||\mathbb{T}|\log(|\mathbb{O}|))$} \\ 
 \hline 
-convoy~\cite{jeung2008convoy} & density &   global & {$O(|\mathbb{O}|^2+|\mathbb{O}||\mathbb{T}|)$}\\ 
+convoy~\cite{jeung2008convoy} & density &   global & {\small $O(|\mathbb{O}|^2+|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
-swarm~\cite{li2010swarm} & density  & - & {$O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}  \\ 
+swarm~\cite{li2010swarm} & density  & - & {\small $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}  \\ 
 \hline 
-group~\cite{wang2006grouppattern} & disk &  local & {$O(|\mathbb{O}|^2|\mathbb{T}|)$}\\ 
+group~\cite{wang2006grouppattern} & disk &  local & {\small $O(|\mathbb{O}|^2|\mathbb{T}|)$}\\ 
 \hline 
-platoon~\cite{li2015platoon} & density &  local & {$O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}\\ 
+platoon~\cite{li2015platoon} & density &  local & {\small $O(2^{|\mathbb{O}|}|\mathbb{O}||\mathbb{T}|)$}\\ 
 \hline 
 \end{tabular} 
-%%\vspace{-0.5em}
-\caption{Constraints and complexities of co-movement patterns. The time complexity indicates the performance wrt.
-$|\mathbb{O}|$, $|\mathbb{T}|$ in the worst case, where $|\mathbb{O}|$ is the number of objects, and $|\mathbb{T}|$ is the number of discretized timestamps.}
-%\vspace{-0.5em}
-\label{tbl:existing_co_patterns}
 \end{table}
 
 The other issue with existing methods is that they are built on top of centralized indexes which may not be scalable. Table~\ref{tbl:existing_co_patterns} shows their theoretical complexities in the worst cases and the largest real dataset ever evaluated in previous studies is up to million-scale points collected from hundreds of moving objects. In practice, the dataset is of much higher scale and the scalability of existing methods is left unknown. Thus, we conduct an experimental evaluation with $4000$ objects moving for $2500$ timestamps to examine the scalability. Results in Figure~\ref{fig:related_work_scalability} show that their performances degrade dramatically as the dataset scales up. For instance, the detection time of \emph{group} drops twenty times as the number of objects grows from \emph{1k} to \emph{4k}. Similarly,
@@ -117,14 +114,14 @@ These observations imply that existing methods are not scalable to support large
 %Therefore, in this paper, our aim is to close these two gaps 
 %via the following contributions.
 %we aim to close these two gaps by making two contributions. 
-In this paper, we resolve these two gaps by making the following contributions.
+In this paper, we close these two gaps by making the following contributions.
 First, we propose the \emph{general co-movement pattern} (GCMP) which models
 various co-moment patterns in a unified way and can avoid 
 the \emph{loose-connection} anomaly. In GCMP,
 we introduce a new gap parameter $G$ to pose a constraint on the temporal gap between two consecutive segments. 
 By setting a feasible $G$, the loose-connection anomaly can be effectively controlled. In addition, our GCMP is also general. It can be reduced to any of the previous pattern by customizing its parameters.
 
-Second, we investigate deploying our GCMP detector on the model MapReduce platform (i.e., Apache Spark) to tackle the scalability issue. Our technical contributions are threefold. First, we design a baseline solution by replicating the snapshots 
+Second, we investigate deploying our GCMP detector on the modern MapReduce platform (i.e., Apache Spark) to tackle the scalability issue. Our technical contributions are threefold. First, we design a baseline solution by replicating the snapshots 
 %in multiple data chunks 
 to support effective parallel mining. 
 Second, we devise a novel \emph{Star Partitioning and ApRiori Enumerator} (SPARE) framework to resolve limitations of the baseline. 

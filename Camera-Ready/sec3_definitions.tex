@@ -4,7 +4,11 @@ Let $\mathbb{O} = \{o_1 ,o_2,...,o_n\}$ be the set of objects and $\mathbb{T} =(
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|p{6.5cm}|}
+%\vspace{-0.5em}
+\caption{Operators on time sequence.}
+%\vspace{-0.5em}
+\label{tbl:operators}
+\begin{tabular}{|p{1.7cm}|p{5.8cm}|}
 \hline 
 \textbf{Operator} & \textbf{Definition} \\ 
 \hline
@@ -16,20 +20,16 @@ $\max(T)$ & the maximum element in $T$\\
 \hline
 $\min(T)$ & the minimum element in $T$\\
 \hline
-$\range(T)$ & the range of $T$, i.e., $\max(T) - \min(T) +1$\\ 
+$\range(T)$ & the range of $T$: $\max(T) - \min(T) +1$\\ 
 \hline 
-$T[i:j]$ & subsequence of $T$ from $T[i]$ to $T[j]$ (inclusive) \\ 
+$T[i:j]$ & subsequence of $T$ from $T[i]$ to $T[j]$ incl. \\ 
 \hline
-$T_1\subseteq T_2$ &  $\forall T_1[x]\in T_1$, we have $T_1[x]\in T_2$. \\\hline
-$T_3=T_1\cup T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ or $T_3[x] \in T_2$\\ 
+$T_1\subseteq T_2$ &  $\forall T_1[x]\in T_1$, then $T_1[x]\in T_2$. \\\hline
+$T_3=T_1\cup T_2$ & $\forall T_3[x]\in T_3$, then $T_3[x]\in T_1 \cup T_3[x] \in T_2$\\ 
 \hline
-$T_3=T_1\cap T_2$ & $\forall T_3[x]\in T_3$, we have $T_3[x]\in T_1$ and $T_3[x] \in T_2$\\ 
+$T_3=T_1\cap T_2$ & $\forall T_3[x]\in T_3$, then $T_3[x]\in T_1 \cap T_3[x] \in T_2$\\ 
 \hline
 \end{tabular}
-%\vspace{-0.5em}
-\caption{Operators on time sequence.}
-%\vspace{-0.5em}
-\label{tbl:operators}
 \end{table} 
 
 We say a sequence $T$ is consecutive 
@@ -59,8 +59,10 @@ By customizing these parameters, our pattern can
 express other patterns proposed in the literature, as illustrated in Table~\ref{tbl:patterns}. 
 In particular, by setting $G=|\mathbb{T}|$, we achieve the \emph{platoon} pattern. By setting $G=|\mathbb{T}|,L=1$, we reach the \emph{swarm} pattern. By setting $G=|\mathbb{T}|$, $M=2$, $K=1$, we gain the \emph{group} pattern. Finally by setting $G=1$, we result in the \emph{convoy} and \emph{flock} patterns. 
 In addition to the flexibility of representing other existing patterns, our GCMP is able to avoid the \emph{loose-connection} anomaly by tuning the parameter $G$. 
-%It is notable that GCMP cannot be modeled by existing patterns. 
+
 \begin{table}[h]
+\caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value.}
+\label{tbl:patterns}
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline 
@@ -77,16 +79,13 @@ Swarm & $\cdot$ & $\cdot$ & $1$ & $|\mathbb{T}|$ & density\\
 Platoon & $\cdot$ & $\cdot$ & $\cdot$ & $|\mathbb{T}|$ & density\\  
 \hline 
 \end{tabular} 
-%\vspace{-0.5em}
-\caption{Expressing other patterns using GCMP. $\cdot$ indicates a user specified value.}
-%\vspace{-0.5em}
-\label{tbl:patterns}
 \end{table}
 
 Our definition of GCMP is independent of the clustering method. Users can apply different clustering methods to facilitate different application needs. 
 We currently expose both disk-region based clustering and DBSCAN as options to the users. In summary, the goal of this paper is to present a parallel solution for discovering all the valid GCMPs from large-scale trajectory databases. Before we move on to the algorithmic part, we list the notations that are used in the following sections.
 
 \begin{table}[h]
+\caption{Summary of notations.}
 \centering
 \begin{tabular}{|c|l|} 
 \hline
@@ -102,13 +101,13 @@ $L$ & consecutiveness constraint\\
 \hline
 $G$ & connection constraint \\
 \hline
-$P=\langle O:T \rangle$ & pattern with object set $O$, time sequence $T$\\
+$P=\langle O:T \rangle$ & pattern with object set $O$, sequence $T$\\
 \hline
 %$C_t(o)$ & cluster of object $o$ at time $t$ \\
 %\hline 
 $S_t$ & set of clusters at snapshot $t$\\
 \hline
-$\eta$ & replication factor in the TRPM framework\\
+$\eta$ & replication factor in TRPM framework\\
 \hline 
 $\lambda_t$ & partition with snapshots $S_t,..,S_{t+\eta-1}$ \\
 \hline
@@ -119,7 +118,4 @@ $Sr_i $ &  star partition for object (vertex) $i$ \\
 %$\Gamma$ & size of the largest star partition\\
 %\hline
 \end{tabular} 
-%\vspace{-0.5em}
-\caption{Summary of notations.}
-%\vspace{-0.5em}
 \end{table}

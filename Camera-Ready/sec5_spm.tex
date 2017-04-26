@@ -8,13 +8,13 @@
 %\vspace{-0.5em}
 \end{figure*}
 
-\section{SPARE: Star Partitioning and Apriori Enumerator}
+\section{SPARE: Star Partitioning and \\ Apriori Enumerator}
 \label{sec:spm}
 The aforementioned TRPM scheme replicates snapshots based on the temporal dimension which suffers from two drawbacks. First, the replication factor $\eta$ can be large. Second, the same valid pattern may be redundantly discovered from different partitions.
 %which results in redundant works.
 To resolve these limitations,
 we propose a new Star Partitioning and ApRiori Enumerator, named SPARE, 
-to replace the second stage of the map-reduce jobs in Figure~\ref{fig:trm}. 
+to replace the second stage of the mapreduce jobs in Figure~\ref{fig:trm}. 
 Our new parallel mining framework is shown in Figure~\ref{fig:star_partition}. 
 Its input is the set of clusters generated in each snapshot and the output 
 contains all the valid GCMPs. In the following, we explain the two major components: 
@@ -51,7 +51,7 @@ The reducer will then call the Apriori-based algorithm to enumerate all the vali
 Before we introduce the Apriori Enumerator, we are interested to 
 examine the issue of global vertex ordering.
 % on the moving objects.
-This is because assigning different IDs to the objects will result in 
+This is because assigning different IDs to the objects will produce 
 different star partitioning results, which will eventually affect the workload 
 balance among reducers. The job with the performance bottleneck is often known as a  \emph{straggler}~\cite{kwon2012skewtune}. In the context of star partitioning, a straggler refers to the job assigned with the maximum star partition. We use $\Gamma$ to denote the size of such straggler partition and $\Gamma$ is set to the number of edges in a directed star\footnote{A star is essentially a tree structure and the number of nodes equals the number of edges minus one.}. Clearly, a star partitioning with small $\Gamma$ is preferred. For example, Figure~\ref{fig:star-alt} gives two star partitioning results under 
 different vertex ordering on the same graph. The top one has $\Gamma = 5$ while the bottom one has $\Gamma = 3$. Obviously, the bottom one with smaller $\Gamma$ is much more balanced.
@@ -118,7 +118,7 @@ Suppose $\{T_1,T_2,\ldots,T_m\}$ is the set of all maximal $G$-connected subsequ
 \end{lemma}
 \begin{proof}
 %\vspace{-0.5em}
-We assume $T_i\cap T_j\neq \emptyset$. Let $T_i=(T_i[1], T_i[2],\ldots,T_i[p])$ and $T_j= (T_j[1], T_j[2],\ldots,T_j[n])$. Suppose $T[x]$ is a timestamp occurring in both $T_i$ and $T_j$. Let $T[y]=\min\{T_i[1],T_j[1]\}$, i.e., the minimum timestamp of $T_i[1]$ and $T_j[1]$ occurs at the $y$-th position of sequence $T$. Similarly, we assume $T[z]=\max\{T_i[p], T_j[n]\}$. Apparently, the two subsequences $T[y:x]$ and $T[x:z]$ are $G$-connected because $T_i$ and $T_j$ are both $G$-connected. Then, sequence $(T_y,\ldots,T_x,\ldots,T_z)$, the superset of $T_i$ and $T_j$, is also $G$-connected. This contradicts with the assumptions that $T_i$ and $T_j$ are maximal $G$-connected subsequences. 
+We assume $T_i\cap T_j\neq \emptyset$. Let $T_i=(T_i[1], T_i[2],\ldots,T_i[p])$ and $T_j= (T_j[1], T_j[2],\ldots,T_j[n])$. Suppose $T[x]$ is a timestamp occurring in both $T_i$ and $T_j$. Let $T[y]=\min\{T_i[1],T_j[1]\}$ i.e., the minimum timestamp of $T_i[1]$ and $T_j[1]$ occurs at the $y$-th position of sequence $T$. Similarly, we assume $T[z]=\max\{T_i[p], T_j[n]\}$. Apparently, the two subsequences $T[y:x]$ and $T[x:z]$ are $G$-connected because $T_i$ and $T_j$ are both $G$-connected. Then, sequence $(T_y,\ldots,T_x,\ldots,T_z)$, the superset of $T_i$ and $T_j$, is also $G$-connected. This contradicts with the assumptions that $T_i$ and $T_j$ are maximal $G$-connected subsequences. 
 
 To prove (2), we assume $\cup_{i=1}^{i=m} T_i$ does not cover all the timestamps in $T$. Then, we can find a subsequence $T'=T[x:x+t]$ such that $T[x-1]\in T_a$ $(1\leq a\leq m)$, $T[x+t+1]\in T_b$ $(1\leq b\leq m)$ and all the timestamps in $T'$ is not included in any $T_i$. Let $g'=\min\{T[x]-T[x-1], T[x+t+1]-T[x+t]\}$. If $g'\leq G$, then it is easy to infer that $T_a$ or $T_b$ is not a maximal $G$-connected subsequence because we can combine it with $T[x]$ or $T[x+t]$  to form a superset which is also $G$-connected. If $g'>G$, $T'$ itself is a maximal $G$-connected subsequence which is missed in $\cup_{i=1}^{i=m} T_i$. Both cases lead to contradictions.
 \end{proof}

@@ -13,15 +13,15 @@ A vertex order on $G_A$ can be represented as
 $PJP^T$
 where $P$ %$\in \mathbb{P}$ 
 is a %$n\times n$ 
-\emph{permutation matrix}~\footnote{an identity matrix with rows shuffled}.
+\emph{permutation matrix}~\footnote{An identity matrix with rows shuffled}.
 Consider an assignment matrix $B$ of star partitioning (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$),
-$B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix} holds.
+$B=\triu(PJP^T)$~\footnote{$\mathtt{triu}$ is the upper triangle part of a matrix} holds.
 % $B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix}, then $B$ is the assignment matrix of the star partitioning (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$).
 %
 %In star partitioning, we assign each edge $e(i,j)$ in $G_A$ to the lower vertex, 
 %then the matrix $B=\triu(PJP^T)$~\footnote{\text{triu} is the upper triangle part of a matrix}
 %represents the assignment matrix wrt. $P$ (i.e., $b_{i,j} = 1$ if vertex $j$ is in star $Sr_i$).
-Let vector $\vec{b}$ be the \textit{one}\footnote{every element in $\vec{b}$ is $1$} 
+Let vector $\vec{b}$ be the \textit{one}\footnote{Every element in $\vec{b}$ is $1$} 
 vector with size $n$. Let $\vec{c} = B\vec{b}$, then each $c_i$ 
 denotes the number of edges in star $Sr_i$. Thus, $\Gamma$ can be represented
 as the infinity norm of $B\vec{b}$. Let $\Gamma^*$ be the minimum $\Gamma$ among all vertex orderings, that is:
@@ -76,7 +76,7 @@ Next, the event $(\max_{1 \leq j \leq n}(c_j) \geq \mu + t)$ can be viewed as
 $\cup_{c_i} (c_i \geq \mu + t )$, by Union Bound, the following holds:
 \begin{equation*}
 \begin{split}
-	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t) = Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
+	Pr(\Gamma \geq \mu + t) &=Pr(\max_{1\leq j \leq n}(c_j) \geq \mu + t) \\ &= Pr(\cup_{c_i} (c_i \geq \mu + t )) \\
 		&\leq \Sigma_{1 \leq i \leq n} Pr(c_i \geq \mu + t) = n^{-1} = 1/n
 \end{split}
 \end{equation*}
@@ -111,7 +111,7 @@ $O(\sqrt{d\log n}) $ following a similar reasoning.
 For soundness, let $P$ be a pattern enumerated by SPARE. For any two objects $o_1, o_2 \in P.O$, the edge $e(o_1,o_2)$ is a superset of $P.T$. 
 %By the definition of star, $o_1$ $o_2$ belong to the same cluster at every timestamps in $P.T$. 
 As $P.T$ is a valid sequence, by the definition of GCMP, $P$ is a true pattern.
-For completeness, let $P$ be a true pattern. Let $s$ be the object with smallest ID in $P.O$. We prove that $P$ must be outputted by Algorithm~\ref{algo:apriori_mining} from $Sr_s$. 
+For completeness, let $P$ be a true pattern. Let $s$ be the object with the smallest ID in $P.O$. We prove that $P$ must be outputted by Algorithm~\ref{algo:apriori_mining} from $Sr_s$. 
 First, based on the definition of star, every object in $P.O$ appears in $Sr_s$. Since $P.T$ is decomposable, then by Lemma 3 %$\forall O' \subseteq O$,
 the time sequence of %$O'$ 
 any subset would not be eliminated by any $\mathtt{sim}$ operations.  Next, we prove at every iteration \emph{level} $\leq |P.O|$, $P.O \subset O_u$, where $O_u$ is the forward closure. We prove by induction. $level$ = 2 trivially holds. If $P.O \subset O_u$ at \emph{level $i$}, then any subsets of $P.O$ with size $i$ are in the candidate set. %In \emph{level} $i+1$, these subsets grow (in last iteration, they grow to $P.O$). 
